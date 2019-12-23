@@ -6,6 +6,7 @@ import session from "express-session";
 import "reflect-metadata";
 import { formatArgumentValidationError } from "type-graphql";
 import { createConnection } from "typeorm";
+import {HOST, PORT} from '../config/consts'
 import { redis } from "./redis";
 import { createAuthorsLoader } from "./utils/authorsLoader";
 import { createSchema } from "./utils/createSchema";
@@ -78,9 +79,9 @@ const main = async () => {
   );
 
   apolloServer.applyMiddleware({ app, cors: false });
-
+  
   app.listen(4000, () => {
-    console.log("server started on http://localhost:4000/graphql");
+    console.log(`server started on http://${HOST}:${PORT}/graphql`);
   });
 };
 
