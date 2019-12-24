@@ -7,12 +7,14 @@ import 'reflect-metadata'
 import {formatArgumentValidationError} from 'type-graphql'
 import {createConnection} from 'typeorm'
 import {HOST, PORT} from '../config/consts'
+import {ORMConfig} from '../config/typeorm'
 import {redis} from './redis'
 import {createAuthorsLoader} from './utils/authorsLoader'
 import {createSchema} from './utils/createSchema'
 
+
 const main = async () => {
-	await createConnection()
+	await createConnection(ORMConfig)
 	
 	const schema = await createSchema()
 	
