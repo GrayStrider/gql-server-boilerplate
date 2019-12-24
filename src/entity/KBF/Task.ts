@@ -5,7 +5,7 @@ import {BaseEntity, Column, Entity, PrimaryGeneratedColumn} from 'typeorm'
 @Entity()
 export class Task extends BaseEntity {
 	@Field(() => ID)
-	@PrimaryGeneratedColumn()
+	@PrimaryGeneratedColumn("uuid")
 	id: number
 	
 	@Field()
@@ -13,7 +13,7 @@ export class Task extends BaseEntity {
 	title: string
 	
 	@Field()
-	@Column()
+	@Column({nullable: true})
 	description: string
 	
 }
