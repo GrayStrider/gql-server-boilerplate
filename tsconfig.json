@@ -8,6 +8,8 @@
       "es2017",
       "esnext.asynciterable"
     ],
+    "strict": true,
+    "strictPropertyInitialization": false, // conflicts with typeorm
     "sourceMap": true,
     "outDir": "./dist",
     "moduleResolution": "node",
