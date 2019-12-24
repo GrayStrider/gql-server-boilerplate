@@ -1,5 +1,6 @@
 import {buildSchema} from 'type-graphql'
 import {AuthorBookResolver} from '../modules/author-book/AuthorBookResolver'
+import {TaskResolver} from '../modules/KBF'
 import {ChangePasswordResolver} from '../modules/user/ChangePassword'
 import {ConfirmUserResolver} from '../modules/user/ConfirmUser'
 import {CreateProductResolver, CreateUserResolver} from '../modules/user/CreateUser'
@@ -13,6 +14,7 @@ import {RegisterResolver} from '../modules/user/Register'
 export const createSchema = () =>
 	buildSchema({
 		resolvers  : [
+			TaskResolver,
 			ChangePasswordResolver,
 			ConfirmUserResolver,
 			ForgotPasswordResolver,
