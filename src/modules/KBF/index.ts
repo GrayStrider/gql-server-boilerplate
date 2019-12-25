@@ -1,6 +1,6 @@
 import {Max} from 'class-validator'
 import {Args, ArgsType, Field, Mutation, Query, Resolver} from 'type-graphql'
-import {Like} from 'typeorm'
+import {Any, createQueryBuilder, getConnection, Like} from 'typeorm'
 import {Tag} from '../../entity/KBF/Tag'
 import {Task} from '../../entity/KBF/Task'
 
@@ -18,7 +18,7 @@ class NewTaskInput {
 }
 
 @ArgsType()
-class SearchTaskInput implements Partial<Task> {
+class SearchTaskInput {
 	@Field({nullable: true})
 	@Max(100)
 	title: string
@@ -31,6 +31,9 @@ class SearchTaskInput implements Partial<Task> {
 	
 	@Field({nullable: true})
 	completed: boolean
+	
+	@Field(returns => [String], {nullable: true})
+	tag: string
 }
 
 const Like_: any = (a: { [key: string]: any }, b: string) =>
@@ -39,14 +42,23 @@ const Like_: any = (a: { [key: string]: any }, b: string) =>
 
 @Resolver()
 export class TaskResolver {
+	@Query(returns => [Task])
+	async testingFind() {
+		return getConnection()
+			.createQueryBuilder()
+			.relation(Task, 'tags')
+			.loadMany()
+		
+	}
 	@Query(returns => Array(Task))
-	async tasks(@Args() params: SearchTaskInput) {
+	async tasks(@Args() {tag, ...params}: SearchTaskInput) {
 		return await Task.find(
 			{
 				relations: ['tags'],
 				where    : params.title ? Like_(params, 'title') :
 					params.description ? Like_(params, 'description') :
-						params
+						tag ? {...params} :
+							params
 			}
 		)
 	}
