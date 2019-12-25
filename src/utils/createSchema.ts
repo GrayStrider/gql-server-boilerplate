@@ -14,6 +14,8 @@ import {RegisterResolver} from '../modules/user/Register'
 
 export const createSchema = () =>
 	buildSchema({
+		emitSchemaFile: "./src/__tests__/schema.graphql", // for testing
+		
 		resolvers  : [
 			PhotoResolver,
 			AlbumResolver,
