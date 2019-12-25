@@ -9,6 +9,7 @@ beforeAll(async () => {
 	conn = await testConn()
 })
 afterAll(async () => {
+	await conn.synchronize(true) // clean DB
 	await conn.close()
 })
 
@@ -27,7 +28,7 @@ mutation Register($data: RegisterInput!) {
 `
 
 describe('Register', () => {
-	it.only('create user', async () => {
+	it/*.only*/('create user', async () => {
 		const user = {
 			firstName: faker.name.firstName(),
 			lastName : faker.name.lastName(),
@@ -60,5 +61,5 @@ describe('Register', () => {
 		expect(dbUser).toBeDefined()
 		expect(dbUser!.confirmed).toBeFalsy()
 		expect(dbUser!.firstName).toBe(user.firstName)
-	})
+	}, 20000)
 })
