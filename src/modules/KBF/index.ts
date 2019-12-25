@@ -1,16 +1,20 @@
 import {Max} from 'class-validator'
 import {Args, ArgsType, Field, Mutation, Query, Resolver} from 'type-graphql'
 import {Like} from 'typeorm'
+import {Tag} from '../../entity/KBF/Tag'
 import {Task} from '../../entity/KBF/Task'
 
 @ArgsType()
-class NewTaskInput implements Partial<Task> {
+class NewTaskInput {
 	@Field()
 	title: string
 	
 	// on field nullable only applicable in the context of inputs
 	@Field({nullable: true})
 	description: string
+	
+	@Field(returns => [String], {nullable: true})
+	tags: string[]
 }
 
 @ArgsType()
@@ -45,11 +49,28 @@ export class TaskResolver {
 	}
 	
 	@Mutation(returns => Task)
-	async taskCreate(@Args() data: NewTaskInput) {
-		return await Task.create(data).save()
+	async taskCreate(@Args() {tags, ...data}: NewTaskInput) {
+		return await Task.create({
+			tags: tags.map((title) => {
+				const tag = new Tag()
+				tag.title = title
+				return tag
+			}), ...data
+		}).save()
 	}
 	
 	@Mutation(returns => Array(Task))
 	tasksModify() {}
 }
 
+@Resolver()
+export class TagResolver {
+	@Query(returns => [Tag])
+	async tags() {return await Tag.find()}
+	
+	// @Mutation(returns => Tag)
+	// async tagsAddNew(@Args() data: TagInput) {
+	//
+	// 	return await Tag.create({tasks: [], ...data}).save()
+	// }
+}
