@@ -1,23 +1,25 @@
+import {Field, ObjectType} from 'type-graphql'
 import {BaseEntity, Column, Entity, PrimaryGeneratedColumn} from 'typeorm'
 
 //================================================================================
 // Entity
 //================================================================================
 
+@ObjectType()
 @Entity()
-export class User extends BaseEntity {
+export class ExampleEntity extends BaseEntity {
 	
+	@Field()
 	// @PrimaryColumn()
 	@PrimaryGeneratedColumn()
 	id: number
 	
+	@Field()
 	// @PrimaryColumn() // you can have several
 	@Column()
-	firstName: string
+	name: string
 	
-	@Column()
-	lastName: string
-	
+	@Field()
 	@Column()
 	isActive: boolean
 	

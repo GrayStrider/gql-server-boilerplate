@@ -12,6 +12,7 @@ export const ORMConfig: PostgresConnectionOptions = {
 	synchronize: true,
 	logging    : ["error"],
 	entities   : [
-		'src/entity/**'
+		'src/entity/**',
+		'src/__typeorm reference/**'
 	]
 }

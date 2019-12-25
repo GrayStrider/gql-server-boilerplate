@@ -1,4 +1,5 @@
 import {buildSchema} from 'type-graphql'
+import {ExampleEntityResolver} from '../__typeorm reference/Resolver'
 import {AuthorBookResolver} from '../modules/author-book/AuthorBookResolver'
 import {TagResolver, TaskResolver} from '../modules/KBF'
 import {AlbumResolver, PhotoResolver} from '../modules/Photos'
@@ -17,6 +18,7 @@ export const createSchema = () =>
 		emitSchemaFile: "./src/__tests__/schema.graphql", // for testing
 		
 		resolvers  : [
+			ExampleEntityResolver,
 			PhotoResolver,
 			AlbumResolver,
 			TagResolver,
