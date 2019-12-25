@@ -1,6 +1,6 @@
 import {Max} from 'class-validator'
 import {Args, ArgsType, Field, Mutation, Query, Resolver} from 'type-graphql'
-import {Any, createQueryBuilder, getConnection, Like} from 'typeorm'
+import {getConnection, Like} from 'typeorm'
 import {Tag} from '../../entity/KBF/Tag'
 import {Task} from '../../entity/KBF/Task'
 
@@ -50,6 +50,7 @@ export class TaskResolver {
 			.loadMany()
 		
 	}
+	
 	@Query(returns => Array(Task))
 	async tasks(@Args() {tag, ...params}: SearchTaskInput) {
 		return await Task.find(
@@ -65,9 +66,13 @@ export class TaskResolver {
 	
 	@Mutation(returns => Task)
 	async taskCreate(@Args() {tag, ...data}: NewTaskInput) {
-		const getTag = await Tag.findOne({title: tag}) ??
-			await Tag.create({title: tag}).save()
-		return await Task.create({...data, tags: [getTag]}).save()
+		if (tag) {
+			const getTag = await Tag.findOne({title: tag}) ??
+				await Tag.create({title: tag}).save()
+			return await Task.create({...data, ...{tags: [getTag]}}).save()
+		}
+		
+		return await Task.create(data).save()
 	}
 	
 	@Mutation(returns => Array(Task))

@@ -46,7 +46,8 @@
     "nodemon": "^1.18.9",
     "ts-jest": "^23.10.5",
     "ts-node": "^7.0.1",
-    "ts-node-dev": "^1.0.0-pre.32"
+    "ts-node-dev": "^1.0.0-pre.32",
+    "tsdef": "^0.0.13"
   },
   "scripts": {
     "start": "ts-node-dev --respawn src/index.ts",
