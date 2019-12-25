@@ -2,13 +2,6 @@ import {Field, ID, ObjectType} from 'type-graphql'
 import {BaseEntity, Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from 'typeorm'
 import {Tag} from './Tag'
 
-/*
- export interface ITask {
- id: string
- title: string
- description: string
- }
- */
 
 @ObjectType()
 @Entity()
@@ -33,6 +26,4 @@ export class Task extends BaseEntity/* implements ITask*/ {
 	@ManyToMany(type => Tag, tag => tag.tasks)
 	@JoinTable()
 	tags: Tag[]
-	
-	
 }

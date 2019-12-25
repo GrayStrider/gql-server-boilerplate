@@ -13,8 +13,8 @@ class NewTaskInput {
 	@Field({nullable: true})
 	description: string
 	
-	@Field(returns => [String], {nullable: true})
-	tags: string[]
+	@Field(returns => String, {nullable: true})
+	tag: string
 }
 
 @ArgsType()
@@ -42,21 +42,20 @@ export class TaskResolver {
 	@Query(returns => Array(Task))
 	async tasks(@Args() params: SearchTaskInput) {
 		return await Task.find(
-			params.title ? Like_(params, 'title') :
-				params.description ? Like_(params, 'description') :
-					params
+			{
+				relations: ['tags'],
+				where    : params.title ? Like_(params, 'title') :
+					params.description ? Like_(params, 'description') :
+						params
+			}
 		)
 	}
 	
 	@Mutation(returns => Task)
-	async taskCreate(@Args() {tags, ...data}: NewTaskInput) {
-		return await Task.create({
-			tags: tags.map((title) => {
-				const tag = new Tag()
-				tag.title = title
-				return tag
-			}), ...data
-		}).save()
+	async taskCreate(@Args() {tag, ...data}: NewTaskInput) {
+		const getTag = await Tag.findOne({title: tag}) ??
+			await Tag.create({title: tag}).save()
+		return await Task.create({...data, tags: [getTag]}).save()
 	}
 	
 	@Mutation(returns => Array(Task))
@@ -66,7 +65,7 @@ export class TaskResolver {
 @Resolver()
 export class TagResolver {
 	@Query(returns => [Tag])
-	async tags() {return await Tag.find()}
+	async tags() {return await Tag.find({relations: ['tasks']})}
 	
 	// @Mutation(returns => Tag)
 	// async tagsAddNew(@Args() data: TagInput) {
