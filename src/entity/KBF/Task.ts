@@ -1,5 +1,6 @@
-import {Field, ID, ObjectType} from 'type-graphql'
-import {BaseEntity, Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, RelationId} from 'typeorm'
+import {Field, ID, Int, ObjectType} from 'type-graphql'
+import {BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn, VersionColumn} from 'typeorm'
+import {Priority} from './Priority'
 import {Tag} from './Tag'
 
 
@@ -18,6 +19,10 @@ export class Task extends BaseEntity/* implements ITask*/ {
 	@Column({length: 1000, nullable: true})
 	description: string
 	
+	@Field(returns => Priority)
+	@Column({type: "enum", enum: Priority, default: Priority.NONE})
+	priority: Priority
+	
 	@Field()
 	@Column({type: 'bool', default: false})
 	completed: boolean
@@ -26,4 +31,17 @@ export class Task extends BaseEntity/* implements ITask*/ {
 	@ManyToMany(type => Tag, tag => tag.tasks)
 	@JoinTable()
 	tags: Tag[]
+	
+	@Field(returns => Date)
+	@CreateDateColumn()
+	createdAt: Date
+	
+	@Field(returns => Date)
+	@UpdateDateColumn()
+	updatedAt: Date
+	
+	@Field(returns => Int)
+	@VersionColumn({default: 0})
+	version: number
 }
+

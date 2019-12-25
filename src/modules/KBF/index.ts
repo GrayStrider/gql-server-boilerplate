@@ -1,6 +1,7 @@
 import {Max} from 'class-validator'
 import {Args, ArgsType, Field, Mutation, Query, Resolver} from 'type-graphql'
 import {getConnection, Like} from 'typeorm'
+import {Priority} from '../../entity/KBF/Priority'
 import {Tag} from '../../entity/KBF/Tag'
 import {Task} from '../../entity/KBF/Task'
 
@@ -15,6 +16,9 @@ class NewTaskInput {
 	
 	@Field(returns => String, {nullable: true})
 	tag: string
+	
+	@Field(returns => Priority, {defaultValue: Priority.NONE})
+	priority: Priority
 }
 
 @ArgsType()
