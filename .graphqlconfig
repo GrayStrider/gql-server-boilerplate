@@ -1,0 +1,9 @@
+{
+  "name": "Default",
+  "schemaPath": "./src/__testing__/schema.graphql",
+  "extensions": {
+    "endpoints": {
+
+    }
+  }
+}
