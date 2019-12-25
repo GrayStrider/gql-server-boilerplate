@@ -1,39 +1,56 @@
+process.env.NODE_ENV = 'development' // TODO fix local postgres and switch to test
+
+import {ASTNode, print} from 'graphql'
+import request from 'graphql-request'
 import gql from 'graphql-tag'
 import * as http from 'http'
-import {Connection, getConnection} from 'typeorm'
+import {Connection, createConnection} from 'typeorm'
+import {HOST, PORT} from '../../config/consts'
+import {ORMConfig} from '../../config/typeorm'
 import {Task} from '../entity/KBF/Task'
 import {main} from '../server'
 
 let conn: Connection
 let server: http.Server
+const url = `http://${HOST}:${PORT}/graphql`
+
+
+const postQuery = async <T>(query: ASTNode, mainField?: string) => {
+	const res: {[key: string]: any} = await request(url, print(query))
+	return mainField ? res?.[mainField]: res }
 
 beforeAll(async () => {
-	// console.log(process.env.NODE_ENV)
-	// process.env.NODE_ENV = "development"
-	// console.log(`changed: ${process.env.NODE_ENV}`)
-		conn = await getConnection()
-		server = await main()
+	jest.setTimeout(30000)
+	// server = await main()
+	
+	conn = await createConnection(ORMConfig) // get connection, if starting server from here
+	
 	await conn.synchronize(true)
 })
 
 afterAll(async () => {
 	await conn.dropDatabase()
 	await conn.close()
-	server.close()
-	process.exit(0)
 })
 
-const query = gql`query {
-    tasks {
-        title
-    }
-}`
 
 it('should fetch tasks', async () => {
+  const res = await postQuery(gql`{
+      tasks {
+          title
+      }
+  }`)
+	expect(res).toStrictEqual({'tasks': []})
 	
-	
-	await expect(conn.manager.find(Task)).toMatchObject({})
-	// request<Task[]>(`${HOST}:${PORT}/graphql`, query).then(console.log)
+})
+
+it('should fetch tasks with main field', async () => {
+  const res = await postQuery( gql`{
+      tasks {
+          title
+      }
+  }`, 'tasks')
+	expect(res).toStrictEqual([])
 	
 })
 
