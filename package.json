@@ -51,6 +51,7 @@
   },
   "scripts": {
     "start": "ts-node-dev --respawn --transpileOnly --ignore-watch nowatch src/index.ts",
+    "startFile": "ts-node-dev --respawn --transpileOnly",
     "db:setup": "ts-node ./src/test-utils/setup.ts",
     "test": "npm run db:setup && jest"
   }
