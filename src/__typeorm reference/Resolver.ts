@@ -1,5 +1,6 @@
+import {Contains} from 'class-validator'
 import {Args, ArgsType, Field, Mutation, Query, Resolver} from 'type-graphql'
-import {validateAndSave} from '../utils/validator'
+import {validate, validateAndSave} from '../utils/validator'
 import {ExampleEntity} from './Entity'
 
 @ArgsType()
@@ -7,6 +8,15 @@ export class ExampleEntityNewInput implements Partial<ExampleEntity> {
 	@Field()
 	validatedName: string
 }
+
+@ArgsType()
+export class ExampleEntitySearchInput implements Partial<ExampleEntity> {
+	@Field()
+	@Contains('123')
+	validatedName: string
+}
+
+
 
 @Resolver()
 export class ExampleEntityResolver {
@@ -20,8 +30,9 @@ export class ExampleEntityResolver {
 	}
 	
 	@Query(returns => [ExampleEntity])
-	async exampleEntity() {
-		return ExampleEntity.find()
+	async exampleEntity(@Args()props: ExampleEntitySearchInput) {
+		await validate(props)
+		return ExampleEntity.find(props)
 	}
 	
 	@Mutation(returns => ExampleEntity)

@@ -1,7 +1,7 @@
 import {validate as Validate} from 'class-validator'
 import {BaseEntity, DeepPartial} from 'typeorm'
 
-export async function validate<T extends BaseEntity>(target: T): Promise<T> {
+export async function validate<T extends Object>(target: T): Promise<T> {
 	const errors = await Validate(target)
 	if (errors.length > 0) {
 		throw new Error(`Failled the following constraints:
