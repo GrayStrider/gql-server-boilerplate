@@ -51,7 +51,7 @@ export class Task extends BaseEntity/* implements ITask*/ {
 	version: number
 	
 	@Field()
-	@Column({length: 10})
+	@Column({length: 10, nullable: true})
 	@MaxLength(10)
 	constrained: string
 }

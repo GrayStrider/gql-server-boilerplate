@@ -17,7 +17,7 @@ export class NewTaskInput {
 	@Field(returns => Priority, {defaultValue: Priority.NONE}) //TODO check for dupes
 	priority: Priority
 	
-	@Field()
+	@Field({nullable: true})
 	constrained: string
 	
 }

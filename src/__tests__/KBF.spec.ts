@@ -1,27 +1,20 @@
 process.env.NODE_ENV = 'development'
 
-import {ASTNode, print} from 'graphql'
-import request from 'graphql-request'
 import gql from 'graphql-tag'
-import {AnyObject} from 'tsdef'
-import {Connection, createConnection, getConnection} from 'typeorm'
-import {HOST, PORT} from '../../config/consts'
+import {Connection, createConnection} from 'typeorm'
 import {ORMConfig} from '../../config/typeorm'
+import {main} from '../server'
+import {postQuery} from '../utils'
 import {warn} from '../utils/log'
 
 let conn: Connection
-export const GQL_URL = `http://${HOST}:${PORT}/graphql`
-const postQuery = async <T = AnyObject>(query: ASTNode, mainField?: string): Promise<T> => {
-	const res: AnyObject = await request(GQL_URL, print(query))
-	return mainField ? res?.[mainField] : res
-}
 
 
 beforeAll(async () => {
 	warn('testing env:' + process.env.NODE_ENV)
 	// warn(ORMConfig)
 	jest.setTimeout(30000)
-	// await main()
+	await main()
 	conn = /*await getConnection() */await createConnection(ORMConfig)
 	
 	await conn.dropDatabase()
