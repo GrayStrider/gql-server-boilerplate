@@ -17,8 +17,12 @@ class NewTaskInput {
 	@Field(returns => String, {nullable: true})
 	tag: string
 	
-	@Field(returns => Priority, {defaultValue: Priority.NONE})
+	@Field(returns => Priority, {defaultValue: Priority.NONE}) //TODO check for dupes
 	priority: Priority
+	
+	@Field()
+	constrained: string
+	
 }
 
 @ArgsType()
@@ -72,7 +76,7 @@ export class TaskResolver {
 	async taskCreate(@Args() {tag, ...data}: NewTaskInput) {
 		if (tag) {
 			const getTag = await Tag.findOne({title: tag}) ??
-				await Tag.create({title: tag}).save()
+				await Tag.create({title: tag})
 			return await Task.create({...data, ...{tags: [getTag]}}).save()
 		}
 		

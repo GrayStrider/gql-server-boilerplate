@@ -1,3 +1,4 @@
+import {MaxLength} from 'class-validator'
 import {Field, ID, Int, ObjectType} from 'type-graphql'
 import {BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn, VersionColumn} from 'typeorm'
 import {Priority} from './Priority'
@@ -20,7 +21,7 @@ export class Task extends BaseEntity/* implements ITask*/ {
 	description: string
 	
 	@Field(returns => Priority)
-	@Column({type: "enum", enum: Priority, default: Priority.NONE})
+	@Column({type: 'enum', enum: Priority, default: Priority.NONE})
 	priority: Priority
 	
 	@Field()
@@ -28,7 +29,10 @@ export class Task extends BaseEntity/* implements ITask*/ {
 	completed: boolean
 	
 	@Field(returns => [Tag], {nullable: true})
-	@ManyToMany(type => Tag, tag => tag.tasks)
+	@ManyToMany(type => Tag, tag => tag.tasks, {
+		// cascading does not create a tag when task query errored
+		cascade: true
+	})
 	@JoinTable()
 	tags: Tag[]
 	
@@ -43,5 +47,10 @@ export class Task extends BaseEntity/* implements ITask*/ {
 	@Field(returns => Int)
 	@VersionColumn({default: 0})
 	version: number
+	
+	@Field()
+	@Column({length: 10})
+	@MaxLength(10)
+	constrained: string
 }
 
