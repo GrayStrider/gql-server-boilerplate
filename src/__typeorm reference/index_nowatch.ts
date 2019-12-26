@@ -6,7 +6,7 @@ import {postQuery} from '../utils'
 import {warn} from '../utils/log'
 
 const main = async () => {
-	const conn = await createConnection(ORMConfig)
+	const conn = await createConnection({...ORMConfig, name: "typeorm"})
 	await conn.synchronize(true)
 	
 	await postQuery(gql`mutation {
@@ -23,8 +23,12 @@ const main = async () => {
 	
 	// operators work only with connections manager
 	// Task.find({title: IsNull()}).then(warn)
-	await conn.manager.find(Task, {title: Not("")})
+	await conn.manager.find(Task, {title: "test2"}).then(warn)
+	await conn.manager.update(Task,{title: "test"}, {title: "updated"}).then(warn)
+	await conn.manager.find(Task, {title: "updated"}).then(warn)
+
 	
 }
 
-// main().catch(warn)
+// console.log('test')
+main().catch(warn)
