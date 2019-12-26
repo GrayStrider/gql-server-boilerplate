@@ -1,6 +1,7 @@
 import {Contains} from 'class-validator'
 import {Args, ArgsType, Field, Mutation, Query, Resolver} from 'type-graphql'
 import {validate, validateAndSave} from '../utils/validator'
+import {Child} from './ChildEntity'
 import {ExampleEntity} from './Entity'
 
 @ArgsType()
@@ -27,6 +28,11 @@ export class ExampleEntityResolver {
 	async exampleEntityCreate(@Args() props: ExampleEntityNewInput) {
 		return await ExampleEntity.create({
 			isActive: 3 > 2,
+			children: [
+				Child.create({
+					data: 'created'
+				})
+			],
 			...props
 		}).save()
 		
@@ -42,5 +48,11 @@ export class ExampleEntityResolver {
 	async exampleEntityCreateWithValidation(@Args() props: ExampleEntityNewInput) {
 		return await validateAndSave(ExampleEntity.create(props))
 	}
+	
+	@Query(returns => [Child])
+	async children() {
+		return await Child.find({relations: ["parent"]})
+	}
 }
+
 

@@ -1,54 +1,11 @@
 import {Contains, MaxLength} from 'class-validator'
-import {Field, ID, Int, ObjectType} from 'type-graphql'
-import {BaseEntity, Column, Entity, Generated, PrimaryGeneratedColumn} from 'typeorm'
+import {Field, Int, ObjectType} from 'type-graphql'
+import {Column, Entity, Generated, OneToMany} from 'typeorm'
+import {Child} from './ChildEntity'
+import {EmbeddedFeatures, GenericFeatures} from './GenericFeaturesEntity'
+import {SimpleJSONObjectTypeInterface} from './ObjectTypes'
 
 
-//================================================================================
-// Helpers
-//================================================================================
-
-@ObjectType()
-class SimpleJSONObjectTypeInterface {
-	@Field()
-	name: string
-	
-	@Field()
-	age: number
-}
-
-
-//================================================================================
-// Inheritance, group common elements and extend
-//================================================================================
-
-
-export abstract class GenericFeatures extends BaseEntity {
-	@Field(returns => ID)
-	@PrimaryGeneratedColumn('uuid')
-	id: string
-}
-
-/**
- * The other way to do it is to use embedded columns:
- */
-
-@ObjectType()
-export class EmbeddedFeatures {
-	@Field()
-	@Column({default: "value"})
-	embedded1: string
-	
-	@Field()
-	@Column({default: "value"})
-	embedded2: string
-	
-	
-}
-
-
-//================================================================================
-// Entity
-//================================================================================
 
 @ObjectType()
 @Entity()
@@ -92,7 +49,7 @@ export class ExampleEntity extends GenericFeatures {
 		// defaults to property name
 		name    : 'customName',
 		length  : 30,
-		unique  : true,
+		// unique  : true,
 		nullable: false,
 		// same function as
 		// @PrimaryGeneratedColumn
@@ -107,5 +64,12 @@ export class ExampleEntity extends GenericFeatures {
 	@Field(returns => EmbeddedFeatures)
 	@Column(type => EmbeddedFeatures)
 	embedded: EmbeddedFeatures
+	
+	@Field(returns => [Child])
+	@OneToMany(type => Child, child => child.parent, {
+		cascade: true,
+		eager: true
+	})
+	children: Child[]
 	
 }
