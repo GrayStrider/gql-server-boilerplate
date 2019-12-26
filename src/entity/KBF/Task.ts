@@ -31,7 +31,9 @@ export class Task extends BaseEntity/* implements ITask*/ {
 	@Field(returns => [Tag], {nullable: true})
 	@ManyToMany(type => Tag, tag => tag.tasks, {
 		// cascading does not create a tag when task query errored
-		cascade: true
+		cascade: true,
+		// no need to specify the relation when using find()
+		eager: true
 	})
 	@JoinTable()
 	tags: Tag[]
