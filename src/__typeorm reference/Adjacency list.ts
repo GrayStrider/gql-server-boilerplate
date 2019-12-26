@@ -1,0 +1,30 @@
+import {Field, ObjectType} from 'type-graphql'
+import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany, BaseEntity} from 'typeorm'
+
+
+// TODO not sure how to make it work with type-graphql inputs
+
+@Entity()
+@ObjectType()
+export class Category extends BaseEntity {
+	
+	@Field()
+	@PrimaryGeneratedColumn()
+	id: number;
+	
+	@Field()
+	@Column()
+	name: string;
+	
+	@Field()
+	@Column()
+	description: string;
+	
+	@Field(returns => Category)
+	@OneToMany(type => Category, category => category.children)
+	parent: Category;
+	
+	@Field(returns => Category)
+	@ManyToOne(type => Category, category => category.parent)
+	children: Category;
+}

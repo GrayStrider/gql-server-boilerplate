@@ -1,4 +1,4 @@
-import {Contains, Length, MaxLength} from 'class-validator'
+import {Contains, MaxLength} from 'class-validator'
 import {Field, ID, Int, ObjectType} from 'type-graphql'
 import {BaseEntity, Column, Entity, Generated, PrimaryGeneratedColumn} from 'typeorm'
 
@@ -16,18 +16,43 @@ class SimpleJSONObjectTypeInterface {
 	age: number
 }
 
+
+//================================================================================
+// Inheritance, group common elements and extend
+//================================================================================
+
+
+export abstract class GenericFeatures extends BaseEntity {
+	@Field(returns => ID)
+	@PrimaryGeneratedColumn('uuid')
+	id: string
+}
+
+/**
+ * The other way to do it is to use embedded columns:
+ */
+
+@ObjectType()
+export class EmbeddedFeatures {
+	@Field()
+	@Column({default: "value"})
+	embedded1: string
+	
+	@Field()
+	@Column({default: "value"})
+	embedded2: string
+	
+	
+}
+
+
 //================================================================================
 // Entity
 //================================================================================
 
 @ObjectType()
 @Entity()
-export class ExampleEntity extends BaseEntity {
-	
-	@Field(returns => ID)
-	// @PrimaryColumn()
-	@PrimaryGeneratedColumn()
-	id: number
+export class ExampleEntity extends GenericFeatures {
 	
 	@Field()
 	// @PrimaryColumn() // you can have several
@@ -63,11 +88,24 @@ export class ExampleEntity extends BaseEntity {
 	@Field()
 	@MaxLength(30)
 	@Column({
-		type: 'varchar',
-		length: 30,
-		unique: true
+		type    : 'varchar',
+		// defaults to property name
+		name    : 'customName',
+		length  : 30,
+		unique  : true,
+		nullable: false,
+		// same function as
+		// @PrimaryGeneratedColumn
+		primary : false,
+		// hide from standart query
+		select  : true,
+		default : 'default value, if none specified',
+		comment : 'comment for column'
 	})
 	manyOptions: string
 	
+	@Field(returns => EmbeddedFeatures)
+	@Column(type => EmbeddedFeatures)
+	embedded: EmbeddedFeatures
+	
 }
-
