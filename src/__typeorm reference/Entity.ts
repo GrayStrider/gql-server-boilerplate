@@ -1,4 +1,4 @@
-import {Contains} from 'class-validator'
+import {Contains, Length, MaxLength} from 'class-validator'
 import {Field, ID, Int, ObjectType} from 'type-graphql'
 import {BaseEntity, Column, Entity, Generated, PrimaryGeneratedColumn} from 'typeorm'
 
@@ -32,7 +32,7 @@ export class ExampleEntity extends BaseEntity {
 	@Field()
 	// @PrimaryColumn() // you can have several
 	@Column()
-	@Contains("123")
+	@Contains('123')
 	validatedName: string
 	
 	@Field()
@@ -60,6 +60,14 @@ export class ExampleEntity extends BaseEntity {
 	@Generated('uuid')
 	uuid: string
 	
+	@Field()
+	@MaxLength(30)
+	@Column({
+		type: 'varchar',
+		length: 30,
+		unique: true
+	})
+	manyOptions: string
 	
 }
 

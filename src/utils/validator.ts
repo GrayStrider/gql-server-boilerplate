@@ -13,7 +13,7 @@ export async function validate<T extends Object>(target: T): Promise<T> {
 
 export async function validateAndSave<T extends BaseEntity>(target: T): Promise<T> {
 	await validate(target)
-	return target.save()
+	return await target.save().catch((error) => { throw new Error(error.detail) })
 }
 
 // export const createValid = async <T extends BaseEntity>(entity: T, params: DeepPartial<T>): Promise<void> => {

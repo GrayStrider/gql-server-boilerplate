@@ -7,15 +7,18 @@ import {ExampleEntity} from './Entity'
 export class ExampleEntityNewInput implements Partial<ExampleEntity> {
 	@Field()
 	validatedName: string
+	
+	@Field()
+	manyOptions: string
 }
 
 @ArgsType()
 export class ExampleEntitySearchInput implements Partial<ExampleEntity> {
 	@Field()
+	// validating here only makes sense in cases where input args class doesn't implement an entity, since validation rules are alrady present in entity itself
 	@Contains('123')
 	validatedName: string
 }
-
 
 
 @Resolver()
