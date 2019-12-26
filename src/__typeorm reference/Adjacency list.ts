@@ -1,5 +1,6 @@
-import {Field, ObjectType} from 'type-graphql'
-import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany, BaseEntity} from 'typeorm'
+import {Field, ObjectType, Resolver} from 'type-graphql'
+import {BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn} from 'typeorm'
+import {validateAndSave} from '../utils/validator'
 
 
 // TODO not sure how to make it work with type-graphql inputs
@@ -27,4 +28,11 @@ export class Category extends BaseEntity {
 	@Field(returns => Category)
 	@ManyToOne(type => Category, category => category.parent)
 	children: Category;
+}
+
+@Resolver()
+export class ListsResolver {
+	async adjacencyList() {
+		return validateAndSave(Category.create({}))
+	}
 }

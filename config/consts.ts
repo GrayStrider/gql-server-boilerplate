@@ -1,3 +1,5 @@
+process.env["NODE_CONFIG_DIR"] = __dirname;
+
 import {get} from 'config'
 
 export const PORT: string = get('PORT')

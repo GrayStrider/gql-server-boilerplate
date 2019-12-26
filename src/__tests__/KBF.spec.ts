@@ -10,9 +10,9 @@ import {ORMConfig} from '../../config/typeorm'
 import {warn} from '../utils/log'
 
 let conn: Connection
-const url = `http://${HOST}:${PORT}/graphql`
+export const GQL_URL = `http://${HOST}:${PORT}/graphql`
 const postQuery = async <T = AnyObject>(query: ASTNode, mainField?: string): Promise<T> => {
-	const res: AnyObject = await request(url, print(query))
+	const res: AnyObject = await request(GQL_URL, print(query))
 	return mainField ? res?.[mainField] : res
 }
 
