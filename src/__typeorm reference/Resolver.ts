@@ -1,10 +1,11 @@
-import {Args, ArgsType, Field, InputType, Mutation, Query, Resolver} from 'type-graphql'
+import {Args, ArgsType, Field, Mutation, Query, Resolver} from 'type-graphql'
+import {validateAndSave} from '../utils/validator'
 import {ExampleEntity} from './Entity'
 
 @ArgsType()
-export class ExampleEntityNewInput {
+export class ExampleEntityNewInput implements Partial<ExampleEntity> {
 	@Field()
-	name: string
+	validatedName: string
 }
 
 @Resolver()
@@ -22,4 +23,10 @@ export class ExampleEntityResolver {
 	async exampleEntity() {
 		return ExampleEntity.find()
 	}
+	
+	@Mutation(returns => ExampleEntity)
+	async exampleEntityCreateWithValidation(@Args() props: ExampleEntityNewInput) {
+		return await validateAndSave(ExampleEntity.create(props))
+	}
 }
+

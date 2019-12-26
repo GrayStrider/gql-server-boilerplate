@@ -1,5 +1,6 @@
-import {Field, Int, InterfaceType, ObjectType} from 'type-graphql'
-import {BaseEntity, Column, Entity, PrimaryGeneratedColumn} from 'typeorm'
+import {Contains} from 'class-validator'
+import {Field, ID, Int, ObjectType} from 'type-graphql'
+import {BaseEntity, Column, Entity, Generated, PrimaryGeneratedColumn} from 'typeorm'
 
 
 //================================================================================
@@ -23,7 +24,7 @@ class SimpleJSONObjectTypeInterface {
 @Entity()
 export class ExampleEntity extends BaseEntity {
 	
-	@Field()
+	@Field(returns => ID)
 	// @PrimaryColumn()
 	@PrimaryGeneratedColumn()
 	id: number
@@ -31,10 +32,11 @@ export class ExampleEntity extends BaseEntity {
 	@Field()
 	// @PrimaryColumn() // you can have several
 	@Column()
-	name: string
+	@Contains("123")
+	validatedName: string
 	
 	@Field()
-	@Column()
+	@Column({default: false})
 	isActive: boolean
 	
 	// don't use simple-array
@@ -45,7 +47,19 @@ export class ExampleEntity extends BaseEntity {
 	array: number[]
 	
 	@Field(returns => SimpleJSONObjectTypeInterface)
-	@Column('simple-json', {default: {name: "Ivan", age: 24}})
+	@Column('simple-json', {default: {name: 'Ivan', age: 24}})
 	json: { name: string, age: number }
+	
+	@Field()
+	@Column()
+	@Generated('increment')
+	autoIncrement: number
+	
+	@Field()
+	@Column()
+	@Generated('uuid')
+	uuid: string
+	
+	
 }
 

@@ -13,7 +13,12 @@ import {createAuthorsLoader} from './utils/authorsLoader'
 import {createSchema} from './utils/createSchema'
 
 export const main = async () => {
-	await createConnection(ORMConfig)
+	const conn = await createConnection(ORMConfig)
+	
+	// clean up old testing data on startup
+	if (process.env.NODE_ENV !== 'production') {
+		await conn.synchronize(true)
+	}
 	
 	const schema = await createSchema()
 	
