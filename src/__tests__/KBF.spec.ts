@@ -1,11 +1,11 @@
 process.env.NODE_ENV = 'development'
 
 import gql from 'graphql-tag'
-import {Connection, createConnection} from 'typeorm'
+import {Connection, createConnection, getConnection} from 'typeorm'
 import {ORMConfig} from '../../config/typeorm'
 import {main} from '../server'
-import {postQuery} from '../utils'
 import {warn} from '../utils/log'
+import {postQuery} from '../utils/postQuery'
 
 let conn: Connection
 
@@ -15,7 +15,7 @@ beforeAll(async () => {
 	// warn(ORMConfig)
 	jest.setTimeout(30000)
 	await main()
-	conn = /*await getConnection() */await createConnection(ORMConfig)
+	conn = await getConnection() /*await createConnection(ORMConfig)*/
 	
 	await conn.dropDatabase()
 	await conn.synchronize()

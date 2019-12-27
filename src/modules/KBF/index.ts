@@ -2,7 +2,7 @@ import {Args, Mutation, Query, Resolver} from 'type-graphql'
 import {getConnection} from 'typeorm'
 import {Tag} from '../../entity/KBF/Tag'
 import {Task} from '../../entity/KBF/Task'
-import {Like_} from '../../utils'
+import {Like_} from '../../utils/Like'
 import {NewTaskInput, SearchTaskInput} from './inputs'
 
 

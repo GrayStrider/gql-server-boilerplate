@@ -12,13 +12,23 @@ import {redis} from './redis'
 import {createAuthorsLoader} from './utils/authorsLoader'
 import {createSchema} from './utils/createSchema'
 
-export const main = async () => {
+export async function main() {
+	
+	//================================================================================
+	// DB, Redis
+	//================================================================================
 	const conn = await createConnection(ORMConfig)
 	
 	// clean up old testing data on startup
 	if (process.env.NODE_ENV !== 'production') {
 		await conn.synchronize(true)
 	}
+	
+	const RedisStore = connectRedis(session)
+	
+	//================================================================================
+	// Apollo
+	//================================================================================
 	
 	const schema = await createSchema()
 	
@@ -56,9 +66,12 @@ export const main = async () => {
 		]
 	})
 	
-	const app = Express()
 	
-	const RedisStore = connectRedis(session)
+	//================================================================================
+	// Express
+	//================================================================================
+	
+	const app = Express()
 	
 	app.use(
 		cors({
@@ -85,7 +98,6 @@ export const main = async () => {
 	)
 	
 	apolloServer.applyMiddleware({app, cors: false})
-	
 	
 	return app.listen(PORT, () => {
 		console.log(`server started on http://${HOST}:${PORT}/graphql`)

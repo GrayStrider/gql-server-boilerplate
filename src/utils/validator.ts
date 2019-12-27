@@ -1,6 +1,10 @@
 import {validate as Validate} from 'class-validator'
 import {BaseEntity, DeepPartial} from 'typeorm'
 
+/**
+ * class-validator wrapper
+ * @param target class decorated with class-validator
+ */
 export async function validate<T extends Object>(target: T): Promise<T> {
 	const errors = await Validate(target)
 	if (errors.length > 0) {
@@ -11,13 +15,11 @@ export async function validate<T extends Object>(target: T): Promise<T> {
 	}
 }
 
+/**
+ * validate and save typeorm class
+ * @param target typeorm class, decorated with class-validator
+ */
 export async function validateAndSave<T extends BaseEntity>(target: T): Promise<T> {
 	await validate(target)
 	return await target.save().catch((error) => { throw new Error(error.message + "; " + error.detail) })
 }
-
-// export const createValid = async <T extends BaseEntity>(entity: T, params: DeepPartial<T>): Promise<void> => {
-// 	await validate(entity.create(params)).then(
-// 		value => value.save()
-// 	)
-// }
