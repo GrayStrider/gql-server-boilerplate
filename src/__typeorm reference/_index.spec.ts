@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 import * as http from 'http'
-import {Connection, EntityManager, getConnection} from 'typeorm'
+import {Connection, EntityManager, getConnection, Like} from 'typeorm'
 import {Task} from '../entity/KBF/Task'
 import {main} from '../server'
 import {postQuery} from '../utils/postQuery'
@@ -42,8 +42,20 @@ it('should create and fetch entity', async () => {
   }`)
 	expect(exampleEntity).toStrictEqual([{'autoIncrement': 1}])
 })
-it('should find entity by paremeters', async () => {
+it('search using options', async () => {
 	// fallback {} value for nullable destructuring
-	const {validatedName} = await db.findOne(ExampleEntity, {isActive: false}) || {}
-		expect(validatedName).toStrictEqual("test 123")
+	const {validatedName} = await db.findOne(ExampleEntity,
+		{
+			where: {
+				validatedName: Like('%123')
+			}
+		}) || {}
+	expect(validatedName).toStrictEqual('test 123')
 })
+it('direct conditions search', async () => {
+	// fallback {} value for nullable destructuring
+	const {validatedName} = await db.findOne(ExampleEntity,
+		{isActive: false, validatedName: Like('%123')},) || {}
+	expect(validatedName).toStrictEqual('test 123')
+})
+
