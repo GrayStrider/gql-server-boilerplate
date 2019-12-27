@@ -5,9 +5,11 @@ import {Task} from '../entity/KBF/Task'
 import {main} from '../server'
 import {postQuery} from '../utils/postQuery'
 import {ExampleEntity} from './Entity'
+
 let conn: Connection
 let db: EntityManager
 let server: http.Server
+
 function setup() {
 	beforeAll(async () => {
 		jest.setTimeout(30000)
@@ -20,14 +22,14 @@ function setup() {
 		server.close()
 	})
 }
-setup()
 
+setup()
 
 it('should return empty', async () => {
 	const tasks = await db.findAndCount(Task)
 	expect(tasks).toStrictEqual([[], 0])
 })
-it('should create entity', async () => {
+it('should create and fetch entity', async () => {
   await postQuery(gql`mutation {
       exampleEntityCreateWithValidation(manyOptions: "test 123", validatedName: "test 123") {
           array
@@ -38,11 +40,10 @@ it('should create entity', async () => {
           autoIncrement
       }
   }`)
-	expect(exampleEntity).toStrictEqual([{"autoIncrement": 1}])
-	
-	await expect(db.findOne(ExampleEntity, {isActive: false})).resolves
-	
-	return db.findOne(ExampleEntity, {isActive: false})
-		.then(value => value?.validatedName)
-		.then(value => expect(value).toStrictEqual("test 123"))
-});
+	expect(exampleEntity).toStrictEqual([{'autoIncrement': 1}])
+})
+it('should find entity by paremeters', async () => {
+	// fallback {} value for nullable destructuring
+	const {validatedName} = await db.findOne(ExampleEntity, {isActive: false}) || {}
+		expect(validatedName).toStrictEqual("test 123")
+})
