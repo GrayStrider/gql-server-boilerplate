@@ -54,8 +54,8 @@
     "tsdef": "^0.0.13"
   },
   "scripts": {
-    "start": "ts-node-dev --respawn --transpileOnly --ignore-watch nowatch src/index.ts",
-    "startFile": "ts-node-dev --respawn --transpileOnly",
+    "start": "ts-node-dev --respawn --transpileOnly --ignore-watch .spec src/index.ts",
+    "startFile": "ts-node-dev --respawn --transpileOnly --ignore-watch .spec" ,
     "db:setup": "ts-node ./src/test-utils/setup.ts",
     "test": "npm run db:setup && jest"
   }
