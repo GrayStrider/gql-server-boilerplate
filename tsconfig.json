@@ -30,8 +30,6 @@
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "baseUrl": "."
-    /*,
-        "rootDir": "/"*/
   },
   "exclude": [
     "node_modules"
