@@ -4,20 +4,20 @@ import {Priority} from '../../entity/KBF/Priority'
 
 @ArgsType()
 export class NewTaskInput {
-	@Field()
+	@Field({defaultValue: "New Task"})
 	title: string
 	
 	// on field nullable only applicable in the context of inputs
 	@Field({nullable: true})
 	description: string
 	
-	@Field(returns => String, {nullable: true})
-	tag: string
+	@Field(returns => [String], {nullable: true})
+	tags: string[]
 	
 	@Field(returns => Priority, {defaultValue: Priority.NONE}) //TODO check for dupes
 	priority: Priority
 	
-	@Field({nullable: true})
+	@Field({defaultValue: "1234567"})
 	constrained: string
 	
 }

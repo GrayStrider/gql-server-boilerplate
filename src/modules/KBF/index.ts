@@ -3,7 +3,10 @@ import {getConnection} from 'typeorm'
 import {Tag} from '../../entity/KBF/Tag'
 import {Task} from '../../entity/KBF/Task'
 import {Like_} from '../../utils/Like'
+import {validateAndSave} from '../../utils/validator'
 import {NewTaskInput, SearchTaskInput} from './inputs'
+import {Promise as bb} from 'bluebird'
+
 
 
 @Resolver()
@@ -21,7 +24,7 @@ export class TaskResolver {
 	async tasks(@Args() {tag, ...params}: SearchTaskInput) {
 		return await Task.find(
 			{
-				where    : params.title ? Like_(params, 'title') :
+				where: params.title ? Like_(params, 'title') :
 					params.description ? Like_(params, 'description') :
 						tag ? {...params} :
 							params
@@ -30,11 +33,16 @@ export class TaskResolver {
 	}
 	
 	@Mutation(returns => Task)
-	async taskCreate(@Args() {tag, ...data}: NewTaskInput) {
-		if (tag) {
-			const getTag = await Tag.findOne({title: tag}) ??
-				await Tag.create({title: tag})
-			return await Task.create({...data, ...{tags: [getTag]}}).save()
+	async taskCreate(@Args() {tags: tagNames, ...data}: NewTaskInput) {
+		if (tagNames) {
+			const tags = await bb.reduce(tagNames, async (acc: any[], title) => {
+					const getTag = await Tag.findOne({title}) ??
+						await Tag.create({title})
+					return [...acc, getTag]
+				}, []
+			)
+			
+			return await validateAndSave(Task.create({...data, tags}))
 		}
 		
 		return await Task.create(data).save()

@@ -28,7 +28,7 @@ export class Task extends BaseEntity/* implements ITask*/ {
 	@Column({type: 'bool', default: false})
 	completed: boolean
 	
-	@Field(returns => [Tag], {nullable: true})
+	@Field(returns => [Tag], {defaultValue: []})
 	@ManyToMany(type => Tag, tag => tag.tasks, {
 		// cascading does not create a tag when task query errored
 		cascade: true,
