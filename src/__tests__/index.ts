@@ -1,7 +1,7 @@
-process.env.NODE_ENV = "development"
+// process.env.NODE_ENV = "development"
 
 import {getConnection} from 'typeorm'
-import {ORMConfig} from '../../config/typeorm'
+import {ORMConfig} from '../../config/_typeorm'
 import {Task} from '../entity/KBF/Task'
 import {main} from '../server'
 

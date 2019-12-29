@@ -1,7 +1,7 @@
 import {ASTNode, print} from 'graphql'
 import request from 'graphql-request'
 import {AnyObject} from 'tsdef'
-import {GQL_URL} from '../../config/consts'
+import {GQL_URL} from '../../config/_consts'
 import {warn} from './log'
 
 

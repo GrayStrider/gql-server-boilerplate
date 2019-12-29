@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import gql from 'graphql-tag'
 import {createConnection, Like} from 'typeorm'
-import {ORMConfig} from '../../config/typeorm'
+import {ORMConfig} from '../../config/_typeorm'
 import {Task} from '../entity/KBF/Task'
 import {warn} from '../utils/log'
 import {postQuery} from '../utils/postQuery'

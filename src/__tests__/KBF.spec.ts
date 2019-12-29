@@ -2,7 +2,7 @@ process.env.NODE_ENV = 'development'
 
 import gql from 'graphql-tag'
 import {Connection, createConnection, getConnection} from 'typeorm'
-import {ORMConfig} from '../../config/typeorm'
+import {ORMConfig} from '../../config/_typeorm'
 import {main} from '../server'
 import {warn} from '../utils/log'
 import {postQuery} from '../utils/postQuery'

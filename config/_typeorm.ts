@@ -1,5 +1,5 @@
 import {PostgresConnectionOptions} from 'typeorm/driver/postgres/PostgresConnectionOptions'
-import {POSTGRES_URL, POSTRGRES_DATABASE, POSTRGRES_PASSWORD, POSTRGRES_PORT, POSTRGRES_USERNAME} from './consts'
+import {POSTGRES_URL, POSTRGRES_DATABASE, POSTRGRES_PASSWORD, POSTRGRES_PORT, POSTRGRES_USERNAME} from './_consts'
 
 export const ORMConfig: PostgresConnectionOptions = {
 	name       : 'default',

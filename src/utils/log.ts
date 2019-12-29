@@ -1,4 +1,11 @@
 import chalk from 'chalk'
 
-export const warn = (...msg: any[]) =>
-	console.log(chalk.bgBlack.bold.whiteBright(typeof msg === 'object' ? JSON.stringify(msg, null, 2) : msg))
+export function warn(...msg: any[]) {
+	msg.forEach((value) => {
+		console.log(
+			chalk.bgBlack.bold.whiteBright(
+				typeof value === 'object' ? JSON.stringify(
+					value, null, 2) : value))
+	})
+	
+}
