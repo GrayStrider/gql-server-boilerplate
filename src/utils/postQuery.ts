@@ -33,7 +33,11 @@ export async function postQueryTyped<T, K, U>(query: ASTNode, url: string = GQL_
 	const res: AnyObject = await request(url, print(query))
 		.catch(warn)
 	
-	return Object.keys(res).length > 1 ? toArray(res) as any : res
+	const keys = Object.keys(res)
+	const values = Object.values(res)
+	const fin = values[0]
+	
+	return Object.keys(res).length > 1
+		? toArray(res) as any
+		: Object.values(res)[0]
 }
-
-
