@@ -104,6 +104,8 @@ export async function main() {
 		})
 	)
 	
+	
+	
 	apolloServer.applyMiddleware({app, cors: false})
 	app.use("/error", (res) => {
 		throw new Error("Sentry")
@@ -116,6 +118,19 @@ export async function main() {
 	}) as ErrorRequestHandler
 	
 	);
+	
+	app.use("/e", (res) => {
+		throw new Error("Sentry")
+	})
+	
+
+	const handler: ErrorRequestHandler = (err, req, res, next) => {
+		console.error("Caught error")
+		res.status(500).send('Something broke!')
+	}
+	
+	
+	app.use(handler)
 	
 	return app.listen(PORT, () => {
 		console.log(`server started on http://${HOST}:${PORT}/graphql`)

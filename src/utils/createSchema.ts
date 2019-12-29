@@ -18,7 +18,7 @@ import {RegisterResolver} from '../modules/user/Register'
 export const createSchema = () =>
 	buildSchema({
 		emitSchemaFile: "./src/__tests__/schema.graphql", // for testing
-		validate: false, // get rid of class-validator warnings
+		validate: true,
 		globalMiddlewares: [ErrorInterceptor],
 		
 		resolvers  : [
