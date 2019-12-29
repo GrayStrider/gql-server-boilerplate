@@ -65,7 +65,7 @@ export class ExampleEntity extends GenericFeatures {
 	@Column(type => EmbeddedFeatures)
 	embedded: EmbeddedFeatures
 	
-	@Field(returns => [Child])
+	@Field(returns => [Child], {nullable: true})
 	@OneToMany(type => Child, child => child.parent, {
 		cascade: true,
 		eager: true

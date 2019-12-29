@@ -1,7 +1,7 @@
 import {Promise as bb} from 'bluebird'
 import gql from 'graphql-tag'
 import {Connection, EntityManager, Like} from 'typeorm'
-import {ExampleEntity} from '../__typeorm reference/Entity'
+import {ExampleEntity} from './Entity'
 import {Tag} from '../entity/KBF/Tag'
 import {Task} from '../entity/KBF/Task'
 import {setupTests} from '../test-utils/setupTests'
@@ -51,7 +51,7 @@ it('direct conditions search', async () => {
 	expect(validatedName).toStrictEqual('test 123')
 })
 it(`should create one task`, async () => {
-  const [task] = await postQueryTyped<Task>(gql`mutation {
+  const {tags} = await postQueryTyped<Task>(gql`mutation {
       taskCreate(title: "task1", tags: ["one", "two"]) {
           createdAt
           tags {
@@ -60,9 +60,9 @@ it(`should create one task`, async () => {
       }
 
   }`)
-	expect(task.tags).toStrictEqual([{'title': 'one'}, {'title': 'two'}])
+	expect(tags).toStrictEqual([{'title': 'one'}, {'title': 'two'}])
 
-  const [tags, tasks] = await postQueryTyped<Tag[], Task[]>(gql`{
+  const [Tags, tasks] = await postQueryTyped<Tag[], Task[]>(gql`{
       tags {
           title
       }
@@ -72,7 +72,7 @@ it(`should create one task`, async () => {
       }
   }`)
 	console.log(tasks.map((task) => task.title))
-	expect(tags).toStrictEqual([{'title': 'one'}, {'title': 'two'}])
+	expect(Tags).toStrictEqual([{'title': 'one'}, {'title': 'two'}])
 
 })
 it(`should reduce bb`, async () => {
