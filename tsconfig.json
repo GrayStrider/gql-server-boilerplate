@@ -13,7 +13,8 @@
     ],
     "incremental": true,
     "strict": true,
-    "strictPropertyInitialization": false, // conflicts with typeorm
+    "strictPropertyInitialization": false,
+    // conflicts with typeorm
     "sourceMap": true,
     "outDir": "./dist",
     "moduleResolution": "node",
@@ -35,10 +36,7 @@
     "skipLibCheck": true
   },
   "exclude": [
-    "node_modules"
-  ],
-  "include": [
-    "./src/**/*.tsx",
-    "./src/**/*.ts"
+    "node_modules",
+    "**/*.spec.ts"
   ]
 }
