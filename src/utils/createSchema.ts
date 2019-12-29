@@ -1,5 +1,6 @@
 import {buildSchema} from 'type-graphql'
 import {ExampleEntityResolver} from '../__typeorm reference/Resolver'
+import {UserResolver} from '../__typeorm reference/User/resolver'
 import {AuthorBookResolver} from '../modules/author-book/AuthorBookResolver'
 import {TagResolver, TaskResolver} from '../modules/KBF'
 import {AlbumResolver, PhotoResolver} from '../modules/Photos'
@@ -19,22 +20,24 @@ export const createSchema = () =>
 		validate: false, // get rid of class-validator warnings
 		
 		resolvers  : [
-			ExampleEntityResolver,
-			PhotoResolver,
-			AlbumResolver,
+			UserResolver,
 			TagResolver,
 			TaskResolver,
-			ChangePasswordResolver,
-			ConfirmUserResolver,
-			ForgotPasswordResolver,
-			LoginResolver,
-			LogoutResolver,
-			MeResolver,
-			RegisterResolver,
-			CreateUserResolver,
-			CreateProductResolver,
-			ProfilePictureResolver,
-			AuthorBookResolver
+			
+			// ExampleEntityResolver,
+			// PhotoResolver,
+			// AlbumResolver,
+			// ChangePasswordResolver,
+			// ConfirmUserResolver,
+			// ForgotPasswordResolver,
+			// LoginResolver,
+			// LogoutResolver,
+			// MeResolver,
+			// RegisterResolver,
+			// CreateUserResolver,
+			// CreateProductResolver,
+			// ProfilePictureResolver,
+			// AuthorBookResolver
 		],
 		authChecker: ({context: {req}}) => {
 			return !!req.session.userId
