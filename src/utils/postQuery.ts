@@ -24,7 +24,7 @@ export async function postQuery<T = Array<{ [key: string]: any }>>(query: ASTNod
 import {toArray} from 'lodash'
 
 
-export async function postQueryTyped<T>(query: ASTNode, url?: string): Promise<[T]>
+export async function postQueryTyped<T>(query: ASTNode, url?: string): Promise<T>
 export async function postQueryTyped<T, K>(query: ASTNode, url?: string): Promise<[T, K]>
 export async function postQueryTyped<T, K, U>(query: ASTNode, url?: string): Promise<[T, K, U]>
 
@@ -33,8 +33,7 @@ export async function postQueryTyped<T, K, U>(query: ASTNode, url: string = GQL_
 	const res: AnyObject = await request(url, print(query))
 		.catch(warn)
 	
-	
-	return toArray(res) as any
+	return Object.keys(res).length > 1 ? toArray(res) as any : res
 }
 
 
