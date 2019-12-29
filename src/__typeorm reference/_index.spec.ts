@@ -18,7 +18,7 @@ it('should return empty', async () => {
 	const tasks = await db.findAndCount(Task)
 	expect(tasks).toStrictEqual([[], 0])
 })
-it('should create and fetch entity', async () => {
+it.skip('should create and fetch entity', async () => {
   await postQuery(gql`mutation {
       exampleEntityCreateWithValidation(manyOptions: "test 123", validatedName: "test 123") {
           array

@@ -9,3 +9,12 @@ export function warn(...msg: any[]) {
 	})
 	
 }
+
+export function printUncaughtError(...msg: any[]) {
+	msg.forEach((value) => {
+		console.error(
+			chalk.bold.red.bgBlack(
+				typeof value === 'object' ? JSON.stringify(
+					value, null, 2) : value))
+	})
+}
