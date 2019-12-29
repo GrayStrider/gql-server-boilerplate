@@ -5,34 +5,27 @@ import cors from 'cors'
 import Express, {ErrorRequestHandler} from 'express'
 import session from 'express-session'
 import 'reflect-metadata'
-import {formatArgumentValidationError} from 'type-graphql'
 import {createConnection} from 'typeorm'
-import {HOST, PORT} from '../config/_consts'
+import {dsn, HOST, PORT} from '../config/_consts'
 import {ORMConfig} from '../config/_typeorm'
 import {redis} from './redis'
-import {createAuthorsLoader} from './utils/authorsLoader'
-import {createSchema} from './utils/createSchema'
-import {errorFormatter} from './utils/errorFormatter'
-
+import {formatError} from './utils/apollo, graphql/formatError'
+import {createAuthorsLoader} from './utils/dataloader/authorsLoader'
+import {errorMiddleware} from './utils/express/errorMiddleware'
+import {HttpException} from './utils/express/HttpException'
+import {createSchema} from './utils/type-graphql/createSchema'
 
 
 export async function main() {
-	Sentry.init({
-		dsn: 'https://0590db8cdb3e4b7bacd6c278ca9473a8@sentry.io/1868158',
-	});
+	Sentry.init({dsn});
 	const app = Express()
-	
 	app.use(Sentry.Handlers.requestHandler());
 	//================================================================================
 	// DB, Redis
 	//================================================================================
-	const conn = await createConnection(ORMConfig)
+	await createConnection(ORMConfig)
 	
-	// clean up old testing data on startup
-	if (process.env.NODE_ENV !== 'production') {
-		await conn.synchronize(true)
-	}
-	
+
 	const RedisStore = connectRedis(session)
 	
 	//================================================================================
@@ -43,8 +36,8 @@ export async function main() {
 	
 	const apolloServer = new ApolloServer({
 		schema,
-		formatError    : errorFormatter,
-		context        : ({req, res}: any) => ({
+		formatError,
+		context        : (req: Request, res: Response) => ({
 			req,
 			res,
 			authorsLoader: createAuthorsLoader()
@@ -75,10 +68,12 @@ export async function main() {
 		]
 	})
 	
+	apolloServer.applyMiddleware({app, cors: false})
 	
 	//================================================================================
 	// Express
 	//================================================================================
+
 	
 	
 	app.use(
@@ -106,34 +101,24 @@ export async function main() {
 	)
 	
 	
-	
-	apolloServer.applyMiddleware({app, cors: false})
-	app.use("/error", (res) => {
-		throw new Error("Sentry")
-	})
+	app.get('*', (req, res, next) => {
+		const err = new HttpException(404, "Not found")
+		
+		// Sentry.captureException(err)
+		throw err
+		next(new HttpException(404, "Not found"));
+	});
 	
 	app.use(Sentry.Handlers.errorHandler({
 		shouldHandleError(error: Error): boolean {
 			return true
 		}
-	}) as ErrorRequestHandler
+	}) as ErrorRequestHandler);
 	
-	);
-	
-	app.use("/e", (res) => {
-		throw new Error("Sentry")
-	})
-	
-
-	const handler: ErrorRequestHandler = (err, req, res, next) => {
-		console.error("Caught error")
-		res.status(500).send('Something broke!')
-	}
-	
-	
-	app.use(handler)
+	app.use(errorMiddleware)
 	
 	return app.listen(PORT, () => {
+		Sentry.captureMessage("Up")
 		console.log(`server started on http://${HOST}:${PORT}/graphql`)
 	})
 }

@@ -4,7 +4,7 @@ import {createConnection, Like} from 'typeorm'
 import {ORMConfig} from '../../config/_typeorm'
 import {Task} from '../entity/KBF/Task'
 import {warn} from '../utils/log'
-import {postQuery} from '../utils/postQuery'
+import {postQuery} from '../utils/apollo, graphql/postQuery'
 
 const main = async () => {
 	const conn = await createConnection({...ORMConfig, name: 'typeorm'})

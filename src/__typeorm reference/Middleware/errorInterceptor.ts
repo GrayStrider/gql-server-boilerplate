@@ -1,5 +1,6 @@
 import {MiddlewareFn} from 'type-graphql'
 import {printUncaughtError} from '../../utils/log'
+import {Error2} from '../../utils/typeorm/customError'
 
 export const ErrorInterceptor2: MiddlewareFn = async (action, next) => {
 	try {
@@ -14,18 +15,11 @@ export const ErrorInterceptor2: MiddlewareFn = async (action, next) => {
 		}
 	}
 }
-
 export const ErrorInterceptor: MiddlewareFn = async (action, next) => {
 	const res = await next()
 	const act = action
 	
-	class Error2 extends Error {
-		constructor(public newField: string, message: string) {
-			super(message)
-		}
-	}
-	
-	throw new Error2("test", "new Error")
+
 	return res
 }
 

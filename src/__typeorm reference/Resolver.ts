@@ -1,5 +1,5 @@
 import {Args, Mutation, Query, Resolver} from 'type-graphql'
-import {validate, validateAndSave} from '../utils/validator'
+import {validate, validateAndSave} from '../utils/type-graphql/validator'
 import {Child} from './ChildEntity'
 import {ExampleEntity} from './Entity'
 import {ExampleEntityNewInput, ExampleEntitySearchInput} from './Inputs'

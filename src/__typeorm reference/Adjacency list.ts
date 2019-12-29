@@ -1,6 +1,6 @@
 import {Field, ObjectType, Resolver} from 'type-graphql'
 import {BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn} from 'typeorm'
-import {validateAndSave} from '../utils/validator'
+import {validateAndSave} from '../utils/type-graphql/validator'
 
 
 // TODO not sure how to make it work with type-graphql inputs

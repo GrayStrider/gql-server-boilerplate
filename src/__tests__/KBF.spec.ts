@@ -5,7 +5,7 @@ import {Connection, createConnection, getConnection} from 'typeorm'
 import {ORMConfig} from '../../config/_typeorm'
 import {main} from '../server'
 import {warn} from '../utils/log'
-import {postQuery} from '../utils/postQuery'
+import {postQuery} from '../utils/apollo, graphql/postQuery'
 
 let conn: Connection
 

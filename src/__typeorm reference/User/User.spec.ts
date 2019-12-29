@@ -2,7 +2,7 @@ import gql from 'graphql-tag'
 import {Connection, EntityManager} from 'typeorm'
 import {User} from '../../entity/User'
 import {setupTests} from '../../test-utils/setupTests'
-import {postQueryTyped} from '../../utils/postQuery'
+import {postQueryTyped} from '../../utils/apollo, graphql/postQuery'
 
 let conn: Connection
 let db: EntityManager

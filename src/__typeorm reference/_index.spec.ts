@@ -1,16 +1,18 @@
 import {Promise as bb} from 'bluebird'
 import gql from 'graphql-tag'
+import * as http from 'http'
 import {Connection, EntityManager, Like} from 'typeorm'
 import {ExampleEntity} from './Entity'
 import {Tag} from '../entity/KBF/Tag'
 import {Task} from '../entity/KBF/Task'
 import {setupTests} from '../test-utils/setupTests'
-import {postQuery, postQueryTyped} from '../utils/postQuery'
+import {postQuery, postQueryTyped} from '../utils/apollo, graphql/postQuery'
 
 let conn: Connection
 let db: EntityManager
+let server: http.Server | null
 beforeAll(async () => {
-	conn = await setupTests()
+	({conn, server} = await setupTests())
 	db = conn.manager
 })
 

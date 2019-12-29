@@ -2,6 +2,10 @@ import {validate as Validate} from 'class-validator'
 import {BaseEntity, DeepPartial} from 'typeorm'
 
 /**
+ * NO NEED FOR EXTRANEOUS VALIDATION
+ *
+ * validate: true in createSchema()
+ *
  * class-validator wrapper
  * @param target class decorated with class-validator
  */

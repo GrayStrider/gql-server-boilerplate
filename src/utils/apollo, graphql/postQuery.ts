@@ -1,8 +1,8 @@
 import {ASTNode, print} from 'graphql'
 import request from 'graphql-request'
 import {AnyObject} from 'tsdef'
-import {GQL_URL} from '../../config/_consts'
-import {warn} from './log'
+import {GQL_URL} from '../../../config/_consts'
+import {warn} from '../log'
 
 
 /**
@@ -16,7 +16,7 @@ import {warn} from './log'
 
 export async function postQuery<T = Array<{ [key: string]: any }>>(query: ASTNode, mainField?: string, url: string = GQL_URL): Promise<{ [key: string]: T }> {
 	const res: AnyObject = await request(url, print(query))
-		.catch(warn)
+		.catch((err) => warn("postQuery: " + err))
 	return mainField ? res?.[mainField] : res
 }
 
@@ -31,11 +31,7 @@ export async function postQueryTyped<T, K, U>(query: ASTNode, url?: string): Pro
 
 export async function postQueryTyped<T, K, U>(query: ASTNode, url: string = GQL_URL) {
 	const res: AnyObject = await request(url, print(query))
-		.catch(warn)
-	
-	const keys = Object.keys(res)
-	const values = Object.values(res)
-	const fin = values[0]
+		.catch((err) => warn("postQuery: " + err))
 	
 	return Object.keys(res).length > 1
 		? toArray(res) as any
