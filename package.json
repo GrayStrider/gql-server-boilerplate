@@ -6,6 +6,7 @@
   "dependencies": {
     "@sentry/node": "^5.10.2",
     "@types/bluebird": "^3.5.29",
+    "apollo-server": "^2.9.15",
     "apollo-server-express": "^2.3.1",
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.7.2",
@@ -27,7 +28,9 @@
     "pg": "^7.7.1",
     "reflect-metadata": "^0.1.12",
     "type-graphql": "^0.16.0",
+    "typedi": "^0.8.0",
     "typeorm": "^0.2.11",
+    "typeorm-typedi-extensions": "^0.2.3",
     "typescript": "^3.7.4",
     "uuid": "^3.3.2"
   },

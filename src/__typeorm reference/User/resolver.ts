@@ -1,12 +1,12 @@
-import {Args, Mutation, Query, Resolver} from 'type-graphql'
+import {Arg, Args, Mutation, Query, Resolver} from 'type-graphql'
 import {UserNew} from '../entity/User'
-import {UserCreateInput, UserSearchInput} from './inputs'
+import {UserCreateInput, UserSearchInput, UserSearchInputSimple} from './inputs'
 
 @Resolver()
 export class UserResolver {
 	
 	@Query(returns => [UserNew])
-	async users(@Args() input: UserSearchInput) {
+	async users(@Arg("searchParameters1") input: UserSearchInputSimple) {
 		
 		// TODO Like for strings
 		return await UserNew.find(input)

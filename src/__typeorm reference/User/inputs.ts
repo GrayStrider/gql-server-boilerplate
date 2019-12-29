@@ -1,8 +1,17 @@
-import {ArgsType, Field} from 'type-graphql'
-import {User} from '../../entity/User'
+import {IsEmail} from 'class-validator'
+import {ArgsType, Field, InputType} from 'type-graphql'
 import {UserNew} from '../entity/User'
 import {Countries} from './CountriesList'
-import {IsEmail} from 'class-validator'
+
+/**
+ * @InputType will generate a real GraphQLInputType type and should be used when we need a nested object in the args:
+
+updateItem(data: UpdateItemInput!): Item!
+@ArgsType is virtual and it will be flattened in schema:
+
+updateItem(id: Int!, userId: Int!): Item!
+ TODO difference
+ */
 
 @ArgsType()
 export class UserCreateInput implements Partial<UserNew> {
@@ -26,8 +35,8 @@ export class UserCreateInput implements Partial<UserNew> {
 	age: number
 }
 
-@ArgsType()
-export class UserSearchInput implements Partial<User> {
+InputType()
+export class UserSearchInput implements Partial<UserNew> {
 	@Field({nullable: true})
 	firstName: string
 	
@@ -42,4 +51,13 @@ export class UserSearchInput implements Partial<User> {
 	
 	@Field({nullable: true})
 	email: string
+}
+
+InputType()
+export class UserSearchInputSimple implements Partial<UserNew> {
+	@Field(returns => String )
+	firstName: string
+	
+	@Field(returns => String )
+	lastName: string
 }

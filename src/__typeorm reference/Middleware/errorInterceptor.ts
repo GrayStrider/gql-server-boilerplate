@@ -1,6 +1,7 @@
-import {MiddlewareFn} from 'type-graphql'
+import {throws} from 'assert'
+import {MiddlewareFn, ResolverData} from 'type-graphql'
 import {printUncaughtError} from '../../utils/log'
-import {Error2} from '../../utils/typeorm/customError'
+import {Error2, TypeORMError} from '../../utils/typeorm/customError'
 
 export const ErrorInterceptor2: MiddlewareFn = async (action, next) => {
 	try {
@@ -15,11 +16,14 @@ export const ErrorInterceptor2: MiddlewareFn = async (action, next) => {
 		}
 	}
 }
-export const ErrorInterceptor: MiddlewareFn = async (action, next) => {
-	const res = await next()
-	const act = action
-	
 
-	return res
+export const ErrorInterceptor: MiddlewareFn =
+	async ({context, args, info, root}, next) => {
+	try {
+		return await next()
+	} catch (e) {
+		throw new TypeORMError(e.message, {name: e.name, args})
+		
+	}
 }
 

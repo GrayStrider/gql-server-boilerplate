@@ -17,15 +17,17 @@ import {createSchema} from './utils/type-graphql/createSchema'
 
 
 export async function main() {
-	Sentry.init({dsn});
+	Sentry.init({dsn})
 	const app = Express()
-	app.use(Sentry.Handlers.requestHandler());
+	app.use(Sentry.Handlers.requestHandler())
 	//================================================================================
 	// DB, Redis
 	//================================================================================
-	await createConnection(ORMConfig)
+	const conn = await createConnection(ORMConfig)
 	
-
+	if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test')
+		await conn.synchronize(true)
+	
 	const RedisStore = connectRedis(session)
 	
 	//================================================================================
@@ -73,7 +75,6 @@ export async function main() {
 	//================================================================================
 	// Express
 	//================================================================================
-
 	
 	
 	app.use(
@@ -102,23 +103,19 @@ export async function main() {
 	
 	
 	app.get('*', (req, res, next) => {
-		const err = new HttpException(404, "Not found")
-		
-		// Sentry.captureException(err)
-		throw err
-		next(new HttpException(404, "Not found"));
-	});
+		throw new HttpException(404, 'Not found')
+	})
 	
 	app.use(Sentry.Handlers.errorHandler({
 		shouldHandleError(error: Error): boolean {
 			return true
 		}
-	}) as ErrorRequestHandler);
+	}) as ErrorRequestHandler)
 	
 	app.use(errorMiddleware)
 	
 	return app.listen(PORT, () => {
-		Sentry.captureMessage("Up")
+		Sentry.captureMessage('Up')
 		console.log(`server started on http://${HOST}:${PORT}/graphql`)
 	})
 }
