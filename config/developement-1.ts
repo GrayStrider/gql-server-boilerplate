@@ -8,3 +8,5 @@ export default {
 		
 	}
 }
+
+// NODE_APP_INSTANCE variable

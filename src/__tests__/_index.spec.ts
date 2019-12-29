@@ -1,41 +1,18 @@
 import {Promise as bb} from 'bluebird'
 import gql from 'graphql-tag'
-import * as http from 'http'
-import {Connection, createConnection, EntityManager, getConnection, Like} from 'typeorm'
-import {ORMConfig} from '../../config/_typeorm'
+import {Connection, EntityManager, Like} from 'typeorm'
 import {ExampleEntity} from '../__typeorm reference/Entity'
 import {Tag} from '../entity/KBF/Tag'
 import {Task} from '../entity/KBF/Task'
-import {main} from '../server'
-import {warn} from '../utils/log'
+import {setupTests} from '../test-utils/setupTests'
 import {postQuery, postQueryTyped} from '../utils/postQuery'
 
 let conn: Connection
 let db: EntityManager
-let server: http.Server
-
-async function setup() {
-	jest.setTimeout(30000)
-	/**
-	 * Connect to running server with test_runner
-	 * If no server running, start the server and then connect
-	 */
-	try {
-		conn = await createConnection(ORMConfig)
-	} catch(e) {
-		warn(e, "no default connection found, starting server")
-		server = await main()
-		conn = getConnection()
-	}
-	await conn.synchronize(true)
+beforeAll(async () => {
+	conn = await setupTests()
 	db = conn.manager
-}
-
-beforeAll(async () => await setup())
-afterAll(async () => {
-	await conn.synchronize(true)
 })
-
 
 it('should return empty', async () => {
 	const tasks = await db.findAndCount(Task)
