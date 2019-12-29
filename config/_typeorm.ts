@@ -11,8 +11,6 @@ export const ORMConfig: PostgresConnectionOptions = {
 	database   : POSTRGRES_DATABASE,
 	synchronize: true, // manually
 	logging    : ["error"],
-	entities   : [
-		'src/entity/**',
-		'src/__typeorm reference/**'
-	]
+	entities: [
+		'src/entity/**/!(*.(test|spec).ts)']
 }
