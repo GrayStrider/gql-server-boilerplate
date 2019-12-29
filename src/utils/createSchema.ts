@@ -1,4 +1,5 @@
 import {buildSchema} from 'type-graphql'
+import {ErrorInterceptor} from '../__typeorm reference/Middleware/errorInterceptor'
 import {ExampleEntityResolver} from '../__typeorm reference/Resolver'
 import {UserResolver} from '../__typeorm reference/User/resolver'
 import {AuthorBookResolver} from '../modules/author-book/AuthorBookResolver'
@@ -18,6 +19,7 @@ export const createSchema = () =>
 	buildSchema({
 		emitSchemaFile: "./src/__tests__/schema.graphql", // for testing
 		validate: false, // get rid of class-validator warnings
+		globalMiddlewares: [ErrorInterceptor],
 		
 		resolvers  : [
 			UserResolver,
