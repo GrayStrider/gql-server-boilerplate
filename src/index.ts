@@ -1,10 +1,14 @@
+import chalk from 'chalk'
 import {main} from './server'
-import {printUncaughtError} from './utils/log'
+import * as Sentry from '@sentry/node'
 
 
 //================================================================================
 // Main server module is exposed for use in testing
 //================================================================================
 
-main().catch(printUncaughtError)
 
+
+main().catch((err) => {
+	Sentry.captureException(err)
+	console.error(chalk.red.bold(err)) })

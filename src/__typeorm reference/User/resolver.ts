@@ -16,7 +16,7 @@ export class UserResolver {
 	async userCreate(@Args() input: UserCreateInput) {
 		const isDupe = (await UserNew.find({email: input.email})).length !== 0
 		
-		if (isDupe) throw new Errors.Validation("Email exists")
+		// if (isDupe) throw new Errors.Validation("Email exists")
 		return await UserNew.create(input).save()
 	}
 }

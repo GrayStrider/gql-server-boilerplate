@@ -1,7 +1,8 @@
+import * as Sentry from '@sentry/node'
 import {ApolloServer} from 'apollo-server-express'
 import connectRedis from 'connect-redis'
 import cors from 'cors'
-import Express from 'express'
+import Express, {ErrorRequestHandler} from 'express'
 import session from 'express-session'
 import 'reflect-metadata'
 import {formatArgumentValidationError} from 'type-graphql'
@@ -12,8 +13,15 @@ import {redis} from './redis'
 import {createAuthorsLoader} from './utils/authorsLoader'
 import {createSchema} from './utils/createSchema'
 
+
+
 export async function main() {
+	Sentry.init({
+		dsn: 'https://0590db8cdb3e4b7bacd6c278ca9473a8@sentry.io/1868158',
+	});
+	const app = Express()
 	
+	app.use(Sentry.Handlers.requestHandler());
 	//================================================================================
 	// DB, Redis
 	//================================================================================
@@ -71,7 +79,6 @@ export async function main() {
 	// Express
 	//================================================================================
 	
-	const app = Express()
 	
 	app.use(
 		cors({
@@ -98,6 +105,17 @@ export async function main() {
 	)
 	
 	apolloServer.applyMiddleware({app, cors: false})
+	app.use("/error", (res) => {
+		throw new Error("Sentry")
+	})
+	
+	app.use(Sentry.Handlers.errorHandler({
+		shouldHandleError(error: Error): boolean {
+			return true
+		}
+	}) as ErrorRequestHandler
+	
+	);
 	
 	return app.listen(PORT, () => {
 		console.log(`server started on http://${HOST}:${PORT}/graphql`)

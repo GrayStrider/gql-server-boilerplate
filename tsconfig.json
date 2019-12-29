@@ -1,5 +1,8 @@
 {
+  "extends": "./node_modules/@sentry/typescript/tsconfig.json",
   "compilerOptions": {
+    "baseUrl": ".",
+
     "target": "es6",
     "module": "commonjs",
     "lib": [
@@ -29,8 +32,7 @@
     "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "skipLibCheck": true,
-    "baseUrl": "."
+    "skipLibCheck": true
   },
   "exclude": [
     "node_modules"

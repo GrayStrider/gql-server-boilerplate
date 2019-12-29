@@ -4,8 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "apollo-server-express": "^2.3.1",
+    "@sentry/node": "^5.10.2",
     "@types/bluebird": "^3.5.29",
+    "apollo-server-express": "^2.3.1",
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.7.2",
     "chalk": "^3.0.0",
@@ -31,6 +32,7 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "@sentry/typescript": "^5.10.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/config": "^0.0.36",
     "@types/connect-redis": "^0.0.8",
@@ -55,7 +57,7 @@
   },
   "scripts": {
     "start": "ts-node-dev --respawn --transpileOnly --ignore-watch .spec src/index.ts",
-    "startFile": "ts-node-dev --respawn --transpileOnly --ignore-watch .spec" ,
+    "startFile": "ts-node-dev --respawn --transpileOnly --ignore-watch .spec",
     "db:setup": "ts-node ./src/test-utils/setup.ts",
     "test": "npm run db:setup && jest"
   }
