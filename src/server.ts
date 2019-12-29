@@ -12,6 +12,7 @@ import {ORMConfig} from '../config/_typeorm'
 import {redis} from './redis'
 import {createAuthorsLoader} from './utils/authorsLoader'
 import {createSchema} from './utils/createSchema'
+import {errorFormatter} from './utils/errorFormatter'
 
 
 
@@ -42,7 +43,7 @@ export async function main() {
 	
 	const apolloServer = new ApolloServer({
 		schema,
-		formatError    : formatArgumentValidationError,
+		formatError    : errorFormatter,
 		context        : ({req, res}: any) => ({
 			req,
 			res,

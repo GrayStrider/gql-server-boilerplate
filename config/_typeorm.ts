@@ -10,7 +10,7 @@ export const ORMConfig: PostgresConnectionOptions = {
 	password   : POSTRGRES_PASSWORD,
 	database   : POSTRGRES_DATABASE,
 	synchronize: true, // manually
-	logging    : ["error"],
+	// logging    : ["error"],
 	entities: [
 		'src/entity/**/!(*.test.ts)',
 		'src/entity/**/!(*.spec.ts)',

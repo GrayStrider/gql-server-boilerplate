@@ -19,7 +19,7 @@ export const createSchema = () =>
 	buildSchema({
 		emitSchemaFile: "./src/__tests__/schema.graphql", // for testing
 		validate: true,
-		globalMiddlewares: [ErrorInterceptor],
+		// globalMiddlewares: [ErrorInterceptor],
 		
 		resolvers  : [
 			UserResolver,

@@ -2,6 +2,7 @@ import {ArgsType, Field} from 'type-graphql'
 import {User} from '../../entity/User'
 import {UserNew} from '../entity/User'
 import {Countries} from './CountriesList'
+import {IsEmail} from 'class-validator'
 
 @ArgsType()
 export class UserCreateInput implements Partial<UserNew> {
@@ -14,6 +15,7 @@ export class UserCreateInput implements Partial<UserNew> {
 	@Field(returns => Countries)
 	country: Countries
 	
+	@IsEmail()
 	@Field()
 	email: string
 	
