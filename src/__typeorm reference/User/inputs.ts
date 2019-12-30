@@ -13,7 +13,7 @@ updateItem(id: Int!, userId: Int!): Item!
  TODO difference
  */
 
-@ArgsType()
+@InputType()
 export class UserCreateInput implements Partial<UserNew> {
 	@Field()
 	firstName: string

@@ -14,7 +14,7 @@ export class UserResolver {
 	}
 	
 	@Mutation(returns => UserNew)
-	async userCreate(@Args() input: UserCreateInput) {
+	async userCreate(@Arg("userData") input: UserCreateInput) {
 		
 		return await UserNew.create(input).save()
 	}

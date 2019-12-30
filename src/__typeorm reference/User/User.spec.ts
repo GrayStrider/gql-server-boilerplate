@@ -40,24 +40,18 @@ it(`should create 50 new users`, async () => {
 		country  : faker.random.arrayElement(Object.keys(Countries)),
 		age      : faker.random.number(100)
 	}))
-  const generated = await Promise.all(fakes.map((fake, index) =>
-    postQueryTyped<UserNew>(gql`mutation {
-        userCreate(
-            firstName: "${fake.firstName}",
-            lastName: "${fake.lastName}",
-            password: "${fake.password}",
-            email: "${fake.email}",
-            country: ${fake.country},
-            age: ${fake.age}
-        ) {
-            firstName
-		        lastName
-		        password
-		        email
-		        country
-		        age
-        }
-    }`)))
+  const query = gql`mutation userCreate($input: UserCreateInput!) {
+      userCreate(userData: $input) {
+          firstName
+          lastName
+          password
+          email
+          country
+          age
+      }
+  }`
+	const generated = await Promise.all(fakes.map((fake) =>
+		postQueryTyped<UserNew>(query, {input: fake})))
 	expect(generated).toStrictEqual(fakes)
 
 })
@@ -65,8 +59,10 @@ it(`should create 50 new users`, async () => {
 it(`should create new user`, async () => {
 
   const {id} = await postQueryTyped<UserNew>(gql`mutation {
-      userCreate(country: Afghanistan, email: "zhoga.ivan@gmail.com",
-          firstName: "Ivan", lastName: "Zhoga", age: 24, password: "123") {
+      userCreate(userData: {
+          country: Afghanistan, email: "zhoga.ivan@gmail.com",
+          firstName: "Ivan", lastName: "Zhoga", age: 24, password: "123"
+      }) {
           id
       }
   }`)
