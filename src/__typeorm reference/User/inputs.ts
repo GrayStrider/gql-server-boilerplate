@@ -37,6 +37,8 @@ export class UserCreateInput implements Partial<UserNew> {
 
 @InputType()
 export class UserSearchInput implements Partial<UserNew> {
+	[key: string]: any;
+	
 	@Field({nullable: true})
 	firstName: string
 	

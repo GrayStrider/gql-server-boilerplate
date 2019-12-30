@@ -25,15 +25,15 @@ it(`should repeat promises`, async () => {
 	
 })
 
-it(`should create 10 new users`, async () => {
+it(`should create 50 new users`, async () => {
   const users = await Promise.all(
-    times(10, (iter) =>
+    times(50, (iter) =>
       postQueryTyped<UserNew>(gql`mutation {
           userCreate(
               firstName: "${faker.name.firstName() + iter}",
               lastName: "${faker.name.lastName()}",
 		          password: "${faker.internet.password()}",
-		          email: "${faker.internet.email()}",
+		          email: "${faker.internet.exampleEmail()}",
 		          country: ${faker.random.arrayElement(Object.keys(Countries))},
 		          age: ${faker.random.number(100)}
           ) {
@@ -45,8 +45,7 @@ it(`should create 10 new users`, async () => {
 		          name
           }
       }`)))
-	
-	expect(users).toHaveLength(10)
+	expect(users).toHaveLength(50)
 
 })
 

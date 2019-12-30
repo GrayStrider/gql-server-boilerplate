@@ -1,22 +1,21 @@
 import {Arg, Args, Mutation, Query, Resolver} from 'type-graphql'
+import {LikeWrapper} from '../../utils/typeorm/LikeWrapper'
 import {UserNew} from '../entity/User'
-import {UserCreateInput, UserSearchInput, UserSearchInputSimple} from './inputs'
+import {UserCreateInput, UserSearchInput} from './inputs'
 
 @Resolver()
 export class UserResolver {
 	
 	@Query(returns => [UserNew])
 	async users(@Arg("searchBy", {nullable: true}) input: UserSearchInput) {
-		
-		// TODO Like for strings
+
+		LikeWrapper(input)
 		return await UserNew.find(input)
 	}
 	
 	@Mutation(returns => UserNew)
 	async userCreate(@Args() input: UserCreateInput) {
-		const isDupe = (await UserNew.find({email: input.email})).length !== 0
 		
-		if (isDupe) throw new Errors.Validation("Email exists")
 		return await UserNew.create(input).save()
 	}
 }
