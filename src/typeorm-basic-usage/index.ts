@@ -43,7 +43,7 @@ async function bootstrap() {
 		// build TypeGraphQL executable schema
 		const schema = await buildSchema({
 			resolvers: [RecipeResolver, RateResolver],
-			container: Container,
+			// container: Container,
 		});
 		
 		// create mocked context
@@ -60,4 +60,4 @@ async function bootstrap() {
 	}
 }
 
-bootstrap();
+// bootstrap();
