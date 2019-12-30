@@ -6,7 +6,7 @@ import {UserCreateInput, UserSearchInput, UserSearchInputSimple} from './inputs'
 export class UserResolver {
 	
 	@Query(returns => [UserNew])
-	async users(@Arg("searchParameters1") input: UserSearchInput) {
+	async users(@Arg("searchBy", {nullable: true}) input: UserSearchInput) {
 		
 		// TODO Like for strings
 		return await UserNew.find(input)

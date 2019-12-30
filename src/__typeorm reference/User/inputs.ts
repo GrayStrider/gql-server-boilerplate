@@ -24,7 +24,7 @@ export class UserCreateInput implements Partial<UserNew> {
 	@Field(returns => Countries)
 	country: Countries
 	
-	@IsEmail()
+	@IsEmail({}, {message: "Invalid email format"})
 	@Field()
 	email: string
 	

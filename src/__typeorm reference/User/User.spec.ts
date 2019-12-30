@@ -59,18 +59,20 @@ it(`should create new user`, async () => {
       }
   }`)
 
+
+	
+	expect(id).toBeTruthy()
+})
+
+it(`should search the users by paremeters`, async () => {
   const firstNames = await postQueryTyped<UserNew>(gql`query {
-      users(searchParameters1: {
-          firstName: "Ivan"
+      users(searchBy: {
+          firstName: "Ivan",
+          lastName: "Zhoga"
       }) {
           firstName
       }
   }`)
-	
-	expect(id).toBeTruthy()
 	expect(firstNames).toStrictEqual([{'firstName': 'Ivan'}])
-})
-
-it(`should search the users by paremeters`, () => {
 
 })

@@ -19,7 +19,6 @@ export class UserNew extends BaseEntity {
 	@Column({nullable: true})
 	lastName: string
 	
-	@IsEmail()
 	@Field()
 	@Column({type: 'text', unique: true})
 	email: string
