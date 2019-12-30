@@ -35,7 +35,7 @@ export class UserCreateInput implements Partial<UserNew> {
 	age: number
 }
 
-InputType()
+@InputType()
 export class UserSearchInput implements Partial<UserNew> {
 	@Field({nullable: true})
 	firstName: string
@@ -53,7 +53,7 @@ export class UserSearchInput implements Partial<UserNew> {
 	email: string
 }
 
-InputType()
+@InputType()
 export class UserSearchInputSimple implements Partial<UserNew> {
 	@Field(returns => String )
 	firstName: string
