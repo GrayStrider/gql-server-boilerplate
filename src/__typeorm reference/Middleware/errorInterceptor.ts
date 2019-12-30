@@ -17,12 +17,22 @@ export const ErrorInterceptor2: MiddlewareFn = async (action, next) => {
 	}
 }
 
-export const ErrorInterceptor: MiddlewareFn =
+export const ErrorInterceptor3: MiddlewareFn =
 	async ({context, args, info, root}, next) => {
 	try {
 		return await next()
 	} catch (e) {
 		throw new TypeORMError(e.message, {name: e.name, args})
+		
+	}
+}
+
+export const ErrorInterceptor: MiddlewareFn =
+	async ({context, args, info, root}, next) => {
+	try {
+		return await next()
+	} catch (e) {
+		throw e
 		
 	}
 }
