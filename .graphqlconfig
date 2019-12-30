@@ -1,6 +1,6 @@
 {
-  "name": "Default",
-  "schemaPath": "./src/__testing__/schema.graphql",
+  "name": "type-graphql",
+  "schemaPath": "./src/__tests__/schema.graphql",
   "extensions": {
     "endpoints": {
 
