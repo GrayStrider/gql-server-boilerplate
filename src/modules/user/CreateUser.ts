@@ -20,7 +20,7 @@ function createResolver<T extends ClassType, X extends ClassType>(
 		}
 	}
 	
-	return BaseResolver
+	return BaseResolver as any
 }
 
 @InputType()
