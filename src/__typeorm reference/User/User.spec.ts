@@ -21,7 +21,9 @@ it(`should create new user`, async () => {
   }`)
 	
 	const firstNames = await postQueryTyped<UserNew>(gql`query {
-			users(firstName: "Ivan") {
+			users(searchParameters1: {
+					firstName: "Ivan"
+			}) {
 					firstName
 			}
 	}`)

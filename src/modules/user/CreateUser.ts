@@ -1,5 +1,5 @@
 import {Arg, ClassType, Field, InputType, Mutation, Resolver, UseMiddleware} from 'type-graphql'
-import {Middleware} from 'type-graphql/interfaces/Middleware'
+import {Middleware} from 'type-graphql/dist/interfaces/Middleware'
 import {Product} from '../../entity/Product'
 import {User} from '../../entity/User'
 import {RegisterInput} from './register/RegisterInput'
