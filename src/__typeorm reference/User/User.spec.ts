@@ -25,27 +25,40 @@ it(`should repeat promises`, async () => {
 	
 })
 
+function GQLquote(str: string) {
+	
+	return `"${str}"`
+}
+
+
 it(`should create 50 new users`, async () => {
-  const users = await Promise.all(
-    times(50, (iter) =>
-      postQueryTyped<UserNew>(gql`mutation {
-          userCreate(
-              firstName: "${faker.name.firstName() + iter}",
-              lastName: "${faker.name.lastName()}",
-		          password: "${faker.internet.password()}",
-		          email: "${faker.internet.exampleEmail()}",
-		          country: ${faker.random.arrayElement(Object.keys(Countries))},
-		          age: ${faker.random.number(100)}
-          ) {
-		          id
-		          age
-		          country
-		          createdDate
-		          email
-		          name
-          }
-      }`)))
-	expect(users).toHaveLength(50)
+	const fakes = times(50, num => ({
+		firstName: faker.name.firstName(),
+		lastName : faker.name.lastName(),
+		password : faker.internet.password(),
+		email    : faker.internet.exampleEmail(),
+		country  : faker.random.arrayElement(Object.keys(Countries)),
+		age      : faker.random.number(100)
+	}))
+  const generated = await Promise.all(fakes.map((fake, index) =>
+    postQueryTyped<UserNew>(gql`mutation {
+        userCreate(
+            firstName: "${fake.firstName}",
+            lastName: "${fake.lastName}",
+            password: "${fake.password}",
+            email: "${fake.email}",
+            country: ${fake.country},
+            age: ${fake.age}
+        ) {
+            firstName
+		        lastName
+		        password
+		        email
+		        country
+		        age
+        }
+    }`)))
+	expect(generated).toStrictEqual(fakes)
 
 })
 
@@ -57,8 +70,7 @@ it(`should create new user`, async () => {
           id
       }
   }`)
-
-
+	
 	
 	expect(id).toBeTruthy()
 })
