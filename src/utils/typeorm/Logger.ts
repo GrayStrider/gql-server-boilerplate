@@ -1,5 +1,5 @@
 import {Logger, QueryRunner} from 'typeorm'
-import {Listener} from '../../__typeorm reference/Middleware/errorInterceptor'
+import {DBRequestCounterService} from '../../__typeorm reference/Middleware/DBRequestCounter'
 
 export class CustomLogger implements Logger {
 	
@@ -10,7 +10,7 @@ export class CustomLogger implements Logger {
 	}
 	
 	logQuery(query: string, parameters?: any[], queryRunner?: QueryRunner): any {
-		Listener.connect().increment()
+		DBRequestCounterService.connect().increment()
 	}
 	
 	logQueryError(error: string, query: string, parameters?: any[], queryRunner?: QueryRunner): any {

@@ -1,5 +1,5 @@
 import {buildSchema} from 'type-graphql'
-import {ErrorInterceptor} from '../../__typeorm reference/Middleware/errorInterceptor'
+import {DBRequestCounter} from '../../__typeorm reference/Middleware/DBRequestCounter'
 import {ExampleEntityResolver} from '../../__typeorm reference/Resolver'
 import {UserResolver} from '../../__typeorm reference/User/resolver'
 import {AuthorBookResolver} from '../../modules/author-book/AuthorBookResolver'
@@ -20,7 +20,7 @@ export const createSchema = () =>
 		emitSchemaFile: "./src/__tests__/schema.graphql", // for testing
 		validate: true,
 		// has access only to "exception" error field, as opposed to apollo-server error formatter
-		globalMiddlewares: [ErrorInterceptor],
+		globalMiddlewares: [DBRequestCounter],
 		
 		resolvers  : [
 			UserResolver,
