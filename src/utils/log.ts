@@ -18,3 +18,8 @@ export function printUncaughtError(...msg: any[]) {
 					value, null, 2) : value))
 	})
 }
+
+export function withTime(m: any) {
+	const date = new Date()
+	return `[${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}] ${m}`
+}

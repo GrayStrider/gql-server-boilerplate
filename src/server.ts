@@ -8,6 +8,7 @@ import 'reflect-metadata'
 import {createConnection} from 'typeorm'
 import {dsn, HOST, PORT} from '../config/_consts'
 import {ORMConfig} from '../config/_typeorm'
+import {Listener} from './__typeorm reference/Middleware/errorInterceptor'
 import {redis} from './redis'
 import {formatError} from './utils/apollo, graphql/formatError'
 import {createAuthorsLoader} from './utils/dataloader/authorsLoader'
@@ -113,6 +114,10 @@ export async function main() {
 	}) as ErrorRequestHandler)
 	
 	app.use(errorMiddleware)
+	
+	
+	// initial setup logs
+	Listener.connect().clearCount()
 	
 	return app.listen(PORT, () => {
 		Sentry.captureMessage('Up')

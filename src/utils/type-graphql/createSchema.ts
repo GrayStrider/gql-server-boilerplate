@@ -3,7 +3,7 @@ import {ErrorInterceptor} from '../../__typeorm reference/Middleware/errorInterc
 import {ExampleEntityResolver} from '../../__typeorm reference/Resolver'
 import {UserResolver} from '../../__typeorm reference/User/resolver'
 import {AuthorBookResolver} from '../../modules/author-book/AuthorBookResolver'
-import {TagResolver, TaskResolver} from '../../modules/KBF'
+import {TagResolver, TaskResolver} from '../../modules/KBF/resolvers'
 import {AlbumResolver, PhotoResolver} from '../../modules/Photos'
 import {ChangePasswordResolver} from '../../modules/user/ChangePassword'
 import {ConfirmUserResolver} from '../../modules/user/ConfirmUser'
