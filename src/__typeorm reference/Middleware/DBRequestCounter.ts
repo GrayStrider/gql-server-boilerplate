@@ -14,7 +14,7 @@ export const DBRequestCounter: MiddlewareFn =
 	async ({context, args, info, root}, next) => {
 		try {
 			const res = await next()
-			
+			// sig.debug(`${info.operation.operation}: ${info.fieldName}`)
 			const count = DBRequestCounterService.connect().getCount
 			
 			if (count) {
