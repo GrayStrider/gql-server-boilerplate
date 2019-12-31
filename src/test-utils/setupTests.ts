@@ -1,12 +1,10 @@
+import axios from 'axios'
 import * as http from 'http'
 import {Connection, createConnection, getConnection} from 'typeorm'
-import {HOST, PORT} from '../../config/_consts'
+import {GQL_URL} from '../../config/_consts'
 import {ORMConfig} from '../../config/_typeorm'
 import {main} from '../server'
-import {isUp} from '../utils/isUp'
-import {sig} from '../utils/log'
-
-
+import {log} from '../utils/log'
 
 export async function setupTests() {
 	
@@ -18,18 +16,31 @@ export async function setupTests() {
 	 * If no server running, start the server and then connect
 	 */
 	
-	const url = `http://${HOST}:${PORT}`
-	if (await isUp(url)) {
-		sig.await(`server's up, connecting to database`)
+	
+	if (await isUp(GQL_URL)) {
+		log.await(`server's up, connecting to database`)
 		conn = await createConnection(ORMConfig)
 		server = null
 	} else {
-		sig.await(`${url} is down, starting server`)
+		log.await(`${GQL_URL} is down, starting server`)
 		server = await main()
-		sig.await(`connecting to database`)
+		log.await(`connecting to database`)
 		conn = getConnection()
 	}
-	sig.warn(`resetting database`)
+	log.warn(`resetting database`)
 	await conn.synchronize(true)
 	return {conn, server}
 }
+
+export const isUp = async (url: string): Promise<boolean> =>
+	await axios.get(url)
+		.then(() => true)
+		.catch(err => {
+			if (err.code === 'ECONNREFUSED') {
+				return false
+			} else {
+				log.warn(err.message)
+				return true
+			}
+		})
+

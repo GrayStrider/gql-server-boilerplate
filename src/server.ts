@@ -11,119 +11,93 @@ import {ORMConfig} from '../config/_typeorm'
 import {DBRequestCounterService} from './__typeorm reference/Middleware/DBRequestCounter'
 import {redis} from './redis'
 import {formatError} from './utils/apollo, graphql/formatError'
-import {createAuthorsLoader} from './utils/dataloader/authorsLoader'
 import {errorMiddleware} from './utils/express/errorMiddleware'
-import {HttpException} from './utils/express/HttpException'
-import {sig} from './utils/log'
+import {log} from './utils/log'
 import {createSchema} from './utils/type-graphql/createSchema'
 
 
 export async function main() {
-	
+	// Sentry
 	Sentry.init({dsn})
+	
+	// Express
 	const app = Express()
+	
+	// Sentry Handler
 	app.use(Sentry.Handlers.requestHandler())
-	//================================================================================
-	// DB, Redis
-	//================================================================================
-	sig.await('connecting to db')
+	
+	// Create DB connection
 	const conn = await createConnection(ORMConfig)
 	
+	// Flush if not in production
 	if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
-		sig.warn('resetting the DB')
+		log.warn('resetting the DB')
 		await conn.synchronize(true)
 	}
 	
+	// Connect to Redis
 	const RedisStore = connectRedis(session)
 	
 	//================================================================================
 	// Apollo
 	//================================================================================
 	
-	sig.await('generating schema..')
+	// Initialize Apollo
 	const schema = await createSchema()
-	
 	const apolloServer = new ApolloServer({
 		schema,
 		formatError,
 		context        : (ctx: any) => ctx,
-		validationRules: [
-			// queryComplexity({
-			//   // The maximum allowed query complexity, queries above this threshold will be rejected
-			//   maximumComplexity: 8,
-			//   // The query variables. This is needed because the variables are not available
-			//   // in the visitor of the graphql-js library
-			//   variables: {},
-			//   // Optional callback function to retrieve the determined query complexity
-			//   // Will be invoked weather the query is rejected or not
-			//   // This can be used for logging or to implement rate limiting
-			//   onComplete: (complexity: number) => {
-			//     console.log("Query Complexity:", complexity);
-			//   },
-			//   estimators: [
-			//     // Using fieldConfigEstimator is mandatory to make it work with type-graphql
-			//     fieldConfigEstimator(),
-			//     // This will assign each field a complexity of 1 if no other estimator
-			//     // returned a value. We can define the default value for field not explicitly annotated
-			//     simpleEstimator({
-			//       defaultComplexity: 1
-			//     })
-			//   ]
-			// }) as any
-		]
+		validationRules: []
 	})
 	
 	
-	//================================================================================
-	// Express
-	//================================================================================
+	// Express Middleware
+	app
+		.use(
+			cors({
+				credentials: true,
+				/* origin     : 'http://localhost:3000'*/
+			}))
+		.use(
+			session({
+				store            : new RedisStore({
+					client: redis as any
+				}),
+				name             : 'qid',
+				secret           : 'aslkdfjoiq12312',
+				resave           : false,
+				saveUninitialized: false,
+				cookie           : {
+					httpOnly: true,
+					secure  : process.env.NODE_ENV === 'production',
+					maxAge  : 1000 * 60 * 60 * 24 * 7 * 365 // 7 years
+				}
+			})
+		)
 	
-	app.use(
-		cors({
-			credentials: true,
-			// origin     : 'http://localhost:3000'
-		})
-	)
-	
-	app.use(
-		session({
-			store            : new RedisStore({
-				client: redis as any
-			}),
-			name             : 'qid',
-			secret           : 'aslkdfjoiq12312',
-			resave           : false,
-			saveUninitialized: false,
-			cookie           : {
-				httpOnly: true,
-				secure  : process.env.NODE_ENV === 'production',
-				maxAge  : 1000 * 60 * 60 * 24 * 7 * 365 // 7 years
-			}
-		})
-	)
-	
-	
-	app.get('*', (req, res, next) => {
-		sig.debug(req.session)
-		throw new HttpException(404, 'Not found')
-	})
-	
-	app.use(Sentry.Handlers.errorHandler({
-		shouldHandleError(error: Error): boolean {
-			return true
-		}
-	}) as ErrorRequestHandler)
-	
-	app.use(errorMiddleware)
-	
+	// Add middleware to Apollo
 	apolloServer.applyMiddleware({app, cors: false})
 	
+	// Fallback
+	app.get('*', (req, res) => res.send('Not found'))
+		
+		// Sentry error handler
+		.use(Sentry.Handlers.errorHandler({
+			shouldHandleError(error: Error): boolean {
+				return true
+			}
+		}) as ErrorRequestHandler)
+		
+		// my error handler
+		.use(errorMiddleware)
 	
-	// initial setup logs
+	
+	// flush initial DB setup count
 	DBRequestCounterService.connect().clearCount()
 	
 	return app.listen(PORT, () => {
 		Sentry.captureMessage('Up')
-		sig.success(`server started on http://${HOST}:${PORT}/graphql`)
+		log.success(`server started on http://${HOST}:${PORT}/graphql`)
 	})
 }

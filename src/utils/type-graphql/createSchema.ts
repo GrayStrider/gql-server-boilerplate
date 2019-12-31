@@ -17,7 +17,7 @@ import {RegisterResolver} from '../../modules/user/Register'
 
 export const createSchema = () =>
 	buildSchema({
-		emitSchemaFile: "./src/__tests__/schema.graphql", // for testing
+		emitSchemaFile: "./src/utils/schema.graphql", // for testing
 		validate: true,
 		// has access only to "exception" error field, as opposed to apollo-server error formatter
 		globalMiddlewares: [DBRequestCounter],

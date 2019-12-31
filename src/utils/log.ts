@@ -1,6 +1,6 @@
 import chalk from 'chalk'
 import signale, {Signale} from 'signale'
-export const sig = signale
+export const log = signale
 
 export function warn(...msg: any[]) {
 	msg.forEach((value) => {

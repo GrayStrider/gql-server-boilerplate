@@ -4,7 +4,7 @@ import {times} from 'lodash'
 import {Connection, EntityManager} from 'typeorm'
 import {setupTests} from '../../test-utils/setupTests'
 import {postQueryTyped} from '../../utils/apollo, graphql/postQuery'
-import {sig} from '../../utils/log'
+import {log} from '../../utils/log'
 import {UserNew} from '../entity/User'
 import {Countries} from './CountriesList'
 
