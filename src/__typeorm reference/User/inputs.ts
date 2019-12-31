@@ -36,6 +36,29 @@ export class UserCreateInput implements Partial<UserNew> {
 }
 
 @InputType()
+export class UserModifyInput implements UserCreateInput {
+	@Field({nullable: true})
+	firstName: string
+	
+	@Field({nullable: true})
+	lastName: string
+	
+	@Field(returns => Countries, {nullable: true})
+	country: Countries
+	
+	@IsEmail({}, {message: "Invalid email format"})
+	@Field({nullable: true})
+	email: string
+	
+	@Field({nullable: true})
+	password: string
+	
+	@Field({nullable: true})
+	age: number
+	
+}
+
+@InputType()
 export class UserSearchInput implements Partial<UserNew> {
 	[key: string]: any;
 	

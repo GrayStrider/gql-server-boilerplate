@@ -4,6 +4,7 @@ import {Variables} from 'graphql-request/dist/src/types'
 import {AnyObject} from 'tsdef'
 import {GQL_URL} from '../../../config/_consts'
 import {warn} from '../log'
+import {flattenObject} from '../transform'
 
 
 /**
@@ -17,24 +18,21 @@ import {warn} from '../log'
 
 export async function postQuery<T = Array<{ [key: string]: any }>>(query: ASTNode, mainField?: string, url: string = GQL_URL): Promise<{ [key: string]: T }> {
 	const res: AnyObject = await request(url, print(query))
-		.catch((err) => warn("postQuery: " + err))
 	return mainField ? res?.[mainField] : res
 }
 
 
-import {toArray} from 'lodash'
+export async function gqlRequest<T>(query: ASTNode, variables?: Variables, url?: string): Promise<T>
+export async function gqlRequest<T, K>(query: ASTNode, variables?: Variables, url?: string): Promise<[T, K]>
+export async function gqlRequest<T, K, U>(query: ASTNode, variables?: Variables, url?: string): Promise<[T, K, U]>
 
 
-export async function postQueryTyped<T>(query: ASTNode, variables?: Variables,  url?: string): Promise<T>
-export async function postQueryTyped<T, K>(query: ASTNode, variables?: Variables,  url?: string): Promise<[T, K]>
-export async function postQueryTyped<T, K, U>(query: ASTNode, variables?: Variables,  url?: string): Promise<[T, K, U]>
-
-
-export async function postQueryTyped<T, K, U>(query: ASTNode, variables?: Variables, url: string = GQL_URL) {
-	const res: AnyObject = await request(url, print(query), variables)
-		.catch((err) => warn("postQuery: " + err))
+export async function gqlRequest<T, K, U>(query: ASTNode, variables?: Variables, url: string = GQL_URL) {
+	const res: AnyObject | any[] = await request(url, print(query), variables)
 	
-	return Object.keys(res).length > 1
-		? toArray(res) as any
-		: Object.values(res)[0]
+	
+	// return transform(res)
+	return flattenObject(res)
 }
+
+

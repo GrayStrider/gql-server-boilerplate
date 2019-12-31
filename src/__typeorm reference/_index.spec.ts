@@ -5,7 +5,7 @@ import {Connection, EntityManager, Like} from 'typeorm'
 import {Tag} from '../entity/KBF/Tag'
 import {Task} from '../entity/KBF/Task'
 import {setupTests} from '../test-utils/setupTests'
-import {postQuery, postQueryTyped} from '../utils/apollo, graphql/postQuery'
+import {postQuery, gqlRequest} from '../utils/apollo, graphql/postQuery'
 import {ExampleEntity} from './entity/Entity'
 
 let conn: Connection
@@ -21,7 +21,7 @@ it('should return empty', async () => {
 	expect(tasks).toStrictEqual([[], 0])
 })
 it.skip('should create and fetch entity', async () => {
-  await postQueryTyped<ExampleEntity>(gql`mutation {
+  await gqlRequest<ExampleEntity>(gql`mutation {
       exampleEntityCreateWithValidation(manyOptions: "test 123", validatedName: "test 123") {
           array
       }
@@ -53,7 +53,7 @@ it('direct conditions search', async () => {
 	expect(validatedName).toStrictEqual('test 123')
 })
 it(`should create one task`, async () => {
-  const {tags} = await postQueryTyped<Task>(gql`mutation {
+  const {tags} = await gqlRequest<Task>(gql`mutation {
       taskCreate(title: "task1", tags: ["one", "two"]) {
           createdAt
           tags {
@@ -64,7 +64,7 @@ it(`should create one task`, async () => {
   }`)
 	expect(tags).toStrictEqual([{'title': 'one'}, {'title': 'two'}])
 
-  const [Tags, tasks] = await postQueryTyped<Tag[], Task[]>(gql`{
+  const [Tags, tasks] = await gqlRequest<Tag[], Task[]>(gql`{
       tags {
           title
       }
@@ -92,7 +92,7 @@ it(`should reduce bb`, async () => {
 })
 it.skip(`handle task/tag relations`, async () => {
   // create task with tag, both are present
-  const [task, task2] = await postQueryTyped<Task, Task>(gql`mutation {
+  const [task, task2] = await gqlRequest<Task, Task>(gql`mutation {
       task1: taskCreate(title: "test") {
           id
           title
