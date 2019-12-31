@@ -2,11 +2,11 @@ import {Promise as bb} from 'bluebird'
 import gql from 'graphql-tag'
 import * as http from 'http'
 import {Connection, EntityManager, Like} from 'typeorm'
-import {ExampleEntity} from './Entity'
 import {Tag} from '../entity/KBF/Tag'
 import {Task} from '../entity/KBF/Task'
 import {setupTests} from '../test-utils/setupTests'
 import {postQuery, postQueryTyped} from '../utils/apollo, graphql/postQuery'
+import {ExampleEntity} from './entity/Entity'
 
 let conn: Connection
 let db: EntityManager
@@ -21,7 +21,7 @@ it('should return empty', async () => {
 	expect(tasks).toStrictEqual([[], 0])
 })
 it.skip('should create and fetch entity', async () => {
-  await postQuery(gql`mutation {
+  await postQueryTyped<ExampleEntity>(gql`mutation {
       exampleEntityCreateWithValidation(manyOptions: "test 123", validatedName: "test 123") {
           array
       }
