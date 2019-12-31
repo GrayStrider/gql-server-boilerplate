@@ -17,5 +17,7 @@ export const ORMConfig: PostgresConnectionOptions = {
 		'src/entity/**/!(*.spec.ts)',
 		'src/__typeorm reference/entity/**/!(*.spec.ts)',
 		'src/__typeorm reference/entity/**/!(*.spec.ts)',
+		'src/__dataloader/entity/**/!(*.spec.ts)',
+		'src/__dataloader/entity/**/!(*.spec.ts)',
 	]
 }

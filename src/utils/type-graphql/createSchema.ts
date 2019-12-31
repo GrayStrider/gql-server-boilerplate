@@ -1,4 +1,5 @@
 import {buildSchema} from 'type-graphql'
+import {User1Resolver} from '../../__dataloader/modules/User1'
 import {DBRequestCounter} from '../../__typeorm reference/Middleware/DBRequestCounter'
 import {ExampleEntityResolver} from '../../__typeorm reference/Resolver'
 import {UserResolver} from '../../__typeorm reference/User/resolver'
@@ -26,6 +27,7 @@ export const createSchema = () =>
 			UserResolver,
 			TagResolver,
 			TaskResolver,
+			User1Resolver
 			
 			// ExampleEntityResolver,
 			// PhotoResolver,

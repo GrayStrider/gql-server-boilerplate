@@ -1,7 +1,5 @@
-import {IsEmail} from 'class-validator'
 import {Field, ID, ObjectType, Root} from 'type-graphql'
 import {BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn} from 'typeorm'
-import {IsEmailAlreadyExist} from '../../modules/user/register/isEmailAlreadyExist'
 import {Countries} from '../User/CountriesList'
 
 @ObjectType()
