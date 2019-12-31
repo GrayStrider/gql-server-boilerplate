@@ -46,11 +46,7 @@ export async function main() {
 	const apolloServer = new ApolloServer({
 		schema,
 		formatError,
-		context        : (req: Request, res: Response) => ({
-			req,
-			res,
-			authorsLoader: createAuthorsLoader()
-		}),
+		context        : (ctx: any) => ctx,
 		validationRules: [
 			// queryComplexity({
 			//   // The maximum allowed query complexity, queries above this threshold will be rejected
@@ -77,7 +73,6 @@ export async function main() {
 		]
 	})
 	
-	apolloServer.applyMiddleware({app, cors: false})
 	
 	//================================================================================
 	// Express
@@ -120,6 +115,8 @@ export async function main() {
 	}) as ErrorRequestHandler)
 	
 	app.use(errorMiddleware)
+	
+	apolloServer.applyMiddleware({app, cors: false})
 	
 	
 	// initial setup logs

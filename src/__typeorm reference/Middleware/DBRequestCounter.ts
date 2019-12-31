@@ -17,7 +17,6 @@ export const DBRequestCounter: MiddlewareFn<MyContext> =
 			const res = await next()
 			// sig.debug(`${info.operation.operation}: ${info.fieldName}`)
 			const count = DBRequestCounterService.connect().getCount
-			sig.debug(context.req)
 			if (count) {
 				collect(count)
 			}
