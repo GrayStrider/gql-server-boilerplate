@@ -8,6 +8,7 @@
     "@types/async": "^3.0.3",
     "@types/bluebird": "^3.5.29",
     "@types/chance": "^1.0.8",
+    "@types/signale": "^1.2.1",
     "apollo-server": "^2.9.15",
     "apollo-server-express": "^2.3.1",
     "async": "^3.1.0",
@@ -31,6 +32,7 @@
     "nodemailer": "^5.1.1",
     "pg": "^7.7.1",
     "reflect-metadata": "^0.1.12",
+    "signale": "^1.4.0",
     "type-graphql": "^0.17.6",
     "typedi": "^0.8.0",
     "typeorm": "^0.2.11",
@@ -67,5 +69,18 @@
     "startFile": "ts-node-dev --respawn --transpileOnly --ignore-watch .spec",
     "db:setup": "ts-node ./src/test-utils/setup.ts",
     "test": "npm run db:setup && jest"
+  },
+  "signale": {
+    "displayScope": true,
+    "displayBadge": false,
+    "displayDate": false,
+    "displayFilename": true,
+    "displayLabel": true,
+    "displayTimestamp": true,
+    "underlineLabel": true,
+    "underlineMessage": false,
+    "underlinePrefix": false,
+    "underlineSuffix": false,
+    "uppercaseLabel": false
   }
 }

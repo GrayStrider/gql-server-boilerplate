@@ -1,5 +1,6 @@
 import {Logger, QueryRunner} from 'typeorm'
 import {DBRequestCounterService} from '../../__typeorm reference/Middleware/DBRequestCounter'
+import {sig} from '../log'
 
 export class CustomLogger implements Logger {
 	
@@ -10,6 +11,7 @@ export class CustomLogger implements Logger {
 	}
 	
 	logQuery(query: string, parameters?: any[], queryRunner?: QueryRunner): any {
+		// sig.debug(query)
 		DBRequestCounterService.connect().increment()
 	}
 	

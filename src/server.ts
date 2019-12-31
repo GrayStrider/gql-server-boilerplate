@@ -14,20 +14,28 @@ import {formatError} from './utils/apollo, graphql/formatError'
 import {createAuthorsLoader} from './utils/dataloader/authorsLoader'
 import {errorMiddleware} from './utils/express/errorMiddleware'
 import {HttpException} from './utils/express/HttpException'
+import {sig} from './utils/log'
 import {createSchema} from './utils/type-graphql/createSchema'
+import {Signale} from 'signale'
 
 
 export async function main() {
+	// const sig = new Signale({interactive: true})
+	
+	
 	Sentry.init({dsn})
 	const app = Express()
 	app.use(Sentry.Handlers.requestHandler())
 	//================================================================================
 	// DB, Redis
 	//================================================================================
+	sig.await('connecting to db')
 	const conn = await createConnection(ORMConfig)
 	
-	if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test')
+	if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
+		sig.warn('resetting the DB')
 		await conn.synchronize(true)
+	}
 	
 	const RedisStore = connectRedis(session)
 	
@@ -35,6 +43,7 @@ export async function main() {
 	// Apollo
 	//================================================================================
 	
+	sig.await('generating schema..')
 	const schema = await createSchema()
 	
 	const apolloServer = new ApolloServer({
@@ -76,7 +85,6 @@ export async function main() {
 	//================================================================================
 	// Express
 	//================================================================================
-	
 	
 	app.use(
 		cors({
@@ -121,6 +129,6 @@ export async function main() {
 	
 	return app.listen(PORT, () => {
 		Sentry.captureMessage('Up')
-		console.log(`server started on http://${HOST}:${PORT}/graphql`)
+		sig.success(`server started on http://${HOST}:${PORT}/graphql`)
 	})
 }

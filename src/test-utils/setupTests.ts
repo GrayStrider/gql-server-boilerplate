@@ -4,9 +4,12 @@ import {HOST, PORT} from '../../config/_consts'
 import {ORMConfig} from '../../config/_typeorm'
 import {main} from '../server'
 import {isUp} from '../utils/isUp'
-import {warn} from '../utils/log'
+import {sig} from '../utils/log'
+
+
 
 export async function setupTests() {
+	
 	let conn: Connection
 	let server: http.Server | null
 	jest.setTimeout(30000)
@@ -17,17 +20,16 @@ export async function setupTests() {
 	
 	const url = `http://${HOST}:${PORT}`
 	if (await isUp(url)) {
-		warn(`server's up, connecting to database`)
+		sig.await(`server's up, connecting to database`)
 		conn = await createConnection(ORMConfig)
 		server = null
 	} else {
-		warn(`${url} is down, starting server`)
+		sig.await(`${url} is down, starting server`)
 		server = await main()
-		warn(`connecting to database`)
+		sig.await(`connecting to database`)
 		conn = getConnection()
 	}
-	warn(`resetting database`)
+	sig.warn(`resetting database`)
 	await conn.synchronize(true)
-	
 	return {conn, server}
 }

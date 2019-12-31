@@ -1,9 +1,10 @@
-import faker from "faker"
+import faker from 'faker'
 import gql from 'graphql-tag'
 import {times} from 'lodash'
 import {Connection, EntityManager} from 'typeorm'
 import {setupTests} from '../../test-utils/setupTests'
 import {postQueryTyped} from '../../utils/apollo, graphql/postQuery'
+import {sig} from '../../utils/log'
 import {UserNew} from '../entity/User'
 import {Countries} from './CountriesList'
 
@@ -13,7 +14,6 @@ beforeAll(async () => {
 	({conn} = await setupTests())
 	db = conn.manager
 })
-
 
 describe('Users', async () => {
   it(`should create 50 new users`, async () => {

@@ -1,8 +1,8 @@
 process.env["NODE_CONFIG_DIR"] = __dirname;
 
 import {get} from 'config'
-import {warn} from '../src/utils/log'
-warn("ENV: " + process.env.NODE_ENV)
+import {sig, warn} from '../src/utils/log'
+sig.info("ENV: " + process.env.NODE_ENV)
 export const PORT: string = get('PORT')
 export const HOST: string = get('HOST')
 export const POSTGRES_URL: string = get('postgres.url')

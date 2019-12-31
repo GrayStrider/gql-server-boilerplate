@@ -1,12 +1,14 @@
-import chalk from 'chalk'
 import {debounce} from 'lodash'
 import {MiddlewareFn} from 'type-graphql'
-import {printUncaughtError, withTime} from '../../utils/log'
+import {sig} from '../../utils/log'
 
-const collect = debounce((m) => {
-	console.log(chalk.yellow(withTime(m)))
+
+const collect = debounce((count) => {
+	count > 5
+		? sig.warn(`Many queries: ${count}`)
+		: sig.info(count)
 	DBRequestCounterService.connect().clearCount()
-}, 200, )
+}, 200,)
 
 export const DBRequestCounter: MiddlewareFn =
 	async ({context, args, info, root}, next) => {
@@ -38,7 +40,6 @@ export class DBRequestCounterService {
 	public static connect() {
 		if (!DBRequestCounterService.instance) {
 			DBRequestCounterService.instance = new DBRequestCounterService()
-			console.log(chalk.magenta('- Connected'))
 		}
 		return DBRequestCounterService.instance
 	}
