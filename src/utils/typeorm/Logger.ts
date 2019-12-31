@@ -13,7 +13,7 @@ export class CustomLogger implements Logger {
 	logQuery(query: string, parameters?: any[], queryRunner?: QueryRunner): any {
 		if (query !== 'START TRANSACTION' && query !== 'COMMIT') {
 			const counter = DBRequestCounterService.connect()
-			sig.log( `${counter.getCount + 1 ?? 'N/A'}: ${query}`)
+			// sig.log( `${counter.getCount + 1 ?? 'N/A'}: ${query}`)
 			counter.increment()
 		}
 		

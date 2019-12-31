@@ -1,22 +1,23 @@
 import {debounce} from 'lodash'
 import {MiddlewareFn} from 'type-graphql'
+import {MyContext} from '../../types/MyContext'
 import {sig} from '../../utils/log'
 
 
 const collect = debounce((count) => {
 	count > 5
 		? sig.warn(`Many queries: ${count}`)
-		: sig.info(count)
+		: /*sig.info(count)*/ null
 	DBRequestCounterService.connect().clearCount()
 }, 200,)
 
-export const DBRequestCounter: MiddlewareFn =
+export const DBRequestCounter: MiddlewareFn<MyContext> =
 	async ({context, args, info, root}, next) => {
 		try {
 			const res = await next()
 			// sig.debug(`${info.operation.operation}: ${info.fieldName}`)
 			const count = DBRequestCounterService.connect().getCount
-			
+			sig.debug(context.req)
 			if (count) {
 				collect(count)
 			}

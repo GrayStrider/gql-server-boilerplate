@@ -1,9 +1,10 @@
-import {Args, Mutation, Query, Resolver} from 'type-graphql'
+import {Args, Mutation, Query, Resolver, UseMiddleware} from 'type-graphql'
 import {getConnection} from 'typeorm'
 import {Tag} from '../../entity/KBF/Tag'
 import {Task} from '../../entity/KBF/Task'
 import {Like_} from '../../utils/typeorm/Like'
 import {validateAndSave} from '../../utils/type-graphql/validator'
+import {isAuth} from '../middleware/isAuth'
 import {NewTaskInput, SearchTaskInput} from './inputs'
 import {Promise as bb} from 'bluebird'
 
@@ -11,6 +12,14 @@ import {Promise as bb} from 'bluebird'
 
 @Resolver()
 export class TaskResolver {
+	@UseMiddleware(isAuth)
+	@Query(returns => String)
+	async onlyForAuthorised() {
+		
+		return "Authorised"
+	}
+	
+	
 	@Query(returns => [Task])
 	async testingFind() {
 		return getConnection()

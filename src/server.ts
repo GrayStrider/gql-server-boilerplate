@@ -16,12 +16,9 @@ import {errorMiddleware} from './utils/express/errorMiddleware'
 import {HttpException} from './utils/express/HttpException'
 import {sig} from './utils/log'
 import {createSchema} from './utils/type-graphql/createSchema'
-import {Signale} from 'signale'
 
 
 export async function main() {
-	// const sig = new Signale({interactive: true})
-	
 	
 	Sentry.init({dsn})
 	const app = Express()
@@ -112,6 +109,7 @@ export async function main() {
 	
 	
 	app.get('*', (req, res, next) => {
+		sig.debug(req.session)
 		throw new HttpException(404, 'Not found')
 	})
 	
