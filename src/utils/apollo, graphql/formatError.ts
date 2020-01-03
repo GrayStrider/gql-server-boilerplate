@@ -8,14 +8,14 @@ import {printUncaughtError} from '../log'
 export function formatError(err: GraphQLError) {
 	Sentry.captureException(err)
 	
-	return flow(Augment, ValidatorError)(err)
+	return flow(/*Augment,*/ ValidatorError)(err)
 }
 
 
 function Augment(err: GraphQLError) {
-	if (err.extensions?.code)
-		err.extensions.code = 'LEL FUCKD'
+	if (err.extensions?.code) return String(err.extensions.code).toUpperCase()
 	return err
+	
 }
 
 function ValidatorError(err: GraphQLError) {

@@ -7,6 +7,7 @@ import {LikeWrapper} from '../../utils/typeorm/LikeWrapper'
 import {UserNew} from '../entity/User'
 import {generateMockUsers} from './generateMockUsers'
 import {UserCreateInput, UserModifyInput, UserSearchInput} from './inputs'
+import {truncate} from 'lodash'
 
 @Resolver()
 export class UserResolver {
@@ -45,7 +46,7 @@ export class UserResolver {
 	                 @Arg('userId') userId: string) {
 		const conn = await getConnection()
 		const user = await UserNew.findOne(userId)
-		if (!user) { throw new Error('User not found')}
+		if (!user) { throw new Errors.NotFound(`User ${truncate(userId, {length: 10})} not found`)}
 		/**
 		 * Handle friends
 		 * for each friend in changes,
@@ -73,10 +74,11 @@ export class UserResolver {
 
 
 export const Errors = {
-	Validation: CustomError('ValidationError', 'Unspecified validation error')
+	Validation: CustomError('ValidationError', 'Unspecified validation error'),
+	NotFound: CustomError('NotFound', 'Object not found')
 }
 
-function CustomError(name: string, defaultMessage: string) {
+function CustomError(name: string, defaultMessage: string, code?: string) {
 	return class ExpectedError extends Error {
 		constructor(message: string = defaultMessage) {
 			super(message)
@@ -84,3 +86,4 @@ function CustomError(name: string, defaultMessage: string) {
 		}
 	}
 }
+
