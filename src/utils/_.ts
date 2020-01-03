@@ -27,3 +27,13 @@ async function main() {
 
 // main().catch()
 
+
+//
+function sendResult<T = never>(send: any, result: NoInfer<T>) {
+	send(result);
+}
+sendResult<{test: string}>({foo: 'bar'}, {test: 'foo'})
+
+
+
+type NoInfer<T> = [T][T extends any ? 0 : never];

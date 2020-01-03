@@ -4,7 +4,7 @@ import {Variables} from 'graphql-request/dist/src/types'
 import gql from 'graphql-tag'
 import {AnyObject} from 'tsdef'
 import {GQL_URL} from '../../../config/_consts'
-import {Query} from '../../types/generated/graphql'
+import {Mutation, Query} from '../../types/generated/graphql'
 import {flattenObject} from '../transform'
 
 
@@ -37,18 +37,19 @@ export async function gqlRequest<T, K, U>(query: ASTNode, variables?: Variables,
 }
 
 
-export async function gqlreq<T extends keyof Omit<Query, '__typename'>, R extends Query[T], V extends AnyObject>
+type keyofQuery = keyof Omit<Query, '__typename'>
+type keyofMutation = keyof Omit<Mutation, '__typename'>
+
+// single query
+export async function gqlreq<T extends keyofQuery, R extends Query[T], V extends AnyObject>
 (type: 'query', obj: T, query: ASTNode, variables?: V, url?: string): Promise<R>
-// export async function gqlreq<T, K>(query: ASTNode, variables?: Variables, url?: string): Promise<[T, K]>
-// export async function gqlreq<T, K, U>(query: ASTNode, variables?: Variables, url?: string): Promise<[T, K, U]>
-//
-//
-export async function gqlreq<T extends keyof Omit<Query, '__typename'>, R extends Query[T], V extends AnyObject>
-(type: 'query', obj: keyof Omit<Query, '__typename'>, query: ASTNode, variables?: V, url: string = GQL_URL) {
-	const res: AnyObject | any[] = await request(url, print(query), variables)
-	
-	
-	// return transform(res)
+
+// single mutation
+export async function gqlreq<T extends keyofMutation, R extends Mutation[T], V extends AnyObject>
+(type: 'mutation', obj: T, query: ASTNode, variables?: V, url?: string): Promise<R>
+
+export async function gqlreq(type: 'query' | 'mutation', obj: keyofMutation | keyofQuery, query: ASTNode, variables?: AnyObject, url: string = GQL_URL) {
+	const res = await request(url, print(query), variables)
 	return flattenObject(res)
 }
 
@@ -61,15 +62,27 @@ async function main() {
               }
           }`,
 		{startAt: 30}
-  ).then(res => res.items.map((item) => item.name))
+  ).then(res => res.items.map((item) => item.createdDate))
+
+  //TODO error
+  const foo = await gqlreq('mutation', 'taskCreate', gql` mutation {
+      userModify(userId: "", changes: {}) {
+          age
+      }
+  }`) as unknown as {users: Query['users'], tasks: Query['tasks']}
+	
+	foo.users.map(user => user.name)
+	foo.tasks.map(task => task.description)
+
+  gqlreq('mutation', 'taskCreate', gql`query {
+      users {
+          age
+      }
+  }`).then(task => task.description)
+
+  gqlreq('query', 'tasks', gql`query {
+      tasks {
+          id
+      }
+  }`)
 }
-
-//
-function sendResult<T = never>(send: any, result: NoInfer<T>) {
-	send(result);
-}
-sendResult<{test: string}>({foo: 'bar'}, {test: 'foo'})
-
-
-
-type NoInfer<T> = [T][T extends any ? 0 : never];
