@@ -2,6 +2,8 @@ import {Field, ID, ObjectType, Root} from 'type-graphql'
 import {BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from 'typeorm'
 import {Countries} from '../User/CountriesList'
 
+export type TUserNew = typeof UserNew & {friends: UserNew[]}
+
 @ObjectType()
 @Entity()
 export class UserNew extends BaseEntity {
