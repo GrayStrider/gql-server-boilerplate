@@ -52,10 +52,10 @@ export class UserNew extends BaseEntity {
 	
 	@JoinTable()
 	@ManyToMany(type => UserNew, friends => friends.friendsInverse, {cascade: ["insert", "update"]})
-	@Field(returns => [UserNew], {nullable: true})
+	// @Field(returns => [UserNew], {nullable: true})
 	friendsPrimary: UserNew[]
 	
-	@Field(returns => [UserNew])
+	// @Field(returns => [UserNew])
 	@ManyToMany(type => UserNew, friends => friends.friendsPrimary)
 	friendsInverse: UserNew[]
 }

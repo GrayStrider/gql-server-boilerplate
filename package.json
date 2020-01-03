@@ -44,6 +44,11 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.10.0",
+    "@graphql-codegen/introspection": "1.10.0",
+    "@graphql-codegen/typescript": "1.10.0",
+    "@graphql-codegen/typescript-document-nodes": "1.10.0",
+    "@graphql-codegen/typescript-resolvers": "1.10.0",
     "@sentry/typescript": "^5.10.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/config": "^0.0.36",
@@ -71,7 +76,8 @@
     "start": "ts-node-dev --respawn --transpileOnly --ignore-watch .spec src/index.ts",
     "startFile": "ts-node-dev --respawn --transpileOnly --ignore-watch .spec",
     "db:setup": "ts-node ./src/test-utils/setup.ts",
-    "test": "npm run db:setup && jest"
+    "test": "npm run db:setup && jest",
+    "codegen": "graphql-codegen"
   },
   "signale": {
     "displayScope": true,
