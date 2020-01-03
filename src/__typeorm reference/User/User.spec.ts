@@ -1,13 +1,15 @@
 import * as faker from 'faker'
 import gql from 'graphql-tag'
-import {omit} from 'lodash'
+import {omit, times, flow} from 'lodash'
 import {Connection, EntityManager} from 'typeorm'
 import {setupTests} from '../../test-utils/setupTests'
 import {Await} from '../../types/Await'
 import {gqlRequest} from '../../utils/apollo, graphql/postQuery'
-import {PaginatedUserResponse} from '../../utils/type-graphql/paginatedResponse'
-import {UserNew} from '../entity/User'
+import {TPaginatedRes, PaginatedUserResponse} from '../../utils/type-graphql/paginatedResponse'
+import {UserNew, TUserNew} from '../entity/User'
 import {generateMockUsers} from './generateMockUsers'
+import R, {add, chain, compose, defaultTo, head, map, nth, pick, pipe, prop, take} from 'ramda'
+import arrayContaining = jasmine.arrayContaining
 
 let conn: Connection
 let db: EntityManager
@@ -23,8 +25,6 @@ beforeAll(async () => {
 	
 })
 
-import {times} from 'lodash'
-
 describe('Users', async () => {
 	it(`should create ${SAMPLE_SIZE} new users`, async () => {
 		
@@ -33,7 +33,7 @@ describe('Users', async () => {
 			.toStrictEqual(fakes)
 		
 	})
-  it(`should create new user`, async () => {
+  it(`new user`, async () => {
 
     const {id} = await gqlRequest<UserNew>(gql`mutation {
         userCreate(userData: {
@@ -59,76 +59,135 @@ describe('Users', async () => {
 		expect(firstNames[0].firstName).toStrictEqual('Ivan')
 
   })
-  it(`should modify user`, async () => {
-    const id = await gqlRequest<UserNew[]>(gql`{
-        users(searchBy: {lastName: "Zhoga"}) {
-            id
-        }
-    }`).then(value => value.map((user) => user.id)[0])
-    await gqlRequest(gql`mutation {
-        userModify(userId: "${id}", changes: {
-            country: Algeria
-        }) {
-            country
-        }
-    }`)
-    const country = await gqlRequest<UserNew[]>(gql`{
-        users(searchBy: {lastName: "Zhoga"}) {
-            country
-        }
-    }`).then(value => value.map(value1 => value1.country)[0])
-		expect(country).toBe('Algeria')
+  it.skip(`should add friends at random`, async () => {
+    // TODO faker picks duplicate keys, have to be exhaustive
 
-
-  })
-
-  describe('pagination', async () => {
-    const query = gql`query pagination($upTo: Float, $startAt: Float) {
-        usersPaginated(upTo: $upTo, startAt: $startAt) {
-            items {
-                id
-                name
-            }
-        }
-    }`
-		
-		it(`with up to`, async () => {
-			
-			const res = await gqlRequest<PaginatedUserResponse>(query, {upTo: 10})
-				.then((res) => res.items)
-			
-			expect(res).toHaveLength(10)
-		})
-		it(`with both variables`, async () => {
-			const res = await gqlRequest<PaginatedUserResponse>(query, {upTo: 10, startAt: 50})
-				.then((res) => res.items)
-			
-			expect(res).toHaveLength(1)
-		})
-    // everything else tested manually, have to track movement of id's here
-
-  })
-
-
-  it(`should add friends`, async () => {
     const userIds = await gqlRequest<UserNew[]>(gql`{
         users {
             id
         }
     }`).then(value => value.map((user) => user.id))
-  
-    const randomHalf = times(SAMPLE_SIZE / 2, () =>
-      faker.random.arrayElement(userIds))
-    
-    Promise.all(randomHalf.map((id) => {
-      gqlRequest(gql`mutation {
-        userModify(userId: "${id}", changes: {age: 100}) {
-          age
+		
+		const randomUserIds = times(SAMPLE_SIZE / 2,
+			() => faker.random.arrayElement(userIds))
+		
+		const randomFriendIds = times(faker.random.number({min: 0, max: 10}),
+			() => faker.random.arrayElement(userIds))
+		
+		console.log(randomFriendIds)
+    const users = await Promise.all(randomUserIds.map((id) =>
+    gqlRequest<UserNew>(gql`mutation modify($friends: [String!]) {
+        userModify(
+            userId: "${id}",
+            changes: {
+                friendsIds: $friends
+            }) {
+            friends {
+                id
+                name
+            }
         }
+    }`, {friends: randomFriendIds})))
+
+    const res = await gqlRequest<UserNew[]>(gql`query {
+        users {
+            id
+            friends {
+                id
+            }
+        }
+    }`)
+		.then(users => users.filter(user => randomUserIds.includes(user.id)))
+		.then(users => users.map((user) => user.friendsPrimary))
+		
+		expect(res).toStrictEqual([])
+  })
+
+  describe('modify', async () => {
+		let testUserId: string
+
+    it(`should modify Country`, async () => {
+			testUserId = await gqlRequest<UserNew[]>(gql`{
+          users(searchBy: {lastName: "Zhoga"}) {
+              id
+          }
+      }`).then(value => value.map((user) => user.id)[0])
+
+      await gqlRequest(gql`mutation {
+          userModify(userId: "${testUserId}", changes: {
+              country: Algeria
+          }) {
+              country
+          }
       }`)
-    }))
-  
-  
+      // probably excessive to fetch afer mutation...
+      const country = await gqlRequest<UserNew[]>(gql`{
+          users(searchBy: {lastName: "Zhoga"}) {
+              country
+          }
+      }`).then(value => value.map(value1 => value1.country)[0])
+			expect(country).toBe('Algeria')
+    })
+
+    it(`should add friends`, async () => {
+			const r = faker.random.number
+      const randomIds = await gqlRequest<TPaginatedRes<UserNew>>(gql`query {
+          usersPaginated(
+              startAt: ${r({min: 0, max: SAMPLE_SIZE})},
+              upTo: ${r({min: 0, max: SAMPLE_SIZE})}) {
+              items {
+                  id
+              }
+          }
+      }`)
+      .then(pipe(prop('items'), map(prop('id'))))
+			expect(Array.isArray(randomIds)).toBeTruthy()
+	    
+      const addedFriendsIdsFromResponse =
+      await gqlRequest<TUserNew>(gql`mutation m($friends: [String!]){
+			    userModify(userId: "${testUserId}", changes: {
+					    friendsIds: $friends
+					    firstName: "Modified"
+			    }) {
+					    name
+					    friends {
+							    id
+					    }
+			    }
+	    }`, {friends: randomIds})
+      
+      .then(pipe(prop("friends"), map(prop('id'))))
+	
+	    expect(addedFriendsIdsFromResponse).toEqual(arrayContaining(randomIds))
+
+    })
   })
 })
 
+
+describe('pagination', async () => {
+  const query = gql`query pagination($upTo: Float, $startAt: Float) {
+      usersPaginated(upTo: $upTo, startAt: $startAt) {
+          items {
+              id
+              name
+          }
+      }
+  }`
+	
+	it(`with up to`, async () => {
+		
+		const res = await gqlRequest<TPaginatedRes<UserNew>>(query, {upTo: 10})
+			.then((res) => res.items)
+		
+		expect(res).toHaveLength(10)
+	})
+	it(`with both variables`, async () => {
+		const res = await gqlRequest<TPaginatedRes<UserNew>>(query, {upTo: 10, startAt: 50})
+			.then((res) => res.items)
+		
+		expect(res).toHaveLength(1)
+	})
+  // everything else tested manually, have to track movement of id's here
+
+})

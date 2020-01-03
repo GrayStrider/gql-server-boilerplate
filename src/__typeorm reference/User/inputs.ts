@@ -14,7 +14,7 @@ updateItem(id: Int!, userId: Int!): Item!
  */
 
 @InputType()
-export class UserCreateInput implements Partial<UserNew> {
+export class UserCreateInput {
 	@Field()
 	firstName: string
 	
@@ -33,6 +33,9 @@ export class UserCreateInput implements Partial<UserNew> {
 	
 	@Field()
 	age: number
+	
+	@Field(returns => [String], {nullable: true})
+	friendsIds: string[]
 }
 
 @InputType()
@@ -56,11 +59,17 @@ export class UserModifyInput implements UserCreateInput {
 	@Field({nullable: true})
 	age: number
 	
+	@Field(returns => [String], {nullable: true})
+	friendsIds: string[]
+	
 }
 
 @InputType()
 export class UserSearchInput implements Partial<UserNew> {
 	[key: string]: any;
+	
+	@Field({nullable: true})
+	id: string
 	
 	@Field({nullable: true})
 	firstName: string

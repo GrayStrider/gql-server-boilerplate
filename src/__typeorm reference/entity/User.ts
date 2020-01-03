@@ -1,5 +1,5 @@
 import {Field, ID, ObjectType, Root} from 'type-graphql'
-import {BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn} from 'typeorm'
+import {BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from 'typeorm'
 import {Countries} from '../User/CountriesList'
 
 @ObjectType()
@@ -41,4 +41,19 @@ export class UserNew extends BaseEntity {
 	name(@Root() parent: UserNew): string {
 		return `${parent.firstName}${parent.lastName ? ' ' + parent.lastName : ''}`
 	}
+	
+	@Field(returns => [UserNew], {nullable: true})
+	friends(): UserNew[] {
+		
+		return [...(this.friendsPrimary ?? []), ...(this.friendsInverse ?? [])]
+	}
+	
+	@JoinTable()
+	@ManyToMany(type => UserNew, friends => friends.friendsInverse, {cascade: ["insert", "update"]})
+	@Field(returns => [UserNew], {nullable: true})
+	friendsPrimary: UserNew[]
+	
+	@Field(returns => [UserNew])
+	@ManyToMany(type => UserNew, friends => friends.friendsPrimary)
+	friendsInverse: UserNew[]
 }
