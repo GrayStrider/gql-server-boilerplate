@@ -10,6 +10,7 @@
     "@types/chance": "^1.0.8",
     "@types/ramda": "^0.26.39",
     "@types/signale": "^1.2.1",
+    "apollo-client": "^2.6.8",
     "apollo-server": "^2.9.15",
     "apollo-server-express": "^2.3.1",
     "async": "^3.1.0",

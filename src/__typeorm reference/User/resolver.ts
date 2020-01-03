@@ -8,6 +8,9 @@ import {UserNew} from '../entity/User'
 import {generateMockUsers} from './generateMockUsers'
 import {UserCreateInput, UserModifyInput, UserSearchInput} from './inputs'
 import {truncate} from 'lodash'
+import { UserInputError, ApolloError } from 'apollo-server'
+
+const userNotFoundError = (id: string) => new Errors.NotFound(`User ${truncate(id, {length: 10})} not found`)
 
 @Resolver()
 export class UserResolver {
@@ -46,7 +49,7 @@ export class UserResolver {
 	                 @Arg('userId') userId: string) {
 		const conn = await getConnection()
 		const user = await UserNew.findOne(userId)
-		if (!user) { throw new Errors.NotFound(`User ${truncate(userId, {length: 10})} not found`)}
+		if (!user) { throw userNotFoundError(userId)}
 		/**
 		 * Handle friends
 		 * for each friend in changes,
@@ -59,7 +62,7 @@ export class UserResolver {
 		const friends = friendsIds ? await bb.reduce(friendsIds,
 			async (total: UserNew[], id) => {
 				const user = await UserNew.findOne(id)
-				if (!user) { throw new Error(`User ${id} not found`)}
+				if (!user) { throw userNotFoundError(id)}
 				return [...total, user]
 			}, []
 		) : undefined
@@ -74,15 +77,14 @@ export class UserResolver {
 
 
 export const Errors = {
-	Validation: CustomError('ValidationError', 'Unspecified validation error'),
-	NotFound: CustomError('NotFound', 'Object not found')
+	Validation: CustomError('VALIDATION_ERROR', 'Unspecified validation error'),
+	NotFound: CustomError('NOT_FOUND', 'Object not found')
 }
 
-function CustomError(name: string, defaultMessage: string, code?: string) {
-	return class ExpectedError extends Error {
+function CustomError(code: string, defaultMessage: string) {
+	return class ExpectedError extends ApolloError {
 		constructor(message: string = defaultMessage) {
-			super(message)
-			this.name = name
+			super(message, code)
 		}
 	}
 }
