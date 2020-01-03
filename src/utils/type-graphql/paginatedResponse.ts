@@ -2,6 +2,15 @@ import {ClassType, Field, Int, ObjectType} from 'type-graphql'
 import {UserNew} from '../../__typeorm reference/entity/User'
 import {User} from '../../entity/User'
 
+
+export interface TPaginatedRes<TItem> {
+	items: TItem[];
+	
+	total: number;
+	
+	hasMore: boolean;
+}
+
 export default function PaginatedResponse<TItem>(TItemClass: ClassType<TItem>) {
 	// `isAbstract` decorator option is mandatory to prevent registering in schema
 	@ObjectType({ isAbstract: true })
@@ -20,7 +29,6 @@ export default function PaginatedResponse<TItem>(TItemClass: ClassType<TItem>) {
 
 @ObjectType()
 export class PaginatedUserResponse extends PaginatedResponse(UserNew) {
-	// we can freely add more fields or overwrite the existing one's types
-	// @Field(type => [String])
-	// otherInfo: string[];
+
+
 }
