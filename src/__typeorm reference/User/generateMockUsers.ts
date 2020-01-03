@@ -1,8 +1,8 @@
 import faker from 'faker'
 import gql from 'graphql-tag'
 import {times} from 'lodash'
+import {UserNew} from '../../generated/graphql'
 import {gqlRequest} from '../../utils/apollo, graphql/postQuery'
-import {TUserNew, UserNew} from '../entity/User'
 import {Countries} from './CountriesList'
 
 export async function generateMockUsers(amount: number) {
@@ -29,7 +29,7 @@ export async function generateMockUsers(amount: number) {
       }
   }`
 	const generated = await Promise.all(fakes.map((fake) =>
-		gqlRequest<TUserNew>(query, {input: fake})))
+		gqlRequest<UserNew>(query, {input: fake})))
 	
 	return {
 		fakes,

@@ -44,7 +44,7 @@ export class UserNew extends BaseEntity {
 		return `${parent.firstName}${parent.lastName ? ' ' + parent.lastName : ''}`
 	}
 	
-	@Field(returns => [UserNew], {nullable: true})
+	@Field(returns => [UserNew])
 	friends(): UserNew[] {
 		
 		return [...(this.friendsPrimary ?? []), ...(this.friendsInverse ?? [])]

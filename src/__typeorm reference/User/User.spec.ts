@@ -1,14 +1,13 @@
 import * as faker from 'faker'
 import gql from 'graphql-tag'
-import {omit, times, flow} from 'lodash'
+import {omit, times} from 'lodash'
+import {map, pipe, prop} from 'ramda'
 import {Connection, EntityManager} from 'typeorm'
+import {PaginatedUserResponse, UserNew} from '../../generated/graphql'
 import {setupTests} from '../../test-utils/setupTests'
 import {Await} from '../../types/Await'
 import {gqlRequest} from '../../utils/apollo, graphql/postQuery'
-import {TPaginatedRes, PaginatedUserResponse} from '../../utils/type-graphql/paginatedResponse'
-import {UserNew, TUserNew} from '../entity/User'
 import {generateMockUsers} from './generateMockUsers'
-import R, {add, chain, compose, defaultTo, head, map, nth, pick, pipe, prop, take} from 'ramda'
 import arrayContaining = jasmine.arrayContaining
 
 let conn: Connection
@@ -98,7 +97,7 @@ describe('Users', async () => {
         }
     }`)
 		.then(users => users.filter(user => randomUserIds.includes(user.id)))
-		.then(users => users.map((user) => user.friendsPrimary))
+		.then(users => users.map((user) => user.friends))
 		
 		expect(res).toStrictEqual([])
   })
@@ -131,7 +130,7 @@ describe('Users', async () => {
 
     it(`should add friends`, async () => {
 			const r = faker.random.number
-      const randomIds = await gqlRequest<TPaginatedRes<UserNew>>(gql`query {
+      const randomIds = await gqlRequest<PaginatedUserResponse>(gql`query {
           usersPaginated(
               startAt: ${r({min: 0, max: SAMPLE_SIZE})},
               upTo: ${r({min: 0, max: SAMPLE_SIZE})}) {
@@ -144,7 +143,7 @@ describe('Users', async () => {
 			expect(Array.isArray(randomIds)).toBeTruthy()
 	    
       const addedFriendsIdsFromResponse =
-      await gqlRequest<TUserNew>(gql`mutation m($friends: [String!]){
+      await gqlRequest<UserNew>(gql`mutation m($friends: [String!]){
 			    userModify(userId: "${testUserId}", changes: {
 					    friendsIds: $friends
 					    firstName: "Modified"
@@ -177,13 +176,13 @@ describe('pagination', async () => {
 	
 	it(`with up to`, async () => {
 		
-		const res = await gqlRequest<TPaginatedRes<UserNew>>(query, {upTo: 10})
+		const res = await gqlRequest<PaginatedUserResponse>(query, {upTo: 10})
 			.then((res) => res.items)
 		
 		expect(res).toHaveLength(10)
 	})
 	it(`with both variables`, async () => {
-		const res = await gqlRequest<TPaginatedRes<UserNew>>(query, {upTo: 10, startAt: 50})
+		const res = await gqlRequest<PaginatedUserResponse>(query, {upTo: 10, startAt: 50})
 			.then((res) => res.items)
 		
 		expect(res).toHaveLength(1)
