@@ -6,7 +6,7 @@ import Express, {ErrorRequestHandler} from 'express'
 import session from 'express-session'
 import 'reflect-metadata'
 import {createConnection} from 'typeorm'
-import {dsn, HOST, PORT} from '../config/_consts'
+import {APOLLO_ENGINE_API_KEY, dsn, HOST, PORT} from '../config/_consts'
 import {ORMConfig} from '../config/_typeorm'
 import {DBRequestCounterService} from './__typeorm reference/Middleware/DBRequestCounter'
 import {redis} from './redis'
@@ -48,7 +48,10 @@ export async function main() {
 		schema,
 		formatError,
 		context        : (ctx: any) => ctx,
-		validationRules: []
+		validationRules: [],
+		engine: {
+			apiKey: /*"service:gs-playground:nxu7GrQcuV5ESD0T_lLYvQ"*/APOLLO_ENGINE_API_KEY,
+		}
 	})
 	
 	

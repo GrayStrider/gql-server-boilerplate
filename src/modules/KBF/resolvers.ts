@@ -8,6 +8,12 @@ import {isAuth} from '../middleware/isAuth'
 import {NewTaskInput, SearchTaskInput} from './inputs'
 import {Promise as bb} from 'bluebird'
 
+// TODO recommended to implement this for every mutation, kinda makes sense.
+export interface MutationResponse {
+	code: string
+	success: boolean
+	message: string
+}
 
 
 @Resolver()
@@ -67,3 +73,4 @@ export class TagResolver {
 	async tags() {return await Tag.find({relations: ['tasks']})}
 	
 }
+

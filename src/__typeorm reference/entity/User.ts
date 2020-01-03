@@ -3,7 +3,6 @@ import {BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, Pri
 import {howCommonIsName} from '../../utils/_'
 import {Countries} from '../User/CountriesList'
 
-export type TUserNew = typeof UserNew & {friends: UserNew[]}
 
 const UserDescription = `Unique user ID.
 This field suppports **formatting** and [links](https://google.com).`
@@ -38,15 +37,21 @@ export class UserNew extends BaseEntity {
 	@CreateDateColumn()
 	@Field()
 	createdDate: string
-	
+	@Field(returns => Countries)
+	@Column({type: 'enum', enum: Countries})
+	country: Countries
+	@JoinTable()
+	@ManyToMany(type => UserNew, friends => friends.friendsInverse, {cascade: ['insert', 'update']})
+		// @Field(returns => [UserNew], {nullable: true})
+	friendsPrimary: UserNew[]
+	// @Field(returns => [UserNew])
+	@ManyToMany(type => UserNew, friends => friends.friendsPrimary)
+	friendsInverse: UserNew[]
+
 	@Field(returns => String)
 	async howCommonIsName() {
 		return await howCommonIsName(this.firstName, this.lastName)
 	}
-	
-	@Field(returns => Countries)
-	@Column({type: 'enum', enum: Countries})
-	country: Countries
 	
 	@Field({complexity: 3})
 	name(@Root() parent: UserNew): string {
@@ -59,12 +64,8 @@ export class UserNew extends BaseEntity {
 		return [...(this.friendsPrimary ?? []), ...(this.friendsInverse ?? [])]
 	}
 	
-	@JoinTable()
-	@ManyToMany(type => UserNew, friends => friends.friendsInverse, {cascade: ["insert", "update"]})
-	// @Field(returns => [UserNew], {nullable: true})
-	friendsPrimary: UserNew[]
+	// @Field()
+	// @Directive('lowercase')
+	// deprecated: string
 	
-	// @Field(returns => [UserNew])
-	@ManyToMany(type => UserNew, friends => friends.friendsPrimary)
-	friendsInverse: UserNew[]
 }
