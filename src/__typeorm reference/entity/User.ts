@@ -1,14 +1,18 @@
 import {Field, ID, ObjectType, Root} from 'type-graphql'
 import {BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from 'typeorm'
+import {howCommonIsName} from '../../utils/_'
 import {Countries} from '../User/CountriesList'
 
 export type TUserNew = typeof UserNew & {friends: UserNew[]}
+
+const UserDescription = `Unique user ID.
+This field suppports **formatting** and [links](https://google.com).`
 
 @ObjectType()
 @Entity()
 export class UserNew extends BaseEntity {
 	@PrimaryGeneratedColumn('uuid')
-	@Field(returns => ID)
+	@Field(returns => ID, {description: UserDescription})
 	id: string
 	
 	@Field()
@@ -34,6 +38,11 @@ export class UserNew extends BaseEntity {
 	@CreateDateColumn()
 	@Field()
 	createdDate: string
+	
+	@Field(returns => String)
+	async howCommonIsName() {
+		return await howCommonIsName(this.firstName, this.lastName)
+	}
 	
 	@Field(returns => Countries)
 	@Column({type: 'enum', enum: Countries})
