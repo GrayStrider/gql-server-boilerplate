@@ -16,7 +16,7 @@ import {Like} from 'typeorm'
 export function LikeWrapper(input: AnyObject) {
 	for (let field in input) {
 		if (input.hasOwnProperty(field)) {
-			if (typeof input[field] === 'string') {
+			if (typeof input[field] === 'string' && field !== 'id') {
 				input[field] = Like(`%${input[field]}%`)
 			}
 		}
