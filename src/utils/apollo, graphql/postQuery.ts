@@ -4,8 +4,7 @@ import {Variables} from 'graphql-request/dist/src/types'
 import gql from 'graphql-tag'
 import {AnyObject} from 'tsdef'
 import {GQL_URL} from '../../../config/_consts'
-import {Query} from '../../generated/graphql'
-import {warn} from '../log'
+import {Query} from '../../types/generated/graphql'
 import {flattenObject} from '../transform'
 
 
@@ -38,13 +37,14 @@ export async function gqlRequest<T, K, U>(query: ASTNode, variables?: Variables,
 }
 
 
-export async function gqlreq<T extends keyof Omit<Query, '__typename'>, R extends Query[T]>
-(type: "query", obj: T, query: ASTNode, variables?: Variables, url?: string): Promise<R>
+export async function gqlreq<T extends keyof Omit<Query, '__typename'>, R extends Query[T], V extends AnyObject>
+(type: 'query', obj: T, query: ASTNode, variables?: V, url?: string): Promise<R>
 // export async function gqlreq<T, K>(query: ASTNode, variables?: Variables, url?: string): Promise<[T, K]>
 // export async function gqlreq<T, K, U>(query: ASTNode, variables?: Variables, url?: string): Promise<[T, K, U]>
 //
 //
-export async function gqlreq(type: "query", obj: keyof Omit<Query, '__typename'>, query: ASTNode, variables?: Variables, url: string = GQL_URL) {
+export async function gqlreq<T extends keyof Omit<Query, '__typename'>, R extends Query[T], V extends AnyObject>
+(type: 'query', obj: keyof Omit<Query, '__typename'>, query: ASTNode, variables?: V, url: string = GQL_URL) {
 	const res: AnyObject | any[] = await request(url, print(query), variables)
 	
 	
@@ -52,9 +52,24 @@ export async function gqlreq(type: "query", obj: keyof Omit<Query, '__typename'>
 	return flattenObject(res)
 }
 
-interface Test {
-	foo: string
-	bar?: number
+async function main() {
+  gqlreq('query', 'usersPaginated', gql`{
+              usersPaginated {
+                  items {
+                      id
+                  }
+              }
+          }`,
+		{startAt: 30}
+  ).then(res => res.items.map((item) => item.name))
 }
 
-gqlreq('query', 'usersPaginated', gql``).then(res => res.items.map((item) => item.name))
+//
+function sendResult<T = never>(send: any, result: NoInfer<T>) {
+	send(result);
+}
+sendResult<{test: string}>({foo: 'bar'}, {test: 'foo'})
+
+
+
+type NoInfer<T> = [T][T extends any ? 0 : never];

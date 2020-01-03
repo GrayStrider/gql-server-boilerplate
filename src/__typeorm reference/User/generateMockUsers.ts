@@ -1,7 +1,7 @@
 import faker from 'faker'
 import gql from 'graphql-tag'
 import {times} from 'lodash'
-import {UserNew} from '../../generated/graphql'
+import {UserNew} from '../../types/generated/graphql'
 import {gqlRequest} from '../../utils/apollo, graphql/postQuery'
 import {Countries} from './CountriesList'
 
