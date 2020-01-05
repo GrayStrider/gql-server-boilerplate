@@ -4,6 +4,7 @@ import {times} from 'lodash'
 import {Mutation} from '../../types/generated/graphql'
 import {P} from '../../types/GetOnePropertyOfType'
 import {gqlRequest} from '../../utils/apollo, graphql/postQuery'
+import {bb} from '../../utils/libsExport'
 import {Countries} from './CountriesList'
 
 export async function generateMockUsers(amount: number) {
@@ -13,15 +14,15 @@ export async function generateMockUsers(amount: number) {
 		password : faker.internet.password(),
 		email    : faker.internet.exampleEmail(),
 		country  : faker.random.arrayElement(Object.keys(Countries)),
-		age      : faker.random.number(100)
+		age      : faker.random.number(100),
 	}))
-
-	const generated = await Promise.all(fakes.map(fake =>
+	
+	const generated = await bb.all(fakes.map(fake =>
 		gqlRequest<P<Mutation, 'userCreate'>>(query, {input: fake})))
 	
 	return {
 		fakes,
-		generated
+		generated,
 	}
 }
 
@@ -38,5 +39,5 @@ const query = gql`mutation userCreate($input: UserCreateInput!) {
     }
 }`
 
-
-
+const foo = () => new bb((resolve, reject, onCancel) =>
+	resolve(1))

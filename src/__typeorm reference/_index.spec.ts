@@ -1,4 +1,3 @@
-import {Promise as bb} from 'bluebird'
 import gql from 'graphql-tag'
 import * as http from 'http'
 import {Connection, EntityManager, Like} from 'typeorm'
@@ -6,6 +5,7 @@ import {Tag} from '../entity/KBF/Tag'
 import {Task} from '../entity/KBF/Task'
 import {setupTests} from '../test-utils/setupTests'
 import {postQuery, gqlRequest} from '../utils/apollo, graphql/postQuery'
+import {bb} from '../utils/libsExport'
 import {ExampleEntity} from './entity/Entity'
 
 let conn: Connection

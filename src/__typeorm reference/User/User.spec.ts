@@ -1,7 +1,7 @@
 import * as faker from 'faker'
 import gql from 'graphql-tag'
 import {times} from 'lodash'
-import {map, omit, pipe, prop, then} from 'ramda'
+import R, {filter, head, includes, map, omit, pipe, prop} from 'ramda'
 import {Connection, EntityManager} from 'typeorm'
 import {setupTests} from '../../test-utils/setupTests'
 import {Await} from '../../types/Await'
@@ -64,8 +64,8 @@ describe('Users', async () => {
 		
 		const randomUserIds = times(SAMPLE_SIZE / 2,
 			() => faker.random.arrayElement(userIds))
-		
-		const randomFriendIds = times(faker.random.number({min: 0, max: 10}),
+
+	  const randomFriendIds = times(faker.random.number({min: 0, max: 10}),
 			() => faker.random.arrayElement(userIds))
 		
 		console.log(randomFriendIds)
@@ -82,7 +82,6 @@ describe('Users', async () => {
             }
         }
     }`, {friends: randomFriendIds})))
-
     const res = await gqlRequest<P<Query, 'users'>>(gql`query {
         users {
             id
@@ -91,9 +90,8 @@ describe('Users', async () => {
             }
         }
     }`)
-		.then(users => users.filter(user => randomUserIds.includes(user.id)))
-		.then(users => users.map((user) => user.friends))
-		
+		.then(filter(({id}) => includes(id, randomUserIds)))
+		.then(map(prop('friends')))
 		expect(res).toStrictEqual([])
   })
 
@@ -105,7 +103,7 @@ describe('Users', async () => {
           users(searchBy: {lastName: "Zhoga"}) {
               id
           }
-      }`).then(value => value.map((user) => user.id)[0])
+      }`).then(pipe(map(prop('id')), head))
 
       await gqlRequest(gql`mutation {
           userModify(userId: "${testUserId}", changes: {
@@ -119,7 +117,7 @@ describe('Users', async () => {
           users(searchBy: {lastName: "Zhoga"}) {
               country
           }
-      }`).then(value => value.map(value1 => value1.country)[0])
+      }`).then(pipe(map(prop('country')), head))
 			expect(country).toBe('Algeria')
     })
 
@@ -134,25 +132,25 @@ describe('Users', async () => {
               }
           }
       }`)
-      .then(pipe(prop('items'), map(prop('id'))))
+			.then(pipe(prop('items'), map(prop('id'))))
 			expect(Array.isArray(randomIds)).toBeTruthy()
-	    
+
       const addedFriendsIdsFromResponse =
       await gqlRequest<P<Mutation, 'userModify'>>(gql`mutation m($friends: [String!]){
-			    userModify(userId: "${testUserId}", changes: {
-					    friendsIds: $friends
-					    firstName: "Modified"
-			    }) {
-					    name
-					    friends {
-							    id
-					    }
-			    }
-	    }`, {friends: randomIds})
-      
-      .then(pipe(prop("friends"), map(prop('id'))))
-	
-	    expect(addedFriendsIdsFromResponse).toEqual(arrayContaining(randomIds))
+          userModify(userId: "${testUserId}", changes: {
+              friendsIds: $friends
+              firstName: "Modified"
+          }) {
+              name
+              friends {
+                  id
+              }
+          }
+      }`, {friends: randomIds})
+			
+			.then(pipe(prop('friends'), map(prop('id'))))
+			
+			expect(addedFriendsIdsFromResponse).toEqual(arrayContaining(randomIds))
 
     })
   })
@@ -172,7 +170,7 @@ describe('pagination', async () => {
 	it(`with up to`, async () => {
 		
 		const res = await gqlRequest<PaginatedUserResponse>(query, {upTo: 10})
-			.then((res) => res.items)
+			.then(prop('items'))
 		
 		expect(res).toHaveLength(10)
 	})

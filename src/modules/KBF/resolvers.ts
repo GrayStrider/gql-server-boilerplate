@@ -2,11 +2,11 @@ import {Args, Mutation, Query, Resolver, UseMiddleware} from 'type-graphql'
 import {getConnection} from 'typeorm'
 import {Tag} from '../../entity/KBF/Tag'
 import {Task} from '../../entity/KBF/Task'
+import {bb} from '../../utils/libsExport'
 import {Like_} from '../../utils/typeorm/Like'
 import {validateAndSave} from '../../utils/type-graphql/validator'
 import {isAuth} from '../middleware/isAuth'
 import {NewTaskInput, SearchTaskInput} from './inputs'
-import {Promise as bb} from 'bluebird'
 
 // TODO recommended to implement this for every mutation, kinda makes sense.
 export interface MutationResponse {
