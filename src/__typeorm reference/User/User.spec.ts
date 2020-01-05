@@ -53,47 +53,6 @@ describe('Users', async () => {
 		expect(firstNames[0].firstName).toStrictEqual('Ivan')
 
   })
-  it.skip(`should add friends at random`, async () => {
-    // TODO faker picks duplicate keys, have to be exhaustive
-
-    const userIds = await gqlRequest<P<Query, 'users'>>(gql`{
-        users {
-            id
-        }
-    }`).then(value => value.map((user) => user.id))
-		
-		const randomUserIds = times(SAMPLE_SIZE / 2,
-			() => faker.random.arrayElement(userIds))
-
-	  const randomFriendIds = times(faker.random.number({min: 0, max: 10}),
-			() => faker.random.arrayElement(userIds))
-		
-		console.log(randomFriendIds)
-    const users = await Promise.all(randomUserIds.map((id) =>
-    gqlRequest<P<Mutation, 'userModify'>>(gql`mutation modify($friends: [String!]) {
-        userModify(
-            userId: "${id}",
-            changes: {
-                friendsIds: $friends
-            }) {
-            friends {
-                id
-                name
-            }
-        }
-    }`, {friends: randomFriendIds})))
-    const res = await gqlRequest<P<Query, 'users'>>(gql`query {
-        users {
-            id
-            friends {
-                id
-            }
-        }
-    }`)
-		.then(filter(({id}) => includes(id, randomUserIds)))
-		.then(map(prop('friends')))
-		expect(res).toStrictEqual([])
-  })
 
   describe('modify', async () => {
 		let testUserId: string
