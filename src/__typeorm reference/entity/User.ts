@@ -1,7 +1,8 @@
-import {Field, ID, ObjectType, Root} from 'type-graphql'
+import {GraphQLEnumValue, GraphQLField} from 'graphql'
+import {Directive, Field, ID, ObjectType, Root} from 'type-graphql'
 import {BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from 'typeorm'
-import {howCommonIsName} from '../../utils/_'
 import {Countries} from '../User/CountriesList'
+import {howCommonIsName} from '../User/modules/HowCommonName'
 
 
 const UserDescription = `Unique user ID.
@@ -47,7 +48,11 @@ export class UserNew extends BaseEntity {
 	// @Field(returns => [UserNew])
 	@ManyToMany(type => UserNew, friends => friends.friendsPrimary)
 	friendsInverse: UserNew[]
-
+	
+	@Directive('@deprecated(reason: "Use `newField`.")')
+	@Field()
+	deprecated: string
+	
 	@Field(returns => String)
 	async howCommonIsName() {
 		return await howCommonIsName(this.firstName, this.lastName)
@@ -63,9 +68,5 @@ export class UserNew extends BaseEntity {
 		
 		return [...(this.friendsPrimary ?? []), ...(this.friendsInverse ?? [])]
 	}
-	
-	// @Field()
-	// @Directive('lowercase')
-	// deprecated: string
 	
 }

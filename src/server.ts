@@ -1,10 +1,11 @@
 import * as Sentry from '@sentry/node'
-import {ApolloServer} from 'apollo-server-express'
+import {ApolloServer, SchemaDirectiveVisitor} from 'apollo-server-express'
 import connectRedis from 'connect-redis'
 import cors from 'cors'
 import Express, {ErrorRequestHandler} from 'express'
 import session from 'express-session'
 import 'reflect-metadata'
+import {GraphQLEnumValue, GraphQLField} from 'graphql'
 import {createConnection} from 'typeorm'
 import {APOLLO_ENGINE_API_KEY, dsn, HOST, PORT} from '../config/_consts'
 import {ORMConfig} from '../config/_typeorm'
@@ -51,6 +52,9 @@ export async function main() {
 		validationRules: [],
 		engine: {
 			apiKey: /*"service:gs-playground:nxu7GrQcuV5ESD0T_lLYvQ"*/APOLLO_ENGINE_API_KEY,
+		},
+		schemaDirectives: {
+			deprecated: DeprecatedDirective
 		}
 	})
 	
@@ -103,4 +107,16 @@ export async function main() {
 		Sentry.captureMessage('Up')
 		log.success(`server started on http://${HOST}:${PORT}/graphql`)
 	})
+}
+
+class DeprecatedDirective extends SchemaDirectiveVisitor {
+	public visitFieldDefinition(field: GraphQLField<any, any>) {
+		field.isDeprecated = true;
+		field.deprecationReason = this.args.reason;
+	}
+	
+	public visitEnumValue(value: GraphQLEnumValue) {
+		value.isDeprecated = true;
+		value.deprecationReason = this.args.reason;
+	}
 }

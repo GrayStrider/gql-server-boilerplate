@@ -1,11 +1,12 @@
 import * as faker from 'faker'
 import gql from 'graphql-tag'
-import {omit, times} from 'lodash'
-import {map, pipe, prop} from 'ramda'
+import {times} from 'lodash'
+import {map, omit, pipe, prop, then} from 'ramda'
 import {Connection, EntityManager} from 'typeorm'
-import {Mutation, MutationUserModifyArgs, PaginatedUserResponse, Query, UserNew} from '../../types/generated/graphql'
 import {setupTests} from '../../test-utils/setupTests'
 import {Await} from '../../types/Await'
+import {Mutation, PaginatedUserResponse, Query} from '../../types/generated/graphql'
+import {P} from '../../types/GetOnePropertyOfType'
 import {gqlRequest} from '../../utils/apollo, graphql/postQuery'
 import {generateMockUsers} from './generateMockUsers'
 import arrayContaining = jasmine.arrayContaining
@@ -26,42 +27,36 @@ beforeAll(async () => {
 
 describe('Users', async () => {
 	it(`should create ${SAMPLE_SIZE} new users`, async () => {
-		
-		expect(generated.map(fake =>
-			omit(fake, 'id', 'createdDate')))
-			.toStrictEqual(fakes)
-		
+		const act = map(omit(['id', 'createdDate']))(generated)
+		expect(act).toStrictEqual(fakes)
 	})
   it(`new user`, async () => {
-
-    const {id} = await gqlRequest<Mutation['userCreate']>(gql`mutation {
+    const {id} = await gqlRequest(gql`mutation {
         userCreate(userData: {
             country: Afghanistan, email: "zhoga.ivan@gmail.com",
             firstName: "Ivan", lastName: "Zhoga", age: 24, password: "123"
         }) {
             id
         }
-    }`)
-		
-		
+    }`) as P<Mutation, 'userCreate'>
 		expect(id).toBeTruthy()
   })
   it(`should search the users by paremeters`, async () => {
-    const firstNames = await gqlRequest<Query['users']>(gql`query {
+    const firstNames = await gqlRequest(gql`query {
         users(searchBy: {
             firstName: "Ivan",
             lastName: "g"
         }) {
             firstName
         }
-    }`)
+    }`) as P<Query, 'users'>
 		expect(firstNames[0].firstName).toStrictEqual('Ivan')
 
   })
   it.skip(`should add friends at random`, async () => {
     // TODO faker picks duplicate keys, have to be exhaustive
 
-    const userIds = await gqlRequest<Query['users']>(gql`{
+    const userIds = await gqlRequest<P<Query, 'users'>>(gql`{
         users {
             id
         }
@@ -75,7 +70,7 @@ describe('Users', async () => {
 		
 		console.log(randomFriendIds)
     const users = await Promise.all(randomUserIds.map((id) =>
-    gqlRequest<Mutation['userModify']>(gql`mutation modify($friends: [String!]) {
+    gqlRequest<P<Mutation, 'userModify'>>(gql`mutation modify($friends: [String!]) {
         userModify(
             userId: "${id}",
             changes: {
@@ -88,7 +83,7 @@ describe('Users', async () => {
         }
     }`, {friends: randomFriendIds})))
 
-    const res = await gqlRequest<Query['users']>(gql`query {
+    const res = await gqlRequest<P<Query, 'users'>>(gql`query {
         users {
             id
             friends {
@@ -106,7 +101,7 @@ describe('Users', async () => {
 		let testUserId: string
 
     it(`should modify Country`, async () => {
-			testUserId = await gqlRequest<Query['users']>(gql`{
+			testUserId = await gqlRequest<P<Query, 'users'>>(gql`{
           users(searchBy: {lastName: "Zhoga"}) {
               id
           }
@@ -120,7 +115,7 @@ describe('Users', async () => {
           }
       }`)
       // probably excessive to fetch afer mutation...
-      const country = await gqlRequest<Query['users']>(gql`{
+      const country = await gqlRequest<P<Query, 'users'>>(gql`{
           users(searchBy: {lastName: "Zhoga"}) {
               country
           }
@@ -143,7 +138,7 @@ describe('Users', async () => {
 			expect(Array.isArray(randomIds)).toBeTruthy()
 	    
       const addedFriendsIdsFromResponse =
-      await gqlRequest<Mutation['userModify']>(gql`mutation m($friends: [String!]){
+      await gqlRequest<P<Mutation, 'userModify'>>(gql`mutation m($friends: [String!]){
 			    userModify(userId: "${testUserId}", changes: {
 					    friendsIds: $friends
 					    firstName: "Modified"
