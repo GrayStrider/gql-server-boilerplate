@@ -4,7 +4,7 @@ import connectRedis from 'connect-redis'
 import cors from 'cors'
 import Express, {ErrorRequestHandler} from 'express'
 import session from 'express-session'
-import {GraphQLEnumValue, GraphQLField} from 'graphql'
+import {GraphQLEnumValue, GraphQLError, GraphQLField} from 'graphql'
 import {mergeSchemas} from 'graphql-tools'
 import 'reflect-metadata'
 import {createConnection} from 'typeorm'
@@ -19,6 +19,7 @@ import {formatError} from './utils/apollo, graphql/formatError'
 import {errorMiddleware} from './utils/express/errorMiddleware'
 import {log} from './utils/log'
 import {createSchema} from './utils/type-graphql/createSchema'
+
 
 export async function main() {
 	// Sentry
@@ -61,7 +62,7 @@ export async function main() {
 		context,
 		validationRules : [],
 		engine          : {
-			apiKey: /*"service:gs-playground:nxu7GrQcuV5ESD0T_lLYvQ"*/APOLLO_ENGINE_API_KEY,
+			apiKey: APOLLO_ENGINE_API_KEY
 		},
 		schemaDirectives: {
 			deprecated: DeprecatedDirective,
@@ -72,10 +73,10 @@ export async function main() {
 	
 	// Express Middleware
 	app.use(
-			cors({
-				credentials: true,
-				/* origin     : 'http://localhost:3000'*/
-			}))
+		cors({
+			credentials: true,
+			/* origin     : 'http://localhost:3000'*/
+		}))
 	app.use(
 		session({
 			store            : new RedisStore({
