@@ -11,12 +11,11 @@ export async function setupTests() {
 	let conn: Connection
 	let server: http.Server | null
 	jest.setTimeout(30000)
+	
 	/**
 	 * Connect to running server with test_runner
 	 * If no server running, start the server and then connect
 	 */
-	
-	
 	if (await isUp(GQL_URL)) {
 		log.await(`server's up, connecting to database`)
 		conn = await createConnection(ORMConfig)
@@ -32,8 +31,8 @@ export async function setupTests() {
 	return {conn, server}
 }
 
-export const isUp = async (url: string): Promise<boolean> =>
-	await axios.get(url)
+export async function isUp(url: string): Promise<boolean> {
+	return await axios.get(url)
 		.then(() => true)
 		.catch(err => {
 			if (err.code === 'ECONNREFUSED') {
@@ -43,4 +42,5 @@ export const isUp = async (url: string): Promise<boolean> =>
 				return true
 			}
 		})
+}
 

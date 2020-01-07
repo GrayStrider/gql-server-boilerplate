@@ -30,7 +30,7 @@ export class UserResolver {
 	
 	@Query(returns => [UserNew])
 	async users(@Arg('searchBy', {nullable: true}) input: UserSearchInput) {
-		LikeWrapper(input)
+		// LikeWrapper(input) // TODO make it work with enums, or create a separate middleware decorator for strings
 		return await UserNew.find(input)
 	}
 	

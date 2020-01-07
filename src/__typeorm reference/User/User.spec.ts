@@ -45,7 +45,7 @@ describe('Users', async () => {
     const firstNames = await gqlRequest(gql`query {
         users(searchBy: {
             firstName: "Ivan",
-            lastName: "g"
+            lastName: "Zhoga"
         }) {
             firstName
         }

@@ -48,3 +48,4 @@ export const createSchema = () =>
 			return !!req.session.userId
 		}
 	})
+

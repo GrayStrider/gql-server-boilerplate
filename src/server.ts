@@ -1,11 +1,12 @@
 import * as Sentry from '@sentry/node'
+import {mergeSchemas} from 'graphql-tools'
 import {ApolloServer, SchemaDirectiveVisitor} from 'apollo-server-express'
 import connectRedis from 'connect-redis'
 import cors from 'cors'
 import Express, {ErrorRequestHandler} from 'express'
 import session from 'express-session'
-import 'reflect-metadata'
 import {GraphQLEnumValue, GraphQLField} from 'graphql'
+import 'reflect-metadata'
 import {createConnection} from 'typeorm'
 import {APOLLO_ENGINE_API_KEY, dsn, HOST, PORT} from '../config/_consts'
 import {ORMConfig} from '../config/_typeorm'
@@ -44,18 +45,23 @@ export async function main() {
 	//================================================================================
 	
 	// Initialize Apollo
-	const schema = await createSchema()
+	const typegraphqlSchema = await createSchema()
+	const schemas = mergeSchemas({schemas: [
+		typegraphqlSchema,
+		
+		]})
+	
 	const apolloServer = new ApolloServer({
-		schema,
+		schema          : schemas,
 		formatError,
-		context        : (ctx: any) => ctx,
-		validationRules: [],
-		engine: {
+		context         : (ctx: any) => ctx,
+		validationRules : [],
+		engine          : {
 			apiKey: /*"service:gs-playground:nxu7GrQcuV5ESD0T_lLYvQ"*/APOLLO_ENGINE_API_KEY,
 		},
 		schemaDirectives: {
-			deprecated: DeprecatedDirective
-		}
+			deprecated: DeprecatedDirective,
+		},
 	})
 	
 	
@@ -69,7 +75,7 @@ export async function main() {
 		.use(
 			session({
 				store            : new RedisStore({
-					client: redis as any
+					client: redis as any,
 				}),
 				name             : 'qid',
 				secret           : 'aslkdfjoiq12312',
@@ -78,9 +84,9 @@ export async function main() {
 				cookie           : {
 					httpOnly: true,
 					secure  : process.env.NODE_ENV === 'production',
-					maxAge  : 1000 * 60 * 60 * 24 * 7 * 365 // 7 years
-				}
-			})
+					maxAge  : 1000 * 60 * 60 * 24 * 7 * 365, // 7 years
+				},
+			}),
 		)
 	
 	// Add middleware to Apollo
@@ -93,7 +99,7 @@ export async function main() {
 		.use(Sentry.Handlers.errorHandler({
 			shouldHandleError(error: Error): boolean {
 				return true
-			}
+			},
 		}) as ErrorRequestHandler)
 		
 		// my error handler
@@ -111,12 +117,12 @@ export async function main() {
 
 class DeprecatedDirective extends SchemaDirectiveVisitor {
 	public visitFieldDefinition(field: GraphQLField<any, any>) {
-		field.isDeprecated = true;
-		field.deprecationReason = this.args.reason;
+		field.isDeprecated = true
+		field.deprecationReason = this.args.reason
 	}
 	
 	public visitEnumValue(value: GraphQLEnumValue) {
-		value.isDeprecated = true;
-		value.deprecationReason = this.args.reason;
+		value.isDeprecated = true
+		value.deprecationReason = this.args.reason
 	}
 }

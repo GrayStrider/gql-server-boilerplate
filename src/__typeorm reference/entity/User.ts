@@ -49,7 +49,7 @@ export class UserNew extends BaseEntity {
 	@ManyToMany(type => UserNew, friends => friends.friendsPrimary)
 	friendsInverse: UserNew[]
 	
-	@Directive('@deprecated(reason: "Use `newField`.")')
+	@Directive('@deprecated(reason: "Use `newField`.")') //TODO does nothing?
 	@Field()
 	deprecated: string
 	
