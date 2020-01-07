@@ -1,0 +1,41 @@
+import gql from 'graphql-tag'
+import {makeExecutableSchema} from 'graphql-tools'
+import {Context} from './context'
+import {dataSources} from './datasources'
+
+export const plainSchema = makeExecutableSchema<Context>({
+  typeDefs : gql`
+      type Data {
+          field: String!
+          fieldCap(arg: String!, arg2: String!): String!
+      }
+
+      type Query {
+          hello: String!
+          data: Data
+		      getCatFact: String!
+
+      }
+	
+	`,
+	resolvers: {
+		Query: {
+			getCatFact: async (parent, args, context, info) => {
+				const {text} = await context.dataSources.catFacts.getFact()
+				return text
+			},
+			
+			hello: async (parent, args, context, info) => {
+				return 'Hello, world!'
+			},
+			data : () => ({ //default resolver
+				field: 'hi1',
+			}),
+		},
+		Data : {
+			fieldCap(args: { field: string }) {
+				return args.field.toUpperCase()
+			},
+		},
+	},
+})

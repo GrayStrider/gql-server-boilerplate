@@ -2,7 +2,7 @@ import * as Sentry from '@sentry/node'
 import {ApolloServer, SchemaDirectiveVisitor} from 'apollo-server-express'
 import connectRedis from 'connect-redis'
 import cors from 'cors'
-import Express, {ErrorRequestHandler, Request, Response} from 'express'
+import Express, {ErrorRequestHandler} from 'express'
 import session from 'express-session'
 import {GraphQLEnumValue, GraphQLField} from 'graphql'
 import {mergeSchemas} from 'graphql-tools'
@@ -11,12 +11,14 @@ import {createConnection} from 'typeorm'
 import {APOLLO_ENGINE_API_KEY, dsn, HOST, PORT} from '../config/_consts'
 import {ORMConfig} from '../config/_typeorm'
 import {DBRequestCounterService} from './__typeorm reference/Middleware/DBRequestCounter'
+import {context} from './context'
+import {dataSources} from './datasources'
+import {plainSchema} from './plainSchema'
 import {redis} from './redis'
 import {formatError} from './utils/apollo, graphql/formatError'
 import {errorMiddleware} from './utils/express/errorMiddleware'
 import {log} from './utils/log'
 import {createSchema} from './utils/type-graphql/createSchema'
-
 
 export async function main() {
 	// Sentry
@@ -46,21 +48,17 @@ export async function main() {
 	
 	// Initialize Apollo
 	const typegraphqlSchema = await createSchema()
-	const schemas = mergeSchemas({
+	const schema = mergeSchemas({
 		schemas: [
 			typegraphqlSchema,
+			plainSchema,
 		],
 	})
 	
 	const apolloServer = new ApolloServer({
-		schema          : schemas,
+		schema,
 		formatError,
-		context         : (ctx: { req: Request, res: Response }) => ({
-			req               : ctx.req,
-			res               : ctx.res,
-			customContextField: true,
-			session           : ctx.req.session,
-		}),
+		context,
 		validationRules : [],
 		engine          : {
 			apiKey: /*"service:gs-playground:nxu7GrQcuV5ESD0T_lLYvQ"*/APOLLO_ENGINE_API_KEY,
@@ -68,48 +66,48 @@ export async function main() {
 		schemaDirectives: {
 			deprecated: DeprecatedDirective,
 		},
+		dataSources,
+		
 	})
 	
-	
 	// Express Middleware
-	app
-		.use(
+	app.use(
 			cors({
 				credentials: true,
 				/* origin     : 'http://localhost:3000'*/
 			}))
-		.use(
-			session({
-				store            : new RedisStore({
-					client: redis as any,
-				}),
-				name             : 'qid',
-				secret           : 'aslkdfjoiq12312',
-				resave           : false,
-				saveUninitialized: false,
-				cookie           : {
-					httpOnly: true,
-					secure  : process.env.NODE_ENV === 'production',
-					maxAge  : 1000 * 60 * 60 * 24 * 7 * 365, // 7 years
-				},
+	app.use(
+		session({
+			store            : new RedisStore({
+				client: redis as any,
 			}),
-		)
+			name             : 'qid',
+			secret           : 'aslkdfjoiq12312',
+			resave           : false,
+			saveUninitialized: false,
+			cookie           : {
+				httpOnly: true,
+				secure  : process.env.NODE_ENV === 'production',
+				maxAge  : 1000 * 60 * 60 * 24 * 7 * 365, // 7 years
+			},
+		}),
+	)
 	
 	// Add middleware to Apollo
 	apolloServer.applyMiddleware({app, cors: false})
 	
 	// Fallback
 	app.get('*', (req, res) => res.send('Not found'))
-		
-		// Sentry error handler
-		.use(Sentry.Handlers.errorHandler({
-			shouldHandleError(error: Error): boolean {
-				return true
-			},
-		}) as ErrorRequestHandler)
-		
-		// my error handler
-		.use(errorMiddleware)
+	
+	// Sentry error handler
+	app.use(Sentry.Handlers.errorHandler({
+		shouldHandleError(error: Error): boolean {
+			return true
+		},
+	}) as ErrorRequestHandler)
+	
+	// my error handler
+	app.use(errorMiddleware)
 	
 	
 	// flush initial DB setup count
@@ -132,3 +130,4 @@ class DeprecatedDirective extends SchemaDirectiveVisitor {
 		value.deprecationReason = this.args.reason
 	}
 }
+
