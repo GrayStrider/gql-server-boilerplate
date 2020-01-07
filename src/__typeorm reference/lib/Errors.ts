@@ -14,4 +14,5 @@ function CustomError(code: string, defaultMessage: string) {
 	}
 }
 
-export const userNotFoundError = (id: string) => new Errors.NotFound(`User ${truncate(id, {length: 10})} not found`)
+export const userNotFoundError = (id: string) =>
+	new Errors.NotFound(`User ${truncate(id, {length: 10})} not found`)

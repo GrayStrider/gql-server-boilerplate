@@ -1,11 +1,13 @@
+import {validate, Validator} from 'class-validator'
 import {Arg, Mutation, Query, Resolver} from 'type-graphql'
 import {bb} from '../../utils/libsExport'
 import {PaginatedUserResponse} from '../../utils/type-graphql/paginatedResponse'
 import {LikeWrapper} from '../../utils/typeorm/LikeWrapper'
 import {UserNew} from '../entity/User'
-import {userNotFoundError} from '../lib/Errors'
+import {Errors, userNotFoundError} from '../lib/Errors'
 import {generateMockUsers} from './generateMockUsers'
 import {UserCreateInput, UserModifyInput, UserSearchInput} from './inputs'
+const validator = new Validator()
 
 @Resolver()
 export class UserResolver {
@@ -42,7 +44,9 @@ export class UserResolver {
 	@Mutation(returns => UserNew)
 	async userModify(@Arg('changes') {friendsIds, ...rest}: UserModifyInput,
 	                 @Arg('userId') userId: string) {
-		const user = await UserNew.findOne(userId)
+		if (!(validator.isUUID(userId))) throw new Errors.Validation('Incorrect format for user ID')
+		
+			const user = await UserNew.findOne(userId)
 		if (!user) throw userNotFoundError(userId)
 		
 		/**
