@@ -1,3 +1,4 @@
+import {SchemaDirectiveVisitor} from 'graphql-tools'
 import {buildSchema} from 'type-graphql'
 import {User1Resolver} from '../../__dataloader/modules/User1'
 import {DBRequestCounter} from '../../__typeorm reference/Middleware/DBRequestCounter'
@@ -48,4 +49,3 @@ export const createSchema = () =>
 			return !!req.session.userId
 		}
 	})
-

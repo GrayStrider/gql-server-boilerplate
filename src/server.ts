@@ -1,11 +1,11 @@
 import * as Sentry from '@sentry/node'
-import {mergeSchemas} from 'graphql-tools'
 import {ApolloServer, SchemaDirectiveVisitor} from 'apollo-server-express'
 import connectRedis from 'connect-redis'
 import cors from 'cors'
-import Express, {ErrorRequestHandler} from 'express'
+import Express, {ErrorRequestHandler, Request, Response} from 'express'
 import session from 'express-session'
 import {GraphQLEnumValue, GraphQLField} from 'graphql'
+import {mergeSchemas} from 'graphql-tools'
 import 'reflect-metadata'
 import {createConnection} from 'typeorm'
 import {APOLLO_ENGINE_API_KEY, dsn, HOST, PORT} from '../config/_consts'
@@ -46,15 +46,21 @@ export async function main() {
 	
 	// Initialize Apollo
 	const typegraphqlSchema = await createSchema()
-	const schemas = mergeSchemas({schemas: [
-		typegraphqlSchema,
-		
-		]})
+	const schemas = mergeSchemas({
+		schemas: [
+			typegraphqlSchema,
+		],
+	})
 	
 	const apolloServer = new ApolloServer({
 		schema          : schemas,
 		formatError,
-		context         : (ctx: any) => ctx,
+		context         : (ctx: { req: Request, res: Response }) => ({
+			req               : ctx.req,
+			res               : ctx.res,
+			customContextField: true,
+			session           : ctx.req.session,
+		}),
 		validationRules : [],
 		engine          : {
 			apiKey: /*"service:gs-playground:nxu7GrQcuV5ESD0T_lLYvQ"*/APOLLO_ENGINE_API_KEY,
