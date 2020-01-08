@@ -5,7 +5,7 @@ import compression from 'compression'
 import connectRedis from 'connect-redis'
 import cors from 'cors'
 import Express, {ErrorRequestHandler} from 'express'
-import session from 'express-session'
+import session, {SessionOptions} from 'express-session'
 import {GraphQLEnumValue, GraphQLField} from 'graphql'
 import {mergeSchemas} from 'graphql-tools'
 import * as http from 'http'
@@ -17,8 +17,8 @@ import {ORMConfig} from '../config/_typeorm'
 import {DBRequestCounterService} from './__typeorm reference/Middleware/DBRequestCounter'
 import {context} from './context'
 import {dataSources} from './datasources'
-import {plainSchema} from './plainSchema'
 import {redis} from './redis'
+import {plainSchema} from './schemas/plainSchema'
 import {formatError} from './utils/apollo, graphql/formatError'
 import {errorMiddleware} from './utils/express/errorMiddleware'
 import {log} from './utils/log'
@@ -28,28 +28,20 @@ import {createSchema} from './utils/type-graphql/createSchema'
 export async function main() {
 	// Sentry
 	Sentry.init({dsn})
-	
 	// Express
 	const app = Express()
-	
 	// Sentry Handler
 	app.use(Sentry.Handlers.requestHandler())
 	
 	// Create DB connection
 	const conn = await createConnection(ORMConfig)
-	
 	// Flush if not in production
 	if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
 		log.warn('resetting the DB')
 		await conn.synchronize(true)
 	}
-	
-	// Connect to Redis
+	// Redis Store
 	const RedisStore = connectRedis(session)
-	
-	//================================================================================
-	// Apollo
-	//================================================================================
 	
 	// Initialize Apollo
 	const typegraphqlSchema = await createSchema()
@@ -61,47 +53,41 @@ export async function main() {
 	})
 	
 	const apolloServer = new ApolloServer({
-		schema,
-		formatError,
-		context,
-		validationRules : [],
-		engine          : {
+		schema, formatError, context,
+		validationRules           : [],
+		engine                    : {
 			apiKey: APOLLO_ENGINE_API_KEY,
 		},
-		schemaDirectives: {
+		schemaDirectives          : {
 			deprecated: DeprecatedDirective,
 		},
-		dataSources,
-		subscriptions   : {
+		dataSources, subscriptions: {
 			onConnect: (connectionParams, websocket, context1) => {
 				return {authorised: true}
-				
 			},
 		},
-		
 	})
 	
 	// Express Middleware
-	app.use(
-		cors({
-			credentials: true,
-			/* origin     : 'http://localhost:3000'*/
-		}))
-	app.use(
-		session({
-			store            : new RedisStore({
-				client: redis as any,
-			}),
-			name             : 'qid',
-			secret           : 'aslkdfjoiq12312',
-			resave           : false,
-			saveUninitialized: false,
-			cookie           : {
-				httpOnly: true,
-				secure  : process.env.NODE_ENV === 'production',
-				maxAge  : 1000 * 60 * 60 * 24 * 7 * 365, // 7 years
-			},
+	app.use(cors({
+		credentials: true,
+		 origin     : new RegExp(`(http|ws)://${HOST}:${PORT}`)
+	}))
+	const sessionOptions: SessionOptions = {
+		store            : new RedisStore({
+			client: redis as any,
 		}),
+		name             : 'qid',
+		secret           : 'aslkdfjoiq12312',
+		resave           : false,
+		saveUninitialized: false,
+		cookie           : {
+			httpOnly: true,
+			secure  : process.env.NODE_ENV === 'production',
+			maxAge  : 1000 * 60 * 60 * 24 * 7 * 365, // 7 years
+		},
+	}
+	app.use(session(sessionOptions),
 	)
 	app.use(compression())
 	app.use(bodyParser.urlencoded({extended: true}))
