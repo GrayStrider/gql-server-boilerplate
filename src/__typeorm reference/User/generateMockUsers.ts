@@ -1,7 +1,7 @@
 import faker from 'faker'
 import gql from 'graphql-tag'
 import {times} from 'lodash'
-import {Mutation} from '../../types/generated/graphql'
+import {Mutation} from '../../graphql/generated/typings'
 import {P} from '../../types/GetOnePropertyOfType'
 import {gqlRequest} from '../../utils/apollo, graphql/postQuery'
 import {bb} from '../../utils/libsExport'

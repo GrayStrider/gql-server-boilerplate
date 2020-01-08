@@ -4,7 +4,7 @@ import {Variables} from 'graphql-request/dist/src/types'
 import gql from 'graphql-tag'
 import {AnyObject} from 'tsdef'
 import {GQL_URL} from '../../../config/_consts'
-import {Mutation, Query} from '../../types/generated/graphql'
+import {Mutation, Query} from '../../graphql/generated/typings'
 import {flattenObject} from '../zz_misc/flattenObject'
 
 
