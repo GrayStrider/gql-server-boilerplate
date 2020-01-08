@@ -1,6 +1,6 @@
 import {Request, Response} from 'express'
 import {AnyObject} from 'tsdef'
-import {dataSources} from './datasources'
+import {dataSources} from '../../datasources'
 
 function isSubscription(ctx: any): ctx is SubscriptionContext {
 	return ctx.connection
@@ -26,12 +26,8 @@ interface BaseContext {
 	
 }
 
-
 interface SubscriptionContext {
 	connection: AnyObject // TODO types
 }
 
-
 export type Context = BaseContext & ReturnType<typeof context>
-
-export type Context2 = (BaseContext | SubscriptionContext) & ReturnType<typeof context>

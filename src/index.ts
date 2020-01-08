@@ -1,6 +1,7 @@
 import chalk from 'chalk'
 import {main} from './server'
 import * as Sentry from '@sentry/node'
+import {log} from './utils/log'
 
 
 //================================================================================
@@ -9,7 +10,8 @@ import * as Sentry from '@sentry/node'
 
 process.on('uncaughtException', (error)  => {
 	
-	console.log('Oh my god, something terrible happend: ');
+	log.error(`uncaught Exception: ${error.message}`)
+	log.error(error)
 	
 	process.exit(1); // exit application
 	
@@ -17,8 +19,8 @@ process.on('uncaughtException', (error)  => {
 
 
 process.on('unhandledRejection', (error, promise) => {
-	console.log(' Oh Lord! We forgot to handle a promise rejection here: ');
-	console.log(' The error was: ' );
+	log.error(`unhandledRejection: ${error.message}`)
+	log.error(error)
 });
 
 // only at initialization!

@@ -1,12 +1,11 @@
 import * as Sentry from '@sentry/node'
-import {ApolloServer, SchemaDirectiveVisitor} from 'apollo-server-express'
+import {ApolloServer} from 'apollo-server-express'
 import bodyParser from 'body-parser'
 import compression from 'compression'
 import connectRedis from 'connect-redis'
 import cors from 'cors'
-import Express, {ErrorRequestHandler} from 'express'
-import session, {SessionOptions} from 'express-session'
-import {GraphQLEnumValue, GraphQLField} from 'graphql'
+import Express from 'express'
+import session from 'express-session'
 import {mergeSchemas} from 'graphql-tools'
 import * as http from 'http'
 import lusca from 'lusca'
@@ -15,13 +14,15 @@ import {createConnection} from 'typeorm'
 import {APOLLO_ENGINE_API_KEY, dsn, HOST, PORT} from '../config/_consts'
 import {ORMConfig} from '../config/_typeorm'
 import {DBRequestCounterService} from './__typeorm reference/Middleware/DBRequestCounter'
-import {context} from './context'
+import {context} from './utils/apollo, graphql/context'
 import {dataSources} from './datasources'
+import {DeprecatedDirective} from './graphql/directives'
+import {plainSchema} from './graphql/schemas/plainSchema'
 import {redis} from './redis'
-import {plainSchema} from './schemas/plainSchema'
 import {formatError} from './utils/apollo, graphql/formatError'
-import {errorMiddleware} from './utils/express/errorMiddleware'
+import {myErrorMiddleware} from './utils/express/myErrorMiddleware'
 import {log} from './utils/log'
+import {sentryErrorHandler} from './utils/sentry/errorHandler'
 import {createSchema} from './utils/type-graphql/createSchema'
 
 
@@ -54,13 +55,9 @@ export async function main() {
 	
 	const apolloServer = new ApolloServer({
 		schema, formatError, context,
-		validationRules           : [],
-		engine                    : {
-			apiKey: APOLLO_ENGINE_API_KEY,
-		},
-		schemaDirectives          : {
-			deprecated: DeprecatedDirective,
-		},
+		validationRules: [],
+		engine: {apiKey: APOLLO_ENGINE_API_KEY},
+		schemaDirectives: {deprecated: DeprecatedDirective},
 		dataSources, subscriptions: {
 			onConnect: (connectionParams, websocket, context1) => {
 				return {authorised: true}
@@ -71,77 +68,52 @@ export async function main() {
 	// Express Middleware
 	app.use(cors({
 		credentials: true,
-		 origin     : new RegExp(`(http|ws)://${HOST}:${PORT}`)
+		origin: new RegExp(`(http|ws)://${HOST}:${PORT}`),
 	}))
-	const sessionOptions: SessionOptions = {
-		store            : new RedisStore({
+	const sessionOptions = {
+		store: new RedisStore({
 			client: redis as any,
 		}),
-		name             : 'qid',
-		secret           : 'aslkdfjoiq12312',
-		resave           : false,
+		name: 'qid',
+		secret: 'aslkdfjoiq12312',
+		resave: false,
 		saveUninitialized: false,
-		cookie           : {
+		cookie: {
 			httpOnly: true,
-			secure  : process.env.NODE_ENV === 'production',
-			maxAge  : 1000 * 60 * 60 * 24 * 7 * 365, // 7 years
+			secure: process.env.NODE_ENV === 'production',
+			maxAge: 1000 * 60 * 60 * 24 * 7 * 365, // 7 years
 		},
 	}
-	app.use(session(sessionOptions),
-	)
+	app.use(session(sessionOptions))
 	app.use(compression())
 	app.use(bodyParser.urlencoded({extended: true}))
-	// app.use(bodyParser.json())
 	app.use(lusca.xframe('SAMEORIGIN'))
 	app.use(lusca.xssProtection(true))
 	
-	// Add middleware to Apollo
-	apolloServer.applyMiddleware({app, cors: false})
-	
-	
-	// Fallback
-	app.get('*', (req, res) => res.send('Not found'))
-	
-	
-	// POST example
-	app.post('/post', (req, res, next) => {
-		req.body
+	app.post('/post', (req, res) => {
+		log.debug(req.body)
 		res.send('hello post')
 	})
 	
-	// Sentry error handler
-	app.use(Sentry.Handlers.errorHandler({
-		shouldHandleError(error: Error): boolean {
-			return true
-		},
-	}) as ErrorRequestHandler)
+	// finish apollo setup
+	apolloServer.applyMiddleware({app, cors: false})
 	
-	// my error handler
-	app.use(errorMiddleware)
-	
+	// error handlers
+	app.get('*', (req, res, next) => res.send('Not found'))
+	app.use(sentryErrorHandler)
+	app.use(myErrorMiddleware)
 	
 	// flush initial DB setup count
 	DBRequestCounterService.connect().clearCount()
 	
 	// Subscriptions server
-	const httpServer = http.createServer(app)
-	apolloServer.installSubscriptionHandlers(httpServer)
+	const subscriptionsServer = http.createServer(app)
+	apolloServer.installSubscriptionHandlers(subscriptionsServer)
 	
-	return httpServer.listen(PORT, () => {
+	// start
+	return subscriptionsServer.listen(PORT, () => {
 		Sentry.captureMessage('Up')
 		log.success(`server started on http://${HOST}:${PORT}/graphql`)
 	})
-}
-
-class DeprecatedDirective extends SchemaDirectiveVisitor {
-	public visitFieldDefinition(field: GraphQLField<any, any>) {
-		field.isDeprecated = true
-		field.deprecationReason = this.args.reason
-	}
-	
-	public visitEnumValue(value: GraphQLEnumValue) {
-		value.isDeprecated = true
-		value.deprecationReason = this.args.reason
-	}
 }
 

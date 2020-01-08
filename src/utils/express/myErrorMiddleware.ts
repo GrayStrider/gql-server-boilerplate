@@ -1,6 +1,6 @@
 import {ErrorRequestHandler} from 'express'
 
-export const errorMiddleware: ErrorRequestHandler =
+export const myErrorMiddleware: ErrorRequestHandler =
 	(error, request, response, next) => {
 		const status = error.status || 500
 		const message = error.message || 'Something went wrong'

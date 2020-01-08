@@ -21,11 +21,6 @@ export function printUncaughtError(...msg: any[]) {
 	})
 }
 
-export function withTime(m: any) {
-	const date = new Date()
-	return `[${date.getMinutes()}:${date.getSeconds()}:${date.getMilliseconds()}] ${m}`
-}
-
 function test() {
 	const options = {
 		disabled: false,
@@ -64,4 +59,3 @@ function test() {
 	custom.remind()
 	custom.santa()
 }
-// test()

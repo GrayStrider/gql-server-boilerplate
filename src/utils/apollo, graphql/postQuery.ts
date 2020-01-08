@@ -5,7 +5,7 @@ import gql from 'graphql-tag'
 import {AnyObject} from 'tsdef'
 import {GQL_URL} from '../../../config/_consts'
 import {Mutation, Query} from '../../types/generated/graphql'
-import {flattenObject} from '../transform'
+import {flattenObject} from '../flattenObject'
 
 
 /**
@@ -31,8 +31,6 @@ export async function gqlRequest<T, K, U>(query: ASTNode, variables?: Variables,
 export async function gqlRequest<T, K, U>(query: ASTNode, variables?: Variables, url: string = GQL_URL) {
 	const res: AnyObject | any[] = await request(url, print(query), variables)
 	
-	
-	// return transform(res)
 	return flattenObject(res)
 }
 
