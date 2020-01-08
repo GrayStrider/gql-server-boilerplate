@@ -74,7 +74,7 @@ export async function main() {
 		dataSources,
 		subscriptions   : {
 			onConnect: (connectionParams, websocket, context1) => {
-				return {authorised: false}
+				return {authorised: true}
 				
 			},
 		},
@@ -120,7 +120,6 @@ export async function main() {
 	// POST example
 	app.post('/post', (req, res, next) => {
 		req.body
-		res
 		res.send('hello post')
 	})
 	

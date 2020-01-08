@@ -35,7 +35,11 @@ export class SubscriptionsResolver {
 		topics: ({args, context, payload}) => {
 			if (!context.connection.context.authorized) {
 				console.log('not authorized')
-				throw new GraphQLError('not authorized')
+				// doesn't work with schema stiching,
+				// probably ok to wait till 1.0 and @Authorised support
+				// https://github.com/MichalLytek/type-graphql/issues/175
+				// throw new Errors.Authenfication
+				// throw new GraphQLError('not authorized')
 			}
 			console.log('authorized')
 			return SUB_TOPICS.NOTIFICATIONS

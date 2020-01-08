@@ -32,4 +32,6 @@ interface SubscriptionContext {
 }
 
 
-export type Context = (BaseContext | SubscriptionContext) & ReturnType<typeof context>
+export type Context = BaseContext & ReturnType<typeof context>
+
+export type Context2 = (BaseContext | SubscriptionContext) & ReturnType<typeof context>

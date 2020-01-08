@@ -1,37 +1,27 @@
-import {SchemaDirectiveVisitor} from 'graphql-tools'
-import {AuthChecker, buildSchema} from 'type-graphql'
+import {RedisPubSub} from 'graphql-redis-subscriptions'
+import {AuthChecker, buildSchema, registerEnumType} from 'type-graphql'
 import {User1Resolver} from '../../__dataloader/modules/User1'
 import {DBRequestCounter} from '../../__typeorm reference/Middleware/DBRequestCounter'
-import {ExampleEntityResolver} from '../../__typeorm reference/Resolver'
 import {UserResolver} from '../../__typeorm reference/User/resolver'
 import {SubscriptionsResolver} from '../../__typeorm reference/User/subscriptionsResolver'
 import {Context} from '../../context'
-import {AuthorBookResolver} from '../../modules/author-book/AuthorBookResolver'
 import {TagResolver, TaskResolver} from '../../modules/KBF/resolvers'
-import {AlbumResolver, PhotoResolver} from '../../modules/Photos'
-import {ChangePasswordResolver} from '../../modules/user/ChangePassword'
-import {ConfirmUserResolver} from '../../modules/user/ConfirmUser'
-import {CreateProductResolver, CreateUserResolver} from '../../modules/user/CreateUser'
-import {ForgotPasswordResolver} from '../../modules/user/ForgotPassword'
-import {LoginResolver} from '../../modules/user/Login'
-import {LogoutResolver} from '../../modules/user/Logout'
-import {MeResolver} from '../../modules/user/Me'
-import {ProfilePictureResolver} from '../../modules/user/ProfilePicture'
-import {RegisterResolver} from '../../modules/user/Register'
+import {publisher, subscriber} from '../../redis'
+import {AuthRoles} from './authRoles'
 
 export const createSchema = () =>
 	buildSchema({
-		emitSchemaFile: "./src/utils/schema.graphql", // for testing
-		validate: true,
+		emitSchemaFile   : './src/utils/schema.graphql', // for testing
+		validate         : true,
 		// has access only to "exception" error field, as opposed to apollo-server error formatter
 		globalMiddlewares: [DBRequestCounter],
 		
-		resolvers  : [
+		resolvers: [
 			UserResolver,
 			TagResolver,
 			TaskResolver,
 			User1Resolver,
-			SubscriptionsResolver
+			SubscriptionsResolver,
 			
 			// ExampleEntityResolver,
 			// PhotoResolver,
@@ -48,17 +38,22 @@ export const createSchema = () =>
 			// ProfilePictureResolver,
 			// AuthorBookResolver
 		],
-		authChecker
+		authChecker,
+		pubSub,
 	})
 
 const authChecker: AuthChecker<Context> = (
-	{ root, args, context,
-		info }, roles,
+	{
+		root, args, context,
+		info,
+	}, roles,
 ) => {
 	context
-	 return roles.includes(AuthRoles.ADMIN)
+	return roles.includes(AuthRoles.ADMIN)
 }
 
-export enum AuthRoles {
-	ADMIN = 'ADMIN'
-}
+
+const pubSub = new RedisPubSub({
+	publisher,
+	subscriber,
+})

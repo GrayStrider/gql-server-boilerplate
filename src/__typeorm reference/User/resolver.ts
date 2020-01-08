@@ -1,6 +1,7 @@
 import {validate, Validator} from 'class-validator'
 import {Arg, Authorized, Mutation, Query, Resolver} from 'type-graphql'
 import {bb} from '../../utils/libsExport'
+import {AuthRoles} from '../../utils/type-graphql/authRoles'
 import {PaginatedUserResponse} from '../../utils/type-graphql/paginatedResponse'
 import {LikeWrapper} from '../../utils/typeorm/LikeWrapper'
 import {UserNew} from '../entity/User'
@@ -17,7 +18,7 @@ export class UserResolver {
 		return generated
 	}
 	
-	@Authorized()
+	@Authorized<AuthRoles[]>([AuthRoles.ADMIN])
 	@Query(returns => PaginatedUserResponse)
 	async usersPaginated(
 		@Arg('upTo', {nullable: true}) upTo: number,
