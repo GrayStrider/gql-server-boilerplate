@@ -1,5 +1,5 @@
 import {validate, Validator} from 'class-validator'
-import {Arg, Mutation, Query, Resolver} from 'type-graphql'
+import {Arg, Authorized, Mutation, Query, Resolver} from 'type-graphql'
 import {bb} from '../../utils/libsExport'
 import {PaginatedUserResponse} from '../../utils/type-graphql/paginatedResponse'
 import {LikeWrapper} from '../../utils/typeorm/LikeWrapper'
@@ -17,7 +17,7 @@ export class UserResolver {
 		return generated
 	}
 	
-	
+	@Authorized()
 	@Query(returns => PaginatedUserResponse)
 	async usersPaginated(
 		@Arg('upTo', {nullable: true}) upTo: number,

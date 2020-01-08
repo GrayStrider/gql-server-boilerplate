@@ -4,6 +4,7 @@ import {truncate} from 'lodash'
 export const Errors = {
 	Validation: CustomError('VALIDATION_ERROR', 'Unspecified validation error'),
 	NotFound  : CustomError('NOT_FOUND', 'Object not found'),
+	Authenfication: CustomError('UNATHORIZED', 'Unathorized to perform requested action')
 }
 
 function CustomError(code: string, defaultMessage: string) {

@@ -1,12 +1,15 @@
 import * as Sentry from '@sentry/node'
 import {ApolloServer, SchemaDirectiveVisitor} from 'apollo-server-express'
 import bodyParser from 'body-parser'
+import compression from 'compression'
 import connectRedis from 'connect-redis'
 import cors from 'cors'
 import Express, {ErrorRequestHandler} from 'express'
 import session from 'express-session'
-import {GraphQLEnumValue, GraphQLError, GraphQLField} from 'graphql'
+import {GraphQLEnumValue, GraphQLField} from 'graphql'
 import {mergeSchemas} from 'graphql-tools'
+import * as http from 'http'
+import lusca from 'lusca'
 import 'reflect-metadata'
 import {createConnection} from 'typeorm'
 import {APOLLO_ENGINE_API_KEY, dsn, HOST, PORT} from '../config/_consts'
@@ -20,8 +23,6 @@ import {formatError} from './utils/apollo, graphql/formatError'
 import {errorMiddleware} from './utils/express/errorMiddleware'
 import {log} from './utils/log'
 import {createSchema} from './utils/type-graphql/createSchema'
-import lusca from 'lusca'
-import compression from 'compression'
 
 
 export async function main() {
@@ -65,12 +66,18 @@ export async function main() {
 		context,
 		validationRules : [],
 		engine          : {
-			apiKey: APOLLO_ENGINE_API_KEY
+			apiKey: APOLLO_ENGINE_API_KEY,
 		},
 		schemaDirectives: {
 			deprecated: DeprecatedDirective,
 		},
 		dataSources,
+		subscriptions   : {
+			onConnect: (connectionParams, websocket, context1) => {
+				return {authorised: false}
+				
+			},
+		},
 		
 	})
 	
@@ -97,13 +104,14 @@ export async function main() {
 		}),
 	)
 	app.use(compression())
-	app.use(bodyParser.urlencoded({ extended: true }))
+	app.use(bodyParser.urlencoded({extended: true}))
 	// app.use(bodyParser.json())
 	app.use(lusca.xframe('SAMEORIGIN'))
 	app.use(lusca.xssProtection(true))
 	
 	// Add middleware to Apollo
 	apolloServer.applyMiddleware({app, cors: false})
+	
 	
 	// Fallback
 	app.get('*', (req, res) => res.send('Not found'))
@@ -113,7 +121,7 @@ export async function main() {
 	app.post('/post', (req, res, next) => {
 		req.body
 		res
-		res.send("hello post")
+		res.send('hello post')
 	})
 	
 	// Sentry error handler
@@ -130,7 +138,11 @@ export async function main() {
 	// flush initial DB setup count
 	DBRequestCounterService.connect().clearCount()
 	
-	return app.listen(PORT, () => {
+	// Subscriptions server
+	const httpServer = http.createServer(app)
+	apolloServer.installSubscriptionHandlers(httpServer)
+	
+	return httpServer.listen(PORT, () => {
 		Sentry.captureMessage('Up')
 		log.success(`server started on http://${HOST}:${PORT}/graphql`)
 	})

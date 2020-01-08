@@ -1,9 +1,11 @@
 import {SchemaDirectiveVisitor} from 'graphql-tools'
-import {buildSchema} from 'type-graphql'
+import {AuthChecker, buildSchema} from 'type-graphql'
 import {User1Resolver} from '../../__dataloader/modules/User1'
 import {DBRequestCounter} from '../../__typeorm reference/Middleware/DBRequestCounter'
 import {ExampleEntityResolver} from '../../__typeorm reference/Resolver'
 import {UserResolver} from '../../__typeorm reference/User/resolver'
+import {SubscriptionsResolver} from '../../__typeorm reference/User/subscriptionsResolver'
+import {Context} from '../../context'
 import {AuthorBookResolver} from '../../modules/author-book/AuthorBookResolver'
 import {TagResolver, TaskResolver} from '../../modules/KBF/resolvers'
 import {AlbumResolver, PhotoResolver} from '../../modules/Photos'
@@ -28,7 +30,8 @@ export const createSchema = () =>
 			UserResolver,
 			TagResolver,
 			TaskResolver,
-			User1Resolver
+			User1Resolver,
+			SubscriptionsResolver
 			
 			// ExampleEntityResolver,
 			// PhotoResolver,
@@ -45,7 +48,17 @@ export const createSchema = () =>
 			// ProfilePictureResolver,
 			// AuthorBookResolver
 		],
-		authChecker: ({context: {req}}) => {
-			return !!req.session.userId
-		}
+		authChecker
 	})
+
+const authChecker: AuthChecker<Context> = (
+	{ root, args, context,
+		info }, roles,
+) => {
+	context
+	 return roles.includes(AuthRoles.ADMIN)
+}
+
+export enum AuthRoles {
+	ADMIN = 'ADMIN'
+}

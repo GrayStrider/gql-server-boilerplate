@@ -1,9 +1,23 @@
 import {Request, Response} from 'express'
+import {AnyObject} from 'tsdef'
 import {dataSources} from './datasources'
 
-export const context = ({req}: Omit<BaseContext, 'dataSources'>) => ({
-	session : req.session,
-})
+function isSubscription(ctx: any): ctx is SubscriptionContext {
+	return ctx.connection
+}
+
+export const context =
+	(ctx: Omit<BaseContext, 'dataSources'> | SubscriptionContext) => {
+		const shared = {token: 'token123'}
+		
+		if (!isSubscription(ctx)) return ({
+			session: ctx.req.session,
+			shared
+		})
+		const {connection} = ctx
+		return ({connection, shared})
+		
+	}
 
 interface BaseContext {
 	req: Request,
@@ -11,4 +25,11 @@ interface BaseContext {
 	dataSources: ReturnType<typeof dataSources>
 	
 }
-export type Context = BaseContext & ReturnType<typeof context>
+
+
+interface SubscriptionContext {
+	connection: AnyObject // TODO types
+}
+
+
+export type Context = (BaseContext | SubscriptionContext) & ReturnType<typeof context>
