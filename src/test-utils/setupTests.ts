@@ -4,7 +4,7 @@ import {Connection, createConnection, getConnection} from 'typeorm'
 import {GQL_URL} from '../../config/_consts'
 import {ORMConfig} from '../../config/_typeorm'
 import {main} from '../server'
-import {log} from '../utils/log'
+import {log} from '../utils/libsExport'
 
 export async function setupTests() {
 	

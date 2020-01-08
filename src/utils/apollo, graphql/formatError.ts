@@ -3,7 +3,7 @@ import {ValidationError} from 'class-validator'
 import {GraphQLError} from 'graphql'
 import {flow, pick} from 'lodash'
 import {MiddlewareFn} from 'type-graphql'
-import {printUncaughtError} from '../log'
+import {log} from '../libsExport'
 
 export function formatError(err: GraphQLError) {
 	Sentry.captureException(err)
@@ -35,7 +35,7 @@ export const ErrorInterceptor2: MiddlewareFn = async (action, next) => {
 		return await next()
 	} catch (e) {
 		if (e.constructor.name === 'ExpectedError') {
-			printUncaughtError('Constructor ' + e.constructor.name)
+			log.error('Constructor ' + e.constructor.name)
 			throw new Error('Intercepted: ' + e.message)
 		} else {
 			console.log(e)

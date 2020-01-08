@@ -10,7 +10,7 @@ export const plainSchema = makeExecutableSchema<Context>({
           fieldCap(arg: String!, arg2: String!): String!
       }
 
-      type Query {
+      extend type Query {
           hello: String!
           data: Data
           getCatFact: String!

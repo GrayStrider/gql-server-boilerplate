@@ -11,10 +11,10 @@ export const uploadSchema = makeExecutableSchema<Context>({
           mimetype: String!
           encoding: String!
       }
-      type Query {
+      extend type Query {
           uploads: [File]
       }
-      type Mutation {
+      extend type Mutation {
           singleUpload(file: Upload!): File!
       }
 	`,

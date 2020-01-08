@@ -1,6 +1,5 @@
 import {Logger, QueryRunner} from 'typeorm'
 import {DBRequestCounterService} from '../../__typeorm reference/Middleware/DBRequestCounter'
-import {log} from '../log'
 
 export class CustomLogger implements Logger {
 	

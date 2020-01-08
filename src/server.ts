@@ -21,7 +21,7 @@ import {plainSchema} from './graphql/schemas/plainSchema'
 import {redis} from './redis'
 import {formatError} from './utils/apollo, graphql/formatError'
 import {myErrorMiddleware} from './utils/express/myErrorMiddleware'
-import {log} from './utils/log'
+import {log} from './utils/libsExport'
 import {sentryErrorHandler} from './utils/sentry/errorHandler'
 import {createSchema} from './utils/type-graphql/createSchema'
 

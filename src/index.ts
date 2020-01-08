@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import {main} from './server'
 import * as Sentry from '@sentry/node'
-import {log} from './utils/log'
+import {log} from './utils/libsExport'
 
 
 //================================================================================
