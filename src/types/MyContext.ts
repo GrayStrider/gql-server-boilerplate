@@ -1,5 +1,5 @@
 import {Request, Response} from 'express'
-import {createAuthorsLoader} from '../utils/dataloader/authorsLoader'
+import {createAuthorsLoader} from '../graphql/dataloader/authorsLoader'
 
 export interface MyContext {
 	req: Request;

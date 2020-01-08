@@ -85,7 +85,7 @@
   "scripts": {
     "start": "ts-node-dev --respawn --transpileOnly --ignore-watch .spec src/index.ts",
     "startFile": "ts-node-dev --respawn --transpileOnly --ignore-watch .spec",
-    "db:setup": "ts-node ./src/test-utils/setup.ts",
+    "db:setup": "ts-node src/utils/test-utils/setup.ts",
     "test": "npm run db:setup && jest",
     "codegen": "graphql-codegen"
   },
