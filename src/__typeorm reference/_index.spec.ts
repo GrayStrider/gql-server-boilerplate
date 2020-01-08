@@ -4,7 +4,7 @@ import {Connection, EntityManager, Like} from 'typeorm'
 import {Tag} from '../entity/KBF/Tag'
 import {Task} from '../entity/KBF/Task'
 import {setupTests} from '../test-utils/setupTests'
-import {postQuery, gqlRequest} from '../utils/apollo, graphql/postQuery'
+import {postQuery, gqlRequest} from '../graphql/utils/postQuery'
 import {bb} from '../utils/libsExport'
 import {ExampleEntity} from './entity/Entity'
 

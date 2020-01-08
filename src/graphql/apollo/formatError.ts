@@ -3,7 +3,7 @@ import {ValidationError} from 'class-validator'
 import {GraphQLError} from 'graphql'
 import {flow, pick} from 'lodash'
 import {MiddlewareFn} from 'type-graphql'
-import {log} from '../libsExport'
+import {log} from '../../utils/libsExport'
 
 export function formatError(err: GraphQLError) {
 	Sentry.captureException(err)

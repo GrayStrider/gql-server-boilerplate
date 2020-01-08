@@ -7,7 +7,7 @@ import {setupTests} from '../../test-utils/setupTests'
 import {Await} from '../../types/Await'
 import {Mutation, PaginatedUserResponse, Query} from '../../graphql/generated/typings'
 import {P} from '../../types/GetOnePropertyOfType'
-import {gqlRequest} from '../../utils/apollo, graphql/postQuery'
+import {gqlRequest} from '../../graphql/utils/postQuery'
 import {generateMockUsers} from './generateMockUsers'
 import arrayContaining = jasmine.arrayContaining
 
