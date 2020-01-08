@@ -1,10 +1,10 @@
 import {registerEnumType} from 'type-graphql'
 
 export enum Priority {
-	HIGH = 'high',
-	MEDIUM = 'medium',
-	LOW = 'low',
-	NONE = 'none'
+	HIGH = 'HIGH',
+	MEDIUM = 'MEDIUM',
+	LOW = 'LOW',
+	NONE = 'NONE'
 }
 
 registerEnumType(Priority, {

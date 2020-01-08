@@ -7,7 +7,7 @@ import {UserNew} from '../entity/User'
 import {Errors, userNotFoundError} from '../lib/Errors'
 import {generateMockUsers} from './generateMockUsers'
 import {UserCreateInput, UserModifyInput, UserSearchInput} from './inputs'
-const validator = new Validator()
+export const validator = new Validator()
 
 @Resolver()
 export class UserResolver {

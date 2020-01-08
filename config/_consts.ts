@@ -14,5 +14,6 @@ export const POSTRGRES_PASSWORD: string = get('postgres.password')
 export const POSTRGRES_USERNAME: string = get('postgres.username')
 export const POSTRGRES_DATABASE: string = get('postgres.database')
 export const GQL_URL: string = `http://${HOST}:${PORT}/graphql`
+export const SERVER_URL: string = `http://${HOST}:${PORT}/`
 export const dsn: string= get('sentry.dsn')
 export const APOLLO_ENGINE_API_KEY: string= process.env.ENGINE_API_KEY ?? 'Apollo API key not found'

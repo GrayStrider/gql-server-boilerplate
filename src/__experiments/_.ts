@@ -2,7 +2,7 @@ import R, {pick, pipe, prop, then} from 'ramda'
 import {createConnection} from 'typeorm'
 import {ORMConfig} from '../../config/_typeorm'
 import {UserNew} from '../__typeorm reference/entity/User'
-import {bb} from './libsExport'
+import {bb} from '../utils/libsExport'
 
 async function main() {
 	

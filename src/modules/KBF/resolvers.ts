@@ -4,7 +4,6 @@ import {Tag} from '../../entity/KBF/Tag'
 import {Task} from '../../entity/KBF/Task'
 import {bb} from '../../utils/libsExport'
 import {Like_} from '../../utils/typeorm/Like'
-import {validateAndSave} from '../../utils/type-graphql/validator'
 import {isAuth} from '../middleware/isAuth'
 import {NewTaskInput, SearchTaskInput} from './inputs'
 
@@ -57,7 +56,7 @@ export class TaskResolver {
 				}, []
 			)
 			
-			return await validateAndSave(Task.create({...data, tags}))
+			return await Task.create({...data, tags})
 		}
 		
 		return await Task.create(data).save()
