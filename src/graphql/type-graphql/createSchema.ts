@@ -1,17 +1,17 @@
 import {RedisPubSub} from 'graphql-redis-subscriptions'
-import {AuthChecker, buildSchema, registerEnumType} from 'type-graphql'
-import {DBRequestCounter} from '../../DB/__typeorm reference/Middleware/DBRequestCounter'
-import {UserResolver} from '../../DB/__typeorm reference/User/resolver'
-import {SubscriptionsResolver} from '../../DB/__typeorm reference/User/subscriptionsResolver'
-import {Context} from '../apollo/context'
-import {TagResolver, TaskResolver} from '../../models/modules/KBF/resolvers'
+import {AuthChecker, buildSchema} from 'type-graphql'
+import {AuthRoles} from '../../models/UsersPlayground/auth/authRoles'
+import {DBRequestCounter} from '../../utils/middleware/DBRequestCounter'
+import {UserResolver} from '../../models/UsersPlayground/resolvers/resolver'
+import {SubscriptionsResolver} from '../../models/UsersPlayground/resolvers/subscriptionsResolver'
 import {publisher, subscriber} from '../../DB/redis'
-import {AuthRoles} from '../../auth/authRoles'
+import {TagResolver, TaskResolver} from '../../models/KBF/resolvers'
+import {Context} from '../apollo/context'
 
 export const createSchema = () =>
 	buildSchema({
-		emitSchemaFile   : './src/graphql/generated/schema.graphql', // for testing
-		validate         : true,
+		emitSchemaFile: './src/graphql/generated/schema.graphql', // for testing
+		validate: true,
 		// has access only to "exception" error field, as opposed to apollo-server error formatter
 		globalMiddlewares: [DBRequestCounter],
 		
@@ -49,7 +49,9 @@ const authChecker: AuthChecker<Context> = (
 	return roles.includes(AuthRoles.ADMIN)
 }
 
-
+/**
+* paradigm where (citing Wikipedia) senders (publishers) are not programmed to send their messages to specific receivers (subscribers). Rather, published messages are characterized into channels, without knowledge of what (if any) subscribers there may be. Subscribers express interest in one or more channels, and only receive messages that are of interest, without knowledge of what (if any) publishers there are. This decoupling of publishers and subscribers can allow for greater scalability and a more dynamic network topology.
+ */
 const pubSub = new RedisPubSub({
 	publisher,
 	subscriber,

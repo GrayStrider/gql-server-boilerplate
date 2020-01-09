@@ -1,13 +1,13 @@
 import {validate, Validator} from 'class-validator'
 import {Arg, Authorized, Mutation, Query, Resolver} from 'type-graphql'
 import {bb} from '../../../utils/libsExport'
-import {AuthRoles} from '../../../auth/authRoles'
+import {AuthRoles} from '../auth/authRoles'
 import {PaginatedUserResponse} from '../../../graphql/type-graphql/paginatedResponse'
-import {LikeWrapper} from '../../typeorm/LikeWrapper'
+import {LikeWrapper} from '../../../DB/typeorm/LikeWrapper'
 import {UserNew} from '../entity/User'
-import {Errors, userNotFoundError} from '../lib/Errors'
-import {generateMockUsers} from './generateMockUsers'
-import {UserCreateInput, UserModifyInput, UserSearchInput} from './inputs'
+import {Errors, userNotFoundError} from '../../../utils/Errors'
+import {generateMockUsers} from '../lib/generateMockUsers'
+import {UserCreateInput, UserModifyInput, UserSearchInput} from '../inputs'
 export const validator = new Validator()
 
 @Resolver()

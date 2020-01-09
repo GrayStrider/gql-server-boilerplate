@@ -1,8 +1,8 @@
 import {GraphQLEnumValue, GraphQLField} from 'graphql'
 import {Directive, Field, ID, ObjectType, Root} from 'type-graphql'
 import {BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from 'typeorm'
-import {Countries} from '../User/CountriesList'
-import {howCommonIsName} from '../User/modules/HowCommonName'
+import {Countries} from '../lib/CountriesList'
+import {howCommonIsName} from '../lib/HowCommonName'
 
 
 const UserDescription = `Unique user ID.

@@ -1,151 +1,121 @@
-import {APOLLO_ENGINE_API_KEY} from 'config/_consts'
-import * as faker from 'faker'
-import gql from 'graphql-tag'
-import {setupTests} from 'src/utils/test-utils/setupTests'
-
-import {head, map, omit, pipe, prop} from 'ramda'
-import {generateMockUsers} from 'src/DB/__typeorm reference/User/generateMockUsers'
-import {Mutation, PaginatedUserResponse, Query} from 'src/graphql/generated/typings'
-import {gqlRequest} from 'src/graphql/utils/postQuery'
-import {Await} from 'src/types/Await'
-import {P} from 'src/types/GetOnePropertyOfType'
-import {Connection, EntityManager} from 'typeorm'
-import arrayContaining = jasmine.arrayContaining
-
-APOLLO_ENGINE_API_KEY
-
-let conn: Connection
-let db: EntityManager
-let fakes: Await<ReturnType<typeof generateMockUsers>>['fakes']
-let generated: Await<ReturnType<typeof generateMockUsers>>['generated']
-
-const SAMPLE_SIZE = 50
-
-beforeAll(async () => {
-	({conn} = await setupTests())
-	db = conn.manager;
-	({fakes, generated} = await generateMockUsers(SAMPLE_SIZE))
-	
-})
-
-describe('Users', async () => {
-	it(`should create ${SAMPLE_SIZE} new users`, async () => {
-		const act = map(omit(['id', 'createdDate']))(generated)
-		expect(act).toStrictEqual(fakes)
-	})
-  it(`new user`, async () => {
-    const {id} = await gqlRequest(gql`mutation {
-        userCreate(userData: {
-            country: Afghanistan, email: "zhoga.ivan@gmail.com",
-            firstName: "Ivan", lastName: "Zhoga", age: 24, password: "123"
-        }) {
-            id
-        }
-    }`) as P<Mutation, 'userCreate'>
-		expect(id).toBeTruthy()
-  })
-  it(`should search the users by paremeters`, async () => {
-    const firstNames = await gqlRequest(gql`query {
-        users(searchBy: {
-            firstName: "Ivan",
-            lastName: "Zhoga"
-        }) {
-            firstName
-        }
-    }`) as P<Query, 'users'>
-		expect(firstNames[0].firstName).toStrictEqual('Ivan')
-
-  })
-
-  describe('modify', async () => {
-		let testUserId: string
-
-    it(`should modify Country`, async () => {
-			testUserId = await gqlRequest<P<Query, 'users'>>(gql`{
-          users(searchBy: {lastName: "Zhoga"}) {
-              id
-          }
-      }`).then(pipe(map(prop('id')), head))
-
-      await gqlRequest(gql`mutation {
-          userModify(userId: "${testUserId}", changes: {
-              country: Algeria
-          }) {
-              country
-          }
-      }`)
-      // probably excessive to fetch afer mutation...
-      const country = await gqlRequest<P<Query, 'users'>>(gql`{
-          users(searchBy: {lastName: "Zhoga"}) {
-              country
-          }
-      }`).then(pipe(map(prop('country')), head))
-			expect(country).toBe('Algeria')
-    })
-
-    it(`should add friends`, async () => {
-			const r = faker.random.number
-      const randomIds = await gqlRequest<PaginatedUserResponse>(gql`query {
-          usersPaginated(
-              startAt: ${r({min: 0, max: SAMPLE_SIZE})},
-              upTo: ${r({min: 0, max: SAMPLE_SIZE})}) {
-              items {
-                  id
-              }
-          }
-      }`)
-			.then(pipe(prop('items'), map(prop('id'))))
-			expect(Array.isArray(randomIds)).toBeTruthy()
-
-      const addedFriendsIdsFromResponse =
-      await gqlRequest<P<Mutation, 'userModify'>>(gql`mutation m($friends: [String!]){
-          userModify(userId: "${testUserId}", changes: {
-              friendsIds: $friends
-              firstName: "Modified"
-          }) {
-              name
-              friends {
-                  id
-              }
-          }
-      }`, {friends: randomIds})
-			
-			.then(pipe(prop('friends'), map(prop('id'))))
-			
-			expect(addedFriendsIdsFromResponse).toEqual(arrayContaining(randomIds))
-
-    })
-  })
-})
+import 'reflect-metadata'
+import {DBRequestCounterService} from '@/DB/__typeorm reference/Middleware/DBRequestCounter'
+import {redis} from '@/DB/redis'
+import {context, createSchema, dataSources, DeprecatedDirective, formatError, plainSchema} from '@/graphql'
+import {myErrorMiddleware} from '@/utils/express/myErrorMiddleware'
+import {log} from '@/utils/libsExport'
+import {sentryErrorHandler} from '@/utils/sentry'
+import * as Sentry from '@sentry/node'
+import {ApolloServer} from 'apollo-server-express'
+import bodyParser from 'body-parser'
+import compression from 'compression'
+import {APOLLO_ENGINE_API_KEY, dsn, HOST, PORT} from 'config/_consts'
+import {ORMConfig} from 'config/_typeorm'
+import connectRedis from 'connect-redis'
+import cors from 'cors'
+import Express from 'express'
+import session from 'express-session'
+import {mergeSchemas} from 'graphql-tools'
+import * as http from 'http'
+import lusca from 'lusca'
+import {createConnection} from 'typeorm'
 
 
-describe('pagination', async () => {
-  const query = gql`query pagination($upTo: Float, $startAt: Float) {
-      usersPaginated(upTo: $upTo, startAt: $startAt) {
-          items {
-              id
-              name
-          }
-      }
-  }`
-	
-	it(`with up to`, async () => {
+export async function main() {
+	try {
+		// Sentry
+		Sentry.init({dsn})
+		// Express
+		const app = Express()
+		// Sentry Handler
+		app.use(Sentry.Handlers.requestHandler())
 		
-		const res = await gqlRequest<PaginatedUserResponse>(query, {upTo: 10})
-			.then(prop('items'))
+		// Create DB connection
+		const conn = await createConnection(ORMConfig)
+		// Flush if not in production
+		if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
+			log.warn('resetting the DB')
+			await conn.synchronize(true)
+		}
+		// Redis Store
+		const RedisStore = connectRedis(session)
 		
-		expect(res).toHaveLength(10)
-	})
-	it(`with both variables`, async () => {
-		const res = await gqlRequest<PaginatedUserResponse>(query, {upTo: 10, startAt: 50})
-			.then((res) => res.items)
+		// Initialize Apollo
+		const typegraphqlSchema = await createSchema()
+		const schema = mergeSchemas({
+			schemas: [
+				typegraphqlSchema,
+				plainSchema,
+			],
+		})
 		
-		expect(res).toHaveLength(1)
-	})
-  // everything else tested manually, have to track movement of id's here
+		const apolloServer = new ApolloServer({
+			schema, formatError, context,
+			validationRules: [],
+			engine: {apiKey: APOLLO_ENGINE_API_KEY},
+			schemaDirectives: {deprecated: DeprecatedDirective},
+			dataSources, subscriptions: {
+				onConnect: (connectionParams, websocket, context1) => {
+					return {authorised: true}
+				},
+			},
+		})
+		
+		// Express Middleware
+		app.use(cors({
+			credentials: true,
+			origin: new RegExp(`(http|ws)://${HOST}:${PORT}`),
+		}))
+		const sessionOptions = {
+			store: new RedisStore({
+				client: redis as any,
+			}),
+			name: 'qid',
+			secret: 'aslkdfjoiq12312',
+			resave: false,
+			saveUninitialized: false,
+			cookie: {
+				httpOnly: true,
+				secure: process.env.NODE_ENV === 'production',
+				maxAge: 1000 * 60 * 60 * 24 * 7 * 365, // 7 years
+			},
+		}
+		app.use(session(sessionOptions))
+		app.use(compression())
+		app.use(bodyParser.urlencoded({extended: true}))
+		app.use(lusca.xframe('SAMEORIGIN'))
+		app.use(lusca.xssProtection(true))
+		
+		app.post('/post', (req, res) => {
+			log.debug(req.body)
+			res.send('hello post')
+		})
+		
+		// finish apollo setup
+		apolloServer.applyMiddleware({app, cors: false})
+		
+		// error handlers
+		app.get('*', (req, res, next) => res.send('Not found'))
+		app.use(sentryErrorHandler)
+		app.use(myErrorMiddleware)
+		
+		// flush initial DB setup count
+		DBRequestCounterService.connect().clearCount()
+		
+		// Subscriptions server
+		const subscriptionsServer = http.createServer(app)
+		apolloServer.installSubscriptionHandlers(subscriptionsServer)
+		
+		// start
+		return subscriptionsServer.listen(PORT, () => {
+			Sentry.captureMessage('Up')
+			log.success(`server started on http://${HOST}:${PORT}/graphql`)
+		})
+		
+	} catch (e) {
+		Sentry.captureException(e)
+		log.error(e)
+	}
+	throw new Error()
+}
 
-})
-
-gql`query {
-		users
-}`

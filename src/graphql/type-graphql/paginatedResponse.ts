@@ -1,6 +1,6 @@
 import {ClassType, Field, Int, ObjectType} from 'type-graphql'
-import {UserNew} from '../../DB/__typeorm reference/entity/User'
-import {User} from '../../models/entity/User'
+import {UserNew} from '../../models/UsersPlayground/entity/User'
+import {User} from '../../models/Original/entity/User'
 
 
 export interface TPaginatedRes<TItem> {

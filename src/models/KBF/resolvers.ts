@@ -1,10 +1,10 @@
 import {Args, Mutation, Query, Resolver, UseMiddleware} from 'type-graphql'
 import {getConnection} from 'typeorm'
-import {Tag} from '../../entity/KBF/Tag'
-import {Task} from '../../entity/KBF/Task'
-import {bb} from '../../../utils/libsExport'
-import {Like_} from '../../../DB/typeorm/Like'
-import {isAuth} from '../middleware/isAuth'
+import {Tag} from './entity/Tag'
+import {Task} from './entity/Task'
+import {bb} from '../../utils/libsExport'
+import {Like_} from '../../DB/typeorm/Like'
+import {isAuth} from '../Original/modules/middleware/isAuth'
 import {NewTaskInput, SearchTaskInput} from './inputs'
 
 // TODO recommended to implement this for every mutation, kinda makes sense.

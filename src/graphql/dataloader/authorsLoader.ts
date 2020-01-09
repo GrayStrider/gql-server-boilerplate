@@ -1,7 +1,7 @@
 import DataLoader from 'dataloader'
 import {In} from 'typeorm'
-import {Author} from '../../models/entity/Author'
-import {AuthorBook} from '../../models/entity/AuthorBook'
+import {Author} from '../../models/Original/entity/Author'
+import {AuthorBook} from '../../models/Original/entity/AuthorBook'
 
 const batchAuthors = async (bookIds: number[]) => {
 	const authorBooks = await AuthorBook.find({

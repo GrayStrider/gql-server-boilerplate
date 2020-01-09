@@ -1,7 +1,7 @@
 import {GraphQLError} from 'graphql'
 import {Arg, Field, ID, Mutation, ObjectType, Publisher, PubSub, registerEnumType, Root, Subscription} from 'type-graphql'
 import uuid from 'uuid'
-import {Errors} from '../lib/Errors'
+import {Errors} from '../../../utils/Errors'
 
 
 export enum SUB_TOPICS {

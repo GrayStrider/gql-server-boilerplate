@@ -1,7 +1,7 @@
 import {debounce} from 'lodash'
 import {MiddlewareFn} from 'type-graphql'
-import {MyContext} from '../../../types/MyContext'
-import {log} from '../../../utils/libsExport'
+import {MyContext} from '../../types/MyContext'
+import {log} from '../libsExport'
 
 
 const collect = debounce((count) => {

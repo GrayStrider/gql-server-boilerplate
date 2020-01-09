@@ -1,6 +1,6 @@
 import faker from 'faker'
 import {Connection} from 'typeorm'
-import {User} from '../../models/entity/User'
+import {User} from '../../models/Original/entity/User'
 import {gCall} from '../../utils/test-utils/gCall'
 
 import {testConn} from '../../utils/test-utils/testConn'

@@ -1,6 +1,6 @@
 import {Max} from 'class-validator'
 import {ArgsType, Field} from 'type-graphql'
-import {Priority} from '../../entity/KBF/Priority'
+import {Priority} from './entity/Priority'
 
 @ArgsType()
 export class NewTaskInput {

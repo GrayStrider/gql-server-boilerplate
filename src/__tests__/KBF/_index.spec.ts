@@ -1,12 +1,12 @@
 import gql from 'graphql-tag'
 import * as http from 'http'
 import {Connection, EntityManager, Like} from 'typeorm'
-import {Tag} from '../../models/entity/KBF/Tag'
-import {Task} from '../../models/entity/KBF/Task'
+import {Tag} from '../../models/KBF/entity/Tag'
+import {Task} from '../../models/KBF/entity/Task'
 import {setupTests} from '../../utils/test-utils/setupTests'
 import {postQuery, gqlRequest} from '../../graphql/utils/postQuery'
 import {bb} from '../../utils/libsExport'
-import {ExampleEntity} from '../../DB/__typeorm reference/entity/Entity'
+import {ExampleEntity} from '../../DB/typeorm/examples/entity/Entity'
 
 let conn: Connection
 let db: EntityManager

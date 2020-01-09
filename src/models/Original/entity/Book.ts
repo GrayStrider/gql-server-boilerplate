@@ -1,6 +1,6 @@
 import {Ctx, Field, ID, ObjectType} from 'type-graphql'
 import {BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn} from 'typeorm'
-import {MyContext} from '../../types/MyContext'
+import {MyContext} from '../../../types/MyContext'
 import {Author} from './Author'
 import {AuthorBook} from './AuthorBook'
 

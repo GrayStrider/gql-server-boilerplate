@@ -1,7 +1,7 @@
 import {IsEmail} from 'class-validator'
 import {ArgsType, Field, InputType} from 'type-graphql'
-import {UserNew} from '../entity/User'
-import {Countries} from './CountriesList'
+import {UserNew} from './entity/User'
+import {Countries} from './lib/CountriesList'
 
 /**
  * @InputType will generate a real GraphQLInputType type and should be used when we need a nested object in the args:
