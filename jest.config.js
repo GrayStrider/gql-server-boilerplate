@@ -2,7 +2,7 @@ module.exports = {
   // preset: 'ts-jest',
   testEnvironment: 'node',
 
-  "moduleDirectories": ["node_modules", "<rootDir>"],
+  "moduleDirectories": ["node_modules", "src"],
 
   "moduleFileExtensions": [
     "ts",
@@ -22,7 +22,9 @@ module.exports = {
 
   "moduleNameMapper": {
     "src/(.*)": "<rootDir>/src/$1",
-    "config/(.*)": "<rootDir>/config/$1"
+    "config/(.*)": "<rootDir>/config/$1",
+    "@/(.*)": "<rootDir>/src/$1",
+
   }
 
   // collectCoverageFrom: [
