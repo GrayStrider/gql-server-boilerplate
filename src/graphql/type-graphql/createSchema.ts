@@ -1,3 +1,4 @@
+import {ErrorHandler} from '@/utils/middleware/ErrorHandler'
 import {RedisPubSub} from 'graphql-redis-subscriptions'
 import {AuthChecker, buildSchema} from 'type-graphql'
 import {AuthRoles} from '../../models/UsersPlayground/auth/authRoles'
@@ -13,7 +14,7 @@ export const createSchema = () =>
 		emitSchemaFile: './src/graphql/generated/schema.graphql', // for testing
 		validate: true,
 		// has access only to "exception" error field, as opposed to apollo-server error formatter
-		globalMiddlewares: [DBRequestCounter],
+		globalMiddlewares: [ErrorHandler, DBRequestCounter],
 		
 		resolvers: [
 			UserResolver,
