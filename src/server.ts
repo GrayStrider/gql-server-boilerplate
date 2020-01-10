@@ -50,7 +50,8 @@ export async function main() {
 		})
 		
 		const apolloServer = new ApolloServer({
-			schema, formatError, context,
+			schema: typegraphqlSchema,
+			formatError, context,
 			validationRules: [],
 			engine: {apiKey: APOLLO_ENGINE_API_KEY},
 			schemaDirectives: {deprecated: DeprecatedDirective},

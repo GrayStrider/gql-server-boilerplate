@@ -4,20 +4,20 @@ import {Errors} from '@/utils/Errors'
 import {Arg, Mutation, Publisher, PubSub, Root, Subscription} from 'type-graphql'
 import uuid from 'uuid'
 
+const checkAuthorized = (context: any) => {
+	if (!context.connection.context.authorized) {
+		// doesn't work with schema stiching,
+		// probably ok to wait till 1.0 and @Authorised support
+		// https://github.com/MichalLytek/type-graphql/issues/175
+		throw new Errors.Authenfication('Not authorised')
+	}
+}
 
 export class SubscriptionsResolver {
 	@Subscription({
 		topics: ({args, context, payload}) => {
-			if (!context.connection.context.authorized) {
-				console.log('not authorized')
-				// doesn't work with schema stiching,
-				// probably ok to wait till 1.0 and @Authorised support
-				// https://github.com/MichalLytek/type-graphql/issues/175
-				// throw new Errors.Authenfication
-				// throw new GraphQLError('not authorized')
-			}
+			checkAuthorized(context)
 			return SUB_TOPICS.NOTIFICATIONS
-			
 		},
 		filter: ({payload, args, context, info}) => {
 			return true
