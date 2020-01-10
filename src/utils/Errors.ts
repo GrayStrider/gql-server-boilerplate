@@ -14,7 +14,7 @@ export const Errors = {
 	Authenfication: CustomError(ErrorCodes.UNATHORIZED, 'Unathorized to perform requested action'),
 }
 
-function CustomError(code: string, defaultMessage: string, details?: AnyObject | string) {
+function CustomError(code: ErrorCodes, defaultMessage: string, details?: AnyObject | string) {
 	return class ExpectedError extends ApolloError {
 		constructor(message: string = defaultMessage, public details?: AnyObject | string) {
 			super(message, code)
