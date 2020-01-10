@@ -78,7 +78,7 @@ async function main() {
       }
   }`).then(task => task.description)
 
-  await await gqlreq('query', 'tasks', gql`query {
+  await gqlreq('query', 'tasks', gql`query {
       tasks {
           id
       }

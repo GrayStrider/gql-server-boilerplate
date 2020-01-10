@@ -1,6 +1,6 @@
+import {dataSources} from '@/graphql'
 import {Request, Response} from 'express'
 import {AnyObject} from 'tsdef'
-import {dataSources} from '@/graphql'
 
 function isSubscription(ctx: any): ctx is SubscriptionContext {
 	return ctx.connection
@@ -8,16 +8,25 @@ function isSubscription(ctx: any): ctx is SubscriptionContext {
 
 export const context =
 	(ctx: Omit<BaseContext, 'dataSources'> | SubscriptionContext) => {
-		const shared = {token: 'token123'}
+		const shared = {
+			token: 'token123',
+			username: 'placeholder',
+		}
 		
-		if (!isSubscription(ctx)) return ({
+		if (isSubscription(ctx)) {
+			const {connection} = ctx
+			return ({connection, shared})
+		}
+		return ({
 			session: ctx.req.session,
-			shared
+			shared,
 		})
-		const {connection} = ctx
-		return ({connection, shared})
 		
 	}
+export const context2 = ({req, res}: {req: Request, res: Response}) => ({
+	session: req.session,
+	username: 'placeholder'
+})
 
 interface BaseContext {
 	req: Request,
@@ -30,4 +39,4 @@ interface SubscriptionContext {
 	connection: AnyObject // TODO types
 }
 
-export type Context = BaseContext & ReturnType<typeof context>
+export type Context = (BaseContext | SubscriptionContext) & ReturnType<typeof context2>

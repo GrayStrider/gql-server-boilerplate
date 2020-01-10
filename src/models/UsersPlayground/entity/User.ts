@@ -1,4 +1,6 @@
-import {Directive, Field, FieldResolver, ID, Int, ObjectType, Resolver, ResolverInterface, Root} from 'type-graphql'
+import {LogAccess} from '@/graphql/type-graphql/middleware/LogAccess'
+import {UserModifyInput} from '@/models/UsersPlayground/inputs'
+import {Directive, Field, ID, Int, ObjectType, Root, UseMiddleware} from 'type-graphql'
 import {BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from 'typeorm'
 import {Countries} from '../lib/CountriesList'
 import {howCommonIsName} from '../lib/HowCommonName'
@@ -65,6 +67,7 @@ export class UserNew extends BaseEntity {
 	}
 	
 	@Field({complexity: 2})
+	@UseMiddleware(LogAccess)
 	name(@Root() parent: UserNew): string {
 		return `${parent.firstName}${parent.lastName ? ' ' + parent.lastName : ''}`
 	}

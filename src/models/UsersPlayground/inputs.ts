@@ -1,6 +1,5 @@
-import {IsValidAge} from '@/models/UsersPlayground/lib/validators/validYear'
 import {
-	IsEmail, IsInt, Max, Min, ValidationArguments, ValidatorConstraint, ValidatorConstraintInterface,
+	IsEmail, IsInt, Max, Min,
 } from 'class-validator'
 import {Field, InputType, Int} from 'type-graphql'
 import {UserNew} from './entity/User'

@@ -5,6 +5,7 @@ import {AuthRoles} from '@/models/UsersPlayground/auth/authRoles'
 import {DBRequestCounter} from '@/utils/middleware/DBRequestCounter'
 import {UserResolver} from '@/models/UsersPlayground/resolvers/resolver'
 import {SubscriptionsResolver} from '@/models/UsersPlayground/subscriptions/subscriptionsResolver'
+import {Container} from 'typedi'
 import {publisher, subscriber} from '../../DB/redis'
 import {TagResolver, TaskResolver} from '@/models/KBF/resolvers'
 import {Context} from '../apollo/context'
@@ -18,27 +19,13 @@ export const createSchema = () =>
 		validate: true,
 		// has access only to "exception" error field, as opposed to apollo-server error formatter
 		globalMiddlewares: [ErrorHandler, DBRequestCounter],
+		container: Container,
 		
 		resolvers: [
 			UserResolver,
 			TagResolver,
 			TaskResolver,
 			SubscriptionsResolver,
-			
-			// ExampleEntityResolver,
-			// PhotoResolver,
-			// AlbumResolver,
-			// ChangePasswordResolver,
-			// ConfirmUserResolver,
-			// ForgotPasswordResolver,
-			// LoginResolver,
-			// LogoutResolver,
-			// MeResolver,
-			// RegisterResolver,
-			// CreateUserResolver,
-			// CreateProductResolver,
-			// ProfilePictureResolver,
-			// AuthorBookResolver
 		],
 		authChecker,
 		pubSub,
