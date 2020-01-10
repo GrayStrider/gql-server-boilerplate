@@ -1,5 +1,4 @@
 import {LogAccess} from '@/graphql/type-graphql/middleware/LogAccess'
-import {UserModifyInput} from '@/models/UsersPlayground/inputs'
 import {Directive, Field, ID, Int, ObjectType, Root, UseMiddleware} from 'type-graphql'
 import {
 	BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn,
