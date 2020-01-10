@@ -3,10 +3,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "*": [
-        "src/*",
-        "*"
-      ]
+      "src/*": ["src/*"],
+      "config/*": ["config/*"],
+      "*": ["src/*"]
     },
     "target": "es6",
     "module": "commonjs",
