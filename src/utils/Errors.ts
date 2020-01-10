@@ -1,15 +1,22 @@
 import {ApolloError} from 'apollo-server'
 import {truncate} from 'lodash'
+import {AnyObject} from 'tsdef'
 
-export const Errors = {
-	Validation: CustomError('VALIDATION_ERROR', 'Unspecified validation error'),
-	NotFound  : CustomError('NOT_FOUND', 'Object not found'),
-	Authenfication: CustomError('UNATHORIZED', 'Unathorized to perform requested action')
+export enum ErrorCodes {
+	'VALIDATION_ERROR'= 'VALIDATION_ERROR',
+	'NOT_FOUND'= 'NOT_FOUND',
+	'UNATHORIZED' = 'UNATHORIZED'
 }
 
-function CustomError(code: string, defaultMessage: string) {
+export const Errors = {
+	Validation: CustomError(ErrorCodes.VALIDATION_ERROR, 'Unspecified validation error'),
+	NotFound  : CustomError(ErrorCodes.NOT_FOUND, 'Object not found'),
+	Authenfication: CustomError(ErrorCodes.UNATHORIZED, 'Unathorized to perform requested action')
+}
+
+function CustomError(code: string, defaultMessage: string, details?: AnyObject | string) {
 	return class ExpectedError extends ApolloError {
-		constructor(message: string = defaultMessage) {
+		constructor(message: string = defaultMessage, public details?:AnyObject | string =  details) {
 			super(message, code)
 		}
 	}
