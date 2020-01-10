@@ -39,4 +39,4 @@ interface SubscriptionContext {
 	connection: AnyObject // TODO types
 }
 
-export type Context = (BaseContext | SubscriptionContext) & ReturnType<typeof context2>
+export type Context = BaseContext & ReturnType<typeof context2>

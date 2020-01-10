@@ -20,6 +20,7 @@ import * as http from 'http'
 import lusca from 'lusca'
 import {Container} from 'typedi'
 import {createConnection, useContainer} from 'typeorm'
+import {context2} from '@/graphql/apollo/context'
 
 
 export async function main() {
@@ -55,7 +56,7 @@ export async function main() {
 	
 	const apolloServer = new ApolloServer({
 		schema: typegraphqlSchema,
-		formatError, context,
+		formatError, context: context2,
 		validationRules: [
 			// TODO, does not work with random user generator
 			// complexityValidator()
