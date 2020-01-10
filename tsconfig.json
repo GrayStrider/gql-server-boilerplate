@@ -2,7 +2,12 @@
   "extends": "./node_modules/@sentry/typescript/tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-
+    "paths": {
+      "*": [
+        "src/*",
+        "*"
+      ]
+    },
     "target": "es6",
     "module": "commonjs",
     "lib": [
@@ -18,7 +23,7 @@
     "sourceMap": true,
     "outDir": "./dist",
     "moduleResolution": "node",
-//    "declaration": false,
+    //    "declaration": false,
     "composite": false,
     "removeComments": true,
     "noImplicitAny": true,

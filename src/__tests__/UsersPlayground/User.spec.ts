@@ -1,15 +1,17 @@
+import {APOLLO_ENGINE_API_KEY} from 'config/_consts'
 import * as faker from 'faker'
 import gql from 'graphql-tag'
 import {times} from 'lodash'
 import R, {filter, head, includes, map, omit, pipe, prop} from 'ramda'
 import {Connection, EntityManager} from 'typeorm'
-import {setupTests} from '../../utils/test-utils/setupTests'
-import {Await} from '../../types/Await'
-import {Mutation, PaginatedUserResponse, Query} from '../../graphql/generated/typings'
-import {P} from '../../types/GetOnePropertyOfType'
-import {gqlRequest} from '../../graphql/utils/postQuery'
-import {generateMockUsers} from '../../DB/__typeorm reference/User/generateMockUsers'
+import {setupTests} from 'src/utils/test-utils/setupTests'
+import {Await} from 'src/types/Await'
+import {Mutation, PaginatedUserResponse, Query} from 'src/graphql/generated/typings'
+import {P} from 'src/types/GetOnePropertyOfType'
+import {gqlRequest} from 'src/graphql/utils/postQuery'
+import {generateMockUsers} from 'src/DB/__typeorm reference/User/generateMockUsers'
 import arrayContaining = jasmine.arrayContaining
+APOLLO_ENGINE_API_KEY
 
 let conn: Connection
 let db: EntityManager
