@@ -1,6 +1,6 @@
 import {debounce} from 'lodash'
 import {MiddlewareFn} from 'type-graphql'
-import {MyContext} from '../../types/MyContext'
+import {MyContext} from '@/types/MyContext'
 import {log} from '../libsExport'
 
 

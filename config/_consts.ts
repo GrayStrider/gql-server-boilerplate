@@ -1,7 +1,7 @@
 process.env["NODE_CONFIG_DIR"] = __dirname;
 
 import {get} from 'config'
-import {log} from '../src/utils/libsExport'
+import {log} from '@/utils/libsExport'
 
 log.info("ENV: " + process.env.NODE_ENV)
 

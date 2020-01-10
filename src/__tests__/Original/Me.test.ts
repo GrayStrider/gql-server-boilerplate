@@ -1,9 +1,9 @@
 import faker from 'faker'
 import {Connection} from 'typeorm'
-import {User} from '../../models/Original/entity/User'
-import {gCall} from '../../utils/test-utils/gCall'
+import {User} from '@/models/Original/entity/User'
+import {gCall} from '@/utils/test-utils/gCall'
 
-import {testConn} from '../../utils/test-utils/testConn'
+import {testConn} from '@/utils/test-utils/testConn'
 
 let conn: Connection
 beforeAll(async () => {

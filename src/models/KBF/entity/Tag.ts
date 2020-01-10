@@ -1,5 +1,5 @@
-import {Field, ID, InputType, ObjectType} from 'type-graphql'
-import {BaseEntity, Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from 'typeorm'
+import {Field, ID, ObjectType} from 'type-graphql'
+import {BaseEntity, Column, Entity, ManyToMany, PrimaryGeneratedColumn} from 'typeorm'
 import {Task} from './Task'
 
 @ObjectType()

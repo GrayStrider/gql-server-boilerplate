@@ -1,7 +1,7 @@
-import {Args, Mutation, Query, Resolver} from 'type-graphql'
+import {Args, Query, Resolver} from 'type-graphql'
 import {Child} from './entity/ChildEntity'
 import {ExampleEntity} from './entity/Entity'
-import {ExampleEntityNewInput, ExampleEntitySearchInput} from './Inputs'
+import {ExampleEntitySearchInput} from './Inputs'
 
 
 @Resolver()

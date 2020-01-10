@@ -3,7 +3,7 @@ import {getConnection} from 'typeorm'
 import {Tag} from './entity/Tag'
 import {Task} from './entity/Task'
 import {bb} from '../../utils/libsExport'
-import {Like_} from '../../DB/typeorm/Like'
+import {Like_} from '@/DB/typeorm/Like'
 import {isAuth} from '../Original/modules/middleware/isAuth'
 import {NewTaskInput, SearchTaskInput} from './inputs'
 
@@ -56,7 +56,7 @@ export class TaskResolver {
 				}, []
 			)
 			
-			return await Task.create({...data, tags})
+			return Task.create({...data, tags})
 		}
 		
 		return await Task.create(data).save()

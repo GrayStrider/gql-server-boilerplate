@@ -5,7 +5,7 @@ import {GraphQLError} from 'graphql'
 import {flow, pick} from 'lodash'
 import {AnyObject} from 'tsdef'
 import {MiddlewareFn} from 'type-graphql'
-import {log} from '../../utils/libsExport'
+import {log} from '@/utils/libsExport'
 
 export function formatError(err: GraphQLError) {
 	Sentry.captureException(err)

@@ -1,6 +1,6 @@
 import * as http from 'http'
 import {Connection} from 'typeorm'
-import {setupTests} from '../../utils/test-utils/setupTests'
+import {setupTests} from 'src/utils/test-utils/setupTests'
 
 
 beforeAll(() => {

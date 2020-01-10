@@ -3,9 +3,9 @@ import request from 'graphql-request'
 import {Variables} from 'graphql-request/dist/src/types'
 import gql from 'graphql-tag'
 import {AnyObject} from 'tsdef'
-import {GQL_URL} from '../../../config/_consts'
+import {GQL_URL} from 'config/_consts'
 import {Mutation, Query} from '../generated/typings'
-import {flattenObject} from '../../utils/zz_misc/flattenObject'
+import {flattenObject} from '@/utils/zz_misc/flattenObject'
 
 
 /**
@@ -78,7 +78,7 @@ async function main() {
       }
   }`).then(task => task.description)
 
-  gqlreq('query', 'tasks', gql`query {
+  await await gqlreq('query', 'tasks', gql`query {
       tasks {
           id
       }

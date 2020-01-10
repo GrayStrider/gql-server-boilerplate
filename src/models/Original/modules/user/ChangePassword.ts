@@ -2,8 +2,8 @@ import bcrypt from 'bcryptjs'
 import {Arg, Ctx, Mutation, Resolver} from 'type-graphql'
 
 import {User} from '../../entity/User'
-import {redis} from '../../../../DB/redis'
-import {MyContext} from '../../../../types/MyContext'
+import {redis} from '@/DB/redis'
+import {MyContext} from '@/types/MyContext'
 import {forgotPasswordPrefix} from '../constants/redisPrefixes'
 import {ChangePasswordInput} from './changePassword/ChangePasswordInput'
 

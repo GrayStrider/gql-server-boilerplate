@@ -2,7 +2,7 @@ import {createWriteStream} from 'fs'
 import {GraphQLUpload} from 'graphql-upload'
 import {Arg, Mutation, Resolver} from 'type-graphql'
 
-import {Upload} from '../../../../types/Upload'
+import {Upload} from '@/types/Upload'
 
 @Resolver()
 export class ProfilePictureResolver {

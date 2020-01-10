@@ -2,8 +2,8 @@ import {main} from '@/server'
 import axios from 'axios'
 import * as http from 'http'
 import {Connection, createConnection, getConnection} from 'typeorm'
-import {GQL_URL} from '../../../config/_consts'
-import {ORMConfig} from '../../../config/_typeorm'
+import {GQL_URL} from 'config/_consts'
+import {ORMConfig} from 'config/_typeorm'
 import {log} from '../libsExport'
 
 export async function setupTests() {

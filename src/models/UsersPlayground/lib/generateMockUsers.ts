@@ -2,9 +2,9 @@ import faker from 'faker'
 import gql from 'graphql-tag'
 import {times} from 'lodash'
 import {bb} from '@/utils/libsExport'
-import {Mutation} from '../../../graphql/generated/typings'
-import {P} from '../../../types/GetOnePropertyOfType'
-import {gqlRequest} from '../../../graphql/utils/postQuery'
+import {Mutation} from '@/graphql/generated/typings'
+import {P} from '@/types/GetOnePropertyOfType'
+import {gqlRequest} from '@/graphql/utils/postQuery'
 import {Countries} from './CountriesList'
 
 export async function generateMockUsers(amount: number) {

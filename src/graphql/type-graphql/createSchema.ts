@@ -1,12 +1,12 @@
 import {ErrorHandler} from '@/utils/middleware/ErrorHandler'
 import {RedisPubSub} from 'graphql-redis-subscriptions'
 import {AuthChecker, buildSchema} from 'type-graphql'
-import {AuthRoles} from '../../models/UsersPlayground/auth/authRoles'
-import {DBRequestCounter} from '../../utils/middleware/DBRequestCounter'
-import {UserResolver} from '../../models/UsersPlayground/resolvers/resolver'
-import {SubscriptionsResolver} from '../../models/UsersPlayground/resolvers/subscriptionsResolver'
+import {AuthRoles} from '@/models/UsersPlayground/auth/authRoles'
+import {DBRequestCounter} from '@/utils/middleware/DBRequestCounter'
+import {UserResolver} from '@/models/UsersPlayground/resolvers/resolver'
+import {SubscriptionsResolver} from '@/models/UsersPlayground/resolvers/subscriptionsResolver'
 import {publisher, subscriber} from '../../DB/redis'
-import {TagResolver, TaskResolver} from '../../models/KBF/resolvers'
+import {TagResolver, TaskResolver} from '@/models/KBF/resolvers'
 import {Context} from '../apollo/context'
 
 export const createSchema = () =>

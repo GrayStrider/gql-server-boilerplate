@@ -1,4 +1,3 @@
-import {GraphQLEnumValue, GraphQLField} from 'graphql'
 import {Directive, Field, ID, ObjectType, Root} from 'type-graphql'
 import {BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from 'typeorm'
 import {Countries} from '../lib/CountriesList'
