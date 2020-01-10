@@ -1,14 +1,13 @@
 import * as faker from 'faker'
 import gql from 'graphql-tag'
-import {times} from 'lodash'
-import R, {filter, head, includes, map, omit, pipe, prop} from 'ramda'
+import {head, map, omit, pipe, prop} from 'ramda'
 import {Connection, EntityManager} from 'typeorm'
-import {setupTests} from '../../utils/test-utils/setupTests'
-import {Await} from '../../types/Await'
-import {Mutation, PaginatedUserResponse, Query} from '../../graphql/generated/typings'
-import {P} from '../../types/GetOnePropertyOfType'
-import {gqlRequest} from '../../graphql/utils/postQuery'
-import {generateMockUsers} from '../../models/UsersPlayground/lib/generateMockUsers'
+import {setupTests} from 'src/utils/test-utils/setupTests'
+import {Mutation, PaginatedUserResponse, Query} from 'src/graphql/generated/typings'
+import {gqlRequest} from 'src/graphql/utils/postQuery'
+import {generateMockUsers} from 'src/models/UsersPlayground/lib/generateMockUsers'
+import {Await} from 'src/types/Await'
+import {P} from 'src/types/GetOnePropertyOfType'
 import arrayContaining = jasmine.arrayContaining
 
 let conn: Connection
