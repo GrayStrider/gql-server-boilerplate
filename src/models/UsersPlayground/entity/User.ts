@@ -1,4 +1,4 @@
-import {Directive, Field, ID, ObjectType, Root} from 'type-graphql'
+import {Directive, Field, FieldResolver, ID, Int, ObjectType, Resolver, ResolverInterface, Root} from 'type-graphql'
 import {BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from 'typeorm'
 import {Countries} from '../lib/CountriesList'
 import {howCommonIsName} from '../lib/HowCommonName'
@@ -12,7 +12,7 @@ This field suppports **formatting** and [links](https://google.com).`
 export class UserNew extends BaseEntity {
 	@PrimaryGeneratedColumn('uuid')
 	@Field(returns => ID, {description: UserDescription})
-	id: string
+	readonly id: string
 	
 	@Field()
 	@Column()
@@ -30,13 +30,13 @@ export class UserNew extends BaseEntity {
 	@Column()
 	password: string
 	
-	@Field()
+	@Field(returns => Int)
 	@Column('int')
 	age: number
 	
 	@CreateDateColumn()
 	@Field()
-	createdDate: string
+	readonly createdDate: string
 	@Field(returns => Countries)
 	@Column({type: 'enum', enum: Countries})
 	country: Countries
@@ -68,4 +68,12 @@ export class UserNew extends BaseEntity {
 		return [...(this.friendsPrimary ?? []), ...(this.friendsInverse ?? [])]
 	}
 	
+}
+
+@Resolver(of => UserNew)
+class HowCommonNameResolver implements ResolverInterface<UserNew> {
+	@FieldResolver()
+	async howCommonIsName(@Root() user: UserNew) {
+		return await howCommonIsName(user.firstName, user.lastName)
+	}
 }
