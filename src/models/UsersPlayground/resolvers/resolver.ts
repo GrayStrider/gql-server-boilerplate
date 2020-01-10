@@ -9,6 +9,9 @@ import {generateMockUsers} from '../lib/generateMockUsers'
 import {UserCreateInput, UserModifyInput, UserSearchInput} from '../inputs'
 export const validator = new Validator()
 
+export const yearBorn = (age: number) => new Date().getFullYear() - age
+
+
 @Resolver()
 export class UserResolver {
 	@Mutation(returns => [UserNew])
@@ -37,8 +40,8 @@ export class UserResolver {
 	}
 	
 	@Mutation(returns => UserNew)
-	async userCreate(@Arg('userData') input: UserCreateInput) {
-		return await UserNew.create(input).save()
+	async userCreate(@Arg('userData') {age, ...rest}: UserCreateInput) {
+		return await UserNew.create({yearBorn: yearBorn(age), ...rest}).save()
 	}
 	
 	@Mutation(returns => UserNew)

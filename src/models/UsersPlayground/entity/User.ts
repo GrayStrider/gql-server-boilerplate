@@ -3,9 +3,11 @@ import {BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, Pri
 import {Countries} from '../lib/CountriesList'
 import {howCommonIsName} from '../lib/HowCommonName'
 
-
+const currentYear = new Date().getFullYear()
 const UserDescription = `Unique user ID.
 This field suppports **formatting** and [links](https://google.com).`
+
+
 
 @ObjectType()
 @Entity()
@@ -31,8 +33,12 @@ export class UserNew extends BaseEntity {
 	password: string
 	
 	@Field(returns => Int)
+	age() {
+		return currentYear - this.yearBorn
+	}
+	
 	@Column('int')
-	age: number
+	yearBorn: number
 	
 	@CreateDateColumn()
 	@Field()

@@ -14,7 +14,7 @@ export async function generateMockUsers(amount: number) {
 		password : faker.internet.password(),
 		email    : faker.internet.exampleEmail(),
 		country  : faker.random.arrayElement(Object.keys(Countries)),
-		age      : faker.random.number(100),
+		age      : faker.random.number({max: 150, min: 18}),
 	}))
 	
 	const generated = await bb.all(fakes.map(fake =>

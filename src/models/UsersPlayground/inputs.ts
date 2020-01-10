@@ -1,5 +1,8 @@
-import {IsEmail} from 'class-validator'
-import {Field, InputType} from 'type-graphql'
+import {IsValidAge} from '@/models/UsersPlayground/lib/validators/validYear'
+import {
+	IsEmail, IsInt, Max, Min, ValidationArguments, ValidatorConstraint, ValidatorConstraintInterface,
+} from 'class-validator'
+import {Field, InputType, Int} from 'type-graphql'
 import {UserNew} from './entity/User'
 import {Countries} from './lib/CountriesList'
 
@@ -13,8 +16,10 @@ updateItem(id: Int!, userId: Int!): Item!
  TODO difference
  */
 
+type UserCreateType = Partial<Omit<UserNew, 'age'>> & {age: number}
+
 @InputType()
-export class UserCreateInput {
+export class UserCreateInput implements UserCreateType {
 	@Field()
 	firstName: string
 	
@@ -31,13 +36,20 @@ export class UserCreateInput {
 	@Field()
 	password: string
 	
-	@Field()
+	@Min(18)
+	@Max(150)
+	@IsInt()
+	@Field(returns => Int)
 	age: number
 	
 	@Field(returns => [String], {nullable: true})
 	friendsIds: string[]
 }
 
+
+/**
+ * Same fields as in create, but all nullable
+ */
 @InputType()
 export class UserModifyInput implements UserCreateInput {
 	@Field({nullable: true})
@@ -56,7 +68,7 @@ export class UserModifyInput implements UserCreateInput {
 	@Field({nullable: true})
 	password: string
 	
-	@Field({nullable: true})
+	@Field(returns => Int, {nullable: true})
 	age: number
 	
 	@Field(returns => [String], {nullable: true})
@@ -64,34 +76,29 @@ export class UserModifyInput implements UserCreateInput {
 	
 }
 
+/**
+ * Omit certain fields in search
+ */
 @InputType()
-export class UserSearchInput implements Partial<UserNew> {
+export class UserSearchInput implements Omit<UserModifyInput, 'password' | 'friendsIds'>{
 	[key: string]: any;
 	
 	@Field({nullable: true})
 	id: string
 	
+	@IsEmail({}, {message: "Invalid email format"})
+	@Field({nullable: true})
+	email: string
+	
 	@Field({nullable: true})
 	firstName: string
 	
 	@Field({nullable: true})
 	lastName: string
-	
-	@Field({nullable: true})
-	age: number
 	
 	@Field(returns => Countries, {nullable: true})
 	country: Countries
 	
-	@Field({nullable: true})
-	email: string
-}
-
-@InputType()
-export class UserSearchInputSimple implements Partial<UserNew> {
-	@Field(returns => String )
-	firstName: string
-	
-	@Field(returns => String )
-	lastName: string
+	@Field(returns => Int, {nullable: true})
+	age: number
 }
