@@ -1,7 +1,9 @@
 import {LogAccess} from '@/graphql/type-graphql/middleware/LogAccess'
 import {UserModifyInput} from '@/models/UsersPlayground/inputs'
 import {Directive, Field, ID, Int, ObjectType, Root, UseMiddleware} from 'type-graphql'
-import {BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from 'typeorm'
+import {
+	BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn,
+} from 'typeorm'
 import {Countries} from '../lib/CountriesList'
 import {howCommonIsName} from '../lib/HowCommonName'
 
@@ -44,7 +46,11 @@ export class UserNew extends BaseEntity {
 	
 	@CreateDateColumn()
 	@Field()
-	readonly createdDate: string
+	readonly createdDate: Date;
+	
+	@Field()
+	@UpdateDateColumn()
+	updatedDate: Date;
 	
 	@Field(returns => Countries)
 	@Column({type: 'enum', enum: Countries})
