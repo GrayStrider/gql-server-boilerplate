@@ -4233,13 +4233,6 @@ graphql-import@0.7.1:
     lodash "^4.17.4"
     resolve-from "^4.0.0"
 
-graphql-query-complexity@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/graphql-query-complexity/-/graphql-query-complexity-0.2.2.tgz#c90951b4cdb88a35e9595e833b9cd7fb6294983c"
-  integrity sha512-Z2MEPILOZo7B6Tpa/Fct4h0cLZj7MwPRZftN+3x9my5IIEEh6BlOmPr74/wM3uaGrOWLCDXYPQ46Hvli2YM3eg==
-  dependencies:
-    lodash.get "^4.4.2"
-
 graphql-query-complexity@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/graphql-query-complexity/-/graphql-query-complexity-0.4.1.tgz#06ad49de617da0d74c8196fb4a641349f104552d"

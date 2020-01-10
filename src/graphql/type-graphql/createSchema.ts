@@ -11,7 +11,10 @@ import {Context} from '../apollo/context'
 
 export const createSchema = () =>
 	buildSchema({
-		emitSchemaFile: './src/graphql/generated/schema.graphql', // for testing
+		emitSchemaFile: {
+			path: './src/graphql/generated/schema.graphql',
+			commentDescriptions: true,
+		}, // for testing
 		validate: true,
 		// has access only to "exception" error field, as opposed to apollo-server error formatter
 		globalMiddlewares: [ErrorHandler, DBRequestCounter],

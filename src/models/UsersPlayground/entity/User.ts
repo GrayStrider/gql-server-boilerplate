@@ -59,17 +59,17 @@ export class UserNew extends BaseEntity {
 	@Field()
 	deprecated: string
 	
-	@Field(returns => String)
+	@Field(returns => String, {complexity: 3})
 	async howCommonIsName() {
 		return await howCommonIsName(this.firstName, this.lastName)
 	}
 	
-	@Field({complexity: 3})
+	@Field({complexity: 2})
 	name(@Root() parent: UserNew): string {
 		return `${parent.firstName}${parent.lastName ? ' ' + parent.lastName : ''}`
 	}
 	
-	@Field(returns => [UserNew])
+	@Field(returns => [UserNew], {complexity: 2})
 	friends(): UserNew[] {
 		
 		return [...(this.friendsPrimary ?? []), ...(this.friendsInverse ?? [])]

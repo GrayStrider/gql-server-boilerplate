@@ -1,3 +1,4 @@
+import {UserCreateInput} from '@/models/UsersPlayground/inputs'
 import faker from 'faker'
 import gql from 'graphql-tag'
 import {times} from 'lodash'
@@ -8,7 +9,7 @@ import {gqlRequest} from '@/graphql/utils/postQuery'
 import {Countries} from './CountriesList'
 
 export async function generateMockUsers(amount: number) {
-	const fakes = times(amount, () => ({
+	const fakes = times(amount, () => (<UserCreateInput>{
 		firstName: faker.name.firstName(),
 		lastName : faker.name.lastName(),
 		password : faker.internet.password(),
@@ -38,6 +39,3 @@ const query = gql`mutation userCreate($input: UserCreateInput!) {
         age
     }
 }`
-
-const foo = () => new bb((resolve, reject, onCancel) =>
-	resolve(1))

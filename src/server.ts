@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 import {redis} from '@/DB/redis'
 import {context, createSchema, dataSources, DeprecatedDirective, formatError, plainSchema} from '@/graphql'
+import {complexityValidator} from '@/graphql/validation'
 import {myErrorMiddleware} from '@/utils/express/myErrorMiddleware'
 import {log} from '@/utils/libsExport'
 import {DBRequestCounterService} from '@/utils/middleware/DBRequestCounter'
@@ -15,6 +16,7 @@ import connectRedis from 'connect-redis'
 import cors from 'cors'
 import Express from 'express'
 import session from 'express-session'
+import queryComplexity, {fieldExtensionsEstimator, simpleEstimator} from 'graphql-query-complexity'
 import {mergeSchemas} from 'graphql-tools'
 import * as http from 'http'
 import lusca from 'lusca'
@@ -42,6 +44,8 @@ export async function main() {
 		
 		// Initialize Apollo
 		const typegraphqlSchema = await createSchema()
+		
+		// TODO does not work with subscriptions
 		const schema = mergeSchemas({
 			schemas: [
 				typegraphqlSchema,
@@ -52,7 +56,10 @@ export async function main() {
 		const apolloServer = new ApolloServer({
 			schema: typegraphqlSchema,
 			formatError, context,
-			validationRules: [],
+			validationRules: [
+				// TODO, does not work with random user generator
+				// complexityValidator()
+			],
 			engine: {apiKey: APOLLO_ENGINE_API_KEY},
 			schemaDirectives: {deprecated: DeprecatedDirective},
 			dataSources, subscriptions: {
