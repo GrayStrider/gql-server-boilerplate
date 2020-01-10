@@ -43,14 +43,15 @@ export class UserNew extends BaseEntity {
 	@CreateDateColumn()
 	@Field()
 	readonly createdDate: string
+	
 	@Field(returns => Countries)
 	@Column({type: 'enum', enum: Countries})
+	
 	country: Countries
 	@JoinTable()
 	@ManyToMany(type => UserNew, friends => friends.friendsInverse, {cascade: ['insert', 'update']})
-		// @Field(returns => [UserNew], {nullable: true})
+	
 	friendsPrimary: UserNew[]
-	// @Field(returns => [UserNew])
 	@ManyToMany(type => UserNew, friends => friends.friendsPrimary)
 	friendsInverse: UserNew[]
 	
@@ -74,12 +75,4 @@ export class UserNew extends BaseEntity {
 		return [...(this.friendsPrimary ?? []), ...(this.friendsInverse ?? [])]
 	}
 	
-}
-
-@Resolver(of => UserNew)
-class HowCommonNameResolver implements ResolverInterface<UserNew> {
-	@FieldResolver()
-	async howCommonIsName(@Root() user: UserNew) {
-		return await howCommonIsName(user.firstName, user.lastName)
-	}
 }
