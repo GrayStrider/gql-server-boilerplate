@@ -141,7 +141,3 @@ describe('pagination', async () => {
   // everything else tested manually, have to track movement of id's here
 
 })
-
-gql`query {
-		users
-}`

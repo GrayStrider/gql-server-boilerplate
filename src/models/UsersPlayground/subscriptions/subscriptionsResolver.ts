@@ -1,31 +1,8 @@
-import {Arg, Field, ID, Mutation, ObjectType, Publisher, PubSub, registerEnumType, Root, Subscription} from 'type-graphql'
+import {Notification, NotificationPayload} from '@/models/UsersPlayground/subscriptions/Notification'
+import {SUB_TOPICS} from '@/models/UsersPlayground/subscriptions/topics'
+import {Errors} from '@/utils/Errors'
+import {Arg, Mutation, Publisher, PubSub, Root, Subscription} from 'type-graphql'
 import uuid from 'uuid'
-
-
-export enum SUB_TOPICS {
-	NOTIFICATIONS = 'NOTIFICATIONS'
-}
-
-registerEnumType(SUB_TOPICS, {
-	name: 'SUB_TOPICS',
-})
-
-@ObjectType()
-export class Notification {
-	@Field(type => ID)
-	id: string
-	
-	@Field({nullable: true})
-	message?: string
-	
-	@Field(type => Date)
-	date: Date
-}
-
-export interface NotificationPayload {
-	id: string;
-	message?: string;
-}
 
 
 export class SubscriptionsResolver {
@@ -39,7 +16,6 @@ export class SubscriptionsResolver {
 				// throw new Errors.Authenfication
 				// throw new GraphQLError('not authorized')
 			}
-			console.log('authorized')
 			return SUB_TOPICS.NOTIFICATIONS
 			
 		},
