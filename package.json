@@ -43,13 +43,15 @@
     "pg": "^7.7.1",
     "ramda": "^0.26.1",
     "reflect-metadata": "^0.1.12",
+    "rxjs": "^6.5.4",
     "signale": "^1.4.0",
     "type-graphql": "^0.18.0-beta.9",
     "typedi": "^0.8.0",
     "typeorm": "^0.2.11",
     "typeorm-typedi-extensions": "^0.2.3",
     "typescript": "^3.7.4",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "xmlhttprequest-ts": "^1.0.1"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.10.0",
@@ -86,7 +88,7 @@
   },
   "scripts": {
     "start": "ts-node-dev --respawn --transpileOnly --ignore-watch .spec -r tsconfig-paths/register src/index.ts",
-    "startFile": "ts-node-dev --respawn --transpileOnly --ignore-watch .spec",
+    "startFile": "ts-node-dev --respawn --transpileOnly --ignore-watch .spec -r tsconfig-paths/register",
     "db:setup": "ts-node src/utils/test-utils/setup.ts",
     "test": "npm run db:setup && jest",
     "codegen": "graphql-codegen"
