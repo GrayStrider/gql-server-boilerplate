@@ -1,12 +1,12 @@
 import {Validator} from 'class-validator'
 import {Arg, Authorized, Mutation, Query, Resolver} from 'type-graphql'
-import {bb} from '../../../utils/libsExport'
-import {AuthRoles} from '../auth/authRoles'
+import {bb} from 'src/utils/libsExport'
+import {AuthRoles} from 'src/models/UsersPlayground/auth/authRoles'
 import {PaginatedUserResponse} from '@/graphql/type-graphql/paginatedResponse'
-import {UserNew} from '../entity/User'
+import {UserNew} from 'src/models/UsersPlayground/entity/User'
 import {Errors, userNotFoundError} from '@/utils/Errors'
-import {generateMockUsers} from '../lib/generateMockUsers'
-import {UserCreateInput, UserModifyInput, UserSearchInput} from '../inputs'
+import {generateMockUsers} from 'src/models/UsersPlayground/lib/generateMockUsers'
+import {UserCreateInput, UserModifyInput, UserSearchInput} from '@/models/UsersPlayground/user.inputs'
 export const validator = new Validator()
 
 export const yearBorn = (age: number) => new Date().getFullYear() - age

@@ -1,5 +1,5 @@
-import {Notification, NotificationPayload} from '@/models/UsersPlayground/subscriptions/Notification'
-import {SUB_TOPICS} from '@/models/UsersPlayground/subscriptions/topics'
+import {Notification, NotificationPayload} from '@/models/UsersPlayground/subscriptions/Notification/notification.model'
+import {SUB_TOPICS} from '@/models/UsersPlayground/subscriptions/subscriptions.topics'
 import {Errors} from '@/utils/Errors'
 import {Arg, Mutation, Publisher, PubSub, Root, Subscription} from 'type-graphql'
 import uuid from 'uuid'
@@ -13,7 +13,7 @@ const checkAuthorized = (context: any) => {
 	}
 }
 
-export class SubscriptionsResolver {
+export class NotificationResolver {
 	@Subscription({
 		topics: ({args, context, payload}) => {
 			checkAuthorized(context)

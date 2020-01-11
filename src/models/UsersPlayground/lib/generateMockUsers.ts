@@ -1,4 +1,4 @@
-import {UserCreateInput} from '@/models/UsersPlayground/inputs'
+import {UserCreateInput} from '@/models/UsersPlayground/user.inputs'
 import faker from 'faker'
 import gql from 'graphql-tag'
 import {times} from 'lodash'

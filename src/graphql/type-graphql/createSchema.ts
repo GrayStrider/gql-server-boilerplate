@@ -3,8 +3,8 @@ import {RedisPubSub} from 'graphql-redis-subscriptions'
 import {AuthChecker, buildSchema} from 'type-graphql'
 import {AuthRoles} from '@/models/UsersPlayground/auth/authRoles'
 import {DBRequestCounter} from '@/utils/middleware/DBRequestCounter'
-import {UserResolver} from '@/models/UsersPlayground/resolvers/resolver'
-import {SubscriptionsResolver} from '@/models/UsersPlayground/subscriptions/subscriptionsResolver'
+import {UserResolver} from '@/models/UsersPlayground/user.resolver'
+import {NotificationResolver} from '@/models/UsersPlayground/subscriptions/Notification/notification.resolver'
 import {Container} from 'typedi'
 import {publisher, subscriber} from '../../DB/redis'
 import {TagResolver, TaskResolver} from '@/models/KBF/resolvers'
@@ -25,7 +25,7 @@ export const createSchema = () =>
 			UserResolver,
 			TagResolver,
 			TaskResolver,
-			SubscriptionsResolver,
+			NotificationResolver,
 		],
 		authChecker,
 		pubSub,
