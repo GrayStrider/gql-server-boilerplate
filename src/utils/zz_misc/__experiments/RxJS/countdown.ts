@@ -1,5 +1,6 @@
 import {interval} from 'rxjs'
 import {take, map, endWith} from 'rxjs/operators'
+import {consoleWrite} from 'src/utils/libsExport'
 
 const countdown = (amount: number, every: number = 1000) =>
 	interval(every)
@@ -9,8 +10,9 @@ const countdown = (amount: number, every: number = 1000) =>
 				const num = amount - value - 1
 				return  num + (num ? ', ' : '')
 			}),
-			endWith("\nDone")
+			endWith("\nDone\n")
 		)
 
 countdown(10, 300)
-	.subscribe((r) => process.stdout.write(`${r}`))
+	.subscribe(consoleWrite)
+
