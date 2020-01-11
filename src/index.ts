@@ -2,6 +2,7 @@ import chalk from 'chalk'
 import {main} from './server'
 import * as Sentry from '@sentry/node'
 import {log} from './utils/libsExport'
+import {KoaServer} from '@/server.koa'
 
 
 //================================================================================
@@ -22,8 +23,12 @@ process.on('unhandledRejection', (error, promise) => {
 	log.error(`unhandledRejection: ${error.message}`)
 	log.error(error)
 });
+KoaServer().catch(log.error)
 
 // only at initialization!
-main().catch((err) => {
-	Sentry.captureException(err)
-	console.error(chalk.red.bold(err)) })
+// main().catch((err) => {
+// 	Sentry.captureException(err)
+// 	console.error(chalk.red.bold(err)) })
+
+
+
