@@ -1,11 +1,11 @@
 import {MiddlewareFn} from 'type-graphql'
-import {Context2} from '@/server'
 import {Errors} from '@/utils/Errors'
+import {Context} from '@/graphql/apollo/genericServer'
 
 export const publicFields = ['register', 'login']
 
-export const IsLoggedIn: MiddlewareFn<Context2> =
-	async ({context: {ctx: {session}, ctx}, args, info, root}, next) => {
+export const IsLoggedIn: MiddlewareFn<Context> =
+	async ({context: {session}, args, info, root}, next) => {
 		const allowedOperation = publicFields.includes(info.fieldName)
 		const sessionIdPresent = session!.userId
 		if (!(sessionIdPresent || allowedOperation))
