@@ -40,9 +40,7 @@ function VariantsOfOriginalError(err: GraphQLError) {
 	if (status === 404) {
 		return {message, status}
 	}
-	console.error(err)
-	return {
-		message: 'Unexpected error has been recorded'
-	}
+	// TODO implement error fallthrough validation
+	return err
 }
 
