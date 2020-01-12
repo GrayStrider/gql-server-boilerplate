@@ -1,7 +1,7 @@
 import {
 	IsEmail, IsInt, Max, Min,
 } from 'class-validator'
-import {Field, InputType, Int} from 'type-graphql'
+import {Field, InputType, Int, ClassType} from 'type-graphql'
 import {UserNew} from './entity/User'
 import {Countries} from './lib/CountriesList'
 
@@ -16,19 +16,21 @@ updateItem(id: Int!, userId: Int!): Item!
  */
 
 type UserCreateType = Partial<Omit<UserNew, 'age'>> & {age: number}
+const IsValidEmail = IsEmail({}, {message: "Invalid email format"})
+const FieldNullable = Field(undefined, {nullable: true})
 
 @InputType()
 export class UserCreateInput implements UserCreateType {
 	@Field()
 	firstName: string
 	
-	@Field({nullable: true})
+	@FieldNullable
 	lastName: string
 	
 	@Field(returns => Countries)
 	country: Countries
 	
-	@IsEmail({}, {message: "Invalid email format"})
+	@IsValidEmail
 	@Field()
 	email: string
 	
@@ -60,7 +62,7 @@ export class UserModifyInput implements UserCreateInput {
 	@Field(returns => Countries, {nullable: true})
 	country: Countries
 	
-	@IsEmail({}, {message: "Invalid email format"})
+	@IsValidEmail
 	@Field({nullable: true})
 	email: string
 	
@@ -85,7 +87,7 @@ export class UserSearchInput implements Omit<UserModifyInput, 'password' | 'frie
 	@Field({nullable: true})
 	id: string
 	
-	@IsEmail({}, {message: "Invalid email format"})
+	@IsValidEmail
 	@Field({nullable: true})
 	email: string
 	
@@ -101,3 +103,4 @@ export class UserSearchInput implements Omit<UserModifyInput, 'password' | 'frie
 	@Field(returns => Int, {nullable: true})
 	age: number
 }
+
