@@ -19,12 +19,13 @@ import {makePlainSchemaServer} from '@/models/PlainSchema'
 
 export async function main() {
 	const app = new Koa()
+	
 	app.keys = ['session secret']
 	
 	useContainer(Container)
 	
 	const conn = await createConnection(ORMConfig)
-	if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
+	if (process.env.NODE_ENV !== 'production') {
 		log.warn('resetting the DB')
 		await conn.synchronize(true)
 		await redis.flushdb()
@@ -48,6 +49,7 @@ export async function main() {
 		.use(bodyParser({}))
 		.use(router.routes())
 		.use(router.allowedMethods({}))
+		
 		.use(userServer)
 		.use(plainSchemaServer)
 	

@@ -1,6 +1,6 @@
 import {MiddlewareFn} from 'type-graphql'
 import {Errors} from '@/utils/Errors'
-import {Context} from '@/graphql/apollo/genericServer'
+import {Context} from '@/graphql'
 
 export const publicFields = ['register', 'login']
 

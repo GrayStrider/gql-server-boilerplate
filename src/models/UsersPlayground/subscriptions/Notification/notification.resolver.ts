@@ -9,7 +9,7 @@ const checkAuthorized = (context: any) => {
 		// doesn't work with schema stiching,
 		// probably ok to wait till 1.0 and @Authorised support
 		// https://github.com/MichalLytek/type-graphql/issues/175
-		throw new Errors.Authenfication('Not authorised')
+		throw new Errors.Unathorized('Not authorised')
 	}
 }
 

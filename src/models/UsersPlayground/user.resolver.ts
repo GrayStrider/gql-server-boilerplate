@@ -8,7 +8,7 @@ import {Errors, userNotFoundError} from '@/utils/Errors'
 import {generateMockUsers} from 'src/models/UsersPlayground/lib/generateMockUsers'
 import {UserCreateInput, UserModifyInput, UserSearchInput, UserLoginInput} from '@/models/UsersPlayground/user.inputs'
 import bcrypt from 'bcryptjs'
-import {Context} from '@/graphql/apollo/genericServer'
+import {Context} from '@/graphql'
 
 export const validator = new Validator()
 export const birthYearFromAge = (age: number) => new Date().getFullYear() - age

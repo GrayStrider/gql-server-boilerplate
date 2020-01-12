@@ -1,12 +1,7 @@
 import {GraphQLSchema} from 'graphql'
-import {Context as KoaContext} from 'koa'
 import {ApolloServer} from 'apollo-server-koa'
-import {formatError, dataSources} from '@/graphql'
+import {formatError, dataSources, context} from '@/graphql'
 import {APOLLO_ENGINE_API_KEY} from 'config/_consts'
-
-const context = ({ctx: {session}}: {ctx: KoaContext}) => ({
-	session
-})
 
 export function genericApolloServer(schema: GraphQLSchema) {
 	return new ApolloServer({
@@ -22,6 +17,3 @@ export function genericApolloServer(schema: GraphQLSchema) {
 	})
 }
 
-export type Context = {
-	datasources: ReturnType<typeof dataSources>
-} & ReturnType<typeof context>

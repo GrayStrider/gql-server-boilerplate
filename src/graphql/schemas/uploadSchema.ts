@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 import {makeExecutableSchema} from 'graphql-tools'
-import {Context} from '../apollo/context'
+import {Context} from '@/graphql'
 
 export const uploadSchema = makeExecutableSchema<Context>({
   typeDefs: gql`

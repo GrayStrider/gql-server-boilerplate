@@ -1,7 +1,7 @@
 import {Errors} from '@/utils/Errors'
 import {MiddlewareFn} from 'type-graphql'
 import _ from 'lodash'
-import {Context} from '@/graphql/apollo/genericServer'
+import {Context} from '@/graphql'
 
 export const ErrorHandler: MiddlewareFn<Context> =
 	async ({context, args, info, root}, next) => {
