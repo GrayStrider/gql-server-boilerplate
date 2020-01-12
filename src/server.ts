@@ -15,10 +15,11 @@ import {usersServer} from '@/models/UsersPlayground'
 import {plainSchemaServer} from '@/models/PlainSchema'
 import {router} from '@/routes'
 
-export async function KoaServer() {
+export async function main() {
 	const app = new Koa()
 	
 	useContainer(Container)
+	
 	const conn = await createConnection(ORMConfig)
 	if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
 		log.warn('resetting the DB')
@@ -41,9 +42,7 @@ export async function KoaServer() {
 		.use(router.allowedMethods({}))
 	
 	
-	return app
-		.listen(PORT, () => {
-			log.success(`Users: http://${HOST}:${PORT}`)
-		})
+	return app.listen(PORT, () =>
+		log.success(`Server started at http://${HOST}:${PORT}`))
 }
 

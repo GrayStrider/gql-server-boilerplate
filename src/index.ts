@@ -1,5 +1,4 @@
-import {log} from './utils/libsExport'
-import {KoaServer} from '@/server'
+import {main} from '@/server'
 
 
 //================================================================================
@@ -8,8 +7,8 @@ import {KoaServer} from '@/server'
 
 process.on('uncaughtException', (error) => {
 	
-	log.error(`uncaught Exception: ${error.message}`)
-	log.error(error)
+	console.error(`uncaught Exception: ${error.message}`)
+	console.error(error)
 	
 	process.exit(1) // exit application
 	
@@ -17,7 +16,7 @@ process.on('uncaughtException', (error) => {
 
 
 process.on('unhandledRejection', () => {
-	log.error(`unhandledRejection`)
+	console.error(`unhandledRejection`)
 });
 
-KoaServer().catch(log.error)
+main().catch(console.error)
