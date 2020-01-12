@@ -10,6 +10,6 @@ export const usersServer = async () => {
 	log.info(SERVER_URL + path)
 	return genericApolloServer(schema)
 		.getMiddleware(
-			{},
+			{path},
 		)
 }
