@@ -2,8 +2,9 @@ import {Context} from '@/graphql/apollo/context'
 import {Errors} from '@/utils/Errors'
 import {MiddlewareFn} from 'type-graphql'
 import _ from 'lodash'
+import {TypeGraphqlContext} from '@/graphql/apollo/genericServer'
 
-export const ErrorHandler: MiddlewareFn<Context> =
+export const ErrorHandler: MiddlewareFn<TypeGraphqlContext> =
 	async ({context, args, info, root}, next) => {
 		try {
 			return await next()
@@ -13,7 +14,7 @@ export const ErrorHandler: MiddlewareFn<Context> =
 				if (!(val && val[1])) throw e
 				const field = _.truncate(val[1], {length: 10})
 				throw new Errors.Validation(
-					`${field ?? 'value'} has to be unique`,
+					`This ${field ?? 'value'} already exists`,
 					field ? {invalidField: field} : undefined)
 			}
 			throw e

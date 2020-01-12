@@ -1,5 +1,5 @@
 import {Logger, QueryRunner} from 'typeorm'
-import {DBRequestCounterService} from '@/utils/middleware/DBRequestCounter'
+import {DBRequestCounterService} from '@/utils/typegraphql/middleware/DBRequestCounter'
 
 export class CustomLogger implements Logger {
 	
