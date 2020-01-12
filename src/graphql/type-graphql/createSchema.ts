@@ -1,16 +1,12 @@
 import {ErrorHandler} from '@/utils/middleware/ErrorHandler'
 import {RedisPubSub} from 'graphql-redis-subscriptions'
 import {AuthChecker, buildSchema} from 'type-graphql'
-import {AuthRoles} from '@/models/UsersPlayground/auth/authRoles'
-import {DBRequestCounter} from '@/utils/middleware/DBRequestCounter'
-import {UserResolver} from '@/models/UsersPlayground/user.resolver'
-import {NotificationResolver} from '@/models/UsersPlayground/subscriptions/Notification/notification.resolver'
 import {Container} from 'typedi'
 import {publisher, subscriber} from '../../DB/redis'
-import {TagResolver, TaskResolver} from '@/models/KBF/resolvers'
-import {Context} from '../apollo/context'
+import {NonEmptyArray} from 'type-graphql/dist/utils/types'
 
-export const createSchema = () =>
+export type Resolvers = NonEmptyArray<Function> | NonEmptyArray<string>
+export const createSchema = (resolvers: Resolvers) =>
 	buildSchema({
 		emitSchemaFile: {
 			path: './src/graphql/generated/schema.graphql',
@@ -24,23 +20,20 @@ export const createSchema = () =>
 		],
 		container: Container,
 		
-		resolvers: [
-			UserResolver,
-			TagResolver,
-			TaskResolver,
-			NotificationResolver,
-		],
+		resolvers,
 		authChecker,
 		pubSub,
 	})
 
-const authChecker: AuthChecker<Context> = (
+const authChecker: AuthChecker<any> = (
 	{
-		root, args, context,
+		context,
+		args,
 		info,
+		root,
 	}, roles,
 ) => {
-	return roles.includes(AuthRoles.ADMIN)
+	return true
 }
 
 /**

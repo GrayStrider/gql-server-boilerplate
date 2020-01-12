@@ -7,6 +7,7 @@ import {Mutation} from '@/graphql/generated/typings'
 import {P} from '@/types/GetOnePropertyOfType'
 import {gqlRequest} from '@/graphql/utils/postQuery'
 import {Countries} from './CountriesList'
+import {routes} from 'config/_consts'
 
 export async function generateMockUsers(amount: number) {
 	const fakes = times(amount, () => (<UserCreateInput>{
@@ -19,7 +20,7 @@ export async function generateMockUsers(amount: number) {
 	}))
 	
 	const generated = await bb.all(fakes.map(fake =>
-		gqlRequest<P<Mutation, 'userCreate'>>(query, {input: fake})))
+		gqlRequest<P<Mutation, 'userCreate'>>(query, {input: fake}, routes().users)))
 	
 	return {
 		fakes,

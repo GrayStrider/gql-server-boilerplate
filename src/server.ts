@@ -11,9 +11,9 @@ import {Container} from 'typedi'
 import {ORMConfig} from 'config/_typeorm'
 import RedisStore from 'koa-redis'
 import {redis} from '@/DB/redis'
-import {ApolloServer} from 'apollo-server-koa'
-import {createSchema, formatError, dataSources} from '@/graphql'
-import {PORT, HOST, APOLLO_ENGINE_API_KEY} from 'config/_consts'
+import {PORT, HOST} from 'config/_consts'
+import {usersServer} from '@/models/UsersPlayground'
+import {plainSchemaServer} from '@/models/PlainSchema'
 
 export async function KoaServer() {
 	const app = new Koa()
@@ -25,16 +25,6 @@ export async function KoaServer() {
 		log.warn('resetting the DB')
 		await conn.synchronize(true)
 	}
-	
-	const typegraphqlSchema = await createSchema()
-	const context = ({ctx: {session}}: {ctx: Context}) => ({
-		session
-	})
-	const apolloServer = new ApolloServer({
-		schema: typegraphqlSchema,
-		formatError, context, dataSources,
-		engine: {apiKey: APOLLO_ENGINE_API_KEY},
-	})
 	
 	app.use(session({
 		store: RedisStore({
@@ -54,11 +44,13 @@ export async function KoaServer() {
 	app.use(router.routes())
 	app.use(router.allowedMethods({}))
 	
-	app.use(apolloServer.getMiddleware())
+	
+	app.use(await usersServer())
+	app.use(plainSchemaServer())
 	
 	return app
 		.listen(PORT, () => {
-			log.success(`GraphQL: http://${HOST}:${PORT}${apolloServer.graphqlPath}`)
+			log.success(`Users: http://${HOST}:${PORT}`)
 		})
 }
 
