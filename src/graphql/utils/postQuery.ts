@@ -50,37 +50,3 @@ export async function gqlreq(type: 'query' | 'mutation', obj: keyofMutation | ke
 	const res = await request(url, print(query), variables)
 	return flattenObject(res)
 }
-
-async function main() {
-  gqlreq('query', 'usersPaginated', gql`{
-              usersPaginated {
-                  items {
-                      id
-                  }
-              }
-          }`,
-		{startAt: 30}
-  ).then(res => res.items.map((item) => item.createdDate))
-
-  //TODO error
-  const foo = await gqlreq('mutation', 'taskCreate', gql` mutation {
-      userModify(userId: "", changes: {}) {
-          age
-      }
-  }`) as unknown as {users: Query['users'], tasks: Query['tasks']}
-	
-	foo.users.map(user => user.name)
-	foo.tasks.map(task => task.description)
-
-  gqlreq('mutation', 'taskCreate', gql`query {
-      users {
-          age
-      }
-  }`).then(task => task.description)
-
-  await gqlreq('query', 'tasks', gql`query {
-      tasks {
-          id
-      }
-  }`)
-}
