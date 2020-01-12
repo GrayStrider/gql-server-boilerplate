@@ -1,125 +1,64 @@
 import 'reflect-metadata'
-import {redis} from '@/DB/redis'
-import {context, createSchema, dataSources, DeprecatedDirective, formatError, plainSchema} from '@/graphql'
-import {myErrorMiddleware} from '@/utils/express/myErrorMiddleware'
+import Koa, {DefaultState, Context} from 'koa'
+import helmet from 'koa-helmet'
+import session from 'koa-session'
+import cors from '@koa/cors'
+import bodyParser from 'koa-bodyparser'
+import Router from 'koa-router'
 import {log} from '@/utils/libsExport'
-import {DBRequestCounterService} from '@/utils/middleware/DBRequestCounter'
-import {sentryErrorHandler} from '@/utils/sentry'
-import * as Sentry from '@sentry/node'
-import {ApolloServer} from 'apollo-server-express'
-import bodyParser from 'body-parser'
-import compression from 'compression'
-import {APOLLO_ENGINE_API_KEY, dsn, HOST, PORT, NODE_ENV} from 'config/_consts'
-import {ORMConfig} from 'config/_typeorm'
-import connectRedis from 'connect-redis'
-import cors from 'cors'
-import Express from 'express'
-import session from 'express-session'
-import {mergeSchemas} from 'graphql-tools'
-import * as http from 'http'
-import lusca from 'lusca'
+import {useContainer, createConnection} from 'typeorm'
 import {Container} from 'typedi'
-import {createConnection, useContainer} from 'typeorm'
-import {context2} from '@/graphql/apollo/context'
+import {ORMConfig} from 'config/_typeorm'
+import RedisStore from 'koa-redis'
+import {redis} from '@/DB/redis'
+import {ApolloServer} from 'apollo-server-koa'
+import {createSchema, formatError, dataSources} from '@/graphql'
+import {PORT, HOST, APOLLO_ENGINE_API_KEY} from 'config/_consts'
 
-
-export async function main() {
-	// Sentry
-	Sentry.init({dsn})
-	// Express
-	const app = Express()
-	// Sentry Handler
-	app.use(Sentry.Handlers.requestHandler())
+export async function KoaServer() {
+	const app = new Koa()
+	const router = new Router<DefaultState, Context>()
 	
-	// Create DB connection
 	useContainer(Container)
 	const conn = await createConnection(ORMConfig)
-	
-	// Flush if not in production
-	if (NODE_ENV === 'development'|| NODE_ENV === 'test') {
+	if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
 		log.warn('resetting the DB')
 		await conn.synchronize(true)
 	}
-	// Redis Store
-	const RedisStore = connectRedis(session)
 	
-	// Initialize Apollo
 	const typegraphqlSchema = await createSchema()
-	
-	// TODO does not work with subscriptions
-	const schema = mergeSchemas({
-		schemas: [
-			typegraphqlSchema,
-			plainSchema,
-		],
+	const context = ({ctx: {session}}: {ctx: Context}) => ({
+		session
 	})
-	
 	const apolloServer = new ApolloServer({
 		schema: typegraphqlSchema,
-		formatError, context: context2,
-		validationRules: [
-			// TODO, does not work with random user generator
-			// complexityValidator()
-		],
+		formatError, context, dataSources,
 		engine: {apiKey: APOLLO_ENGINE_API_KEY},
-		schemaDirectives: {deprecated: DeprecatedDirective},
-		dataSources, subscriptions: {
-			onConnect: (connectionParams, websocket, context1) => {
-				return {authorised: true}
-			},
-		},
 	})
 	
-	// Express Middleware
-	app.use(cors({
-		credentials: true,
-		origin: new RegExp(`(http|ws)://${HOST}:${PORT}`),
-	}))
-	const sessionOptions = {
-		store: new RedisStore({
-			client: redis as any,
+	app.use(session({
+		store: RedisStore({
+			client: redis,
 		}),
-		name: 'qid',
-		secret: 'aslkdfjoiq12312',
-		resave: false,
-		saveUninitialized: false,
-		cookie: {
-			httpOnly: true,
-			secure: process.env.NODE_ENV === 'production',
-			maxAge: 1000 * 60 * 60 * 24 * 7 * 365, // 7 years
-		},
-	}
-	app.use(session(sessionOptions))
-	app.use(compression())
-	app.use(bodyParser.urlencoded({extended: true}))
-	app.use(lusca.xframe('SAMEORIGIN'))
-	app.use(lusca.xssProtection(true))
+		key: 'redisCookie',
+	}, app))
 	
-	app.post('/post', (req, res) => {
-		log.debug(req.body)
-		res.send('hello post')
+	app.use(helmet({}))
+	app.use(cors({}))
+	app.use(bodyParser({}))
+	
+	router.get('/', (ctx, next) => {
+		ctx.body = 'Hello World!'
 	})
 	
-	// finish apollo setup
-	apolloServer.applyMiddleware({app, cors: false})
+	app.use(router.routes())
+	app.use(router.allowedMethods({}))
 	
-	// error handlers
-	app.get('*', (req, res, next) => res.send('Not found'))
-	app.use(sentryErrorHandler)
-	app.use(myErrorMiddleware)
+	app.use(apolloServer.getMiddleware())
 	
-	// flush initial DB setup count
-	DBRequestCounterService.connect().clearCount()
-	
-	// Subscriptions server
-	const subscriptionsServer = http.createServer(app)
-	apolloServer.installSubscriptionHandlers(subscriptionsServer)
-	
-	// start
-	return subscriptionsServer.listen(PORT, () => {
-		Sentry.captureMessage('Up')
-		log.success(`server started on http://${HOST}:${PORT}/graphql`)
-	})
-	
+	return app
+		.listen(PORT, () => {
+			log.success(`GraphQL: http://${HOST}:${PORT}${apolloServer.graphqlPath}`)
+		})
 }
 
