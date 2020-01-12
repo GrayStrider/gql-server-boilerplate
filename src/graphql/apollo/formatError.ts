@@ -5,7 +5,7 @@ import {flow, pick} from 'lodash'
 import {AnyObject} from 'tsdef'
 
 export function formatError(err: GraphQLError) {
-	return flow(ValidatorError, ExpectedError)(err)
+	return flow(ValidatorError, ExpectedError, VariantsOfOriginalError)(err)
 }
 
 function ExpectedError(err: GraphQLError) {
@@ -32,3 +32,17 @@ function ValidatorError(err: GraphQLError) {
 	}
 	return err
 }
+
+function VariantsOfOriginalError(err: GraphQLError) {
+	const origError: any = err.originalError
+	const status = origError?.response?.status
+	const message = origError?.response?.error
+	if (status === 404) {
+		return {message, status}
+	}
+	console.error(err)
+	return {
+		message: 'Unexpected error has been recorded'
+	}
+}
+
