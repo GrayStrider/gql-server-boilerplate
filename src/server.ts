@@ -9,7 +9,7 @@ import * as Sentry from '@sentry/node'
 import {ApolloServer} from 'apollo-server-express'
 import bodyParser from 'body-parser'
 import compression from 'compression'
-import {APOLLO_ENGINE_API_KEY, dsn, HOST, PORT} from 'config/_consts'
+import {APOLLO_ENGINE_API_KEY, dsn, HOST, PORT, NODE_ENV} from 'config/_consts'
 import {ORMConfig} from 'config/_typeorm'
 import connectRedis from 'connect-redis'
 import cors from 'cors'
@@ -36,7 +36,7 @@ export async function main() {
 	const conn = await createConnection(ORMConfig)
 	
 	// Flush if not in production
-	if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
+	if (NODE_ENV === 'development'|| NODE_ENV === 'test') {
 		log.warn('resetting the DB')
 		await conn.synchronize(true)
 	}

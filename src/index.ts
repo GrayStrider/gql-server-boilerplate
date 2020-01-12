@@ -18,9 +18,8 @@ process.on('uncaughtException', (error)  => {
 })
 
 
-process.on('unhandledRejection', (error, promise) => {
-	log.error(`unhandledRejection: ${error.message}`)
-	log.error(error)
+process.on('unhandledRejection', () => {
+	log.error(`unhandledRejection`)
 });
 
 // only at initialization!

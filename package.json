@@ -72,7 +72,7 @@
     "@types/jest": "^23.3.12",
     "@types/lodash": "^4.14.149",
     "@types/lusca": "^1.6.1",
-    "@types/node": "^10.12.18",
+    "@types/node": "^13.1.6",
     "@types/nodemailer": "^4.6.5",
     "@types/uuid": "^3.4.4",
     "apollo-server-errors": "^2.3.4",
@@ -105,5 +105,8 @@
     "underlinePrefix": false,
     "underlineSuffix": false,
     "uppercaseLabel": false
+  },
+  "peerDependencies": {
+    "tslint": "5.0.0"
   }
 }
