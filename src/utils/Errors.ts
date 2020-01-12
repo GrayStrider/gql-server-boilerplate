@@ -11,7 +11,8 @@ export enum ErrorCodes {
 export const Errors = {
 	Validation: CustomError(ErrorCodes.VALIDATION_ERROR, 'Unspecified validation error'),
 	NotFound: CustomError(ErrorCodes.NOT_FOUND, 'Object not found'),
-	Authenfication: CustomError(ErrorCodes.UNATHORIZED, 'Unathorized to perform requested action'),
+	Unathorized: CustomError(ErrorCodes.UNATHORIZED, 'Unathorized to perform requested action'),
+	InvalidCredentials: CustomError(ErrorCodes.UNATHORIZED, "Invalid credentials provided" )
 }
 
 function CustomError(code: ErrorCodes, defaultMessage: string, details?: AnyObject | string) {
