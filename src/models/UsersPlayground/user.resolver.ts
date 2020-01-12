@@ -1,21 +1,56 @@
 import {Validator} from 'class-validator'
-import {Arg, Authorized, Mutation, Query, Resolver} from 'type-graphql'
+import {Arg, Authorized, Mutation, Query, Resolver, Ctx} from 'type-graphql'
 import {bb} from 'src/utils/libsExport'
 import {AuthRoles} from 'src/models/UsersPlayground/auth/authRoles'
 import {PaginatedUserResponse} from '@/graphql/type-graphql/paginatedResponse'
 import {UserNew} from 'src/models/UsersPlayground/entity/User'
 import {Errors, userNotFoundError} from '@/utils/Errors'
 import {generateMockUsers} from 'src/models/UsersPlayground/lib/generateMockUsers'
-import {UserCreateInput, UserModifyInput, UserSearchInput} from '@/models/UsersPlayground/user.inputs'
+import {UserCreateInput, UserModifyInput, UserSearchInput, UserLoginInput} from '@/models/UsersPlayground/user.inputs'
+import bcrypt from 'bcryptjs'
+import {Context} from '@/graphql/apollo/genericServer'
+
 export const validator = new Validator()
-
-export const yearBorn = (age: number) => new Date().getFullYear() - age
-
+export const birthYearFromAge = (age: number) => new Date().getFullYear() - age
+const validatePassword = (password: string): true => {
+	if (false) {
+		throw new Errors.Validation('Password must contain...')
+	}
+	return true
+}
 
 @Resolver()
 export class UserResolver {
+	@Mutation(returns => UserNew)
+	async login(
+		@Ctx() {session}: Context,
+		@Arg("credentials") {email, password}: UserLoginInput) {
+		const user = await UserNew.findOne({email})
+		if (!(user)) throw new Errors.InvalidCredentials
+		const valid = await bcrypt.compare(password, user.password)
+		if (!(valid)) throw new Errors.InvalidCredentials
+		session!.userId = user.id
+		return user
+	}
+	
+	
+	@Mutation(returns => Boolean)
+	async register(@Arg('userData') {age, password, ...rest}: UserCreateInput) {
+		validatePassword(password)
+		const hashedPassword = await bcrypt.hash(password, 12)
+		
+		await UserNew.create({
+			yearBorn: birthYearFromAge(age),
+			password: hashedPassword,
+			...rest,
+		}).save()
+		return true
+	}
+	
+	
 	@Mutation(returns => [UserNew])
-	async generateMockUsers(@Arg('amount') amount: number) {
+	async generateMockUsers(
+		@Arg('amount') amount: number) {
 		const {generated} = await generateMockUsers(amount)
 		return generated
 	}
@@ -26,8 +61,8 @@ export class UserResolver {
 		@Arg('upTo', {nullable: true}) upTo: number,
 		@Arg('startAt', {nullable: true}) startAt: number): Promise<PaginatedUserResponse> {
 		return {
-			items  : await UserNew.find({take: upTo, skip: startAt}),
-			total  : await UserNew.count(),
+			items: await UserNew.find({take: upTo, skip: startAt}),
+			total: await UserNew.count(),
 			hasMore: false, // TODO
 		}
 	}
@@ -41,15 +76,16 @@ export class UserResolver {
 	
 	@Mutation(returns => UserNew)
 	async userCreate(@Arg('userData') {age, ...rest}: UserCreateInput) {
-		return await UserNew.create({yearBorn: yearBorn(age), ...rest}).save()
+		return await UserNew.create({yearBorn: birthYearFromAge(age), ...rest}).save()
 	}
 	
+	@Authorized([AuthRoles.ADMIN])
 	@Mutation(returns => UserNew)
 	async userModify(@Arg('changes') {friendsIds, ...rest}: UserModifyInput,
 	                 @Arg('userId') userId: string) {
 		if (!(validator.isUUID(userId))) throw new Errors.Validation('Incorrect format for user ID')
 		
-			const user = await UserNew.findOne(userId)
+		const user = await UserNew.findOne(userId)
 		if (!user) throw userNotFoundError(userId)
 		
 		/**
@@ -62,7 +98,7 @@ export class UserResolver {
 			? await bb.reduce(friendsIds,
 				async (total: UserNew[], id) => {
 					const user = await UserNew.findOne(id)
-					if (!user)  throw userNotFoundError(id)
+					if (!user) throw userNotFoundError(id)
 					return total.concat(user)
 				}, [],
 			)

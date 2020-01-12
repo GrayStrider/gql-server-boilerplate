@@ -1,10 +1,9 @@
-import {Context} from '@/graphql/apollo/context'
 import {Errors} from '@/utils/Errors'
 import {MiddlewareFn} from 'type-graphql'
 import _ from 'lodash'
-import {TypeGraphqlContext} from '@/graphql/apollo/genericServer'
+import {Context} from '@/graphql/apollo/genericServer'
 
-export const ErrorHandler: MiddlewareFn<TypeGraphqlContext> =
+export const ErrorHandler: MiddlewareFn<Context> =
 	async ({context, args, info, root}, next) => {
 		try {
 			return await next()

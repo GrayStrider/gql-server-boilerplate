@@ -3,7 +3,7 @@ import {plainSchema} from '@/graphql'
 import {SERVER_URL} from 'config/_consts'
 import {log} from '@/utils/libsExport'
 
-export const plainSchemaServer = () => {
+export const makePlainSchemaServer = () => {
 	const path = '/plain'
 	log.info(SERVER_URL + path)
 	return genericApolloServer(plainSchema)

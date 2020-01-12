@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import Koa from 'koa'
+import Koa, {Context} from 'koa'
 import helmet from 'koa-helmet'
 import session from 'koa-session'
 import cors from '@koa/cors'
@@ -11,12 +11,15 @@ import {ORMConfig} from 'config/_typeorm'
 import RedisStore from 'koa-redis'
 import {redis} from '@/DB/redis'
 import {PORT, HOST} from 'config/_consts'
-import {usersServer} from '@/models/UsersPlayground'
-import {plainSchemaServer} from '@/models/PlainSchema'
 import {router} from '@/routes'
+import {redirect, errorHandler} from '@/utils/koa/middlewares'
+import {makeUsersServer} from '@/models/UsersPlayground'
+import {makePlainSchemaServer} from '@/models/PlainSchema'
+
 
 export async function main() {
 	const app = new Koa()
+	app.keys = ['session secret']
 	
 	useContainer(Container)
 	
@@ -24,10 +27,11 @@ export async function main() {
 	if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
 		log.warn('resetting the DB')
 		await conn.synchronize(true)
+		await redis.flushdb()
 	}
 	
-	app.keys = ['session secret']
-	
+	const userServer = await makeUsersServer()
+	const plainSchemaServer = await makePlainSchemaServer()
 	
 	app
 		.use(errorHandler)
@@ -38,25 +42,14 @@ export async function main() {
 			}),
 			key: 'redisCookie',
 		}, app))
-		
-		.on('error', (err, ctx) => {
-			/* centralized error handling:
-			 *   console.log error
-			 *   write error to log file
-			 *   save error and request information to database if ctx.request match condition
-			 *   ...
-			 */
-		})
+		.on('error', args => {})
 		.use(helmet({}))
 		.use(cors({}))
 		.use(bodyParser({}))
-		.use(await usersServer())
-		.use(plainSchemaServer())
 		.use(router.routes())
 		.use(router.allowedMethods({}))
-		.use(await usersServer())
-		.use(plainSchemaServer())
-	
+		.use(userServer)
+		.use(plainSchemaServer)
 	
 	return app.listen(PORT, () =>
 		log.success(`Server started at http://${HOST}:${PORT}`))
