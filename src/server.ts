@@ -25,14 +25,28 @@ export async function main() {
 		log.warn('resetting the DB')
 		await conn.synchronize(true)
 	}
-
+	
+	app.keys = ['session secret']
+	
+	
 	app
+		.use(errorHandler)
+		.use(redirect)
 		.use(session({
 			store: RedisStore({
 				client: redis,
 			}),
 			key: 'redisCookie',
 		}, app))
+		
+		.on('error', (err, ctx) => {
+			/* centralized error handling:
+			 *   console.log error
+			 *   write error to log file
+			 *   save error and request information to database if ctx.request match condition
+			 *   ...
+			 */
+		})
 		.use(helmet({}))
 		.use(cors({}))
 		.use(bodyParser({}))
@@ -40,6 +54,8 @@ export async function main() {
 		.use(plainSchemaServer())
 		.use(router.routes())
 		.use(router.allowedMethods({}))
+		.use(await usersServer())
+		.use(plainSchemaServer())
 	
 	
 	return app.listen(PORT, () =>
