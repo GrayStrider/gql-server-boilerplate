@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 import * as http from 'http'
 import {Connection, EntityManager, Like} from 'typeorm'
-import {Tag} from 'src/models/KBF/entity/Tag'
+import {Tag} from 'src/models/Tag'
 import {Task} from 'src/models/KBF/entity/Task'
 import {setupTests} from 'src/utils/test-utils/setupTests'
 import {postQuery, gqlRequest} from 'src/graphql/utils/postQuery'
@@ -53,7 +53,7 @@ it('direct conditions search', async () => {
 	expect(validatedName).toStrictEqual('test 123')
 })
 it(`should create one task`, async () => {
-  const {tags} = await gqlRequest<Task>(gql`mutation {
+  const {labels} = await gqlRequest<Task>(gql`mutation {
       taskCreate(title: "task1", tags: ["one", "two"]) {
           createdAt
           tags {
@@ -62,7 +62,7 @@ it(`should create one task`, async () => {
       }
 
   }`)
-	expect(tags).toStrictEqual([{'title': 'one'}, {'title': 'two'}])
+	expect(labels).toStrictEqual([{'title': 'one'}, {'title': 'two'}])
 
   const [Tags, tasks] = await gqlRequest<Tag[], Task[]>(gql`{
       tags {
@@ -73,7 +73,7 @@ it(`should create one task`, async () => {
           title
       }
   }`)
-	console.log(tasks.map((task) => task.title))
+	console.log(tasks.map((task) => task.name))
 	expect(Tags).toStrictEqual([{'title': 'one'}, {'title': 'two'}])
 
 })
