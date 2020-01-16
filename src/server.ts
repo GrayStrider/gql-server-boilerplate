@@ -14,7 +14,6 @@ import {PORT, HOST} from 'config/_consts'
 import {router} from '@/routes'
 import {redirect, errorHandler} from '@/utils/koa/middlewares'
 import {makeUsersServer} from '@/models/UsersPlayground'
-import {makePlainSchemaServer} from '@/models/PlainSchema'
 
 
 export async function main() {
@@ -32,7 +31,6 @@ export async function main() {
 	}
 	
 	const userServer = await makeUsersServer()
-	const plainSchemaServer = await makePlainSchemaServer()
 	
 	app
 		.use(errorHandler)
@@ -51,7 +49,6 @@ export async function main() {
 		.use(router.allowedMethods({}))
 		
 		.use(userServer)
-		.use(plainSchemaServer)
 	
 	return app.listen(PORT, () =>
 		log.success(`Server started at http://${HOST}:${PORT}`))
