@@ -4,7 +4,7 @@ import {AuthChecker, buildSchema} from 'type-graphql'
 import {Container} from 'typedi'
 import {publisher, subscriber} from '../../DB/redis'
 import {NonEmptyArray} from 'type-graphql/dist/utils/types'
-import {IsLoggedIn} from '@/utils/typegraphql/middleware/IsLoggedIn'
+import {GlobalAuth} from '@/utils/typegraphql/middleware/GlobalAuth'
 
 export type Resolvers = NonEmptyArray<Function> | NonEmptyArray<string>
 export const createSchema = (resolvers: Resolvers) =>
@@ -18,7 +18,7 @@ export const createSchema = (resolvers: Resolvers) =>
 		globalMiddlewares: [
 			ErrorHandler,
 			// DBRequestCounter,
-			IsLoggedIn
+			GlobalAuth
 		],
 		container: Container,
 		

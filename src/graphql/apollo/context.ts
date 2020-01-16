@@ -7,8 +7,9 @@ export interface SubscriptionContext {
 	connection: AnyObject // TODO types
 }
 
-export const context = ({ctx: {session}}: { ctx: KoaContext }) => ({
+export const context = ({ctx: {session, request}}: { ctx: KoaContext }) => ({
 	session,
+	request
 })
 export type Context = {
 	dataSources: ReturnType<typeof dataSources>

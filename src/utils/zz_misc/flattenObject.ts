@@ -1,7 +1,8 @@
+import {keys, values, head} from 'ramda'
 
 export function flattenObject(input: object) {
 	
-	return Object.keys(input).length > 1
+	return keys(input).length > 1
 		? input
-		: Object.values(input)[0]
+		: head(values(input))
 }
