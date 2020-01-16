@@ -1,6 +1,6 @@
 import {Args, Mutation, Query, Resolver, UseMiddleware} from 'type-graphql'
 import {getConnection} from 'typeorm'
-import {Tag} from './entity/Tag'
+import {Tag} from 'src/models/Tag'
 import {Task} from './entity/Task'
 import {bb} from '../../utils/libsExport'
 import {Like_} from '@/DB/typeorm/Like'

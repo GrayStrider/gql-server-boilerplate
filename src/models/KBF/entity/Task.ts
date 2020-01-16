@@ -1,8 +1,9 @@
-import {MaxLength} from 'class-validator'
-import {Field, ID, Int, ObjectType} from 'type-graphql'
-import {BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn, VersionColumn} from 'typeorm'
-import {Priority} from './Priority'
-import {Tag} from './Tag'
+import {Field, ID, ObjectType} from 'type-graphql'
+import {
+	BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn,
+	ManyToOne, OneToOne, OneToMany,
+} from 'typeorm'
+import {Swimlane, TDate, Subtask, TColumn, Color, Label, User, Comment} from '@/models/KBF/entity/Helpers'
 
 
 @ObjectType()
@@ -10,33 +11,77 @@ import {Tag} from './Tag'
 export class Task extends BaseEntity/* implements ITask*/ {
 	@Field(() => ID)
 	@PrimaryGeneratedColumn('uuid')
-	id: string
+	_id: string
 	
 	@Field()
-	@Column({length: 100})
-	title: string
+	@Column({length: 255})
+	name: string
 	
 	@Field()
-	@Column({length: 1000, nullable: true})
+	@Column({length: 5000, nullable: true})
 	description: string
 	
-	@Field(returns => Priority)
-	@Column({type: 'enum', enum: Priority, default: Priority.NONE})
-	priority: Priority
+	@Field(returns => Color)
+	@ManyToOne(type => Color, color => color.tasks)
+	color: Color
 	
+	@Field(returns => TColumn)
+	@ManyToOne(type => TColumn)
+	column: TColumn
+	
+	@Column()
 	@Field()
-	@Column({type: 'bool', default: false})
-	completed: boolean
+	totalSecondsSpent: number
 	
-	@Field(returns => [Tag], {defaultValue: []})
-	@ManyToMany(type => Tag, tag => tag.tasks, {
+	@Column({nullable: true})
+	@Field({nullable: true})
+	totalSecondsEstimate?: number
+	
+	@Column({nullable: true})
+	@Field({nullable: true})
+	pointsEstimate?: number
+	
+	@Field(returns => Swimlane)
+	@ManyToOne(type => Swimlane, {nullable: true})
+	swimlane: Swimlane
+	
+	@Column()
+	@Field()
+	position: number
+	
+	@OneToOne(type => Number, {nullable: true})
+	@Field(returns => Number, {nullable: true})
+	number: Number
+	
+	@Field(returns => User, {nullable: true})
+	@JoinTable()
+	@ManyToMany(type => User, user => user.tasks, {nullable: true})
+	responsibleUser: User
+	
+	@ManyToMany(type => TDate, date => date.tasks, {nullable: true})
+	@Field(returns => [TDate], {nullable: true})
+	dates?: TDate[]
+	
+	
+	@OneToMany(type => Subtask,
+			subtask => subtask.parent)
+	@Field(returns => [Subtask], {nullable: true})
+	subtasks?: Subtask[]
+	
+	@Field(returns => [Label])
+	@ManyToMany(type => Label, Label => Label.tasks, {
 		// cascading does not create a tag when task query errored
 		cascade: true,
 		// no need to specify the relation when using find()
 		eager: true
 	})
 	@JoinTable()
-	tags: Tag[]
+	labels: Label[]
+	
+	@ManyToMany(type => User,
+			user => user.collaboratingAt)
+	@Field(returns => [User])
+	collaborators: User[]
 	
 	@Field(returns => Date)
 	@CreateDateColumn()
@@ -46,13 +91,8 @@ export class Task extends BaseEntity/* implements ITask*/ {
 	@UpdateDateColumn()
 	updatedAt: Date
 	
-	@Field(returns => Int)
-	@VersionColumn({default: 0})
-	version: number
-	
-	@Field()
-	@Column({length: 10, nullable: true})
-	@MaxLength(10)
-	constrained: string
+	@Field(returns => Comment, {nullable: true})
+	@OneToMany(type => Comment, comm => comm.task)
+	comments: Comment
 }
 
