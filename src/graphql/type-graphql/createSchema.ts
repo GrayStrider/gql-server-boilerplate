@@ -18,7 +18,7 @@ export const createSchema = (resolvers: Resolvers) =>
 		globalMiddlewares: [
 			ErrorHandler,
 			// DBRequestCounter,
-			GlobalAuth
+			// GlobalAuth
 		],
 		container: Container,
 		

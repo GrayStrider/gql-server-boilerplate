@@ -1,11 +1,10 @@
 import {Args, Mutation, Query, Resolver, UseMiddleware} from 'type-graphql'
 import {getConnection} from 'typeorm'
-import {Tag} from 'src/models/Tag'
 import {Task} from '@/models/KBF/entity/Task'
 import {bb} from '../../utils/libsExport'
 import {Like_} from '@/DB/typeorm/Like'
-import {isAuth} from '../Original/modules/middleware/isAuth'
 import {NewTaskInput, SearchTaskInput} from './inputs'
+import {Label} from '@/models/KBF/entity'
 
 // TODO recommended to implement this for every mutation, kinda makes sense.
 export interface MutationResponse {
@@ -16,25 +15,8 @@ export interface MutationResponse {
 
 
 @Resolver()
-export class TaskResolver {
-	@UseMiddleware(isAuth)
-	@Query(returns => String)
-	async onlyForAuthorised() {
-		
-		return "Authorised"
-	}
-	
-	
+export class KBFResolver {
 	@Query(returns => [Task])
-	async testingFind() {
-		return getConnection()
-			.createQueryBuilder()
-			.relation(Task, 'tags')
-			.loadMany()
-		
-	}
-	
-	@Query(returns => Array(Task))
 	async tasks(@Args() {tag, ...params}: SearchTaskInput) {
 		return await Task.find(
 			{
@@ -46,17 +28,24 @@ export class TaskResolver {
 		)
 	}
 	
+	@Query(returns => [Task])
+	async getTasks() {
+		
+		return await Task.find()
+	}
+	
+	
 	@Mutation(returns => Task)
 	async taskCreate(@Args() {tags: tagNames, ...data}: NewTaskInput) {
 		if (tagNames) {
-			const tags = await bb.reduce(tagNames, async (acc: any[], title) => {
-					const getTag = await Tag.findOne({title}) ??
-						await Tag.create({title})
+			const labels = await bb.reduce(tagNames, async (acc: any[], name) => {
+					const getTag = await Label.findOne({name}) ??
+						await Label.create({name})
 					return [...acc, getTag]
 				}, []
 			)
 			
-			return Task.create({...data, tags})
+			return Task.create({...data, labels})
 		}
 		
 		return await Task.create(data).save()
@@ -65,11 +54,3 @@ export class TaskResolver {
 	@Mutation(returns => Array(Task))
 	tasksModify() {}
 }
-
-@Resolver()
-export class TagResolver {
-	@Query(returns => [Tag])
-	async tags() {return await Tag.find({relations: ['tasks']})}
-	
-}
-
