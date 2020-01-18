@@ -1,24 +1,10 @@
 import gql from 'graphql-tag'
 import {makeExecutableSchema} from 'graphql-tools'
 import {Context} from '@/graphql'
+import {makeSchema} from '@/graphql/utils/makeSchema'
 
-export const uploadSchema = makeExecutableSchema<Context>({
-  typeDefs: gql`
-      scalar Upload
-      type File {
-          filename: String!
-
-          mimetype: String!
-          encoding: String!
-      }
-      type Query {
-          uploads: [File]
-      }
-      type Mutation {
-          singleUpload(file: Upload!): File!
-      }
-	`,
-	
+export const uploadSchema = makeSchema<Context>(
+	'src/graphql/schemas/upload.schema.graphql', {
 	resolvers: {
 		Query: {
 			files: () => {

@@ -6,11 +6,12 @@ import {GetResolver} from '@/models/KBF/entity/resolvers/Get'
 import {CreateResolver} from '@/models/KBF/entity/resolvers/Create'
 
 export const makeKBFServer = async () => {
-	const path = '/kbf'
+	const name = 'kbf'
+	const path = `/${name}`
 	const schema = await createSchema([
 		GetResolver,
 		CreateResolver
-	])
+	], name)
 	log.info(SERVER_URL + path)
 	return genericApolloServer(schema)
 		.getMiddleware(

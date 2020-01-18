@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import Koa, {Context} from 'koa'
+import Koa from 'koa'
 import helmet from 'koa-helmet'
 import session from 'koa-session'
 import cors from '@koa/cors'

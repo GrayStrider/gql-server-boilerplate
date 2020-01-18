@@ -7,10 +7,10 @@ import {NonEmptyArray} from 'type-graphql/dist/utils/types'
 import {GlobalAuth} from '@/utils/typegraphql/middleware/GlobalAuth'
 
 export type Resolvers = NonEmptyArray<Function> | NonEmptyArray<string>
-export const createSchema = (resolvers: Resolvers) =>
+export const createSchema = (resolvers: Resolvers, schemaNamePrefix: string) =>
 	buildSchema({
 		emitSchemaFile: {
-			path: './src/graphql/generated/schema.graphql',
+			path: `./src/graphql/generated/${schemaNamePrefix}.schema.graphql`,
 			commentDescriptions: true,
 		}, // for testing
 		validate: true,

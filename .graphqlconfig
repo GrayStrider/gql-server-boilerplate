@@ -1,9 +1,5 @@
 {
-  "name": "type-graphql",
-  "schemaPath": "./src/graphql/generated/schema.graphql",
-  "extensions": {
-    "endpoints": {
-
-    }
-  }
+  "name": "Main",
+  "schemaPath": "src/graphql/generated/schema.json",
+  "excludes": ["src/graphql/**/*.graphql"]
 }

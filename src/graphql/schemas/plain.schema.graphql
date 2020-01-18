@@ -1,0 +1,12 @@
+type Data {
+    field: String!
+    fieldCap(arg: String!, arg2: String!): String!
+}
+
+type Query {
+    hello: String!
+    data: Data
+    getCatFact: String!
+    errorToIgnore: String!
+
+}
