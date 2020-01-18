@@ -1,4 +1,4 @@
-name: CI
+name: Playground CI
 
 on: [push]
 
