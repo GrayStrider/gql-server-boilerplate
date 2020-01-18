@@ -1,7 +1,7 @@
 import {Args, Mutation, Query, Resolver, UseMiddleware} from 'type-graphql'
 import {getConnection} from 'typeorm'
 import {Tag} from 'src/models/Tag'
-import {Task} from 'src/models/KBF/entity/main/Task'
+import {Task} from '@/models/KBF/entity/Task'
 import {bb} from '../../utils/libsExport'
 import {Like_} from '@/DB/typeorm/Like'
 import {isAuth} from '../Original/modules/middleware/isAuth'
