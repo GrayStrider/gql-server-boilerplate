@@ -14,6 +14,7 @@ import {PORT, HOST} from 'config/_consts'
 import {router} from '@/routes'
 import {redirect, errorHandler} from '@/utils/koa/middlewares'
 import {makeUsersServer} from '@/models/UsersPlayground'
+import {makeKBFServer} from '@/models/KBF'
 
 
 export async function main() {
@@ -31,6 +32,7 @@ export async function main() {
 	}
 	
 	const usersServer = await makeUsersServer()
+	const KBFServer = await makeKBFServer()
 	
 	app
 		.use(errorHandler)
@@ -49,6 +51,7 @@ export async function main() {
 		.use(router.allowedMethods({}))
 		
 		.use(usersServer)
+		.use(KBFServer)
 	
 	return app.listen(PORT, () =>
 		log.success(`Server started at http://${HOST}:${PORT}`))

@@ -4,10 +4,9 @@ import {Priority} from '@/models/KBF/entity/Priority'
 
 @ArgsType()
 export class NewTaskInput {
-	@Field({defaultValue: "New Task"})
+	@Field({defaultValue: ""})
 	title: string
 	
-	// on field nullable only applicable in the context of inputs
 	@Field({nullable: true})
 	description: string
 	
