@@ -1,6 +1,6 @@
 import {ObjectType, Field, ID} from 'type-graphql'
 import {Entity, OneToOne, Column, BaseEntity, PrimaryGeneratedColumn} from 'typeorm'
-import {Task} from '@/models/KBF/entity/main/Task'
+import {Task} from '@/models/KBF/entity/Task'
 
 @ObjectType()
 @Entity()
@@ -10,7 +10,7 @@ export class Number extends BaseEntity{
 	id: string
 	
 	@Field()
-	@Column()
+	@Column({type: 'int'})
 	value: number
 	
 	@Field()

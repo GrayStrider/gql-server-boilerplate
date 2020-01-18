@@ -1,6 +1,6 @@
 import {Field, ID, ObjectType} from 'type-graphql'
 import {BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn, ManyToOne, OneToOne, OneToMany} from 'typeorm'
-import {Swimlane, TDate, Subtask, TColumn, Color, Label, User, Comment, Number} from '@/models/KBF/entity'
+import {Swimlane, TDate, Subtask, TColumn, Color, Label, User, Comment, Number} from '@/models/KBF/entity/index'
 
 
 @ObjectType()
@@ -18,9 +18,9 @@ export class Task extends BaseEntity/* implements ITask*/ {
 	@Column({length: 5000, nullable: true})
 	description: string
 	
-	// @Field(returns => Color)
-	// @ManyToOne(type => Color, color => color.tasks)
-	// color: Color
+	@Field(returns => Color)
+	@ManyToOne(type => Color, color => color.tasks)
+	color: Color
 	
 	@Field(returns => TColumn)
 	@ManyToOne(type => TColumn)
@@ -67,9 +67,7 @@ export class Task extends BaseEntity/* implements ITask*/ {
 	
 	@Field(returns => [Label])
 	@ManyToMany(type => Label, Label => Label.tasks, {
-		// cascading does not create a tag when task query errored
 		cascade: true,
-		// no need to specify the relation when using find()
 		eager: true,
 	})
 	@JoinTable()
