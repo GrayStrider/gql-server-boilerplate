@@ -1,11 +1,14 @@
-import {ObjectType, Field} from 'type-graphql'
-import {Entity, ManyToOne, Column, ManyToMany} from 'typeorm'
-import {TColumn as TColumn} from '@/models/KBF/entity/Helpers/TColumn'
-import {Task} from '@/models/KBF/entity/Task'
+import {ObjectType, Field, ID} from 'type-graphql'
+import {Entity, ManyToOne, Column, ManyToMany, BaseEntity, PrimaryGeneratedColumn} from 'typeorm'
+import {TColumn as TColumn} from '@/models/KBF/entity/helpers/TColumn'
+import {Task} from '@/models/KBF/entity/main/Task'
 
 @ObjectType()
 @Entity()
-export class TDate {
+export class TDate extends BaseEntity {
+	@Field(returns => ID)
+	@PrimaryGeneratedColumn('uuid')
+	id: string
 	
 	@Field(returns => [Task], {nullable: true})
 	@ManyToMany(type => Task, task => task.dates, {

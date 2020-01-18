@@ -1,9 +1,6 @@
 import {Field, ID, ObjectType} from 'type-graphql'
-import {
-	BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn,
-	ManyToOne, OneToOne, OneToMany,
-} from 'typeorm'
-import {Swimlane, TDate, Subtask, TColumn, Color, Label, User, Comment} from '@/models/KBF/entity/Helpers'
+import {BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn, ManyToOne, OneToOne, OneToMany} from 'typeorm'
+import {Swimlane, TDate, Subtask, TColumn, Color, Label, User, Comment, Number} from '@/models/KBF/entity'
 
 
 @ObjectType()
@@ -21,9 +18,9 @@ export class Task extends BaseEntity/* implements ITask*/ {
 	@Column({length: 5000, nullable: true})
 	description: string
 	
-	@Field(returns => Color)
-	@ManyToOne(type => Color, color => color.tasks)
-	color: Color
+	// @Field(returns => Color)
+	// @ManyToOne(type => Color, color => color.tasks)
+	// color: Color
 	
 	@Field(returns => TColumn)
 	@ManyToOne(type => TColumn)
@@ -54,8 +51,8 @@ export class Task extends BaseEntity/* implements ITask*/ {
 	number: Number
 	
 	@Field(returns => User, {nullable: true})
-	@JoinTable()
 	@ManyToMany(type => User, user => user.tasks, {nullable: true})
+	@JoinTable()
 	responsibleUser: User
 	
 	@ManyToMany(type => TDate, date => date.tasks, {nullable: true})
@@ -64,7 +61,7 @@ export class Task extends BaseEntity/* implements ITask*/ {
 	
 	
 	@OneToMany(type => Subtask,
-			subtask => subtask.parent)
+		subtask => subtask.parent)
 	@Field(returns => [Subtask], {nullable: true})
 	subtasks?: Subtask[]
 	
@@ -73,13 +70,13 @@ export class Task extends BaseEntity/* implements ITask*/ {
 		// cascading does not create a tag when task query errored
 		cascade: true,
 		// no need to specify the relation when using find()
-		eager: true
+		eager: true,
 	})
 	@JoinTable()
 	labels: Label[]
 	
 	@ManyToMany(type => User,
-			user => user.collaboratingAt)
+		user => user.collaboratingAt)
 	@Field(returns => [User])
 	collaborators: User[]
 	

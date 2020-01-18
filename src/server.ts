@@ -30,7 +30,7 @@ export async function main() {
 		await redis.flushdb()
 	}
 	
-	const userServer = await makeUsersServer()
+	const usersServer = await makeUsersServer()
 	
 	app
 		.use(errorHandler)
@@ -48,7 +48,7 @@ export async function main() {
 		.use(router.routes())
 		.use(router.allowedMethods({}))
 		
-		.use(userServer)
+		.use(usersServer)
 	
 	return app.listen(PORT, () =>
 		log.success(`Server started at http://${HOST}:${PORT}`))

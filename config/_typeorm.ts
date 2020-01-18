@@ -15,5 +15,7 @@ export const ORMConfig: PostgresConnectionOptions = {
 	entities: [
 		'src/models/**/entity/**/!(*.test.ts)',
 		'src/models/**/entity/**/!(*.spec.ts)',
+		'src/models/KBF/entity/index.ts'
+		
 	]
 }

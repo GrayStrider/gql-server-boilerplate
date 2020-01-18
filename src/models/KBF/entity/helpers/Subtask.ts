@@ -1,11 +1,16 @@
-import {ObjectType, Field} from 'type-graphql'
-import {Entity, Column, ManyToMany, ManyToOne, JoinTable} from 'typeorm'
-import {User} from '@/models/KBF/entity/Helpers/User'
-import {Task} from '@/models/KBF/entity/Task'
+import {ObjectType, Field, ID} from 'type-graphql'
+import {Entity, Column, ManyToMany, ManyToOne, JoinTable, BaseEntity, PrimaryGeneratedColumn} from 'typeorm'
+import {User} from '@/models/KBF/entity/helpers/User'
+import {Task} from '@/models/KBF/entity/main/Task'
 
 @ObjectType()
 @Entity()
-export class Subtask {
+export class Subtask extends BaseEntity {
+	@Field(returns => ID)
+	@PrimaryGeneratedColumn('uuid')
+	id: string
+	
+	
 	@Field()
 	@Column()
 	name: string
