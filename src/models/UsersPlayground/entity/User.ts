@@ -1,8 +1,5 @@
-import {LogAccess} from '@/graphql/type-graphql/middleware/LogAccess'
-import {Directive, Field, ID, Int, ObjectType, Root, UseMiddleware} from 'type-graphql'
-import {
-	BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn,
-} from 'typeorm'
+import {Directive, Field, ID, Int, ObjectType, Root} from 'type-graphql'
+import {BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm'
 import {Countries} from '../lib/CountriesList'
 import {howCommonIsName} from '../lib/HowCommonName'
 
@@ -53,8 +50,8 @@ export class UserNew extends BaseEntity {
 	
 	@Field(returns => Countries)
 	@Column({type: 'enum', enum: Countries})
-	
 	country: Countries
+	
 	@JoinTable()
 	@ManyToMany(type => UserNew, friends => friends.friendsInverse, {cascade: ['insert', 'update']})
 	
