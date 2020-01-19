@@ -112,8 +112,10 @@
   "scripts": {
     "start": "ts-node-dev --respawn --transpileOnly --ignore-watch .spec -r tsconfig-paths/register src/index.ts",
     "startFile": "ts-node-dev --respawn --transpileOnly --ignore-watch .spec -r tsconfig-paths/register",
-    "test": "jest --forceExit --detectOpenHandles --maxWorkers=10",
-    "codegen": "graphql-codegen"
+    "test": "yarn typecheck && yarn jest",
+    "jest": "jest --forceExit --detectOpenHandles --maxWorkers=10",
+    "codegen": "graphql-codegen",
+    "typecheck": "tsc --noEmit"
   },
   "signale": {
     "displayScope": true,
