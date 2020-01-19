@@ -16,7 +16,7 @@ module.exports = {
     "^.+\\.(t|j)s$": "ts-jest"
   },
 
-  // roots: [
+  // rdfdfoots: [
   //   'src',
   // ],
 
