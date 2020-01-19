@@ -2,12 +2,12 @@
 # yarn lockfile v1
 
 
-"@accounts/database-manager@^0.20.1":
-  version "0.20.1"
-  resolved "https://registry.yarnpkg.com/@accounts/database-manager/-/database-manager-0.20.1.tgz#95532c07a97f288df955cef52f00071e15476ea4"
-  integrity sha512-J3DiPeqMHaA2HzeXnlTQoqbuFxaz9TdIfXvnLJEYgFuGyw13yzCiWM/MLKj+DRUIfwBCIDYaMeuOwHsT/qFUjg==
+"@accounts/database-manager@^0.21.0":
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/@accounts/database-manager/-/database-manager-0.21.0.tgz#48c7f021fae2647bbb483d3459ee4f2bc2b79695"
+  integrity sha512-6Cu4r8ltjCjrNIBpUfpfa2FxHg7QPE2Qqrju7diaFP/C/yJMyV0N/HfxN0POQn+jgx8jNmEVepZQk1MX+IdGjw==
   dependencies:
-    "@accounts/types" "^0.20.1"
+    "@accounts/types" "^0.21.0"
     tslib "1.10.0"
 
 "@accounts/graphql-api@^0.21.0":
