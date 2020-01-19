@@ -40,12 +40,12 @@
     shortid "^2.2.15"
     tslib "1.10.0"
 
-"@accounts/server@^0.20.1":
-  version "0.20.1"
-  resolved "https://registry.yarnpkg.com/@accounts/server/-/server-0.20.1.tgz#526b16dedb627799a5568847d51c29ea2eda7b1c"
-  integrity sha512-zfOXgshyF/0bUyPjX2XRdi1ft9FnWx+dvSIkyovLyuvLL16olM7KDeSaSLuNDIPAtHLAWVDlDMJ3hww2UL+b4A==
+"@accounts/server@^0.21.0":
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/@accounts/server/-/server-0.21.0.tgz#dd5f15cc944576daf091cccfc16e35a79dfbf0f9"
+  integrity sha512-GA108ZCb4OPeYPDWWgZ6KYyUbHjycoYjRNx9TsFFFRsL7vCkUTenpnUzYFTfoQVVMVb2O782og4S7DsQgoAnFA==
   dependencies:
-    "@accounts/types" "^0.20.1"
+    "@accounts/types" "^0.21.0"
     "@types/jsonwebtoken" "8.3.5"
     emittery "0.5.1"
     jsonwebtoken "8.5.1"
@@ -75,13 +75,6 @@
     reflect-metadata "^0.1.13"
     tslib "1.10.0"
     typeorm "^0.2.22"
-
-"@accounts/types@^0.20.1":
-  version "0.20.1"
-  resolved "https://registry.yarnpkg.com/@accounts/types/-/types-0.20.1.tgz#134de1586713844a926398b0cc081ecb8747cc90"
-  integrity sha512-k0c9XiePI9BU5WtgkB2WNwnqc13AUKmtlQxAtqdGIemMsHql1LUIuaV5TyhSAxEA6phe88dhlFW5Brlt2VRWrQ==
-  dependencies:
-    tslib "1.10.0"
 
 "@accounts/types@^0.21.0":
   version "0.21.0"
