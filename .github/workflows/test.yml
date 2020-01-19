@@ -47,16 +47,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: secrets usage example
-        run: echo ${{secrets.MY_SECRET}}
       - name: install
         run: yarn install
       - name: start-test (for schema generation) and test
         run: |
-          echo starting &
           yarn start-test &
-          echo Hello &
-          sleep 30s
+          sleep 40s
           yarn codegen
           yarn typecheck
           yarn jest
