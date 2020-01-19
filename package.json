@@ -85,7 +85,7 @@
     "@types/faker": "^4.1.8",
     "@types/graphql": "^14.0.4",
     "@types/ioredis": "^4.0.4",
-    "@types/jest": "^23.3.12",
+    "@types/jest": "^23.3.14",
     "@types/koa": "^2.11.0",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-helmet": "^3.1.2",
