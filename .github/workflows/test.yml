@@ -5,7 +5,7 @@ on:
     branches:
       - '*'
     tags-ignore:
-      - depfu
+      - dependencies
   pull_request:
     branches:
       - '*'
