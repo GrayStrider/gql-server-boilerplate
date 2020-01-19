@@ -7,7 +7,7 @@ import {log} from '@/utils/libsExport'
 export const makeUsersServer = async () => {
 	const name = 'users'
 	const path = `/${name}`
-	const schema = await createSchema([UserResolver])
+	const schema = await createSchema([UserResolver], name)
 	log.info(SERVER_URL + name)
 	return genericApolloServer(schema)
 		.getMiddleware(

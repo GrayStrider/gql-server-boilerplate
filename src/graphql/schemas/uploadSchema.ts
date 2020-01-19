@@ -13,6 +13,7 @@ export const uploadSchema = makeExecutableSchema<Context>({
       }
       type Query {
           uploads: [File]
+		      files: [File]
       }
       type Mutation {
           singleUpload(file: Upload!): File!
