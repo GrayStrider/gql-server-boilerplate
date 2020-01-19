@@ -30,6 +30,7 @@
     "chalk": "^3.0.0",
     "chance": "^1.1.4",
     "class-validator": "0.11.0",
+    "codacy-coverage": "^3.4.0",
     "compression": "^1.7.4",
     "config": "^3.2.5",
     "connect-redis": "^4.0.3",
@@ -118,7 +119,8 @@
     "test": "yarn typecheck && yarn jest",
     "jest": "jest --forceExit --detectOpenHandles --maxWorkers=10",
     "codegen": "graphql-codegen",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "codacy-coverage": "codacy-coverage < coverage/lcov.info"
   },
   "signale": {
     "displayScope": true,
