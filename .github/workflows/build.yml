@@ -1,6 +1,10 @@
 name: Node.js Cross-platform CI (using Yarn)
 
-on: push
+on:
+  push:
+    tags-ignore:
+      - depfu
+  pull_request:
 
 jobs:
   build:
@@ -18,8 +22,5 @@ jobs:
       - name: yarn install and test
         run: |
           yarn install
-#          yarn start
-#          yarn codegen
-#          yarn test
         env:
           CI: true
