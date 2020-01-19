@@ -3,12 +3,7 @@ module.exports = {
 
   "moduleDirectories": ["node_modules", "src"],
 
-  "moduleFileExtensions": [
-    "ts",
-    "tsx",
-    "js",
-    "jsx"
-  ],
+  "moduleFileExtensions": ["ts", "tsx", "js", "jsx"],
 
   "testRegex": ".spec.ts$",
   "transform": {
@@ -19,7 +14,11 @@ module.exports = {
     "^src/(.*)": "<rootDir>/src/$1",
     "^config/(.*)": "<rootDir>/config/$1",
     "^@/(.*)": "<rootDir>/src/$1",
+  },
 
-  }
-
+  "collectCoverage": true,
+  "collectCoverageFrom": [
+    "src/**/*.{ts,js}",
+    "!**/node_modules/**",
+  ]
 };
