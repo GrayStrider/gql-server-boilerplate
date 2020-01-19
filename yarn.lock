@@ -29,12 +29,12 @@
     lodash "^4.17.15"
     tslib "1.10.0"
 
-"@accounts/redis@^0.20.1":
-  version "0.20.1"
-  resolved "https://registry.yarnpkg.com/@accounts/redis/-/redis-0.20.1.tgz#d2846c8c8664f7e39b45b84488f7595430243b24"
-  integrity sha512-eN7qyZbP/DLnbZ+etZOP9koHdj5Sa/P2RnRXsfaS7Z0GkJBBxbq7Pt75xrI0ZOh736uDW5QEdKVOhZQeA5gdeA==
+"@accounts/redis@^0.21.0":
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/@accounts/redis/-/redis-0.21.0.tgz#c4badde01a33f2eaff2ddfb86804aa5062232723"
+  integrity sha512-VL+dJMv4Yq+Czq6+dZU6GSjjDtVblyD5aOpM/1mNvW7pjZyIKlvzHZJxPXLq3IDeZS1r85vYr+Em+lg17yRNGQ==
   dependencies:
-    "@accounts/types" "^0.20.1"
+    "@accounts/types" "^0.21.0"
     ioredis "^4.14.1"
     lodash "^4.17.15"
     shortid "^2.2.15"
