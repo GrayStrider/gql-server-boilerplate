@@ -105,7 +105,7 @@
     "jest": "^24.9.0",
     "nodemon": "^2.0.2",
     "ts-jest": "^24.3.0",
-    "ts-node": "^7.0.1",
+    "ts-node": "^8.6.2",
     "ts-node-dev": "^1.0.0-pre.44",
     "tsconfig-paths": "^3.9.0",
     "tsdef": "^0.0.13"
