@@ -29,7 +29,7 @@
     "body-parser": "^1.19.0",
     "chalk": "^3.0.0",
     "chance": "^1.1.4",
-    "class-validator": "0.9.1",
+    "class-validator": "0.11.0",
     "compression": "^1.7.4",
     "config": "^3.2.5",
     "connect-redis": "^3.4.2",
