@@ -10,10 +10,10 @@
     "@accounts/types" "^0.20.1"
     tslib "1.10.0"
 
-"@accounts/graphql-api@^0.20.1":
-  version "0.20.1"
-  resolved "https://registry.yarnpkg.com/@accounts/graphql-api/-/graphql-api-0.20.1.tgz#158bb564eac72bbcc016f2031217109afe41158f"
-  integrity sha512-a/HH0AHQrKf00fDHVPpewbFlN018tNZDHMhuzcAOqZmGKZHF/S68Ib1nP0tHEHo04/1AMQBWbkTZVauQcX1fQw==
+"@accounts/graphql-api@^0.21.0":
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/@accounts/graphql-api/-/graphql-api-0.21.0.tgz#2d6500e04bc884ef25ae758a7ec41f4777319712"
+  integrity sha512-L4xBeiE49QNJYdsWerdr6c32b4RwMoyt4xStX+LgvNLdImsUgvNJFt7RgLkRZrUQd0hqTaWAYcF8IfO8+sqFjw==
   dependencies:
     graphql-toolkit "^0.6.8"
     request-ip "2.1.3"
