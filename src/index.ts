@@ -14,4 +14,5 @@ process.on('unhandledRejection', (error) => {
 main().catch((err) => {
 	log.error('Error in main:')
 	console.error(err)
+	if (err.code === 'ECONNREFUSED') process.exit(1)
 })

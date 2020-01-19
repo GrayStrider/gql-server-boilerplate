@@ -12,6 +12,8 @@ on:
 
 jobs:
   build:
+    timeout-minutes: 5
+
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -38,6 +40,7 @@ jobs:
         run: yarn install
       - name: start-test (for schema generation)
         run: yarn start-test
+        timeout-minutes: 2
       - name: generate types
         run: yarn codegen
       - name: typecheck
