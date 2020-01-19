@@ -44,7 +44,7 @@ describe('Users', async () => {
   it(`new user`, async () => {
     const {id} = await gqlRequest(gql`mutation {
         userCreate(userData: {
-            country: Afghanistan, email: "zhoga.ivan@gmail.com",
+            country: Afghanistan, email: "foo.bar@gmail.com",
             firstName: "Ivan", lastName: "Zhoga", age: 24, password: "123"
         }) {
             id
