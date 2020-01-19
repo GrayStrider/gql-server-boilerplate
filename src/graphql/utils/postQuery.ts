@@ -1,7 +1,6 @@
 import {ASTNode, print} from 'graphql'
 import request from 'graphql-request'
 import {Variables} from 'graphql-request/dist/src/types'
-import gql from 'graphql-tag'
 import {AnyObject} from 'tsdef'
 import {GQL_URL} from 'config/_consts'
 import {Mutation, Query} from '../generated/typings'

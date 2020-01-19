@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import Koa, {Context} from 'koa'
+import Koa from 'koa'
 import helmet from 'koa-helmet'
 import session from 'koa-session'
 import cors from '@koa/cors'
@@ -9,12 +9,12 @@ import {useContainer, createConnection} from 'typeorm'
 import {Container} from 'typedi'
 import {ORMConfig} from 'config/_typeorm'
 import RedisStore from 'koa-redis'
-import {redis} from '@/DB/redis'
+import {redisSessionClient} from '@/DB/redis'
 import {PORT, HOST} from 'config/_consts'
 import {router} from '@/routes'
 import {redirect, errorHandler} from '@/utils/koa/middlewares'
 import {makeUsersServer} from '@/models/UsersPlayground'
-import {makePlainSchemaServer} from '@/models/PlainSchema'
+import {makeKBFServer} from '@/models/KBF'
 
 
 export async function main() {
@@ -28,18 +28,18 @@ export async function main() {
 	if (process.env.NODE_ENV !== 'production') {
 		log.warn('resetting the DB')
 		await conn.synchronize(true)
-		await redis.flushdb()
+		await redisSessionClient.flushdb()
 	}
 	
-	const userServer = await makeUsersServer()
-	const plainSchemaServer = await makePlainSchemaServer()
+	const usersServer = await makeUsersServer()
+	const KBFServer = await makeKBFServer()
 	
 	app
 		.use(errorHandler)
 		.use(redirect)
 		.use(session({
 			store: RedisStore({
-				client: redis,
+				client: redisSessionClient,
 			}),
 			key: 'redisCookie',
 		}, app))
@@ -50,8 +50,8 @@ export async function main() {
 		.use(router.routes())
 		.use(router.allowedMethods({}))
 		
-		.use(userServer)
-		.use(plainSchemaServer)
+		.use(usersServer)
+		.use(KBFServer)
 	
 	return app.listen(PORT, () =>
 		log.success(`Server started at http://${HOST}:${PORT}`))

@@ -18,7 +18,7 @@ export const createSchema = (resolvers: Resolvers) =>
 		globalMiddlewares: [
 			ErrorHandler,
 			// DBRequestCounter,
-			GlobalAuth
+			// GlobalAuth
 		],
 		container: Container,
 		
@@ -45,7 +45,7 @@ const authChecker: AuthChecker<any> = (
  * are of interest, without knowledge of what (if any) publishers there are. This decoupling of publishers and
  * subscribers can allow for greater scalability and a more dynamic network topology.
  */
-const pubSub = new RedisPubSub({
+export const pubSub = new RedisPubSub({
 	publisher,
 	subscriber,
 })

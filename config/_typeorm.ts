@@ -13,7 +13,6 @@ export const ORMConfig: PostgresConnectionOptions = {
 	logger: new CustomLogger(),
 	logging: ['query', 'error'],
 	entities: [
-		'src/models/**/entity/**/!(*.test.ts)',
-		'src/models/**/entity/**/!(*.spec.ts)',
+		'src/models/**/entity/**/!(*.spec.*|*.test.*)',
 	]
 }

@@ -6,8 +6,8 @@ process.on('uncaughtException', (error) => {
 	process.exit(1)
 })
 
-process.on('unhandledRejection', () => {
-	console.error(`unhandledRejection`)
+process.on('unhandledRejection', (error) => {
+	console.error(error)
 })
 
 main().catch(console.error)
