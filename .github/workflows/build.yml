@@ -1,4 +1,4 @@
-name: Node.js Cross-platform CI (using Yarn)
+name: CI
 
 on:
   push:
@@ -23,8 +23,17 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: yarn install and test
-        run: |
-          yarn install
+
+      - name: install
+        run: yarn install
+      - name: start (for schema generation)
+        run: yarn start
+      - name: generate types
+        run: yarn codegen
+      - name: typecheck
+        run: yarn typecheck
+      - name: test
+        run: yarn jest
+
         env:
           CI: true
