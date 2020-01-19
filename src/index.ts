@@ -1,4 +1,5 @@
 import {main} from '@/server'
+import {log} from '@/utils/libsExport'
 
 process.on('uncaughtException', (error) => {
 	console.error(`uncaught Exception: ${error.message}`)
@@ -10,4 +11,7 @@ process.on('unhandledRejection', (error) => {
 	console.error(error)
 })
 
-main().catch(console.error)
+main().catch((err) => {
+	log.error('Error in main:')
+	console.error(err)
+})
