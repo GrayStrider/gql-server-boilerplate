@@ -97,7 +97,7 @@
     "@types/lodash": "^4.14.149",
     "@types/lusca": "^1.6.1",
     "@types/node": "^13.1.8",
-    "@types/nodemailer": "^4.6.8",
+    "@types/nodemailer": "^6.4.0",
     "@types/uuid": "^3.4.6",
     "apollo-server-errors": "^2.3.4",
     "faker": "^4.1.0",
