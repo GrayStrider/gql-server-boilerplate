@@ -16,9 +16,9 @@ module.exports = {
   },
 
   "moduleNameMapper": {
-    "src/(.*)": "<rootDir>/src/$1",
-    "config/(.*)": "<rootDir>/config/$1",
-    "@/(.*)": "<rootDir>/src/$1",
+    "^src/(.*)": "<rootDir>/src/$1",
+    "^config/(.*)": "<rootDir>/config/$1",
+    "^@/(.*)": "<rootDir>/src/$1",
 
   }
 
