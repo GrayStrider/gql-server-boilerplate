@@ -1,6 +1,6 @@
 name: Node.js Cross-platform CI (using Yarn)
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
