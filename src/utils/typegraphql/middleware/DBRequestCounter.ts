@@ -1,7 +1,7 @@
 import {debounce} from 'lodash'
 import {MiddlewareFn} from 'type-graphql'
-import {MyContext} from '@/types/MyContext'
 import {log} from 'src/utils/libsExport'
+import {Context} from '@/graphql'
 
 
 const collect = debounce((count) => {
@@ -11,7 +11,7 @@ const collect = debounce((count) => {
 	DBRequestCounterService.connect().clearCount()
 }, 200,)
 
-export const DBRequestCounter: MiddlewareFn<MyContext> =
+export const DBRequestCounter: MiddlewareFn<Context> =
 	async ({context, args, info, root}, next) => {
 		try {
 			const res = await next()
