@@ -50,14 +50,12 @@ jobs:
         run: echo ${{secrets.MY_SECRET}}
       - name: install
         run: yarn install
-      - name: start-test (for schema generation)
-        run: yarn start-test
-      - name: generate types
-        run: yarn codegen
-      - name: typecheck
-        run: yarn typecheck
-      - name: test
-        run: yarn jest
+      - name: start-test (for schema generation) and test
+        run: |
+        yarn start-test
+        yarn codegen
+        yarn typecheck
+        yarn jest
 
         env:
           CI: true
