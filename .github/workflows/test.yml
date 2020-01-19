@@ -53,8 +53,10 @@ jobs:
         run: yarn install
       - name: start-test (for schema generation) and test
         run: |
+          echo starting &
           yarn start-test &
-          sleep 3m
+          echo Hello &
+          sleep 30s
           yarn codegen
           yarn typecheck
           yarn jest
