@@ -19,12 +19,12 @@
     request-ip "2.1.3"
     tslib "1.10.0"
 
-"@accounts/password@^0.20.1":
-  version "0.20.1"
-  resolved "https://registry.yarnpkg.com/@accounts/password/-/password-0.20.1.tgz#fa8263d09bed4530af36e16827b800cb8b0e8961"
-  integrity sha512-qsKRhIe4FRfiuF2JfJLumUu+Y4b/tmWgJUOBteMBt8rLVOxrJU0EnzKuwYWYGisL4F3QoTo48XDGLcEGmcWNdw==
+"@accounts/password@^0.21.0":
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/@accounts/password/-/password-0.21.0.tgz#431f4ccbc01de4ee0014aa9ea3accdbc2b07eac1"
+  integrity sha512-3tk/QNEqwocCn94We8qL+UV1Lq2wGIyTt2QbCYAcZe4NaTbuBpKR/nbhbWjV/Nh5/4/wwbfhE1AI4ABqchPthQ==
   dependencies:
-    "@accounts/two-factor" "^0.20.1"
+    "@accounts/two-factor" "^0.21.0"
     bcryptjs "^2.4.3"
     lodash "^4.17.15"
     tslib "1.10.0"
@@ -53,12 +53,12 @@
     lodash "4.17.15"
     tslib "1.10.0"
 
-"@accounts/two-factor@^0.20.1":
-  version "0.20.1"
-  resolved "https://registry.yarnpkg.com/@accounts/two-factor/-/two-factor-0.20.1.tgz#653ba6a400abb0a512543097e3bfc233cb27cbc7"
-  integrity sha512-x8NqXWBp7jJp+bv18oewr7Yu2bh6PmFAdpDCrHlJAId3adgPEJMmJxjBh/6ucvPnaktiloqdlCZFUsFI2kKiqA==
+"@accounts/two-factor@^0.21.0":
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/@accounts/two-factor/-/two-factor-0.21.0.tgz#9e2be4408cedfd9f155dd58802388292733da066"
+  integrity sha512-XyjvZRLCOFOAFsEmfCx4kWttXYQpg+oCt7JaHss4+Ya6pCIGciiHdvBltUtM4qVZKATrhJ/WBitMGZiwv+HZdg==
   dependencies:
-    "@accounts/types" "^0.20.1"
+    "@accounts/types" "^0.21.0"
     "@types/lodash" "^4.14.138"
     "@types/speakeasy" "2.0.2"
     lodash "^4.17.15"

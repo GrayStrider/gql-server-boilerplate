@@ -6,7 +6,7 @@
   "dependencies": {
     "@accounts/database-manager": "^0.21.0",
     "@accounts/graphql-api": "^0.21.0",
-    "@accounts/password": "^0.20.1",
+    "@accounts/password": "^0.21.0",
     "@accounts/redis": "^0.21.0",
     "@accounts/server": "^0.20.1",
     "@accounts/typeorm": "^0.21.0",
