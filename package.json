@@ -7,7 +7,7 @@
     "@accounts/database-manager": "^0.20.1",
     "@accounts/graphql-api": "^0.20.1",
     "@accounts/password": "^0.20.1",
-    "@accounts/redis": "^0.20.1",
+    "@accounts/redis": "^0.21.0",
     "@accounts/server": "^0.20.1",
     "@accounts/typeorm": "^0.21.0",
     "@koa/cors": "^3.0.0",
