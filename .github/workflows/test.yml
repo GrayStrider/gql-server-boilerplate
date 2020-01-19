@@ -21,6 +21,7 @@ jobs:
         node-version: [12.x]
 
     services:
+
       redis:
         image: redis
         ports:
@@ -52,7 +53,8 @@ jobs:
         run: yarn install
       - name: start-test (for schema generation) and test
         run: |
-          yarn start-test
+          yarn start-test &
+          sleep 3m
           yarn codegen
           yarn typecheck
           yarn jest
