@@ -12,7 +12,7 @@ function makeRedis() {
 	
 	redis.on('error', (error) => {
 		console.error(error)
-		process.exit(1)
+		process.exit(1) //TODO good practice?
 	})
 	
 	return redis
