@@ -18,6 +18,8 @@ jobs:
       - name: yarn install and test
         run: |
           yarn install
+          yarn start
+          yarn codegen
           yarn test
         env:
           CI: true
