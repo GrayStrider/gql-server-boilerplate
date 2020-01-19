@@ -34,6 +34,7 @@
     "config": "^3.2.4",
     "connect-redis": "^3.4.0",
     "cors": "^2.8.5",
+    "cross-env": "^6.0.3",
     "dataloader": "^1.4.0",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
@@ -110,7 +111,7 @@
     "tsdef": "^0.0.13"
   },
   "scripts": {
-    "start": "ts-node --transpileOnly tsconfig-paths/register src/index.ts ",
+    "start": "cross-env NODE_ENV=production ts-node --transpileOnly -r tsconfig-paths/register src/index.ts ",
     "start-dev": "ts-node-dev --respawn --transpileOnly --ignore-watch .spec -r tsconfig-paths/register src/index.ts",
     "startFile": "ts-node-dev --respawn --transpileOnly --ignore-watch .spec -r tsconfig-paths/register",
     "test": "yarn typecheck && yarn jest",

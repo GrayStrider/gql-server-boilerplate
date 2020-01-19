@@ -8,7 +8,7 @@ export const makeUsersServer = async () => {
 	const name = 'users'
 	const path = `/${name}`
 	const schema = await createSchema([UserResolver], name)
-	log.info(SERVER_URL + name)
+	log.info(SERVER_URL + path)
 	return genericApolloServer(schema)
 		.getMiddleware(
 			{path}

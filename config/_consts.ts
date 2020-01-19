@@ -8,12 +8,11 @@ log.info('ENV: ' + process.env.NODE_ENV)
 
 export const PORT: string = get('PORT')
 export const HOST: string = get('HOST')
-export const POSTGRES_URL: string = get('postgres.url')
-export const POSTRGRES_URL: string = get('postgres.url')
-export const POSTRGRES_PORT: number = get('postgres.port')
-export const POSTRGRES_PASSWORD: string = get('postgres.password')
-export const POSTRGRES_USERNAME: string = get('postgres.username')
-export const POSTRGRES_DATABASE: string = get('postgres.database')
+export const POSTGRES_URL: string = process.env.POSTGRES_URL ?? get('postgres.url')
+export const POSTRGRES_PORT: number = process.env.POSTGRES_PORT ?? get('postgres.port')
+export const POSTRGRES_PASSWORD: string = process.env.POSTRGRES_PASSWORD ?? get('postgres.password')
+export const POSTRGRES_USERNAME: string = process.env.POSTRGRES_USERNAME ?? get('postgres.username')
+export const POSTRGRES_DATABASE: string = process.env.POSTRGRES_DATABASE ?? get('postgres.database')
 export const GQL_URL: string = `http://${HOST}:${PORT}/${process.env.endpoint ?? 'graphql'}`
 export const SERVER_URL: string = `http://${HOST}:${PORT}`
 export const dsn: string = get('sentry.dsn')

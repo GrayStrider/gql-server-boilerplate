@@ -26,8 +26,8 @@ jobs:
 
       - name: install
         run: yarn install
-      - name: start (for schema generation)
-        run: yarn start
+      - name: start-dev (for schema generation)
+        run: yarn start-dev
       - name: generate types
         run: yarn codegen
       - name: typecheck
