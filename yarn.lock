@@ -739,13 +739,13 @@
     tslib "1.10.0"
     upper-case "2.0.1"
 
-"@graphql-codegen/typescript-document-nodes@1.10.0":
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-document-nodes/-/typescript-document-nodes-1.10.0.tgz#c22ea3af60212a71b149621737a170cf5209c972"
-  integrity sha512-O4XKFLKldH0ttzVbUrQo9EtM2wSFt6UDy2JFq1oyeRU6gPzyLSMSL255iD/hTFoStokb+7B2HOsXjnd2eZebVA==
+"@graphql-codegen/typescript-document-nodes@1.11.2":
+  version "1.11.2"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-document-nodes/-/typescript-document-nodes-1.11.2.tgz#c132c2d218f89b2d06a63eccddc1852f652a7440"
+  integrity sha512-0m7WcNP2qMf4LrGIicS0TDEUksV3jBBvwjZZJqutZ6pl/GtmxT2DVyX55wK0jLX4EWeSzQF2cUsWChElsisJ6Q==
   dependencies:
-    "@graphql-codegen/plugin-helpers" "1.10.0"
-    "@graphql-codegen/visitor-plugin-common" "1.10.0"
+    "@graphql-codegen/plugin-helpers" "1.11.2"
+    "@graphql-codegen/visitor-plugin-common" "1.11.2"
     tslib "1.10.0"
 
 "@graphql-codegen/typescript-resolvers@1.10.0":
@@ -775,6 +775,18 @@
   integrity sha512-V+ChfifppuiBax9Mt2weC/ba6GLSZPdCVaoL3Q3g72mzsbkZm+l5CIcjQy84X98z8jIaeHEaQironfhIrYC09A==
   dependencies:
     "@graphql-codegen/plugin-helpers" "1.10.0"
+    auto-bind "4.0.0"
+    dependency-graph "0.8.1"
+    graphql-tag "2.10.1"
+    relay-compiler "8.0.0"
+    tslib "1.10.0"
+
+"@graphql-codegen/visitor-plugin-common@1.11.2":
+  version "1.11.2"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/visitor-plugin-common/-/visitor-plugin-common-1.11.2.tgz#10789c94c19a89080e0c56067a381dab997b3760"
+  integrity sha512-pKakwkX1eLUExCIv1CUYtJtDVqyr0LGe6HKoILylsPupYSVc1GKF8YwPArMEhwkNdvNdtv+PtYeqnyuhfMcyzw==
+  dependencies:
+    "@graphql-codegen/plugin-helpers" "1.11.2"
     auto-bind "4.0.0"
     dependency-graph "0.8.1"
     graphql-tag "2.10.1"
@@ -9455,15 +9467,10 @@ tsdef@^0.0.13:
   resolved "https://registry.yarnpkg.com/tsdef/-/tsdef-0.0.13.tgz#c71c2bd756c84887386ac8539ace63a38bc114e1"
   integrity sha512-Twcdol23BQ+J+WD3NYhqusB7vvCDdK2bvcXnivgHu4xjrxnngUshgB+SWs2FN+I6BxY6BRkaE2KllO403GwbKA==
 
-tslib@1.10.0, tslib@^1, tslib@^1.10.0, tslib@^1.7.1, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.2:
+tslib@1.10.0, tslib@^1, tslib@^1.10.0, tslib@^1.7.1, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.2, tslib@^1.9.3:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
   integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
-
-tslib@^1.9.3:
-  version "1.9.3"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
-  integrity sha512-4krF8scpejhaOgqzBEcGM7yDIEfi0/8+8zDRZhNZZ2kjmHJ4hv3zCbQWxoJGz1iw5U0Jl0nma13xzHXcncMavQ==
 
 tslint-config-prettier@^1.18.0:
   version "1.18.0"
