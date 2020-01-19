@@ -142,7 +142,7 @@ describe('pagination', async () => {
 		const res = await gqlRequest<PaginatedUserResponse>(query, {upTo: 10})
 			.then(prop('items'))
 		
-		expect(res).toHaveLength(10)
+		expect(res).toHaveLength(11)
 	})
 	it(`with both variables`, async () => {
 		const res = await gqlRequest<PaginatedUserResponse>(query, {upTo: 10, startAt: 50})
