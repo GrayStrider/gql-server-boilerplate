@@ -100,7 +100,10 @@
     "@types/node": "^13.1.8",
     "@types/nodemailer": "^6.4.0",
     "@types/uuid": "^3.4.6",
+    "@typescript-eslint/eslint-plugin": "^2.16.0",
+    "@typescript-eslint/parser": "^2.16.0",
     "apollo-server-errors": "^2.3.4",
+    "eslint": "^6.8.0",
     "faker": "^4.1.0",
     "husky": "^4.0.10",
     "jest": "^24.9.0",
@@ -120,8 +123,8 @@
     "test:jest": "jest -c jest.config.json --forceExit --detectOpenHandles -w 3",
     "test:coverage": "yarn test:jest --coverage",
     "test:typecheck": "tsc --noEmit",
-    "codegen": "graphql-codegen"
-
+    "codegen": "graphql-codegen",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "signale": {
     "displayScope": true,
