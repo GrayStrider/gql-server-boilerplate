@@ -10,6 +10,7 @@
     "function-paren-newline": ["warn", {"minItems": 3}],
     "space-before-function-paren": "warn",
     "object-property-newline": "warn",
+    "lines-around-comment": "warn",
     "comma-dangle": ["warn", {
         "arrays": "always-multiline",
         "objects": "always-multiline",
@@ -28,7 +29,7 @@
     "lines-between-class-members": "warn",
     "space-in-parens": "warn",
     "key-spacing": "warn",
-    "new-parens": ["warn", "never"],
+    "new-parens": "warn",
     "space-before-blocks": "warn",
     "no-useless-rename": "warn",
     "semi": [

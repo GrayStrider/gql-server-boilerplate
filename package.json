@@ -124,8 +124,7 @@
     "test:coverage": "yarn test:jest --coverage",
     "test:typecheck": "tsc --noEmit",
     "codegen": "graphql-codegen",
-    "eslint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
-    "eslint:style": "eslint -c .eslintrc.style.json . --ext .js,.jsx,.ts,.tsx"
+    "eslint": "eslint -c .eslintrc.style.json . --ext .js,.jsx,.ts,.tsx --fix"
   },
   "signale": {
     "displayScope": true,
