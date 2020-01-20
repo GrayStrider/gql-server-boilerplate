@@ -2,8 +2,8 @@ import {createSchema} from '@/graphql'
 import {log} from '@/utils/libsExport'
 import {SERVER_URL} from 'config/_consts'
 import {genericApolloServer} from '@/graphql/apollo/genericServer'
-import {GetResolver} from '@/models/KBF/entity/resolvers/Get'
-import {CreateResolver} from '@/models/KBF/entity/resolvers/Create'
+import {GetResolver} from '@/models/KBF/resolvers/Get'
+import {CreateResolver} from '@/models/KBF/resolvers/Create'
 
 export const makeKBFServer = async () => {
 	const name = 'kbf'

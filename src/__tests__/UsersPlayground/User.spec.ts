@@ -26,8 +26,6 @@ beforeAll(async () => {
 	db = conn.manager;
 	({fakes, generated} = await generateMockUsers(SAMPLE_SIZE))
 })
-
-
 afterAll(async (done) => {
 	await conn.close()
 	server?.close()
@@ -50,16 +48,16 @@ describe('Users', () => {
     }`)
 		expect(id).toBeTruthy()
   })
-  it(`should search the users by paremeters`, async () => {
-    const firstNames = await gqlRequest<P<Query, 'users'>>(gql`query {
+  it(`should search the users by parameters`, async () => {
+    const act = await gqlRequest<P<Query, 'users'>>(gql`query {
         users(searchBy: {
             firstName: "Ivan",
             lastName: "Zhoga"
         }) {
             firstName
         }
-    }`)
-		expect(firstNames[0].firstName).toStrictEqual('Ivan')
+    }`).then(map(x => x.firstName))
+		expect(head(act)).toStrictEqual('Ivan')
 
   })
 
@@ -123,8 +121,6 @@ describe('Users', () => {
     })
   })
 })
-
-
 describe('pagination', () => {
   const query = gql`query pagination($upTo: Float, $startAt: Float) {
       usersPaginated(upTo: $upTo, startAt: $startAt) {
