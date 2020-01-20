@@ -119,12 +119,13 @@
     "start:test": "cross-env NODE_ENV=test ts-node --transpile-only -r tsconfig-paths/register src/index.ts",
     "start:dev": "yarn start:dev:file src/index.ts",
     "start:dev:file": "ts-node-dev --respawn --transpile-only --ignore-watch .spec -r tsconfig-paths/register",
-    "test": "yarn lint:eslint && yarn codegen && yarn test:typecheck && yarn test:coverage",
+    "test": "yarn eslint && yarn codegen && yarn test:typecheck && yarn test:coverage",
     "test:jest": "jest -c jest.config.json --forceExit --detectOpenHandles -w 3",
     "test:coverage": "yarn test:jest --coverage",
     "test:typecheck": "tsc --noEmit",
     "codegen": "graphql-codegen",
-    "lint:eslint": "eslint . --ext .js,.jsx,.ts,.tsx --fix"
+    "eslint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "eslint:style": "eslint -c .eslintrc.style.json . --ext .js,.jsx,.ts,.tsx"
   },
   "signale": {
     "displayScope": true,

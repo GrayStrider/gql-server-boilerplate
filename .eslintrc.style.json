@@ -1,0 +1,41 @@
+{
+  "extends": ".eslintrc.json",
+  "rules": {
+    "padded-blocks": "warn",
+    "no-trailing-spaces": "warn",
+    "no-multiple-empty-lines": "warn",
+    "multiline-comment-style": "warn",
+    "capitalized-comments": "warn",
+    "quote-props": ["warn", "as-needed"],
+    "function-paren-newline": ["warn", {"minItems": 3}],
+    "space-before-function-paren": "warn",
+    "object-property-newline": "warn",
+    "comma-dangle": ["warn", {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "never",
+        "exports": "never",
+        "functions": "never"
+      }],
+    "array-element-newline": ["warn", {"minItems": 4}],
+    "arrow-parens": ["warn", "as-needed"],
+    "quotes": ["warn", "single"],
+    "dot-location": ["warn", "property"],
+    "object-curly-spacing": "warn",
+    "spaced-comment": "warn",
+    "object-shorthand": "warn",
+    "template-curly-spacing": "warn",
+    "lines-between-class-members": "warn",
+    "space-in-parens": "warn",
+    "key-spacing": "warn",
+    "new-parens": ["warn", "never"],
+    "space-before-blocks": "warn",
+    "no-useless-rename": "warn",
+    "semi": [
+      "warn",
+      "never"
+    ],
+    "no-multi-spaces": "warn",
+    "curly": ["warn", "multi"]
+  }
+}
