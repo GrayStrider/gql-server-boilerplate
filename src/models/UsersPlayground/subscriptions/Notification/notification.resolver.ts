@@ -6,13 +6,13 @@ import uuid from 'uuid'
 import {Context} from '@/graphql'
 
 const checkAuthorized = (context: Context) => {
-	
+
 	/*
 	 * Doesn't work with schema stiching,
 	 * probably ok to wait till 1.0 and @Authorised support
 	 * https://github.com/MichalLytek/type-graphql/issues/175
 	 */
-	
+
 	if (!context.session?.userId) throw new Errors.Unathorized('Not authorised')
 
 
