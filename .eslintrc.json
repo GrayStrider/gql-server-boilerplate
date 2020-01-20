@@ -71,6 +71,7 @@
       "warn",
       "smart-tabs"
     ],
+    "eol-last": "off",
     "no-return-await": "warn",
     "no-trailing-spaces": "off",
     "no-multiple-empty-lines": "off",
