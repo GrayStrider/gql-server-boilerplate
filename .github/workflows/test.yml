@@ -3,7 +3,9 @@ name: CI
 on:
   push:
     branches:
-      - '*'
+      - master
+      - playground
+      - KBF
     tags-ignore:
       - dependencies
   pull_request:
