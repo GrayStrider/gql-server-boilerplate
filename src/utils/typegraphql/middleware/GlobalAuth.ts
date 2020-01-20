@@ -10,7 +10,7 @@ export const GlobalAuth: MiddlewareFn<Context> =
 		
 		const allowedOperation = publicFields.includes(info.fieldName)
 		const unathorized = new Errors.Unathorized('Please log in or register to proceed')
-		if (!(session)) throw unathorized
+		if (!session) throw unathorized
 		const sessionIdPresent = session.userId
 		const isInternalCall = headers.authorization === 'internal_call' && host === `${HOST}:${PORT}`
 		

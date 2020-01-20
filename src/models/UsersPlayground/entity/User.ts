@@ -77,7 +77,7 @@ export class UserNew extends BaseEntity {
 	@Field(returns => [UserNew], {complexity: 2})
 	friends(): UserNew[] {
 		
-		return [...(this.friendsPrimary ?? []), ...(this.friendsInverse ?? [])]
+		return [...this.friendsPrimary ?? [], ...this.friendsInverse ?? []]
 	}
 	
 }

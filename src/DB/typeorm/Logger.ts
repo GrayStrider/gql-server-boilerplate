@@ -1,6 +1,8 @@
 import {Logger, QueryRunner} from 'typeorm'
 import {DBRequestCounterService} from '@/utils/typegraphql/middleware/DBRequestCounter.service'
 
+/*eslint-disable @typescript-eslint/no-empty-function*/
+
 export class CustomLogger implements Logger {
 	
 	log(level: 'log' | 'info' | 'warn', message: unknown, queryRunner?: QueryRunner) {

@@ -26,10 +26,10 @@ export class UserResolver {
 		@Ctx() {session}: Context,
 		@Arg('credentials') {email, password}: UserLoginInput) {
 		const user = await UserNew.findOne({email})
-		if (!(user)) throw new Errors.InvalidCredentials
+		if (!user) throw new Errors.InvalidCredentials
 		const valid = await bcrypt.compare(password, user.password)
-		if (!(valid)) throw new Errors.InvalidCredentials
-		if (!(session)) return user
+		if (!valid) throw new Errors.InvalidCredentials
+		if (!session) return user
 		session.userId = user.id
 		return user
 	}
@@ -83,7 +83,7 @@ export class UserResolver {
 	@Authorized([AuthRoles.ADMIN])
 	@Mutation(returns => UserNew)
 	async userModify(@Arg('changes') {friendsIds, ...rest}: UserModifyInput, @Arg('userId') userId: string) {
-		if (!(validator.isUUID(userId))) throw new Errors.Validation('Incorrect format for user ID')
+		if (!validator.isUUID(userId)) throw new Errors.Validation('Incorrect format for user ID')
 		
 		const user = await UserNew.findOne(userId)
 		if (!user) throw userNotFoundError(userId)
