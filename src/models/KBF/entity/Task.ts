@@ -1,6 +1,6 @@
 import {Field, ID, ObjectType} from 'type-graphql'
 import {BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn, ManyToOne, OneToOne, OneToMany} from 'typeorm'
-import {Swimlane, TDate, Subtask, TColumn, Color, Label, User, Comment, Number} from '@/models/KBF/entity/index'
+import {Swimlane, TDate, Subtask, TColumn, Color, Label, User, Comment, TaskNumber} from '@/models/KBF/entity/index'
 
 
 @ObjectType()
@@ -46,9 +46,9 @@ export class Task extends BaseEntity/* implements ITask*/ {
 	@Field()
 	position: number
 	
-	@OneToOne(type => Number, {nullable: true})
-	@Field(returns => Number, {nullable: true})
-	number: Number
+	@OneToOne(type => TaskNumber, {nullable: true})
+	@Field(returns => TaskNumber, {nullable: true})
+	number: TaskNumber
 	
 	@Field(returns => User, {nullable: true})
 	@ManyToMany(type => User, user => user.tasks, {nullable: true})

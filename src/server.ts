@@ -43,7 +43,7 @@ export async function main() {
 			}),
 			key: 'redisCookie',
 		}, app))
-		.on('error', args => {})
+		.on('error', console.log)
 		.use(helmet({}))
 		.use(cors({}))
 		.use(bodyParser({}))

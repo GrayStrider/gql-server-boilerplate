@@ -1,9 +1,5 @@
 import Redis from 'ioredis'
 
-export const redisSessionClient = makeRedis()
-export const publisher = makeRedis()
-export const subscriber = makeRedis()
-
 function makeRedis() {
 	const redis = new Redis({
 		connectTimeout: 2000,
@@ -17,3 +13,8 @@ function makeRedis() {
 	
 	return redis
 }
+
+export const redisSessionClient = makeRedis()
+export const publisher = makeRedis()
+export const subscriber = makeRedis()
+

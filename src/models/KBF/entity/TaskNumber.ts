@@ -4,7 +4,7 @@ import {Task} from '@/models/KBF/entity/Task'
 
 @ObjectType()
 @Entity()
-export class Number extends BaseEntity{
+export class TaskNumber extends BaseEntity{
 	@Field(returns => ID)
 	@PrimaryGeneratedColumn('uuid')
 	id: string

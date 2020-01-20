@@ -3,7 +3,7 @@ import request from 'graphql-request'
 import {Variables} from 'graphql-request/dist/src/types'
 import {AnyObject} from 'tsdef'
 import {GQL_URL} from 'config/_consts'
-import {Mutation, Query} from '../generated/typings'
+import {Mutation, Query} from '@/graphql/generated/typings'
 import {flattenObject} from '@/utils/zz_misc/flattenObject'
 
 
@@ -16,7 +16,7 @@ import {flattenObject} from '@/utils/zz_misc/flattenObject'
  *   Specifying `"tasks"` in mainField parameter will return the array right away
  */
 
-export async function postQuery<T = Array<{ [key: string]: any }>>(query: ASTNode, mainField?: string, url: string = GQL_URL): Promise<{ [key: string]: T }> {
+export async function postQuery<T = AnyObject[]>(query: ASTNode, mainField?: string, url: string = GQL_URL): Promise<{ [key: string]: T }> {
 	const res: AnyObject = await request(url, print(query))
 	return mainField ? res?.[mainField] : res
 }
@@ -28,7 +28,7 @@ export async function gqlRequest<T, K, U>(query: ASTNode, variables?: Variables,
 
 
 export async function gqlRequest<T, K, U>(query: ASTNode, variables?: Variables, url: string = GQL_URL) {
-	const res: AnyObject | any[] = await request(url, print(query), variables)
+	const res: AnyObject | unknown[] = await request(url, print(query), variables)
 	
 	return flattenObject(res)
 }

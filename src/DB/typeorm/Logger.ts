@@ -1,15 +1,15 @@
 import {Logger, QueryRunner} from 'typeorm'
-import {DBRequestCounterService} from '@/utils/typegraphql/middleware/DBRequestCounter'
+import {DBRequestCounterService} from '@/utils/typegraphql/middleware/DBRequestCounter.service'
 
 export class CustomLogger implements Logger {
 	
-	log(level: 'log' | 'info' | 'warn', message: any, queryRunner?: QueryRunner): any {
+	log(level: 'log' | 'info' | 'warn', message: unknown, queryRunner?: QueryRunner) {
 	}
 	
-	logMigration(message: string, queryRunner?: QueryRunner): any {
+	logMigration(message: string, queryRunner?: QueryRunner) {
 	}
 	
-	logQuery(query: string, parameters?: any[], queryRunner?: QueryRunner): any {
+	logQuery(query: string, parameters?: unknown[], queryRunner?: QueryRunner) {
 		if (query !== 'START TRANSACTION' && query !== 'COMMIT') {
 			const counter = DBRequestCounterService.connect()
 			// log.log( `${counter.getCount + 1 ?? 'N/A'}: ${query}`)
@@ -18,13 +18,13 @@ export class CustomLogger implements Logger {
 		
 	}
 	
-	logQueryError(error: string, query: string, parameters?: any[], queryRunner?: QueryRunner): any {
+	logQueryError(error: string, query: string, parameters?: unknown[], queryRunner?: QueryRunner) {
 	}
 	
-	logQuerySlow(time: number, query: string, parameters?: any[], queryRunner?: QueryRunner): any {
+	logQuerySlow(time: number, query: string, parameters?: unknown[], queryRunner?: QueryRunner) {
 	}
 	
-	logSchemaBuild(message: string, queryRunner?: QueryRunner): any {
+	logSchemaBuild(message: string, queryRunner?: QueryRunner) {
 	
 	}
 	

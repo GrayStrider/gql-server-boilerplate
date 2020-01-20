@@ -6,7 +6,7 @@ import {RESTDataSource} from 'apollo-datasource-rest'
 export class CatFactsAPI extends RESTDataSource {
 	constructor() {
 		super()
-		this.baseURL =  'https://cat-fact.herokuapp.com'
+		this.baseURL = 'https://cat-fact.herokuapp.com'
 	}
 	
 	async getFact() {
@@ -16,18 +16,18 @@ export class CatFactsAPI extends RESTDataSource {
 }
 
 interface CatFact {
-	used: boolean,
-	source: string,
-	type: string,
-	deleted: boolean,
-	_id: string,
-	updatedAt: string,
-	createdAt: string,
-	user: string,
-	text: string,
-	__v: number,
+	used: boolean
+	source: string
+	type: string
+	deleted: boolean
+	_id: string
+	updatedAt: string
+	createdAt: string
+	user: string
+	text: string
+	__v: number
 	status: {
-		verified: boolean,
+		verified: boolean
 		sentCount: number
 	}
 }

@@ -1,7 +1,7 @@
 import {
 	IsEmail, IsInt, Max, Min,
 } from 'class-validator'
-import {Field, InputType, Int, ClassType, ArgsType} from 'type-graphql'
+import {Field, InputType, Int} from 'type-graphql'
 import {UserNew} from './entity/User'
 import {Countries} from './lib/CountriesList'
 
@@ -80,7 +80,7 @@ export class UserModifyInput implements UserCreateInput {
  */
 @InputType()
 export class UserSearchInput implements Omit<UserModifyInput, 'password' | 'friendsIds'>{
-	[key: string]: any;
+	[key: string]: unknown;
 	
 	@Field({nullable: true})
 	id: string

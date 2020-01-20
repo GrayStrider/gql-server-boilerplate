@@ -1,6 +1,5 @@
-import {ApolloError} from 'apollo-server'
 import {truncate} from 'lodash'
-import {AnyObject} from 'tsdef'
+import {makeCustomError} from '@/utils/makeCustomError'
 
 export enum ErrorCodes {
 	'VALIDATION_ERROR' = 'VALIDATION_ERROR',
@@ -9,18 +8,10 @@ export enum ErrorCodes {
 }
 
 export const Errors = {
-	Validation: CustomError(ErrorCodes.VALIDATION_ERROR, 'Unspecified validation error'),
-	NotFound: CustomError(ErrorCodes.NOT_FOUND, 'Object not found'),
-	Unathorized: CustomError(ErrorCodes.UNATHORIZED, 'Unathorized to perform requested action'),
-	InvalidCredentials: CustomError(ErrorCodes.UNATHORIZED, "Invalid credentials provided" )
-}
-
-function CustomError(code: ErrorCodes, defaultMessage: string, details?: AnyObject | string) {
-	return class ExpectedError extends ApolloError {
-		constructor(message: string = defaultMessage, public details?: AnyObject | string) {
-			super(message, code)
-		}
-	}
+	Validation: makeCustomError(ErrorCodes.VALIDATION_ERROR, 'Unspecified validation error'),
+	NotFound: makeCustomError(ErrorCodes.NOT_FOUND, 'Object not found'),
+	Unathorized: makeCustomError(ErrorCodes.UNATHORIZED, 'Unathorized to perform requested action'),
+	InvalidCredentials: makeCustomError(ErrorCodes.UNATHORIZED, "Invalid credentials provided" )
 }
 
 export const userNotFoundError = (id: string) =>

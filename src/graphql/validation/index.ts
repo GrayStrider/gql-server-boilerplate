@@ -22,4 +22,4 @@ export const complexityValidator = () =>
 				defaultComplexity: 1
 			})
 		]
-	}) as any
+	})

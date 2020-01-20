@@ -2,6 +2,7 @@ import {debounce} from 'lodash'
 import {MiddlewareFn} from 'type-graphql'
 import {log} from 'src/utils/libsExport'
 import {Context} from '@/graphql'
+import {DBRequestCounterService} from '@/utils/typegraphql/middleware/DBRequestCounter.service'
 
 
 const collect = debounce((count) => {
@@ -9,46 +10,16 @@ const collect = debounce((count) => {
 		? log.warn(`Many queries: ${count}`)
 		: /*log.info(count)*/ null
 	DBRequestCounterService.connect().clearCount()
-}, 200,)
+}, 200)
 
 export const DBRequestCounter: MiddlewareFn<Context> =
 	async ({context, args, info, root}, next) => {
-		try {
-			const res = await next()
-			// log.debug(`${info.operation.operation}: ${info.fieldName}`)
-			const count = DBRequestCounterService.connect().getCount
-			if (count) {
-				collect(count)
-			}
-			return res
-		} catch (e) {
-			throw e
-			
+		const res = await next()
+		// log.debug(`${info.operation.operation}: ${info.fieldName}`)
+		const count = DBRequestCounterService.connect().getCount
+		if (count) {
+			collect(count)
 		}
+		return res
 	}
 
-export class DBRequestCounterService {
-	private static instance: DBRequestCounterService
-	private count: number = 0
-	
-	private constructor() {}
-	
-	get getCount(): number {
-		return this.count
-	}
-	
-	public static connect() {
-		if (!DBRequestCounterService.instance) {
-			DBRequestCounterService.instance = new DBRequestCounterService()
-		}
-		return DBRequestCounterService.instance
-	}
-	
-	clearCount() {
-		this.count = 0
-	}
-	
-	increment() {
-		this.count++
-	}
-}

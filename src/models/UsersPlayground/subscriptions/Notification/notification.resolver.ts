@@ -3,9 +3,10 @@ import {SUB_TOPICS} from '@/models/UsersPlayground/subscriptions/subscriptions.t
 import {Errors} from '@/utils/Errors'
 import {Arg, Mutation, Publisher, PubSub, Root, Subscription} from 'type-graphql'
 import uuid from 'uuid'
+import {Context} from '@/graphql'
 
-const checkAuthorized = (context: any) => {
-	if (!context.connection.context.authorized) {
+const checkAuthorized = (context: Context) => {
+	if (!context.session?.userId) {
 		// doesn't work with schema stiching,
 		// probably ok to wait till 1.0 and @Authorised support
 		// https://github.com/MichalLytek/type-graphql/issues/175

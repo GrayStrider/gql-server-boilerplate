@@ -13,7 +13,7 @@ import {Context} from '@/graphql'
 export const validator = new Validator()
 export const birthYearFromAge = (age: number) => new Date().getFullYear() - age
 const validatePassword = (password: string): true => {
-	if (false) {
+	if (password.length < 6) {
 		throw new Errors.Validation('Password must contain...')
 	}
 	return true
@@ -24,12 +24,13 @@ export class UserResolver {
 	@Mutation(returns => UserNew)
 	async login(
 		@Ctx() {session}: Context,
-		@Arg("credentials") {email, password}: UserLoginInput) {
+		@Arg('credentials') {email, password}: UserLoginInput) {
 		const user = await UserNew.findOne({email})
 		if (!(user)) throw new Errors.InvalidCredentials
 		const valid = await bcrypt.compare(password, user.password)
 		if (!(valid)) throw new Errors.InvalidCredentials
-		session!.userId = user.id
+		if (!(session)) return user
+		session.userId = user.id
 		return user
 	}
 	
@@ -81,8 +82,7 @@ export class UserResolver {
 	
 	@Authorized([AuthRoles.ADMIN])
 	@Mutation(returns => UserNew)
-	async userModify(@Arg('changes') {friendsIds, ...rest}: UserModifyInput,
-	                 @Arg('userId') userId: string) {
+	async userModify(@Arg('changes') {friendsIds, ...rest}: UserModifyInput, @Arg('userId') userId: string) {
 		if (!(validator.isUUID(userId))) throw new Errors.Validation('Incorrect format for user ID')
 		
 		const user = await UserNew.findOne(userId)

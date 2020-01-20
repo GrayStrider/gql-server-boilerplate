@@ -1,5 +1,6 @@
 import {ClassType, Field, Int, ObjectType} from 'type-graphql'
 import {UserNew} from '@/models/UsersPlayground/entity/User'
+import {AnyConstructor} from 'tsdef'
 
 function PaginatedResponse<TItem>(TItemClass: ClassType<TItem>) {
 	// `isAbstract` decorator option is mandatory to prevent registering in schema
@@ -14,7 +15,7 @@ function PaginatedResponse<TItem>(TItemClass: ClassType<TItem>) {
 		@Field()
 		hasMore: boolean;
 	}
-	return PaginatedResponseClass as any
+	return PaginatedResponseClass as AnyConstructor
 }
 
 @ObjectType()

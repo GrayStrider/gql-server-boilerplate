@@ -13,6 +13,6 @@ export class Notification {
 }
 
 export interface NotificationPayload {
-	id: string;
-	message?: string;
+	id: string
+	message?: string
 }

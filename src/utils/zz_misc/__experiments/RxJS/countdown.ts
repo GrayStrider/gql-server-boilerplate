@@ -2,7 +2,7 @@ import {interval} from 'rxjs'
 import {take, map, endWith} from 'rxjs/operators'
 import {consoleWrite} from 'src/utils/libsExport'
 
-const countdown = (amount: number, every: number = 1000) =>
+const countdown = (amount: number, every = 1000) =>
 	interval(every)
 		.pipe(
 			take(amount),

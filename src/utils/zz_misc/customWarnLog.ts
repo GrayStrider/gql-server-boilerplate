@@ -1,6 +1,6 @@
 import chalk from 'chalk'
 
-export function warn(...msg: any[]) {
+export function warn(...msg: unknown[]) {
 	msg.forEach((value) => {
 		console.log(
 			chalk.bgBlack.bold.whiteBright(
