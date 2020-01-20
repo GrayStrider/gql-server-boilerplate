@@ -49,13 +49,11 @@ jobs:
 
       - name: install
         run: yarn install
-      - name: start-test (for schema generation) and test
+      - name: start, generate schema and test with coverage
         run: |
-          yarn start-test &
+          yarn start:test &
           sleep 40s
-          yarn codegen
-          yarn typecheck
-          yarn jest
+          yarn test
 
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@master

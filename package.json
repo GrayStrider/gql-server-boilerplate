@@ -112,16 +112,16 @@
     "tsdef": "^0.0.13"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=production ts-node --transpile-only -r tsconfig-paths/register src/index.ts ",
-    "start:test": "cross-env NODE_ENV=test ts-node --transpile-only -r tsconfig-paths/register src/index.ts ",
-    "start:dev": "ts-node-dev --respawn --transpile-only --ignore-watch .spec -r tsconfig-paths/register src/index.ts",
-    "start:file": "ts-node-dev --respawn --transpile-only --ignore-watch .spec -r tsconfig-paths/register",
-    "test": "yarn typecheck && yarn jest",
+    "start": "cross-env NODE_ENV=production ts-node --transpile-only -r tsconfig-paths/register src/index.ts",
+    "start:test": "cross-env NODE_ENV=test ts-node --transpile-only -r tsconfig-paths/register src/index.ts",
+    "start:dev": "yarn start:dev:file src/index.ts",
+    "start:dev:file": "ts-node-dev --respawn --transpile-only --ignore-watch .spec -r tsconfig-paths/register",
+    "test": "yarn codegen && yarn test:typecheck && yarn test:coverage",
     "test:jest": "jest -c jest.config.json --forceExit --detectOpenHandles -w 3",
-    "test:typecheck": "tsc --noEmit",
     "test:coverage": "yarn test:jest --coverage",
-    "test:codacy-coverage": "codacy-coverage < src/__tests__/coverage/lcov.info",
+    "test:typecheck": "tsc --noEmit",
     "codegen": "graphql-codegen"
+
   },
   "signale": {
     "displayScope": true,
