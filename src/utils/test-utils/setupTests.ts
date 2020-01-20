@@ -1,10 +1,10 @@
 import {main} from '@/server'
-import axios from 'axios'
 import * as http from 'http'
 import {Connection, createConnection, getConnection} from 'typeorm'
 import {GQL_URL} from 'config/_consts'
 import {ORMConfig} from 'config/_typeorm'
 import {log} from '../libsExport'
+import {isUp} from '@/utils/test-utils/isUp'
 
 export async function setupTests() {
 	
@@ -29,18 +29,5 @@ export async function setupTests() {
 	log.warn(`resetting database`)
 	await conn.synchronize(true)
 	return {conn, server}
-}
-
-export async function isUp(url: string): Promise<boolean> {
-	return await axios.get(url)
-		.then(() => true)
-		.catch(err => {
-			if (err.code === 'ECONNREFUSED') {
-				return false
-			} else {
-				log.warn(err.message)
-				return true
-			}
-		})
 }
 

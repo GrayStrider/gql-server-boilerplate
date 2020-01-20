@@ -7,7 +7,7 @@ const url = 'https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMake/honda?form
 interface GetModelsForMake {
 	Count: number,
 	Message: string,
-	SearchCriteria: string,
+	SearchCriteria: string
 	Results: Model[]
 }
 
