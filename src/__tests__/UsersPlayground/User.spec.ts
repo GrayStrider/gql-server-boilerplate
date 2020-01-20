@@ -8,9 +8,7 @@ import {Mutation, PaginatedUserResponse, Query} from 'src/graphql/generated/typi
 import {gqlRequest} from 'src/graphql/utils/postQuery'
 import {generateMockUsers} from 'src/models/UsersPlayground/lib/generateMockUsers'
 import {Await} from 'src/types/Await'
-
 import {P} from 'src/types/GetOnePropertyOfType'
-
 import * as http from 'http'
 
 import arrayContaining = jasmine.arrayContaining
@@ -36,36 +34,36 @@ afterAll(async (done) => {
 	done()
 })
 
-describe('Users', async () => {
+describe('Users', () => {
 	it(`should create ${SAMPLE_SIZE} new users`, async () => {
 		const act = map(omit(['id', 'createdDate']))(generated)
 		expect(act).toStrictEqual(fakes)
 	})
   it(`new user`, async () => {
-    const {id} = await gqlRequest(gql`mutation {
+    const {id} = await gqlRequest<P<Mutation, 'userCreate'>>(gql`mutation {
         userCreate(userData: {
             country: Afghanistan, email: "foo.bar@gmail.com",
             firstName: "Ivan", lastName: "Zhoga", age: 24, password: "123"
         }) {
             id
         }
-    }`) as P<Mutation, 'userCreate'>
+    }`)
 		expect(id).toBeTruthy()
   })
   it(`should search the users by paremeters`, async () => {
-    const firstNames = await gqlRequest(gql`query {
+    const firstNames = await gqlRequest<P<Query, 'users'>>(gql`query {
         users(searchBy: {
             firstName: "Ivan",
             lastName: "Zhoga"
         }) {
             firstName
         }
-    }`) as P<Query, 'users'>
+    }`)
 		expect(firstNames[0].firstName).toStrictEqual('Ivan')
 
   })
 
-  describe('modify', async () => {
+  describe('modify', () => {
 		let testUserId: string
 
     it(`should modify Country`, async () => {
@@ -127,7 +125,7 @@ describe('Users', async () => {
 })
 
 
-describe('pagination', async () => {
+describe('pagination', () => {
   const query = gql`query pagination($upTo: Float, $startAt: Float) {
       usersPaginated(upTo: $upTo, startAt: $startAt) {
           items {

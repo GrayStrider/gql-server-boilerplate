@@ -113,14 +113,15 @@
   },
   "scripts": {
     "start": "cross-env NODE_ENV=production ts-node --transpile-only -r tsconfig-paths/register src/index.ts ",
-    "start-test": "cross-env NODE_ENV=test ts-node --transpile-only -r tsconfig-paths/register src/index.ts ",
-    "start-dev": "ts-node-dev --respawn --transpile-only --ignore-watch .spec -r tsconfig-paths/register src/index.ts",
-    "startFile": "ts-node-dev --respawn --transpile-only --ignore-watch .spec -r tsconfig-paths/register",
+    "start:test": "cross-env NODE_ENV=test ts-node --transpile-only -r tsconfig-paths/register src/index.ts ",
+    "start:dev": "ts-node-dev --respawn --transpile-only --ignore-watch .spec -r tsconfig-paths/register src/index.ts",
+    "start:file": "ts-node-dev --respawn --transpile-only --ignore-watch .spec -r tsconfig-paths/register",
     "test": "yarn typecheck && yarn jest",
-    "jest": "jest --forceExit --detectOpenHandles --maxWorkers=10",
-    "codegen": "graphql-codegen",
-    "typecheck": "tsc --noEmit",
-    "codacy-coverage": "codacy-coverage < coverage/lcov.info"
+    "test:jest": "jest -c jest.config.json --forceExit --detectOpenHandles -w 3",
+    "test:typecheck": "tsc --noEmit",
+    "test:coverage": "yarn test:jest --coverage",
+    "test:codacy-coverage": "codacy-coverage < src/__tests__/coverage/lcov.info",
+    "codegen": "graphql-codegen"
   },
   "signale": {
     "displayScope": true,
