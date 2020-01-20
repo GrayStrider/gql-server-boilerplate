@@ -20,9 +20,18 @@
           "requireLast": false
         },
         "singleline": {
-          "delimiter": "semi",
+          "delimiter": "comma",
           "requireLast": false
         }
+      }
+    ],
+    "@typescript-eslint/no-empty-function": [
+      "warn",
+      {
+        "allow": [
+          "protected-constructors",
+          "private-constructors"
+        ]
       }
     ]
   }
