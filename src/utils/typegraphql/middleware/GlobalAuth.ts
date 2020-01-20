@@ -14,7 +14,6 @@ export const GlobalAuth: MiddlewareFn<Context> =
 		const sessionIdPresent = session.userId
 		const isInternalCall = headers.authorization === 'internal_call' && host === `${HOST}:${PORT}`
 		
-		if (sessionIdPresent || allowedOperation || isInternalCall)
-			return await next()
+		if (sessionIdPresent || allowedOperation || isInternalCall) return await next()
 		throw unathorized
 	}

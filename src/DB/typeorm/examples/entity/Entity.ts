@@ -21,8 +21,8 @@ export class ExampleEntity extends GenericFeatures {
 	@Column({default: false})
 	isActive: boolean
 	
-	// don't use simple-array
-	// note the default syntax
+	// Don't use simple-array
+	// Note the default syntax
 	// or use enums
 	@Field(returns => [Int])
 	@Column('int', {array: true, default: '{1, 2, 3}'})

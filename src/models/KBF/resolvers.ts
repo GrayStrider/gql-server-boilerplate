@@ -1,7 +1,7 @@
 import {Args, Mutation, Query, Resolver} from 'type-graphql'
 import {Task} from '@/models/KBF/entity/Task'
 import {bb} from '../../utils/libsExport'
-import {Like_} from '@/DB/typeorm/Like'
+import {LikeWrapper} from '@/DB/typeorm/Like'
 import {NewTaskInput, SearchTaskInput} from './inputs'
 import {Label} from '@/models/KBF/entity'
 import {DeepPartial} from 'typeorm'
@@ -20,10 +20,13 @@ export class KBFResolver {
 	async tasks(@Args() {tag, ...params}: SearchTaskInput) {
 		return await Task.find(
 			{
-				where: params.title ? Like_(params, 'title') :
-					params.description ? Like_(params, 'description') :
-						tag ? {...params} :
-							params,
+				where: params.title
+					? LikeWrapper(params, 'title')
+					: params.description
+						? LikeWrapper(params, 'description')
+						: tag
+							? {...params}
+							: params,
 			},
 		)
 	}
@@ -51,8 +54,4 @@ export class KBFResolver {
 		return await Task.create(data).save()
 	}
 	
-	@Mutation(returns => Array(Task))
-	tasksModify() {
-		throw 'implement'
-	}
 }

@@ -23,15 +23,8 @@ export class Category extends BaseEntity {
 	@Field(returns => Category)
 	@OneToMany(type => Category, category => category.children)
 	parent: Category;
-	
+
 	@Field(returns => Category)
 	@ManyToOne(type => Category, category => category.parent)
 	children: Category;
 }
-
-// @Resolver()
-// export class ListsResolver {
-// 	async adjacencyList() {
-// 		return validateAndSave(Category.create({}))
-// 	}
-// }

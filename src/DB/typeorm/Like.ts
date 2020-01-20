@@ -1,5 +1,5 @@
 import {Like} from 'typeorm'
 import {AnyObject} from 'tsdef'
 
-export const Like_ = (a: AnyObject, b: string) =>
-	({[b]: Like(`%${a[b]}%`) as unknown as string})
+export const LikeWrapper = (object: AnyObject, key: string) =>
+	({[key]: Like(`%${object[key]}%`) as unknown as string})

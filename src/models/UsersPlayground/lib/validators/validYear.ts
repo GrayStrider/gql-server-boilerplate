@@ -2,7 +2,7 @@ import {registerDecorator, ValidationOptions, ValidationArguments} from "class-v
 import {AnyObject} from 'tsdef'
 
 export function IsValidAge(minAge: number, validationOptions?: ValidationOptions) {
-	return function (object: AnyObject, propertyName: string) {
+	return function ValidAge (object: AnyObject, propertyName: string) {
 		registerDecorator({
 			name: "isLongerThan",
 			target: object.constructor,

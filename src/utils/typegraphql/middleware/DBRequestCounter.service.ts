@@ -18,6 +18,6 @@ export class DBRequestCounterService {
 	}
 	
 	increment() {
-		this.count++
+		this.count += 1
 	}
 }

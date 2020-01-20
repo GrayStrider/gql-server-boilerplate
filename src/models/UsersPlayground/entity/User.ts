@@ -71,7 +71,7 @@ export class UserNew extends BaseEntity {
 	@Field({complexity: 2})
 	// @UseMiddleware(LogAccess)
 	name(@Root() parent: UserNew): string {
-		return `${parent.firstName}${parent.lastName ? ' ' + parent.lastName : ''}`
+		return `${parent.firstName}${parent.lastName ? ` ${  parent.lastName}` : ''}`
 	}
 	
 	@Field(returns => [UserNew], {complexity: 2})

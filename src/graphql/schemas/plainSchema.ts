@@ -16,10 +16,10 @@ export const plainSchema = makeSchema<Context>(
 					return text
 				},
 				
-				hello: async (parent, args, context, info) => {
-					return 'Hello, world!'
-				},
-				data: () => ({ //default resolver
+				hello: (parent, args, context, info) =>
+					'Hello, world!',
+				//default resolver
+				data: () => ({
 					field: 'hi1',
 				}),
 			},
