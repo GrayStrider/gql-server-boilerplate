@@ -18,6 +18,7 @@
         "exports": "never",
         "functions": "never"
       }],
+    "eol-last": "warn",
     "array-element-newline": ["warn", {"minItems": 4}],
     "arrow-parens": ["warn", "as-needed"],
     "quotes": ["warn", "single"],
