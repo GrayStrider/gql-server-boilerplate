@@ -1,6 +1,7 @@
 import signale, {Signale} from 'signale'
 
-function customSignale() {
+function customSignale () {
+
 	const options = {
 		disabled: false,
 		interactive: false,
@@ -24,7 +25,7 @@ function customSignale() {
 		},
 	}
 	const custom = new Signale(options)
-	
+
 	signale.success()
 	signale.log()
 	signale.error()
@@ -37,4 +38,5 @@ function customSignale() {
 	signale.debug()
 	custom.remind()
 	custom.santa()
+
 }

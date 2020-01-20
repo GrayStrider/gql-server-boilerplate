@@ -10,11 +10,7 @@ of(STR)
 	.subscribe(console.log)
 
 from(STR)
-	.pipe(
-		concatMap(x => of(x).pipe(
-			delay(250),
-		)),
-	)
+	.pipe(concatMap(x => of(x).pipe(delay(250))))
 	.subscribe(consoleWrite)
 
 
@@ -23,18 +19,18 @@ from(STR)
  */
 interval(300)
 	.pipe(
-		take(STR.length), // limit emits
-		map(i => [...STR][i]), // map each emit to corresponding member
-		endWith('\nDone!\n'),
+		take(STR.length), // Limit emits
+		map(i => [...STR][i]), // Map each emit to corresponding member
+		endWith('\nDone!\n')
 	)
 	.subscribe(consoleWrite)
 
-export function waitFor<T>(signal: Observable<unknown>) {
+export function waitFor<T> (signal: Observable<unknown>) {
+
 	return (source: Observable<T>) =>
 		new Observable<T>(observer =>
 			signal.pipe(first())
 				.subscribe(_ =>
-					source.subscribe(observer)
-				)
-		);
+					source.subscribe(observer)))
+
 }

@@ -17,23 +17,26 @@ import {makeUsersServer} from '@/models/UsersPlayground'
 import {makeKBFServer} from '@/models/KBF'
 
 
-export async function main() {
+export async function main () {
+
 	const app = new Koa()
-	
+
 	app.keys = ['session secret']
-	
+
 	useContainer(Container)
-	
+
 	const conn = await createConnection(ORMConfig)
 	if (process.env.NODE_ENV !== 'production') {
+
 		log.warn('resetting the DB')
 		await conn.synchronize(true)
 		await redisSessionClient.flushdb()
+
 	}
-	
+
 	const usersServer = await makeUsersServer()
 	const KBFServer = await makeKBFServer()
-	
+
 	app
 		.use(errorHandler)
 		.use(redirect)
@@ -49,11 +52,12 @@ export async function main() {
 		.use(bodyParser({}))
 		.use(router.routes())
 		.use(router.allowedMethods({}))
-		
+
 		.use(usersServer)
 		.use(KBFServer)
-	
+
 	return app.listen(PORT, () =>
 		log.success(`Server started at http://${HOST}:${PORT}`))
+
 }
 

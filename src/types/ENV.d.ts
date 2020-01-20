@@ -5,5 +5,5 @@ declare namespace NodeJS {
 		POSTGRES_PORT: number
 		POSTGRES_URL: string
 	}
-	
+
 }

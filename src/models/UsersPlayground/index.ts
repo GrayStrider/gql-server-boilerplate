@@ -5,12 +5,12 @@ import {SERVER_URL} from 'config/_consts'
 import {log} from '@/utils/libsExport'
 
 export const makeUsersServer = async () => {
+
 	const name = 'users'
 	const path = `/${name}`
 	const schema = await createSchema([UserResolver], name)
 	log.info(SERVER_URL + path)
 	return genericApolloServer(schema)
-		.getMiddleware(
-			{path}
-		)
+		.getMiddleware({path})
+
 }

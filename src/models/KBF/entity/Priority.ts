@@ -8,5 +8,5 @@ export enum Priority {
 }
 
 registerEnumType(Priority, {
-	name: 'Priority'
+	name: 'Priority',
 })

@@ -1,6 +1,6 @@
-import * as koa from "koa"
+import * as koa from 'koa'
 
-declare module "koa" {
+declare module 'koa' {
 	interface Context {
 		session: session.Session & {
 			userId: string

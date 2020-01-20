@@ -11,16 +11,19 @@ export const createSchema = (resolvers: Resolvers, schemaNamePrefix: string) =>
 		emitSchemaFile: {
 			path: `./src/graphql/generated/${schemaNamePrefix}.schema.graphql`,
 			commentDescriptions: true,
-		}, // for testing
+		}, // For testing
 		validate: true,
-		// has access only to "exception" error field, as opposed to apollo-server error formatter
+		// Has access only to "exception" error field, as opposed to apollo-server error formatter
 		globalMiddlewares: [
 			ErrorHandler,
-			// DBRequestCounter,
-			// GlobalAuth
+
+			/*
+			 * DBRequestCounter,
+			 * GlobalAuth
+			 */
 		],
 		container: Container,
-		
+
 		resolvers,
 		authChecker,
 		pubSub,

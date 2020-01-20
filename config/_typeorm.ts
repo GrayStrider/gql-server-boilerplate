@@ -3,16 +3,14 @@ import {CustomLogger} from '@/DB/typeorm/Logger'
 import {POSTGRES_URL, POSTRGRES_DATABASE, POSTRGRES_PASSWORD, POSTRGRES_PORT, POSTRGRES_USERNAME} from './_consts'
 
 export const ORMConfig: PostgresConnectionOptions = {
-	name       : 'default',
-	type       : 'postgres',
-	host       : POSTGRES_URL,
-	port       : POSTRGRES_PORT,
-	username   : POSTRGRES_USERNAME,
-	password   : POSTRGRES_PASSWORD,
-	database   : POSTRGRES_DATABASE,
+	name: 'default',
+	type: 'postgres',
+	host: POSTGRES_URL,
+	port: POSTRGRES_PORT,
+	username: POSTRGRES_USERNAME,
+	password: POSTRGRES_PASSWORD,
+	database: POSTRGRES_DATABASE,
 	logger: new CustomLogger(),
 	logging: ['query', 'error'],
-	entities: [
-		'src/models/**/entity/**/!(*.spec.*|*.test.*)',
-	]
+	entities: ['src/models/**/entity/**/!(*.spec.*|*.test.*)'],
 }

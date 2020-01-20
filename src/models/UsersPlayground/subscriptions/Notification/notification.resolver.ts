@@ -6,36 +6,45 @@ import uuid from 'uuid'
 import {Context} from '@/graphql'
 
 const checkAuthorized = (context: Context) => {
-	if (!context.session?.userId) {
-		// doesn't work with schema stiching,
-		// probably ok to wait till 1.0 and @Authorised support
-		// https://github.com/MichalLytek/type-graphql/issues/175
-		throw new Errors.Unathorized('Not authorised')
-	}
+	
+	/*
+	 * Doesn't work with schema stiching,
+	 * probably ok to wait till 1.0 and @Authorised support
+	 * https://github.com/MichalLytek/type-graphql/issues/175
+	 */
+	
+	if (!context.session?.userId) throw new Errors.Unathorized('Not authorised')
+
+
 }
 
 export class NotificationResolver {
+
 	@Subscription({
 		topics: ({args, context, payload}) => {
+
 			checkAuthorized(context)
 			return SUB_TOPICS.NOTIFICATIONS
+
 		},
-		filter: ({payload, args, context, info}) => {
-			return true
-		},
+		filter: ({payload, args, context, info}) => true,
 	})
-	newNotification(@Root() {id, message}: NotificationPayload): Notification {
-		return {id, message, date: new Date()}
+	newNotification (@Root() {id, message}: NotificationPayload): Notification {
+
+		return {id,
+			message,
+			date: new Date()}
+
 	}
-	
+
 	@Mutation(returns => Boolean)
-	async ping(
-		@Arg('message') message: string,
-		@PubSub(SUB_TOPICS.NOTIFICATIONS) dispatch: Publisher<NotificationPayload>,
-	) {
-		
-		await dispatch({message, id: uuid()})
+	async ping (@Arg('message') message: string,
+		@PubSub(SUB_TOPICS.NOTIFICATIONS) dispatch: Publisher<NotificationPayload>) {
+
+		await dispatch({message,
+			id: uuid()})
 		return true
+
 	}
-	
+
 }

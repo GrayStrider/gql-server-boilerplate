@@ -20,6 +20,4 @@ interface Model {
 
 from(axios.get<GetModelsForMake>(url))
 	.subscribe(({data}) =>
-		console.log(
-			omit(['Results'])(data),
-		))
+		console.log(omit(['Results'])(data)))

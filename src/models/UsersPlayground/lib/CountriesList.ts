@@ -249,5 +249,5 @@ export enum Countries {
 }
 
 registerEnumType(Countries, {
-	name: "Countries"
+	name: 'Countries',
 })

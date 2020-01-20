@@ -1,21 +1,27 @@
-import {registerDecorator, ValidationOptions, ValidationArguments} from "class-validator";
+import {registerDecorator, ValidationOptions, ValidationArguments} from 'class-validator'
 import {AnyObject} from 'tsdef'
 
-export function IsValidAge(minAge: number, validationOptions?: ValidationOptions) {
+export function IsValidAge (minAge: number, validationOptions?: ValidationOptions) {
+
 	return function ValidAge (object: AnyObject, propertyName: string) {
+
 		registerDecorator({
-			name: "isLongerThan",
+			name: 'isLongerThan',
 			target: object.constructor,
-			propertyName: propertyName,
+			propertyName,
 			constraints: [minAge],
 			options: validationOptions,
 			validator: {
-				validate(value: unknown, args: ValidationArguments) {
+				validate (value: unknown, args: ValidationArguments) {
+
 					const maxAge = 150
-					const [min, max] = args.constraints;
-					return  true
-				}
-			}
-		});
-	};
+					const [min, max] = args.constraints
+					return true
+
+				},
+			},
+		})
+
+	}
+
 }

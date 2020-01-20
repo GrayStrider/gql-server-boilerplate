@@ -16,42 +16,52 @@ export interface MutationResponse {
 
 @Resolver()
 export class KBFResolver {
+
 	@Query(returns => [Task])
-	async tasks(@Args() {tag, ...params}: SearchTaskInput) {
-		return await Task.find(
-			{
-				where: params.title
-					? LikeWrapper(params, 'title')
-					: params.description
-						? LikeWrapper(params, 'description')
-						: tag
-							? {...params}
-							: params,
-			},
-		)
+	async tasks (@Args() {tag, ...params}: SearchTaskInput) {
+
+		return await Task.find({
+			where: params.title
+				? LikeWrapper(params, 'title')
+				: params.description
+					? LikeWrapper(params, 'description')
+					: tag
+						? {...params}
+						: params,
+		})
+
 	}
-	
+
 	@Query(returns => [Task])
-	async getTasks() {
-		
+	async getTasks () {
+
 		return await Task.find()
+
 	}
-	
-	
+
+
 	@Mutation(returns => Task)
-	async taskCreate(@Args() {tags: tagNames, ...data}: NewTaskInput) {
+	async taskCreate (@Args() {tags: tagNames, ...data}: NewTaskInput) {
+
 		if (tagNames) {
-			const labels = await bb.reduce(tagNames, async (acc: DeepPartial<Label>[], name) => {
+
+			const labels = await bb.reduce(
+				tagNames, async (acc: DeepPartial<Label>[], name) => {
+
 					const getTag = await Label.findOne({name}) ??
 						await Label.create({name})
 					return [...acc, getTag]
-				}, [],
+
+				}, []
 			)
-			
-			return Task.create({...data, labels})
+
+			return Task.create({...data,
+				labels})
+
 		}
-		
+
 		return await Task.create(data).save()
+
 	}
-	
+
 }

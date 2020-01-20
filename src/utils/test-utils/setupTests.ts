@@ -6,28 +6,34 @@ import {ORMConfig} from 'config/_typeorm'
 import {log} from '../libsExport'
 import {isUp} from '@/utils/test-utils/isUp'
 
-export async function setupTests() {
-	
+export async function setupTests () {
+
 	let conn: Connection
 	let server: http.Server | null
 	jest.setTimeout(30000)
-	
+
 	/**
 	 * Connect to running server with test_runner
 	 * If no server running, start the server and then connect
 	 */
 	if (await isUp(GQL_URL)) {
-		log.await(`server's up, connecting to database`)
+
+		log.await('server\'s up, connecting to database')
 		conn = await createConnection(ORMConfig)
 		server = null
+
 	} else {
+
 		log.await(`${GQL_URL} is down, starting server`)
 		server = await main()
-		log.await(`connecting to database`)
+		log.await('connecting to database')
 		conn = getConnection()
+
 	}
-	log.warn(`resetting database`)
+	log.warn('resetting database')
 	await conn.synchronize(true)
-	return {conn, server}
+	return {conn,
+		server}
+
 }
 

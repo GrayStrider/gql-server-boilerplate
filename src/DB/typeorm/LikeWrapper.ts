@@ -13,13 +13,13 @@ import {Like} from 'typeorm'
  *
  * @param input input class
  */
-export function LikeWrapper(input: AnyObject) {
-	for (const field in input) {
-		if (Object.prototype.hasOwnProperty.call(input, field)) {
-			if (typeof input[field] === 'string' && field !== 'id') {
-				input[field] = Like(`%${input[field]}%`)
-			}
-		}
-		
+export function LikeWrapper (input: AnyObject) {
+
+	for (const field in input) if (Object.prototype.hasOwnProperty.call(input, field)) if (typeof input[field] === 'string' && field !== 'id') {
+
+		input[field] = Like(`%${input[field]}%`)
+
 	}
+
+
 }

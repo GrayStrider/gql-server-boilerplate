@@ -7,10 +7,12 @@ const countdown = (amount: number, every = 1000) =>
 		.pipe(
 			take(amount),
 			map(value => {
+
 				const num = amount - value - 1
-				return  num + (num ? ', ' : '')
+				return num + (num ? ', ' : '')
+
 			}),
-			endWith("\nDone\n")
+			endWith('\nDone\n')
 		)
 
 countdown(10, 300)
