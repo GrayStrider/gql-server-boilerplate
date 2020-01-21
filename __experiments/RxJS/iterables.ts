@@ -1,11 +1,11 @@
 import {of, from, interval, Observable} from 'rxjs'
 import {concatMap, delay, endWith, take, map, first} from 'rxjs/operators'
-import {consoleWrite} from 'src/utils/libsExport'
+import {consoleWrite, log} from 'src/utils/libsExport'
 
 const STR = 'Hello, World!'
 
 of(STR)
-	.subscribe(console.log)
+	.subscribe(log)
 
 from(STR)
 	.pipe(concatMap(x => of(x)

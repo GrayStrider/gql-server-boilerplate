@@ -1,4 +1,5 @@
 import {fromEvent} from 'rxjs'
+import {log} from '@/utils/libsExport'
 
 /**
  * [Node input]
@@ -7,4 +8,4 @@ import {fromEvent} from 'rxjs'
 process.stdin.setEncoding('utf8')
 const input = process.openStdin()
 fromEvent(input, 'data')
-	.subscribe(console.log)
+	.subscribe(log)
