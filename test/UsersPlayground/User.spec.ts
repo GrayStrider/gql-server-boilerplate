@@ -100,11 +100,10 @@ describe('Users', () => {
 
 		it('should add friends', async () => {
 
-			const rnd = faker.random.number
 			const randomIds = await gqlRequest<PaginatedUserResponse>(gql`query {
           usersPaginated(
-              startAt: ${rnd({min: 0, max: SAMPLE_SIZE})},
-              upTo: ${rnd({min: 0, max: SAMPLE_SIZE})}) {
+              startAt: ${faker.random.number({min: 0, max: SAMPLE_SIZE})},
+              upTo: ${faker.random.number({min: 0, max: SAMPLE_SIZE})}) {
               items {
                   id
               }

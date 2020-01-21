@@ -25,9 +25,9 @@
   ],
 
   "coveragePathIgnorePatterns": [
-    "src/__tests__",
+    "test",
     "src/.*/entity",
     "src/index.ts"
   ],
-  "coverageDirectory": "<rootDir>/src/__tests__/coverage/"
+  "coverageDirectory": "<rootDir>/test/coverage/"
 }
