@@ -3,8 +3,10 @@ process.env.ALLOW_CONFIG_MUTATIONS = 'true'
 
 import {get} from 'config'
 import {sig} from '@/utils/libsExport'
+export const {NODE_ENV} = process.env
 
-sig.info(`ENV: ${process.env.NODE_ENV}`)
+
+
 
 export const PORT: string = get('PORT')
 export const HOST: string = get('HOST')
@@ -16,4 +18,4 @@ export const POSTRGRES_DATABASE: string = process.env.POSTRGRES_DATABASE ?? get(
 export const GQL_URL = `http://${HOST}:${PORT}/${process.env.endpoint ?? 'graphql'}`
 export const SERVER_URL = `http://${HOST}:${PORT}`
 export const APOLLO_ENGINE_API_KEY: string = process.env.ENGINE_API_KEY ?? 'not provided'
-export const {NODE_ENV} = process.env
+

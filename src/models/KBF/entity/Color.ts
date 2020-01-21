@@ -24,7 +24,7 @@ export class Color extends BaseEntity {
 
 	@Field({nullable: true})
 	@Column({length: 5000, nullable: true})
-	description?: string;
+	description?: string
 
 	@Field(returns => ColorValues)
 	@Column({type: 'enum', enum: ColorValues, default: ColorValues.WHITE})

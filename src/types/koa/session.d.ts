@@ -3,7 +3,7 @@ import * as koa from 'koa'
 declare module 'koa' {
 	interface Context {
 		session: session.Session & {
-			userId: string
+			userId: string | undefined
 		} | null
 	}
 }

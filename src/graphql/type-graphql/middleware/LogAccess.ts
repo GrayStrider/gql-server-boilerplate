@@ -6,12 +6,14 @@ import {Context} from '@/graphql'
 export class LogAccess implements MiddlewareInterface<Context> {
 
 	@Inject()
-	logger: Logger;
+	logger: Logger
 
-	use ({context: {session}, info}: ResolverData<Context>, next: NextFn) {
+	async use ({context: {session}, info}: ResolverData<Context>, next: NextFn) {
 
-		const username: string = session?.userId || 'guest'
-		this.logger.log(`Logging access: ${username} -> ${info.parentType.name}.${info.fieldName}`)
+		const username: string = session?.userId ?? 'guest'
+		this.logger.log(
+			`Logging access: ${username} -> ${String(info.parentType.name)}.${String(info.fieldName)}`
+		)
 		return next()
 
 	}

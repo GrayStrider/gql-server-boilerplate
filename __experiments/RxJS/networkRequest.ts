@@ -1,7 +1,8 @@
 import axios from 'axios'
 import {from} from 'rxjs'
 import {omit} from 'ramda'
-
+/*	eslint-disable @typescript-eslint/naming-convention
+ */
 const url = 'https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMake/honda?format=json'
 
 interface GetModelsForMake {

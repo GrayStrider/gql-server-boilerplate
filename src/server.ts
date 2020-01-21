@@ -10,12 +10,16 @@ import {Container} from 'typedi'
 import {ORMConfig} from 'config/_typeorm'
 import RedisStore from 'koa-redis'
 import {redisSessionClient} from '@/DB/redis'
-import {PORT, HOST} from 'config/_consts'
+import {PORT, HOST, NODE_ENV} from 'config/_consts'
 import {router} from '@/routes'
 import {redirect, errorHandler} from '@/utils/koa/middlewares'
 import {makeUsersServer} from '@/models/UsersPlayground'
 import {makeKBFServer} from '@/models/KBF'
 
+if (NODE_ENV === undefined)
+	sig.error('process.env is undefined!')
+else
+	sig.info(`Environment: ${NODE_ENV}`)
 
 export async function main () {
 

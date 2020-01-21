@@ -12,7 +12,7 @@ export class CatFactsAPI extends RESTDataSource {
 
 	}
 
-	getFact () {
+	async getFact () {
 
 		return this.get<CatFact>('/facts/random')
 

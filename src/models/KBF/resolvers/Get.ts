@@ -5,7 +5,7 @@ import {Task} from '@/models/KBF/entity'
 export class GetResolver {
 
 	@Query(returns => [Task])
-	tasks () {
+	async tasks () {
 
 		return Task.find()
 

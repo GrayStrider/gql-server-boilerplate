@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {sig} from '@/utils/libsExport'
 
-export function isUp (url: string): Promise<boolean> {
+export async function isUp (url: string): Promise<boolean> {
 
 	return axios.get(url)
 		.then(() => true)

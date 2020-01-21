@@ -40,7 +40,7 @@ export async function generateMockUsers (amount: number) {
 		},
 	})
 	const generated = await bb.all(
-		fakes.map(fake => testClient
+		fakes.map(async fake => testClient
 			.request(print(query), {input: fake})
 			.then(flattenObject))
 	)

@@ -5,6 +5,7 @@ import {AnyObject} from 'tsdef'
 import {GQL_URL} from 'config/_consts'
 import {Mutation, Query} from '@/graphql/generated/typings'
 import {flattenObject} from '@/utils/zz_misc/flattenObject'
+import {isNil} from 'ramda'
 
 
 /**
@@ -21,7 +22,7 @@ export async function postQuery<T = AnyObject[]> (
 ): Promise<{ [key: string]: T }> {
 
 	const res: AnyObject = await request(url, print(query))
-	return mainField ? res?.[mainField] : res
+	return isNil(mainField) ? res : res?.[mainField]
 
 }
 
@@ -46,14 +47,6 @@ export async function gqlRequest<T, K, U> (
 
 type KeyofQuery = keyof Omit<Query, '__typename'>
 type KeyofMutation = keyof Omit<Mutation, '__typename'>
-
-// Single query
-export async function gqlreq<T extends KeyofQuery, R extends Query[T], V extends AnyObject>
-(type: 'query', obj: T, query: ASTNode, variables?: V, url?: string): Promise<R>
-
-// Single mutation
-export async function gqlreq<T extends KeyofMutation, R extends Mutation[T], V extends AnyObject>
-(type: 'mutation', obj: T, query: ASTNode, variables?: V, url?: string): Promise<R>
 
 export async function gqlreq (
 	type: 'query' | 'mutation', obj: KeyofMutation | KeyofQuery, query: ASTNode, variables?: AnyObject, url: string = GQL_URL

@@ -4,6 +4,7 @@ import {Errors} from '@/utils/Errors'
 import {Arg, Mutation, Publisher, PubSub, Root, Subscription} from 'type-graphql'
 import uuid from 'uuid'
 import {Context} from '@/graphql'
+import {isNil} from 'ramda'
 
 const checkAuthorized = (context: Context) => {
 
@@ -13,7 +14,7 @@ const checkAuthorized = (context: Context) => {
 	 * https://github.com/MichalLytek/type-graphql/issues/175
 	 */
 
-	if (!context.session?.userId) throw new Errors.Unathorized('Not authorised')
+	if (isNil(context.session?.userId)) throw new Errors.Unathorized('Not authorised')
 
 
 }
@@ -37,7 +38,7 @@ export class NotificationResolver {
 
 	@Mutation(returns => Boolean)
 	async ping (
-		@Arg('message') message: string,
+	@Arg('message') message: string,
 		@PubSub(SubTopics.NOTIFICATIONS) dispatch: Publisher<NotificationPayload>
 	) {
 

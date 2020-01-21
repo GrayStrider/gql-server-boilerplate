@@ -2,20 +2,20 @@ import {GraphQLError} from 'graphql'
 import {AnyObject} from 'tsdef'
 import {ErrorCodes} from '@/utils/Errors'
 import {ValidationError} from 'class-validator'
-import {pick} from 'lodash'
-import {Maybe} from 'type-graphql'
+import {IExpectedError} from '@/utils/makeCustomError'
+import {map, pick} from 'ramda'
 
 const isExpectedError = (err: AnyObject) =>
 	Object.keys(ErrorCodes).includes(err.extensions?.code)
 
-export function ExpectedError (err: GraphQLError) {
+export function ExpectedError (err: GraphQLError<IExpectedError>) {
 
 	if (isExpectedError(err)) {
 
-		const {details} = err.extensions?.exception
+		const details = err.extensions?.exception?.details
 		const res: AnyObject = {message: err.message}
 
-		if (details) res.details = details
+		if (Boolean(details)) res.details = details
 		return res as GraphQLError
 
 	}
@@ -23,38 +23,61 @@ export function ExpectedError (err: GraphQLError) {
 
 }
 
-export function ValidatorError (err: GraphQLError) {
+interface GqlValidationError extends GraphQLError {
+	validationErrors: ValidationError[]
+}
 
-	// TODO extend type
-	const errors: ValidationError[] | undefined = err.extensions?.exception?.validationErrors
-	if (errors) return {
-		message: err.message,
-		errors: errors.map(e =>
-			pick(
-				e, 'property', 'value', 'constraints'
-			)),
-	}
+function isValidationError (err: AnyObject): err is GqlValidationError {
 
-	return err
+	return Boolean(err.validationErrors)
 
 }
 
-export function VariantsOfOriginalError (err: GraphQLError) {
+export function ValidatorError (err: GraphQLError<GqlValidationError>) {
 
-	const origError: Maybe<MyError> = err.originalError
-	const status = origError?.response?.status
-	const message = origError?.response?.error
-	if (status === 404)
-		return {message, status}
+	// TODO extend type
+	if (!isValidationError(err)) return err
+	const errors = err.extensions?.exception.validationErrors
+	return {
+		message: err.message,
+		errors: map(
+			pick([
+				'property',
+				'value',
+				'constraints',
+			])
+		)(errors),
+	}
 
+}
+
+interface MyError extends Error {
+	foo: 'bar'
+	response: {
+		status: string | number
+		error: string
+	}
+}
+
+function hasOriginalError (err: AnyObject): err is MyError {
+
+	return Boolean(err.response)
+
+}
+
+
+export function VariantsOfOriginalError (err: GraphQLError<MyError>) {
+
+	if (hasOriginalError(err)) {
+
+		const status = err.originalError?.name
+		const message = err.originalError
+		if (status === '404')
+			return {message, status}
+
+	}
 	// TODO implement error fallthrough validation
 	return err
 
 }
 
-interface MyError extends Error {
-	response?: {
-		status?: number
-		error?: string
-	}
-}

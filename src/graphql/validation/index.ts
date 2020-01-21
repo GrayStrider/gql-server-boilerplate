@@ -1,4 +1,5 @@
 import queryComplexity, {fieldExtensionsEstimator, simpleEstimator} from 'graphql-query-complexity'
+import {identity} from 'ramda'
 
 export const complexityValidator = () =>
 	queryComplexity({
@@ -22,16 +23,10 @@ export const complexityValidator = () =>
 
 		},
 		estimators: [
-			// Using fieldConfigEstimator is mandatory to make it work with type-graphql
-			fieldExtensionsEstimator(),
-
-			/*
-			 * This will assign each field a complexity of 1 if no other estimator
-			 * returned a value. We can define the default value for field not explicitly annotated
-			 */
-
-			simpleEstimator({
+			fieldExtensionsEstimator(), simpleEstimator({
 				defaultComplexity: 1,
 			}),
 		],
 	})
+
+identity('')

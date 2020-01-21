@@ -1,6 +1,6 @@
 import {Validator} from 'class-validator'
 import {Arg, Authorized, Mutation, Query, Resolver, Ctx} from 'type-graphql'
-import {bb} from 'src/utils/libsExport'
+import {bb, RA} from 'src/utils/libsExport'
 import {AuthRoles} from 'src/models/UsersPlayground/auth/authRoles'
 import {PaginatedUserResponse} from '@/graphql/type-graphql/paginatedResponse'
 import {UserNew} from 'src/models/UsersPlayground/entity/User'
@@ -25,7 +25,7 @@ export class UserResolver {
 
 	@Mutation(returns => UserNew)
 	async login (
-		@Ctx() {session}: Context,
+	@Ctx() {session}: Context,
 		@Arg('credentials') {email, password}: UserLoginInput
 	) {
 
@@ -66,7 +66,7 @@ export class UserResolver {
 	@Query(returns => PaginatedUserResponse)
 	async usersPaginated (
 		@Arg('upTo', {nullable: true}) upTo: number,
-		@Arg('startAt', {nullable: true}) startAt: number
+			@Arg('startAt', {nullable: true}) startAt: number
 	): Promise<PaginatedUserResponse> {
 
 		return {
@@ -80,7 +80,7 @@ export class UserResolver {
 
 
 	@Query(returns => [UserNew])
-	users (@Arg('searchBy', {nullable: true}) input: UserSearchInput) {
+	async users (@Arg('searchBy', {nullable: true}) input: UserSearchInput) {
 
 		// LikeWrapper(input) // TODO make it work with enums, or create a separate middleware decorator for strings
 		return UserNew.find(input)
@@ -88,7 +88,7 @@ export class UserResolver {
 	}
 
 	@Mutation(returns => UserNew)
-	userCreate (@Arg('userData') {age, ...rest}: UserCreateInput) {
+	async userCreate (@Arg('userData') {age, ...rest}: UserCreateInput) {
 
 		return UserNew.create({yearBorn: birthYearFromAge(age), ...rest}).save()
 
@@ -109,7 +109,7 @@ export class UserResolver {
 		 * fetch user and add it to changes
 		 * if not found, throw
 		 */
-		const friends = friendsIds.length > 0
+		const friends = RA.isNotNilOrEmpty(friendsIds)
 			? await bb.reduce(friendsIds,
 				async (total: UserNew[], id) => {
 

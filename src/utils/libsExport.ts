@@ -9,18 +9,19 @@ export const log = (message?: unknown, ...optionalParams: unknown[]) =>
 
 export const consoleWrite = (message?: unknown, ...optionalParams: unknown[]) => {
 
-	process.stdout.write(`${message}`)
-	optionalParams.forEach(msg =>
-		process.stdout.write(`${msg}`))
+	process.stdout.write(`${JSON.stringify(message)}`)
+	optionalParams.forEach(msg => process.stdout.write(`${JSON.stringify(msg)}`))
 
 }
 
 
-// const logger = winston.createLogger({
-// 	level: 'info',
-// 	format: winston.format.json(),
-// 	defaultMeta: {service: 'user-service'},
-// 	transports: [
+import * as RA from 'ramda-adjunct'
+export {RA}
+// Const logger = winston.createLogger({
+// 	Level: 'info',
+// 	Format: winston.format.json(),
+// 	DefaultMeta: {service: 'user-service'},
+// 	Transports: [
 //
 // 		/*
 // 		 *
@@ -29,14 +30,6 @@ export const consoleWrite = (message?: unknown, ...optionalParams: unknown[]) =>
 // 		 *
 // 		 */
 //
-// 		new winston.transports.File({filename: 'error.log', level: 'error'}), new winston.transports.File({filename: 'combined.log'}),
-// 	],
-// })
-//
-// if (process.env.NODE_ENV !== 'production')
-// 	logger.add(new winston.transports.Console({
-// 		format: combine(
-// 			errors({stack: true})
-// 		),
-// 	}))
-//
+// 		New winston.transports.File({filename: 'error.log', level: 'error'}), new winston.transports.File({filename:
+// 'combined.log'}), ], })  if (process.env.NODE_ENV !== 'production') logger.add(new winston.transports.Console({
+// Format: combine( errors({stack: true}) ), }))

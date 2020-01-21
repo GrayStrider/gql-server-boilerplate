@@ -1,6 +1,6 @@
 import {interval} from 'rxjs'
 import {take, map, endWith} from 'rxjs/operators'
-import {consoleWrite} from 'src/utils/libsExport'
+import {consoleWrite, RA} from 'src/utils/libsExport'
 
 const countdown = (amount: number, every = 1000) =>
 	interval(every)
@@ -9,7 +9,7 @@ const countdown = (amount: number, every = 1000) =>
 			map(value => {
 
 				const num = amount - value - 1
-				return num + (num ? ', ' : '')
+				return `${num}${RA.isNotEmpty(num) ? ', ' : ''}`
 
 			}),
 			endWith('\nDone\n')

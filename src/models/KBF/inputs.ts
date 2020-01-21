@@ -11,7 +11,7 @@ export class NewTaskInput {
 	@Field({nullable: true})
 	description: string
 
-	@Field(returns => [String], {nullable: true})
+	@Field(returns => [String], {defaultValue: []})
 	tags: string[]
 
 	// TODO check for dupes

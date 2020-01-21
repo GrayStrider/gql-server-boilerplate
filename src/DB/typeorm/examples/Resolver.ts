@@ -8,14 +8,14 @@ import {ExampleEntitySearchInput} from './Inputs'
 export class ExampleEntityResolver {
 
 	@Query(returns => [ExampleEntity])
-	exampleEntity (@Args()props: ExampleEntitySearchInput) {
+	async exampleEntity (@Args()props: ExampleEntitySearchInput) {
 
 		return ExampleEntity.find(props)
 
 	}
 
 	@Query(returns => [Child])
-	children () {
+	async children () {
 
 		return Child.find({relations: ['parent']})
 

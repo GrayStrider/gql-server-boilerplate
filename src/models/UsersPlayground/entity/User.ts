@@ -2,6 +2,7 @@ import {Directive, Field, ID, Int, ObjectType, Root} from 'type-graphql'
 import {BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm'
 import {Countries} from '../lib/CountriesList'
 import {howCommonIsName} from '../lib/HowCommonName'
+import {isEmpty} from 'ramda'
 
 const currentYear = new Date().getFullYear()
 const UserDescription = `Unique user ID.
@@ -44,11 +45,11 @@ export class UserNew extends BaseEntity {
 
 	@CreateDateColumn()
 	@Field()
-	readonly createdDate: Date;
+	readonly createdDate: Date
 
 	@Field()
 	@UpdateDateColumn()
-	updatedDate: Date;
+	updatedDate: Date
 
 	@Field(returns => Countries)
 	@Column({type: 'enum', enum: Countries})
@@ -57,10 +58,10 @@ export class UserNew extends BaseEntity {
 	@JoinTable()
 	@ManyToMany(type => UserNew, friends => friends.friendsInverse, {cascade: ['insert', 'update']})
 
-	friendsPrimary: UserNew[]
+	friendsPrimary?: UserNew[]
 
 	@ManyToMany(type => UserNew, friends => friends.friendsPrimary)
-	friendsInverse: UserNew[]
+	friendsInverse?: UserNew[]
 
 	// TODO does nothing?
 	@Directive('@deprecated(reason: "Use `newField`.")')
@@ -68,7 +69,7 @@ export class UserNew extends BaseEntity {
 	deprecated: string
 
 	@Field(returns => String, {complexity: 3})
-	howCommonIsName () {
+	async howCommonIsName () {
 
 		return howCommonIsName(this.firstName, this.lastName)
 
@@ -78,14 +79,14 @@ export class UserNew extends BaseEntity {
 	// @UseMiddleware(LogAccess)
 	name (@Root() parent: UserNew): string {
 
-		return `${parent.firstName}${parent.lastName ? ` ${parent.lastName}` : ''}`
+		return `${parent.firstName}${isEmpty(parent.lastName) ? ` ${parent.lastName}` : ''}`
 
 	}
 
 	@Field(returns => [UserNew], {complexity: 2})
 	friends (): UserNew[] {
 
-		return [...this.friendsPrimary, ...this.friendsInverse]
+		return [...this.friendsPrimary ?? [], ...this.friendsInverse ?? []]
 
 	}
 

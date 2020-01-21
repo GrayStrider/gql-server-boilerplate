@@ -73,7 +73,7 @@ export class UserModifyInput implements UserCreateInput {
 	@Field(returns => Int, {nullable: true})
 	age: number
 
-	@Field(returns => [String], {nullable: true})
+	@Field(returns => [String], {defaultValue: []})
 	friendsIds: string[]
 
 }

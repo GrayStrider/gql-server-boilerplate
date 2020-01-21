@@ -6,7 +6,7 @@ import {pubSub} from '@/graphql/type-graphql/pubSub'
 import {authChecker} from '@/graphql/type-graphql/middleware/authChecker'
 
 export type Resolvers = NonEmptyArray<Function> | NonEmptyArray<string>
-export const createSchema = (resolvers: Resolvers, schemaNamePrefix: string) =>
+export const createSchema = async (resolvers: Resolvers, schemaNamePrefix: string) =>
 	buildSchema({
 		// For testing
 		emitSchemaFile: {

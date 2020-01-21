@@ -9,13 +9,13 @@ function PaginatedResponse<TItem> (itemClass: ClassType<TItem>) {
 	abstract class PaginatedResponseClass {
 
 		@Field(type => [itemClass])
-		items: TItem[];
+		items: TItem[]
 
 		@Field(type => Int)
-		total: number;
+		total: number
 
 		@Field()
-		hasMore: boolean;
+		hasMore: boolean
 
 	}
 	return PaginatedResponseClass as AnyConstructor

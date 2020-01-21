@@ -10,22 +10,22 @@ export class Category extends BaseEntity {
 
 	@Field()
 	@PrimaryGeneratedColumn()
-	id: number;
+	id: number
 
 	@Field()
 	@Column()
-	name: string;
+	name: string
 
 	@Field()
 	@Column()
-	description: string;
+	description: string
 
 	@Field(returns => Category)
 	@OneToMany(type => Category, category => category.children)
-	parent: Category;
+	parent: Category
 
 	@Field(returns => Category)
 	@ManyToOne(type => Category, category => category.parent)
-	children: Category;
+	children: Category
 
 }
