@@ -6,7 +6,8 @@ export function warn(...msg: unknown[]) {
 			chalk.bgBlack.bold.whiteBright(
 				typeof value === 'object'
 					? JSON.stringify(
-					value, null, 2) : value))
+					value, null, 2)
+					: value))
 	})
 
 }

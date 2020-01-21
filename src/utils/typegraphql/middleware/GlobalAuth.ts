@@ -6,7 +6,7 @@ import {HOST, PORT} from 'config/_consts'
 export const publicFields = ['register', 'login']
 
 export const GlobalAuth: MiddlewareFn<Context> =
-	async ({context: {session, request: {headers, host}}, args, info, root}, next) => {
+	({context: {session, request: {headers, host}}, args, info, root}, next) => {
 
 		const allowedOperation = publicFields.includes(info.fieldName)
 		const unathorized = new Errors.Unathorized('Please log in or register to proceed')
@@ -14,7 +14,7 @@ export const GlobalAuth: MiddlewareFn<Context> =
 		const sessionIdPresent = session.userId
 		const isInternalCall = headers.authorization === 'internal_call' && host === `${HOST}:${PORT}`
 
-		if (sessionIdPresent || allowedOperation || isInternalCall) return await next()
+		if (sessionIdPresent || allowedOperation || isInternalCall) return next()
 		throw unathorized
 
 	}

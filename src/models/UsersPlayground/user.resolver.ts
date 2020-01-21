@@ -70,24 +70,25 @@ export class UserResolver {
 		return {
 			items: await UserNew.find({take: upTo, skip: startAt}),
 			total: await UserNew.count(),
-			hasMore: false, // TODO
+			// TODO
+			hasMore: false,
 		}
 
 	}
 
 
 	@Query(returns => [UserNew])
-	async users (@Arg('searchBy', {nullable: true}) input: UserSearchInput) {
+	users (@Arg('searchBy', {nullable: true}) input: UserSearchInput) {
 
 		// LikeWrapper(input) // TODO make it work with enums, or create a separate middleware decorator for strings
-		return await UserNew.find(input)
+		return UserNew.find(input)
 
 	}
 
 	@Mutation(returns => UserNew)
-	async userCreate (@Arg('userData') {age, ...rest}: UserCreateInput) {
+	userCreate (@Arg('userData') {age, ...rest}: UserCreateInput) {
 
-		return await UserNew.create({yearBorn: birthYearFromAge(age), ...rest}).save()
+		return UserNew.create({yearBorn: birthYearFromAge(age), ...rest}).save()
 
 	}
 
@@ -110,9 +111,9 @@ export class UserResolver {
 			? await bb.reduce(friendsIds,
 				async (total: UserNew[], id) => {
 
-					const user = await UserNew.findOne(id)
-					if (!user) throw userNotFoundError(id)
-					return total.concat(user)
+					const friend = await UserNew.findOne(id)
+					if (!friend) throw userNotFoundError(id)
+					return total.concat(friend)
 
 				}, []
 			)

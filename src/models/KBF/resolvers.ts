@@ -18,9 +18,9 @@ export interface MutationResponse {
 export class KBFResolver {
 
 	@Query(returns => [Task])
-	async tasks (@Args() {tag, ...params}: SearchTaskInput) {
+	tasks (@Args() {tag, ...params}: SearchTaskInput) {
 
-		return await Task.find({
+		return Task.find({
 			where: params.title
 				? LikeWrapper(params, 'title')
 				: params.description
@@ -33,9 +33,9 @@ export class KBFResolver {
 	}
 
 	@Query(returns => [Task])
-	async getTasks () {
+	getTasks () {
 
-		return await Task.find()
+		return Task.find()
 
 	}
 
@@ -59,7 +59,7 @@ export class KBFResolver {
 
 		}
 
-		return await Task.create(data).save()
+		return Task.create(data).save()
 
 	}
 

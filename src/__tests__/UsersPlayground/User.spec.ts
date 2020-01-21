@@ -103,11 +103,11 @@ describe('Users', () => {
 
 		it('should add friends', async () => {
 
-			const r = faker.random.number
+			const rnd = faker.random.number
 			const randomIds = await gqlRequest<PaginatedUserResponse>(gql`query {
           usersPaginated(
-              startAt: ${r({min: 0, max: SAMPLE_SIZE})},
-              upTo: ${r({min: 0, max: SAMPLE_SIZE})}) {
+              startAt: ${rnd({min: 0, max: SAMPLE_SIZE})},
+              upTo: ${rnd({min: 0, max: SAMPLE_SIZE})}) {
               items {
                   id
               }
@@ -129,7 +129,7 @@ describe('Users', () => {
           }
       }`, {friends: randomIds})
 
-      	.then(pipe(prop('friends'), map(prop('id'))))
+      .then(pipe(prop('friends'), map(prop('id'))))
 
 			expect(addedFriendsIdsFromResponse).toEqual(arrayContaining(randomIds))
 

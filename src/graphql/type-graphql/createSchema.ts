@@ -8,10 +8,11 @@ import {authChecker} from '@/graphql/type-graphql/middleware/authChecker'
 export type Resolvers = NonEmptyArray<Function> | NonEmptyArray<string>
 export const createSchema = (resolvers: Resolvers, schemaNamePrefix: string) =>
 	buildSchema({
+		// For testing
 		emitSchemaFile: {
 			path: `./src/graphql/generated/${schemaNamePrefix}.schema.graphql`,
 			commentDescriptions: true,
-		}, // For testing
+		},
 		validate: true,
 		// Has access only to "exception" error field, as opposed to apollo-server error formatter
 		globalMiddlewares: [

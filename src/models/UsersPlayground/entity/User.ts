@@ -61,15 +61,16 @@ export class UserNew extends BaseEntity {
 
 	@ManyToMany(type => UserNew, friends => friends.friendsPrimary)
 	friendsInverse: UserNew[]
-
-	@Directive('@deprecated(reason: "Use `newField`.")') // TODO does nothing?
+	
+	// TODO does nothing?
+	@Directive('@deprecated(reason: "Use `newField`.")')
 	@Field()
 	deprecated: string
 
 	@Field(returns => String, {complexity: 3})
-	async howCommonIsName () {
+	howCommonIsName () {
 
-		return await howCommonIsName(this.firstName, this.lastName)
+		return howCommonIsName(this.firstName, this.lastName)
 
 	}
 

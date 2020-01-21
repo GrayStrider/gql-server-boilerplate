@@ -1,9 +1,9 @@
 import axios from 'axios'
 import {log} from '@/utils/libsExport'
 
-export async function isUp (url: string): Promise<boolean> {
+export function isUp (url: string): Promise<boolean> {
 
-	return await axios.get(url)
+	return axios.get(url)
 		.then(() => true)
 		.catch(err => {
 

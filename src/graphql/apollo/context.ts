@@ -4,7 +4,7 @@ import {dataSources} from '@/graphql'
 
 
 export interface SubscriptionContext {
-	connection: AnyObject // TODO types
+	connection: AnyObject
 }
 
 export const context = ({ctx: {session, request}}: { ctx: KoaContext }) => ({

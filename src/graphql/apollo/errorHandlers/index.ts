@@ -28,9 +28,9 @@ export function ValidatorError (err: GraphQLError) {
 	const errors: ValidationError[] = err.extensions?.exception?.validationErrors
 	if (errors) return {
 		message: err.message,
-		errors: errors.map(err =>
+		errors: errors.map(e =>
 			pick(
-				err, 'property', 'value', 'constraints'
+				e, 'property', 'value', 'constraints'
 			)),
 	}
 

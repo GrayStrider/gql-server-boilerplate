@@ -20,8 +20,10 @@ from(STR)
  */
 interval(300)
 	.pipe(
-		take(STR.length), // Limit emits
-		map(i => [...STR][i]), // Map each emit to corresponding member
+		// Limit emits
+		take(STR.length),
+		// Map each emit to corresponding member
+		map(i => [...STR][i]),
 		endWith('\nDone!\n')
 	)
 	.subscribe(consoleWrite)
