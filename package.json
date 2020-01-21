@@ -100,7 +100,7 @@
     "@types/node": "^13.1.8",
     "@types/nodemailer": "^6.4.0",
     "@types/uuid": "^3.4.6",
-    "@typescript-eslint/eslint-plugin": "^2.16.0",
+    "@typescript-eslint/eslint-plugin": "^2.17.0",
     "@typescript-eslint/parser": "^2.16.0",
     "apollo-server-errors": "^2.3.4",
     "eslint": "^6.8.0",
@@ -119,7 +119,7 @@
     "start:test": "cross-env NODE_ENV=test ts-node --transpile-only -r tsconfig-paths/register src/index.ts",
     "start:dev": "yarn start:dev:file src/index.ts",
     "start:dev:file": "ts-node-dev --respawn --transpile-only --ignore-watch .spec -r tsconfig-paths/register",
-    "test": "yarn lint && yarn codegen && yarn test:typecheck && yarn test:coverage",
+    "test": "yarn lint:fix && yarn codegen && yarn test:typecheck && yarn test:coverage",
     "test:jest": "jest -c jest.config.json --forceExit --detectOpenHandles -w 3",
     "test:coverage": "yarn test:jest --coverage",
     "test:typecheck": "tsc --noEmit",
@@ -128,7 +128,9 @@
     "lint:fix": "yarn lint --fix"
   },
   "lint-staged": {
-    "*.{ts,js}": ["yarn lint:fix"]
+    "*.{ts,js}": [
+      "yarn lint:fix"
+    ]
   },
   "husky": {
     "hooks": {

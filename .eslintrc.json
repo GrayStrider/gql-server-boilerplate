@@ -1,16 +1,36 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.eslint.json"
+  },
+
   "plugins": [
     "@typescript-eslint"
   ],
   "extends": [
     "eslint:all",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
   ],
+
   "rules": {
-    "@typescript-eslint/no-unused-vars": 0,
+    "@typescript-eslint/consistent-type-definitions": 1,
+    "@typescript-eslint/array-type": [
+      "warn", {
+        "default": "array-simple"
+      }
+    ],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "warn", {
+        "argsIgnorePattern": "[returns|type|xi_]",
+        "ignoreRestSiblings": true,
+        "caughtErrors": "all",
+        "args": "none"
+      }
+    ],
     "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/member-delimiter-style": [
       "warn", {
@@ -132,7 +152,8 @@
             "max": 120
           }
         ],
-        "require-await": "off"
+        "require-await": "off",
+        "@typescript-eslint/require-await": "off"
       }
     }
   ]
