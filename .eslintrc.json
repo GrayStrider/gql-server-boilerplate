@@ -16,6 +16,57 @@
   ],
 
   "rules": {
+    "@typescript-eslint/naming-convention": [
+      "warn",
+
+      {
+        "selector": "variable",
+        "types": ["boolean"],
+        "format": ["PascalCase"],
+        "prefix": ["is", "should", "has", "can", "did", "will"]
+      },
+      {
+        "selector": "variable",
+        "types": ["function"],
+        "format": ["PascalCase", "camelCase"]
+      },
+      {
+        "selector": "enumMember",
+        "format": ["UPPER_CASE"]
+      },
+      {
+        "selector": "function",
+        "format": ["camelCase", "PascalCase"]
+      },
+      {
+        "selector": "default",
+        "format": ["camelCase", "PascalCase"]
+      },
+
+      {
+        "selector": "variable",
+        "format": ["camelCase", "UPPER_CASE", "PascalCase"]
+      },
+      {
+        "selector": "parameter",
+        "format": ["camelCase"],
+        "leadingUnderscore": "allow"
+      },
+
+      {
+        "selector": "memberLike",
+        "modifiers": ["private"],
+        "format": ["camelCase"],
+        "leadingUnderscore": "require"
+      },
+
+      {
+        "selector": "typeLike",
+        "format": ["PascalCase"]
+      }
+
+    ],
+    "@typescript-eslint/explicit-member-accessibility": 0,
     "@typescript-eslint/consistent-type-definitions": 1,
     "@typescript-eslint/array-type": [
       "warn", {
@@ -129,7 +180,7 @@
     "new-cap": ["warn", {"capIsNew": false}],
     "no-mixed-spaces-and-tabs": ["warn", "smart-tabs"],
     "no-return-await": "warn",
-    "no-underscore-dangle": "warn",
+    "no-underscore-dangle": "off",
     "max-statements": ["warn", {"max": 20}],
     //    Koa-style callbacks
     "no-else-return": "warn",
