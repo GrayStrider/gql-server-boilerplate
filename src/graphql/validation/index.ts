@@ -29,6 +29,7 @@ export const complexityValidator = () =>
 			 * This will assign each field a complexity of 1 if no other estimator
 			 * returned a value. We can define the default value for field not explicitly annotated
 			 */
+
 			simpleEstimator({
 				defaultComplexity: 1,
 			}),

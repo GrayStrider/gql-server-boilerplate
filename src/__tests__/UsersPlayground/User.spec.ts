@@ -10,7 +10,6 @@ import {generateMockUsers} from 'src/models/UsersPlayground/lib/generateMockUser
 import {Await} from 'src/types/Await'
 import {P} from 'src/types/GetOnePropertyOfType'
 import * as http from 'http'
-
 import arrayContaining = jasmine.arrayContaining
 
 let conn: Connection
@@ -106,8 +105,10 @@ describe('Users', () => {
 			const rnd = faker.random.number
 			const randomIds = await gqlRequest<PaginatedUserResponse>(gql`query {
           usersPaginated(
-              startAt: ${rnd({min: 0, max: SAMPLE_SIZE})},
-              upTo: ${rnd({min: 0, max: SAMPLE_SIZE})}) {
+              startAt: ${rnd({min: 0,
+		max: SAMPLE_SIZE})},
+              upTo: ${rnd({min: 0,
+		max: SAMPLE_SIZE})}) {
               items {
                   id
               }
@@ -117,7 +118,7 @@ describe('Users', () => {
 			expect(Array.isArray(randomIds)).toBeTruthy()
 
 			const addedFriendsIdsFromResponse =
-      await gqlRequest<P<Mutation, 'userModify'>>(gql`mutation m($friends: [String!]){
+			await gqlRequest<P<Mutation, 'userModify'>>(gql`mutation m($friends: [String!]){
           userModify(userId: "${testUserId}", changes: {
               friendsIds: $friends
               firstName: "Modified"
@@ -128,8 +129,7 @@ describe('Users', () => {
               }
           }
       }`, {friends: randomIds})
-
-      	.then(pipe(prop('friends'), map(prop('id'))))
+				.then(pipe(prop('friends'), map(prop('id'))))
 
 			expect(addedFriendsIdsFromResponse).toEqual(arrayContaining(randomIds))
 
@@ -159,7 +159,8 @@ describe('pagination', () => {
 	})
 	it('with both variables', async () => {
 
-		const res = await gqlRequest<PaginatedUserResponse>(query, {upTo: 10, startAt: 50})
+		const res = await gqlRequest<PaginatedUserResponse>(query, {upTo: 10,
+			startAt: 50})
 			.then(res2 => res2.items)
 
 		expect(res).toHaveLength(1)
