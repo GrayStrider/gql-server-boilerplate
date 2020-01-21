@@ -10,6 +10,30 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
+    "@typescript-eslint/no-unused-vars": 0,
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/member-delimiter-style": [
+      "warn", {
+        "multiline": {
+          "delimiter": "none",
+          "requireLast": false
+        },
+        "singleline": {
+          "delimiter": "comma",
+          "requireLast": false
+        }
+      }
+    ],
+    "@typescript-eslint/no-empty-function": [
+      "warn", {
+        "allow": [
+          "protected-constructors",
+          "private-constructors"
+        ]
+      }
+    ],
+    "@typescript-eslint/no-unused-expressions": 2,
+
     "no-console": "off",
     "no-warning-comments": "off",
     "padded-blocks": "off",
@@ -63,19 +87,19 @@
     "no-unused-expressions": "off",
     "function-call-argument-newline": "off",
 
-
-
     "no-await-in-loop": "warn",
     "no-import-assign": "warn",
     "require-atomic-updates": "warn",
-    "max-len": ["warn", {
-      "code": 150,
-      "tabWidth": 2,
-      "ignorePattern": "^import",
-      "ignoreUrls": true
-    }],
-    "id-length": ["warn", { "exceptions": ["x", "_", "e", "i"] }],
-    "max-params": ["warn", { "max": 5 }],
+    "max-len": [
+      "warn", {
+        "code": 150,
+        "tabWidth": 2,
+        "ignorePattern": "^import",
+        "ignoreUrls": true
+      }
+    ],
+    "id-length": ["warn", {"exceptions": ["x", "_", "e", "i"]}],
+    "max-params": ["warn", {"max": 5}],
     "require-await": "warn",
     "arrow-body-style": "warn",
     "line-comment-position": "warn",
@@ -92,26 +116,7 @@
     "no-plusplus": "warn",
     "prefer-template": "warn",
     "func-names": ["warn", "as-needed"],
-    "no-shadow": ["warn", { "builtinGlobals": true }],
-    "@typescript-eslint/no-unused-vars": 0,
-    "@typescript-eslint/explicit-function-return-type": 0,
-    "@typescript-eslint/member-delimiter-style": ["warn", {
-        "multiline": {
-          "delimiter": "none",
-          "requireLast": false
-        },
-        "singleline": {
-          "delimiter": "comma",
-          "requireLast": false
-        }
-      }],
-    "@typescript-eslint/no-empty-function": ["warn", {
-        "allow": [
-          "protected-constructors",
-          "private-constructors"
-        ]
-      }],
-    "@typescript-eslint/no-unused-expressions": 2
+    "no-shadow": ["warn", {"builtinGlobals": true}]
   },
   "overrides": [
     {
