@@ -12,11 +12,11 @@ export function IsValidAge (minAge: number, validationOptions?: ValidationOption
 			constraints: [minAge],
 			options: validationOptions,
 			validator: {
-				validate (value: unknown, args: ValidationArguments) {
+				validate (value: number, args: ValidationArguments) {
 
 					const maxAge = 150
 					const [min, max] = args.constraints
-					return true
+					return value > min && value < max && value < maxAge
 
 				},
 			},

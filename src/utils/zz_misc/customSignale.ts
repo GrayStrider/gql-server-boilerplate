@@ -1,6 +1,6 @@
 import signale, {Signale} from 'signale'
 
-function customSignale () {
+export function customSignale () {
 
 	const options = {
 		disabled: false,

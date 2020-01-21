@@ -1,10 +1,8 @@
-import {range} from 'ramda'
 import {of, from, interval, Observable} from 'rxjs'
 import {concatMap, delay, endWith, take, map, first} from 'rxjs/operators'
 import {consoleWrite} from 'src/utils/libsExport'
 
 const STR = 'Hello, World!'
-const ARR = range(0, 9)
 
 of(STR)
 	.subscribe(console.log)
@@ -33,7 +31,7 @@ export function waitFor<T> (signal: Observable<unknown>) {
 	return (source: Observable<T>) =>
 		new Observable<T>(observer =>
 			signal.pipe(first())
-				.subscribe(_ =>
+				.subscribe(x =>
 					source.subscribe(observer)))
 
 }

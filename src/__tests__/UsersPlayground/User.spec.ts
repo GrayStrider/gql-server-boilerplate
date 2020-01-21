@@ -2,7 +2,7 @@ process.env.endpoint = 'users'
 import * as faker from 'faker'
 import gql from 'graphql-tag'
 import {head, map, omit, pipe, prop} from 'ramda'
-import {Connection, EntityManager} from 'typeorm'
+import {Connection} from 'typeorm'
 import {setupTests} from 'src/utils/test-utils/setupTests'
 import {Mutation, PaginatedUserResponse, Query} from 'src/graphql/generated/typings'
 import {gqlRequest} from 'src/graphql/utils/postQuery'
@@ -14,7 +14,6 @@ import arrayContaining = jasmine.arrayContaining
 
 let conn: Connection
 let server: http.Server | null
-let db: EntityManager
 let fakes: Await<ReturnType<typeof generateMockUsers>>['fakes']
 let generated: Await<ReturnType<typeof generateMockUsers>>['generated']
 
@@ -22,8 +21,7 @@ const SAMPLE_SIZE = 50
 
 beforeAll(async () => {
 
-	({conn} = await setupTests())
-	db = conn.manager;
+	({conn} = await setupTests());
 	({fakes, generated} = await generateMockUsers(SAMPLE_SIZE))
 
 })
@@ -105,10 +103,8 @@ describe('Users', () => {
 			const rnd = faker.random.number
 			const randomIds = await gqlRequest<PaginatedUserResponse>(gql`query {
           usersPaginated(
-              startAt: ${rnd({min: 0,
-		max: SAMPLE_SIZE})},
-              upTo: ${rnd({min: 0,
-		max: SAMPLE_SIZE})}) {
+              startAt: ${rnd({min: 0, max: SAMPLE_SIZE})},
+              upTo: ${rnd({min: 0, max: SAMPLE_SIZE})}) {
               items {
                   id
               }
