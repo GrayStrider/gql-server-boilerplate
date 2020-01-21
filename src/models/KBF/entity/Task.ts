@@ -9,7 +9,7 @@ export class Task extends BaseEntity {
 
 	@Field(() => ID)
 	@PrimaryGeneratedColumn('uuid')
-	_id: string
+	id: string
 
 	@Field()
 	@Column({length: 255})

@@ -1,10 +1,10 @@
 import {registerEnumType} from 'type-graphql'
 
-export enum SUB_TOPICS {
+export enum SubTopics {
 	NOTIFICATIONS = 'NOTIFICATIONS'
 }
 
 
-registerEnumType(SUB_TOPICS, {
-	name: 'SUB_TOPICS',
+registerEnumType(SubTopics, {
+	name: 'SubTopics',
 })

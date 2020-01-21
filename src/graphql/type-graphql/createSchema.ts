@@ -19,7 +19,7 @@ export const createSchema = (resolvers: Resolvers, schemaNamePrefix: string) =>
 			ErrorHandler,
 
 			/*
-			 * DBRequestCounter,
+			 * DbRequestCounter,
 			 * GlobalAuth
 			 */
 		],

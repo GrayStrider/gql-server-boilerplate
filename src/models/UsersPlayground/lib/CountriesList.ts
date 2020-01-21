@@ -1,6 +1,8 @@
 import {registerEnumType} from 'type-graphql'
+/* eslint-disable @typescript-eslint/naming-convention*/
 
 export enum Countries {
+
 	Afghanistan = 'Afghanistan',
 	AlandIslands = 'AlandIslands',
 	Albania = 'Albania',

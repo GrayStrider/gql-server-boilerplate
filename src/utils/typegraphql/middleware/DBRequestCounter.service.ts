@@ -1,33 +1,33 @@
 export class DBRequestCounterService {
 
-	private static instance: DBRequestCounterService
+	private static _instance: DBRequestCounterService
 
-	private count = 0
+	private _count = 0
 
 	get getCount (): number {
 
-		return this.count
+		return this._count
 
 	}
 
 	public static connect () {
 
-		if (!DBRequestCounterService.instance)
-			DBRequestCounterService.instance = new DBRequestCounterService()
+		if (!DBRequestCounterService._instance)
+			DBRequestCounterService._instance = new DBRequestCounterService()
 
-		return DBRequestCounterService.instance
+		return DBRequestCounterService._instance
 
 	}
 
 	clearCount () {
 
-		this.count = 0
+		this._count = 0
 
 	}
 
 	increment () {
 
-		this.count += 1
+		this._count += 1
 
 	}
 

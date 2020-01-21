@@ -12,7 +12,7 @@ const collect = debounce(count => {
 
 }, 200)
 
-export const DBRequestCounter: MiddlewareFn<Context> =
+export const dbRequestCounter: MiddlewareFn<Context> =
 	async ({context, args, info, root}, next) => {
 
 		const res = await next()

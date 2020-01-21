@@ -1,5 +1,5 @@
 import {Notification, NotificationPayload} from '@/models/UsersPlayground/subscriptions/Notification/notification.model'
-import {SUB_TOPICS} from '@/models/UsersPlayground/subscriptions/subscriptions.topics'
+import {SubTopics} from '@/models/UsersPlayground/subscriptions/subscriptions.topics'
 import {Errors} from '@/utils/Errors'
 import {Arg, Mutation, Publisher, PubSub, Root, Subscription} from 'type-graphql'
 import uuid from 'uuid'
@@ -24,7 +24,7 @@ export class NotificationResolver {
 		topics: ({args, context, payload}) => {
 
 			checkAuthorized(context)
-			return SUB_TOPICS.NOTIFICATIONS
+			return SubTopics.NOTIFICATIONS
 
 		},
 		filter: ({payload, args, context, info}) => true,
@@ -38,7 +38,7 @@ export class NotificationResolver {
 	@Mutation(returns => Boolean)
 	async ping (
 		@Arg('message') message: string,
-		@PubSub(SUB_TOPICS.NOTIFICATIONS) dispatch: Publisher<NotificationPayload>
+		@PubSub(SubTopics.NOTIFICATIONS) dispatch: Publisher<NotificationPayload>
 	) {
 
 		await dispatch({message, id: uuid()})

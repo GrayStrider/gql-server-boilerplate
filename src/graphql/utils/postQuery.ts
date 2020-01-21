@@ -44,19 +44,19 @@ export async function gqlRequest<T, K, U> (
 }
 
 
-type keyofQuery = keyof Omit<Query, '__typename'>
-type keyofMutation = keyof Omit<Mutation, '__typename'>
+type KeyofQuery = keyof Omit<Query, '__typename'>
+type KeyofMutation = keyof Omit<Mutation, '__typename'>
 
 // Single query
-export async function gqlreq<T extends keyofQuery, R extends Query[T], V extends AnyObject>
+export async function gqlreq<T extends KeyofQuery, R extends Query[T], V extends AnyObject>
 (type: 'query', obj: T, query: ASTNode, variables?: V, url?: string): Promise<R>
 
 // Single mutation
-export async function gqlreq<T extends keyofMutation, R extends Mutation[T], V extends AnyObject>
+export async function gqlreq<T extends KeyofMutation, R extends Mutation[T], V extends AnyObject>
 (type: 'mutation', obj: T, query: ASTNode, variables?: V, url?: string): Promise<R>
 
 export async function gqlreq (
-	type: 'query' | 'mutation', obj: keyofMutation | keyofQuery, query: ASTNode, variables?: AnyObject, url: string = GQL_URL
+	type: 'query' | 'mutation', obj: KeyofMutation | KeyofQuery, query: ASTNode, variables?: AnyObject, url: string = GQL_URL
 ) {
 
 	const res = await request(
