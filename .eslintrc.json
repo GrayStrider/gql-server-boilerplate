@@ -10,9 +10,14 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
+//    "no-console": ["warn", {"allow":  ["warn", "error"]}],
+//    "no-warning-comments": "warn",
+    "no-console": "off",
+    "no-warning-comments": "off",
+
+
     "padded-blocks": "off",
     "arrow-parens": "off",
-    "no-warning-comments": "warn",
     "linebreak-style": "off",
     "no-dupe-else-if": "error",
     "no-await-in-loop": "warn",
@@ -37,12 +42,11 @@
     }],
     "sort-imports": "off",
     "dot-location": "off",
-    "id-length": ["warn", { "exceptions": ["x"] }],
+    "id-length": ["warn", { "exceptions": ["x", "_", "e", "i"] }],
     "object-curly-spacing": "off",
-    "max-params": ["warn", { "max": 4 }],
+    "max-params": ["warn", { "max": 5 }],
     "require-await": "warn",
     "arrow-body-style": "warn",
-    "no-console": ["warn", {"allow":  ["warn", "error"]}],
     "implicit-arrow-linebreak": "off",
     "line-comment-position": "warn",
     "spaced-comment": "off",
@@ -58,7 +62,7 @@
         "capIsNew": false
       }
     ],
-    "indent": ["warn", "tab"],
+    "indent": "off",
     "no-process-env": "off",
     "sort-keys": "off",
     "sort-vars": "off",
@@ -88,6 +92,7 @@
     //    Koa-style callbacks
     "callback-return": "off",
     "quote-props": "off",
+    "nonblock-statement-body-position": "off",
     "no-else-return": "warn",
     "init-declarations": "off",
     "no-plusplus": "warn",
@@ -142,7 +147,7 @@
         "max-lines-per-function": [
           "warn",
           {
-            "max": 100
+            "max": 120
           }
         ],
         "require-await": "off"
