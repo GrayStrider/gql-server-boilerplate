@@ -16,6 +16,67 @@
   ],
 
   "rules": {
+    "@typescript-eslint/return-await": "error",
+    "@typescript-eslint/no-useless-constructor": "error",
+    "no-useless-constructor": "off",
+    "@typescript-eslint/no-unused-expressions": ["warn"],
+    "@typescript-eslint/default-param-last": ["error"],
+    "func-call-spacing": "off",
+    "@typescript-eslint/unified-signatures": ["error"],
+    "default-param-last": "off",
+    "brace-style": "off",
+    "@typescript-eslint/require-await": ["error"],
+    "@typescript-eslint/strict-boolean-expressions": [
+      "warn", {
+        "allowNullable": true,
+        "allowSafe": true,
+        "ignoreRhs": true
+      }
+    ],
+    "@typescript-eslint/restrict-template-expressions": [
+      "error", {
+        "allowNumber": true
+      }
+    ],
+    "require-await": "off",
+    "@typescript-eslint/restrict-plus-operands": [
+      "error", {
+        "checkCompoundAssignments": true
+      }
+    ],
+    "@typescript-eslint/require-array-sort-compare": ["error"],
+    "@typescript-eslint/promise-function-async": ["error"],
+    "@typescript-eslint/prefer-optional-chain": ["error"],
+    "@typescript-eslint/prefer-nullish-coalescing": [
+      "warn", {
+        "forceSuggestionFixer": true
+      }
+    ],
+    "@typescript-eslint/prefer-readonly": ["error"],
+    "@typescript-eslint/prefer-function-type": ["warn"],
+    "@typescript-eslint/prefer-for-of": ["warn"],
+    "@typescript-eslint/no-unnecessary-type-arguments": ["warn"],
+    "@typescript-eslint/no-unnecessary-qualifier": ["error"],
+    "@typescript-eslint/no-unnecessary-condition": [
+      "warn", {
+        "ignoreRhs": true
+      }
+    ],
+    "no-constant-condition": "off",
+    "@typescript-eslint/no-throw-literal": ["error"],
+    "@typescript-eslint/no-require-imports": ["error"],
+    "@typescript-eslint/no-non-null-asserted-optional-chain": ["error"],
+    "@typescript-eslint/no-implied-eval": ["error"],
+    "@typescript-eslint/no-floating-promises": ["error"],
+    "no-implicit-coercion": [
+      "error", {
+        "allow": ["!!"]
+      }
+    ],
+    "no-extra-boolean-cast": "off",
+    "@typescript-eslint/no-extraneous-class": ["warn"],
+    "@typescript-eslint/no-extra-non-null-assertion": ["error"],
+    "@typescript-eslint/no-dynamic-delete": 1,
     "@typescript-eslint/naming-convention": [
       "warn",
 
@@ -40,7 +101,7 @@
       },
       {
         "selector": "default",
-        "format": ["camelCase", "PascalCase"]
+        "format": ["camelCase", "PascalCase", "UPPER_CASE"]
       },
 
       {
@@ -73,7 +134,6 @@
         "default": "array-simple"
       }
     ],
-    "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": [
       "warn", {
         "argsIgnorePattern": "[returns|type|xi_]",
@@ -83,18 +143,7 @@
       }
     ],
     "@typescript-eslint/explicit-function-return-type": 0,
-    "@typescript-eslint/member-delimiter-style": [
-      "warn", {
-        "multiline": {
-          "delimiter": "none",
-          "requireLast": false
-        },
-        "singleline": {
-          "delimiter": "comma",
-          "requireLast": false
-        }
-      }
-    ],
+    "@typescript-eslint/member-delimiter-style": "off",
     "@typescript-eslint/no-empty-function": [
       "warn", {
         "allow": [
@@ -103,7 +152,6 @@
         ]
       }
     ],
-    "@typescript-eslint/no-unused-expressions": 2,
 
     "no-console": "off",
     "no-warning-comments": "off",
@@ -111,11 +159,15 @@
     "arrow-parens": "off",
     "linebreak-style": "off",
     "function-paren-newline": "off",
+    "no-confusing-arrow": "off",
+
     "space-before-function-paren": "off",
     "class-methods-use-this": "off",
     "lines-around-comment": "off",
     "object-property-newline": "off",
     "no-tabs": "off",
+    "no-unused-vars": "off",
+
     "func-style": "off",
     "sort-imports": "off",
     "dot-location": "off",
@@ -124,6 +176,8 @@
     "spaced-comment": "off",
     "no-magic-numbers": "off",
     "no-multi-spaces": "off",
+    "no-extra-parens": "off",
+    "no-extra-semi": "off",
     "key-spacing": "off",
     "indent": "off",
     "no-process-env": "off",
@@ -157,7 +211,6 @@
     "comma-dangle": "off",
     "no-unused-expressions": "off",
     "function-call-argument-newline": "off",
-
     "no-await-in-loop": "warn",
     "no-import-assign": "warn",
     "require-atomic-updates": "warn",
@@ -171,7 +224,6 @@
     ],
     "id-length": ["warn", {"exceptions": ["x", "_", "e", "i"]}],
     "max-params": ["warn", {"max": 5}],
-    "require-await": "warn",
     "arrow-body-style": "warn",
     "line-comment-position": "warn",
     "no-inline-comments": "warn",
@@ -179,7 +231,7 @@
     "multiline-ternary": ["warn", "always-multiline"],
     "new-cap": ["warn", {"capIsNew": false}],
     "no-mixed-spaces-and-tabs": ["warn", "smart-tabs"],
-    "no-return-await": "warn",
+    "no-return-await": "off",
     "no-underscore-dangle": "off",
     "max-statements": ["warn", {"max": 20}],
     //    Koa-style callbacks
@@ -191,11 +243,16 @@
   },
   "overrides": [
     {
+      "files": ["*.d.ts"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off"
+      }
+    },
+    {
       "files": [
         "*.spec.ts"
       ],
       "rules": {
-        "no-magic-numbers": "off",
         "init-declarations": "off",
         "max-lines-per-function": [
           "warn",
@@ -203,7 +260,6 @@
             "max": 120
           }
         ],
-        "require-await": "off",
         "@typescript-eslint/require-await": "off"
       }
     }
