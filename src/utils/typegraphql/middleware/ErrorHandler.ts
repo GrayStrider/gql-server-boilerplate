@@ -19,7 +19,8 @@ export const ErrorHandler: MiddlewareFn<Context> =
 				const field = _.truncate(val[1], {length: 10})
 				throw new Errors.Validation(
 					`This ${field ?? 'value'} already exists`,
-					field ? {invalidField: field} : undefined)
+					field ? {invalidField: field} : undefined
+				)
 
 			}
 			throw err

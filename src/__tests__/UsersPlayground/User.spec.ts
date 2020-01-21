@@ -57,7 +57,7 @@ describe('Users', () => {
 		expect(id).toBeTruthy()
 
 	})
-	
+
 	it('should search the users by parameters', async () => {
 
 		const act = await gqlRequest<P<Query, 'users'>>(gql`query {
@@ -129,7 +129,7 @@ describe('Users', () => {
           }
       }`, {friends: randomIds})
 
-      .then(pipe(prop('friends'), map(prop('id'))))
+      	.then(pipe(prop('friends'), map(prop('id'))))
 
 			expect(addedFriendsIdsFromResponse).toEqual(arrayContaining(randomIds))
 

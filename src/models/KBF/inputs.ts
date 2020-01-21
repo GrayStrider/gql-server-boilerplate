@@ -13,7 +13,7 @@ export class NewTaskInput {
 
 	@Field(returns => [String], {nullable: true})
 	tags: string[]
-	
+
 	// TODO check for dupes
 	@Field(returns => Priority, {defaultValue: Priority.NONE})
 	priority: Priority

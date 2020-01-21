@@ -56,12 +56,12 @@ export class UserNew extends BaseEntity {
 
 	@JoinTable()
 	@ManyToMany(type => UserNew, friends => friends.friendsInverse, {cascade: ['insert', 'update']})
-	
+
 	friendsPrimary: UserNew[]
 
 	@ManyToMany(type => UserNew, friends => friends.friendsPrimary)
 	friendsInverse: UserNew[]
-	
+
 	// TODO does nothing?
 	@Directive('@deprecated(reason: "Use `newField`.")')
 	@Field()

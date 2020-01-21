@@ -28,7 +28,7 @@ export const uploadSchema = makeSchema<Context>('src/graphql/schemas/upload.grap
 				return {
 					filename,
 					mimetype,
-					encoding
+					encoding,
 				}
 
 			},

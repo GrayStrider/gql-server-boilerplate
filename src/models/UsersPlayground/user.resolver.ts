@@ -26,7 +26,8 @@ export class UserResolver {
 	@Mutation(returns => UserNew)
 	async login (
 		@Ctx() {session}: Context,
-		@Arg('credentials') {email, password}: UserLoginInput) {
+		@Arg('credentials') {email, password}: UserLoginInput
+	) {
 
 		const user = await UserNew.findOne({email})
 		if (!user) throw new Errors.InvalidCredentials()
@@ -37,7 +38,7 @@ export class UserResolver {
 		return user
 
 	}
-	
+
 	@Mutation(returns => Boolean)
 	async register (@Arg('userData') {age, password, ...rest}: UserCreateInput) {
 
@@ -52,7 +53,7 @@ export class UserResolver {
 		return true
 
 	}
-	
+
 	@Mutation(returns => [UserNew])
 	async generateMockUsers (@Arg('amount') amount: number) {
 
@@ -65,7 +66,8 @@ export class UserResolver {
 	@Query(returns => PaginatedUserResponse)
 	async usersPaginated (
 		@Arg('upTo', {nullable: true}) upTo: number,
-		@Arg('startAt', {nullable: true}) startAt: number): Promise<PaginatedUserResponse> {
+		@Arg('startAt', {nullable: true}) startAt: number
+	): Promise<PaginatedUserResponse> {
 
 		return {
 			items: await UserNew.find({take: upTo, skip: startAt}),
@@ -115,8 +117,7 @@ export class UserResolver {
 					if (!friend) throw userNotFoundError(id)
 					return total.concat(friend)
 
-				}, []
-			)
+				}, [])
 			: undefined
 
 		return UserNew

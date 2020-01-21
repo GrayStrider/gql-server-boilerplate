@@ -11,7 +11,7 @@ export class TColumn extends BaseEntity {
 	@Field(returns => ID)
 	@PrimaryGeneratedColumn('uuid')
 	id: string
-	
+
 	@Field(returns => Board)
 	@ManyToOne(type => Board, board => board.columns)
 	board: Board

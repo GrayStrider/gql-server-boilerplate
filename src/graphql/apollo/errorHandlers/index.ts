@@ -9,7 +9,7 @@ const isExpectedError = (err: AnyObject) =>
 	Object.keys(ErrorCodes).includes(err.extensions?.code)
 
 export function ExpectedError (err: GraphQLError) {
-	
+
 	if (isExpectedError(err)) {
 
 		const {details} = err.extensions?.exception

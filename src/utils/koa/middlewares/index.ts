@@ -20,7 +20,7 @@ export const errorHandler: Middleware = async (ctx, next) => {
 		ctx.body = err.message
 		log.error('Error in Koa handler')
 		ctx.app.emit('error', err, ctx)
-		
+
 	}
 
 }

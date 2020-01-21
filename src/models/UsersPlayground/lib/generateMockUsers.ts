@@ -32,18 +32,18 @@ export async function generateMockUsers (amount: number) {
 		country: faker.random.arrayElement(Object.keys(Countries)),
 		age: faker.random.number({max: 150, min: 18}),
 	} as UserCreateInput))
-	
+
 	const endpoint = `${SERVER_URL}/users`
 	const testClient = new GraphQLClient(endpoint, {
 		headers: {
 			authorization: 'internal_call',
 		},
 	})
-	const generated = await bb.all(fakes.map(fake =>
-
-		testClient.request(print(query), {input: fake})
-			.then(flattenObject)
-	))
+	const generated = await bb.all(
+		fakes.map(fake => testClient
+			.request(print(query), {input: fake})
+			.then(flattenObject))
+	)
 
 	return {
 		fakes,
