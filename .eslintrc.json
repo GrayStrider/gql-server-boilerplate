@@ -6,16 +6,20 @@
   },
 
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "jest"
   ],
   "extends": [
     "eslint:all",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+
+    "plugin:jest/all"
   ],
 
   "rules": {
+    "jest/no-hooks": ["warn"],
     "@typescript-eslint/return-await": "error",
     "@typescript-eslint/no-useless-constructor": "error",
     "no-useless-constructor": "off",
@@ -254,14 +258,12 @@
       ],
       "rules": {
         "init-declarations": "off",
-        "max-lines-per-function": [
-          "warn",
-          {
-            "max": 120
-          }
-        ],
+        "max-lines-per-function": "off",
         "@typescript-eslint/require-await": "off"
       }
     }
-  ]
+  ],
+  "env": {
+    "jest/globals": true
+  }
 }
