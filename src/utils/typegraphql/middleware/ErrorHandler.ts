@@ -17,7 +17,8 @@ export const ErrorHandler: MiddlewareFn<Context> =
 				const val = err.detail.match(/Key \("?\w+"?\)/u)
 				if (!(val && val[1])) throw err
 				const field = _.truncate(val[1], {length: 10})
-				throw new Errors.Validation(`This ${field ?? 'value'} already exists`,
+				throw new Errors.Validation(
+					`This ${field ?? 'value'} already exists`,
 					field ? {invalidField: field} : undefined)
 
 			}

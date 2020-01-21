@@ -25,8 +25,7 @@ export class UserNew extends BaseEntity {
 	lastName: string
 
 	@Field()
-	@Column({type: 'text',
-		unique: true})
+	@Column({type: 'text', unique: true})
 	email: string
 
 	@Field()
@@ -52,15 +51,12 @@ export class UserNew extends BaseEntity {
 	updatedDate: Date;
 
 	@Field(returns => Countries)
-	@Column({type: 'enum',
-		enum: Countries})
+	@Column({type: 'enum', enum: Countries})
 	country: Countries
 
 	@JoinTable()
-	@ManyToMany(
-		type => UserNew, friends => friends.friendsInverse, {cascade: ['insert', 'update']}
-	)
-
+	@ManyToMany(type => UserNew, friends => friends.friendsInverse, {cascade: ['insert', 'update']})
+	
 	friendsPrimary: UserNew[]
 
 	@ManyToMany(type => UserNew, friends => friends.friendsPrimary)

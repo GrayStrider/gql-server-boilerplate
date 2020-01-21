@@ -9,9 +9,11 @@ export const makeKBFServer = async () => {
 
 	const name = 'kbf'
 	const path = `/${name}`
-	const schema = await createSchema([GetResolver, CreateResolver], name)
+	const schema = await createSchema([
+		GetResolver,
+		CreateResolver
+	], name)
 	log.info(SERVER_URL + path)
 	return genericApolloServer(schema)
 		.getMiddleware({path})
-
 }

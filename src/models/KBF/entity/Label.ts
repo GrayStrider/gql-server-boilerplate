@@ -15,8 +15,7 @@ export class Label extends BaseEntity {
 	name: string
 
 	@Field()
-	@Column({type: 'bool',
-		default: false})
+	@Column({type: 'bool', default: false})
 	pinned: boolean
 
 	@Field(returns => [Task])

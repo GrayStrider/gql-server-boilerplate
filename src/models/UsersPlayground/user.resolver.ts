@@ -24,7 +24,8 @@ const validatePassword = (password: string): true => {
 export class UserResolver {
 
 	@Mutation(returns => UserNew)
-	async login (@Ctx() {session}: Context,
+	async login (
+		@Ctx() {session}: Context,
 		@Arg('credentials') {email, password}: UserLoginInput) {
 
 		const user = await UserNew.findOne({email})
@@ -36,8 +37,7 @@ export class UserResolver {
 		return user
 
 	}
-
-
+	
 	@Mutation(returns => Boolean)
 	async register (@Arg('userData') {age, password, ...rest}: UserCreateInput) {
 
@@ -52,8 +52,7 @@ export class UserResolver {
 		return true
 
 	}
-
-
+	
 	@Mutation(returns => [UserNew])
 	async generateMockUsers (@Arg('amount') amount: number) {
 
@@ -64,12 +63,12 @@ export class UserResolver {
 
 	@Authorized<AuthRoles[]>([AuthRoles.ADMIN])
 	@Query(returns => PaginatedUserResponse)
-	async usersPaginated (@Arg('upTo', {nullable: true}) upTo: number,
+	async usersPaginated (
+		@Arg('upTo', {nullable: true}) upTo: number,
 		@Arg('startAt', {nullable: true}) startAt: number): Promise<PaginatedUserResponse> {
 
 		return {
-			items: await UserNew.find({take: upTo,
-				skip: startAt}),
+			items: await UserNew.find({take: upTo, skip: startAt}),
 			total: await UserNew.count(),
 			hasMore: false, // TODO
 		}
@@ -88,8 +87,7 @@ export class UserResolver {
 	@Mutation(returns => UserNew)
 	async userCreate (@Arg('userData') {age, ...rest}: UserCreateInput) {
 
-		return await UserNew.create({yearBorn: birthYearFromAge(age),
-			...rest}).save()
+		return await UserNew.create({yearBorn: birthYearFromAge(age), ...rest}).save()
 
 	}
 
@@ -109,8 +107,7 @@ export class UserResolver {
 		 * if not found, throw
 		 */
 		const friends = friendsIds
-			? await bb.reduce(
-				friendsIds,
+			? await bb.reduce(friendsIds,
 				async (total: UserNew[], id) => {
 
 					const user = await UserNew.findOne(id)
@@ -122,8 +119,7 @@ export class UserResolver {
 			: undefined
 
 		return UserNew
-			.merge(user, {...rest,
-				friendsPrimary: friends})
+			.merge(user, {...rest, friendsPrimary: friends})
 			.save()
 
 	}

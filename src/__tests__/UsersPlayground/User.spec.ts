@@ -57,6 +57,7 @@ describe('Users', () => {
 		expect(id).toBeTruthy()
 
 	})
+	
 	it('should search the users by parameters', async () => {
 
 		const act = await gqlRequest<P<Query, 'users'>>(gql`query {
@@ -105,10 +106,8 @@ describe('Users', () => {
 			const r = faker.random.number
 			const randomIds = await gqlRequest<PaginatedUserResponse>(gql`query {
           usersPaginated(
-              startAt: ${r({min: 0,
-		max: SAMPLE_SIZE})},
-              upTo: ${r({min: 0,
-		max: SAMPLE_SIZE})}) {
+              startAt: ${r({min: 0, max: SAMPLE_SIZE})},
+              upTo: ${r({min: 0, max: SAMPLE_SIZE})}) {
               items {
                   id
               }
@@ -160,8 +159,7 @@ describe('pagination', () => {
 	})
 	it('with both variables', async () => {
 
-		const res = await gqlRequest<PaginatedUserResponse>(query, {upTo: 10,
-			startAt: 50})
+		const res = await gqlRequest<PaginatedUserResponse>(query, {upTo: 10, startAt: 50})
 			.then(res2 => res2.items)
 
 		expect(res).toHaveLength(1)

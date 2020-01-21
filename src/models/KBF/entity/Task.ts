@@ -5,7 +5,7 @@ import {Swimlane, TDate, Subtask, TColumn, Color, Label, User, Comment, TaskNumb
 
 @ObjectType()
 @Entity()
-export class Task extends BaseEntity/* Implements ITask*/ {
+export class Task extends BaseEntity {
 
 	@Field(() => ID)
 	@PrimaryGeneratedColumn('uuid')
@@ -16,8 +16,7 @@ export class Task extends BaseEntity/* Implements ITask*/ {
 	name: string
 
 	@Field()
-	@Column({length: 5000,
-		nullable: true})
+	@Column({length: 5000, nullable: true})
 	description: string
 
 	@Field(returns => Color)
@@ -59,9 +58,7 @@ export class Task extends BaseEntity/* Implements ITask*/ {
 	@JoinTable()
 	responsibleUser: User
 
-	@ManyToMany(
-		type => TDate, date => date.tasks, {nullable: true}
-	)
+	@ManyToMany(type => TDate, date => date.tasks, {nullable: true})
 	@Field(returns => [TDate], {nullable: true})
 	dates?: TDate[]
 
@@ -72,12 +69,10 @@ export class Task extends BaseEntity/* Implements ITask*/ {
 	subtasks?: Subtask[]
 
 	@Field(returns => [Label])
-	@ManyToMany(
-		type => Label, Label => Label.tasks, {
-			cascade: true,
-			eager: true,
-		}
-	)
+	@ManyToMany(type => Label, label => label.tasks, {
+		cascade: true,
+		eager: true,
+	})
 	@JoinTable()
 	labels: Label[]
 

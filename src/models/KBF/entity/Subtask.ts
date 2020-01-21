@@ -17,18 +17,15 @@ export class Subtask extends BaseEntity {
 	name: string
 
 	@Field()
-	@Column({type: 'bool',
-		default: false})
+	@Column({type: 'bool', default: false})
 	finished: boolean
 
 	@Field(returns => Date, {nullable: true})
-	@Column({type: 'date',
-		nullable: true})
+	@Column({type: 'date', nullable: true})
 	dueDateTimestamp?: string
 
 	@Field(returns => Date, {nullable: true})
-	@Column({type: 'date',
-		nullable: true})
+	@Column({type: 'date', nullable: true})
 	dueDateTimestampLocal?: string
 
 	@Field(returns => [User], {nullable: true})

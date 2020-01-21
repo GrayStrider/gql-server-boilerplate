@@ -23,14 +23,11 @@ export class Color extends BaseEntity {
 	name: string
 
 	@Field({nullable: true})
-	@Column({length: 5000,
-		nullable: true})
+	@Column({length: 5000, nullable: true})
 	description?: string;
 
 	@Field(returns => ColorValues)
-	@Column({type: 'enum',
-		enum: ColorValues,
-		default: ColorValues.WHITE})
+	@Column({type: 'enum', enum: ColorValues, default: ColorValues.WHITE})
 	value: ColorValues
 
 	@ManyToOne(type => Board, board => board.colors)

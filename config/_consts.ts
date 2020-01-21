@@ -15,6 +15,5 @@ export const POSTRGRES_USERNAME: string = process.env.POSTRGRES_USERNAME ?? get(
 export const POSTRGRES_DATABASE: string = process.env.POSTRGRES_DATABASE ?? get('postgres.database')
 export const GQL_URL = `http://${HOST}:${PORT}/${process.env.endpoint ?? 'graphql'}`
 export const SERVER_URL = `http://${HOST}:${PORT}`
-// Export const DSN: string = process.env.SENTRY_DSN ?? get('sentry.dsn')
 export const APOLLO_ENGINE_API_KEY: string = process.env.ENGINE_API_KEY ?? 'not provided'
 export const {NODE_ENV} = process.env

@@ -25,9 +25,11 @@ export const uploadSchema = makeSchema<Context>('src/graphql/schemas/upload.grap
 				 * const id = await recordFile( … )
 				 */
 
-				return {filename,
+				return {
+					filename,
 					mimetype,
-					encoding}
+					encoding
+				}
 
 			},
 		},

@@ -12,7 +12,8 @@ export class DBRequestCounterService {
 
 	public static connect () {
 
-		if (!DBRequestCounterService.instance) DBRequestCounterService.instance = new DBRequestCounterService()
+		if (!DBRequestCounterService.instance)
+			DBRequestCounterService.instance = new DBRequestCounterService()
 
 		return DBRequestCounterService.instance
 

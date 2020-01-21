@@ -5,11 +5,11 @@ import {ValidationError} from 'class-validator'
 import {pick} from 'lodash'
 import {Maybe} from 'type-graphql'
 
+const isExpectedError = (err: AnyObject) =>
+	Object.keys(ErrorCodes).includes(err.extensions?.code)
+
 export function ExpectedError (err: GraphQLError) {
-
-	const isExpectedError = (err: AnyObject) =>
-		Object.keys(ErrorCodes).includes(err.extensions?.code)
-
+	
 	if (isExpectedError(err)) {
 
 		const {details} = err.extensions?.exception
@@ -43,8 +43,8 @@ export function VariantsOfOriginalError (err: GraphQLError) {
 	const origError: Maybe<MyError> = err.originalError
 	const status = origError?.response?.status
 	const message = origError?.response?.error
-	if (status === 404) return {message,
-		status}
+	if (status === 404)
+		return {message, status}
 
 	// TODO implement error fallthrough validation
 	return err

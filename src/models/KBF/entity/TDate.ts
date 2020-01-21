@@ -12,11 +12,9 @@ export class TDate extends BaseEntity {
 	id: string
 
 	@Field(returns => [Task], {nullable: true})
-	@ManyToMany(
-		type => Task, task => task.dates, {
-			nullable: true,
-		}
-	)
+	@ManyToMany(type => Task, task => task.dates, {
+		nullable: true
+	})
 	tasks: Task[]
 
 	@Field(returns => TColumn)
@@ -30,14 +28,12 @@ export class TDate extends BaseEntity {
 	@Column({default: 'dueDate'})
 	@Field()
 	dateType: 'dueDate'
-
-	@Column({type: 'date',
-		nullable: true})
+	
+	@Column({type: 'date', nullable: true})
 	@Field(returns => Date, {nullable: true})
 	dueTimestamp?: Date
-
-	@Column({type: 'date',
-		nullable: true})
+	
+	@Column({type: 'date', nullable: true})
 	@Field(returns => Date, {nullable: true})
 	dueTimestampLocal?: string
 

@@ -10,7 +10,8 @@ of(STR)
 	.subscribe(console.log)
 
 from(STR)
-	.pipe(concatMap(x => of(x).pipe(delay(250))))
+	.pipe(concatMap(x => of(x)
+		.pipe(delay(250))))
 	.subscribe(consoleWrite)
 
 

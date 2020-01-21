@@ -3,7 +3,6 @@ declare namespace NodeJS {
 		NODE_ENV: 'development' | 'production' | 'test'
 		POSTGRES_URL: string
 		POSTGRES_PORT: number
-		POSTGRES_URL: string
 	}
 
 }

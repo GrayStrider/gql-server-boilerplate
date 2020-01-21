@@ -55,8 +55,7 @@ export class KBFResolver {
 				}, []
 			)
 
-			return Task.create({...data,
-				labels})
+			return Task.create({...data, labels})
 
 		}
 

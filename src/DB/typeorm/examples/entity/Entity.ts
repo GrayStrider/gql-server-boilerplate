@@ -26,13 +26,11 @@ export class ExampleEntity extends GenericFeatures {
 	 * or use enums
 	 */
 	@Field(returns => [Int])
-	@Column('int', {array: true,
-		default: '{1, 2, 3}'})
+	@Column('int', {array: true, default: '{1, 2, 3}'})
 	array: number[]
 
 	@Field(returns => SimpleJSONObjectTypeInterface)
-	@Column('simple-json', {default: {name: 'Ivan',
-		age: 24}})
+	@Column('simple-json', {default: {name: 'Ivan', age: 24}})
 	json: { name: string, age: number }
 
 	@Field()
@@ -72,12 +70,10 @@ export class ExampleEntity extends GenericFeatures {
 	embedded: EmbeddedFeatures
 
 	@Field(returns => [Child], {nullable: true})
-	@OneToMany(
-		type => Child, child => child.parent, {
-			cascade: true,
-			eager: true,
-		}
-	)
+	@OneToMany(type => Child, child => child.parent, {
+		cascade: true,
+		eager: true
+	})
 	children: Child[]
 
 }

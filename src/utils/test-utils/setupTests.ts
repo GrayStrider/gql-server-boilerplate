@@ -32,8 +32,7 @@ export async function setupTests () {
 	}
 	log.warn('resetting database')
 	await conn.synchronize(true)
-	return {conn,
-		server}
+	return {conn, server}
 
 }
 

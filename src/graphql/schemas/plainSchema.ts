@@ -19,9 +19,7 @@ export const plainSchema = makeSchema<Context>('src/graphql/schemas/plain.graphq
 
 				},
 
-				hello: (
-					parent, args, context, info
-				) =>
+				hello: (parent, args, context, info) =>
 					'Hello, world!',
 				// Default resolver
 				data: () => ({
