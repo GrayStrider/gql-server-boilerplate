@@ -31,8 +31,8 @@ export class UserResolver {
 
 		const user = await UserNew.findOne({email})
 		if (!user) throw new Errors.InvalidCredentials()
-		const valid = await bcrypt.compare(password, user.password)
-		if (!valid) throw new Errors.InvalidCredentials()
+		const isValid = await bcrypt.compare(password, user.password)
+		if (!isValid) throw new Errors.InvalidCredentials()
 		if (!session) return user
 		session.userId = user.id
 		return user
