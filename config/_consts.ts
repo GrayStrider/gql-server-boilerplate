@@ -2,10 +2,8 @@ process.env.NODE_CONFIG_DIR = __dirname
 process.env.ALLOW_CONFIG_MUTATIONS = 'true'
 
 import {get} from 'config'
-import {sig} from '@/utils/libsExport'
+
 export const {NODE_ENV} = process.env
-
-
 
 
 export const PORT: string = get('PORT')

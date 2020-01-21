@@ -37,7 +37,6 @@ export async function main () {
 		await redisSessionClient.flushdb()
 
 	}
-
 	const usersServer = await makeUsersServer()
 	const KBFServer = await makeKBFServer()
 

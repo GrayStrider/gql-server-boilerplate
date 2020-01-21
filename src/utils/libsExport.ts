@@ -1,5 +1,5 @@
 import signale from 'signale'
-
+import * as RD from 'ramda-adjunct'
 export {Promise as bb} from 'bluebird'
 export {ApolloError} from 'apollo-server-errors'
 export const sig = signale
@@ -8,15 +8,12 @@ export const log = (message?: unknown, ...optionalParams: unknown[]) =>
 	console.log(message, ...optionalParams)
 
 export const consoleWrite = (message?: unknown, ...optionalParams: unknown[]) => {
-
+	
 	process.stdout.write(`${JSON.stringify(message)}`)
 	optionalParams.forEach(msg => process.stdout.write(`${JSON.stringify(msg)}`))
-
+	
 }
-
-
-import * as RA from 'ramda-adjunct'
-export {RA}
+export {RD}
 // Const logger = winston.createLogger({
 // 	Level: 'info',
 // 	Format: winston.format.json(),

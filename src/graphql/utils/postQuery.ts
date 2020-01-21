@@ -8,6 +8,8 @@ import {flattenObject} from '@/utils/zz_misc/flattenObject'
 import {isNil} from 'ramda'
 
 
+
+
 /**
  * Dispatch GQL query
  * @param url server url, defaults to GQL_URL env. variable
@@ -25,8 +27,6 @@ export async function postQuery<T = AnyObject[]> (
 	return isNil(mainField) ? res : res?.[mainField]
 
 }
-
-
 export async function gqlRequest<T>(query: ASTNode, variables?: Variables, url?: string): Promise<T>
 export async function gqlRequest<T, K>(query: ASTNode, variables?: Variables, url?: string): Promise<[T, K]>
 export async function gqlRequest<T, K, U>(query: ASTNode, variables?: Variables, url?: string): Promise<[T, K, U]>
@@ -58,3 +58,4 @@ export async function gqlreq (
 	return flattenObject(res)
 
 }
+
