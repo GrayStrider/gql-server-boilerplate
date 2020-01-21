@@ -12,7 +12,7 @@ export function ExpectedError (err: GraphQLError<IExpectedError>) {
 
 	if (isExpectedError(err)) {
 
-		const details = err.extensions?.exception?.details
+		const details = err.extensions?.exception.details
 		const res: AnyObject = {message: err.message}
 
 		if (Boolean(details)) res.details = details
@@ -52,7 +52,6 @@ export function ValidatorError (err: GraphQLError<GqlValidationError>) {
 }
 
 interface MyError extends Error {
-	foo: 'bar'
 	response: {
 		status: string | number
 		error: string
@@ -70,7 +69,7 @@ export function VariantsOfOriginalError (err: GraphQLError<MyError>) {
 
 	if (hasOriginalError(err)) {
 
-		const status = err.originalError?.name
+		const status = err.originalError.name
 		const message = err.originalError
 		if (status === '404')
 			return {message, status}
