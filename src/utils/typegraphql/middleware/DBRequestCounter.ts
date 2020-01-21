@@ -1,13 +1,13 @@
 import {debounce} from 'lodash'
 import {MiddlewareFn} from 'type-graphql'
-import {log} from 'src/utils/libsExport'
+import {sig} from 'src/utils/libsExport'
 import {Context} from '@/graphql'
 import {DBRequestCounterService} from '@/utils/typegraphql/middleware/DBRequestCounter.service'
 
 
 const collect = debounce(count => {
 
-	if (count > 5) log.warn(`Many queries: ${count}`)
+	if (count > 5) sig.warn(`Many queries: ${count}`)
 	DBRequestCounterService.connect().clearCount()
 
 }, 200)

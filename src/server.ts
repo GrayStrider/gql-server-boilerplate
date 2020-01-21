@@ -4,7 +4,7 @@ import helmet from 'koa-helmet'
 import session from 'koa-session'
 import cors from '@koa/cors'
 import bodyParser from 'koa-bodyparser'
-import {log} from '@/utils/libsExport'
+import {sig} from '@/utils/libsExport'
 import {useContainer, createConnection} from 'typeorm'
 import {Container} from 'typedi'
 import {ORMConfig} from 'config/_typeorm'
@@ -28,7 +28,7 @@ export async function main () {
 	const conn = await createConnection(ORMConfig)
 	if (process.env.NODE_ENV !== 'production') {
 
-		log.warn('resetting the DB')
+		sig.warn('resetting the DB')
 		await conn.synchronize(true)
 		await redisSessionClient.flushdb()
 
@@ -46,7 +46,7 @@ export async function main () {
 			}),
 			key: 'redisCookie',
 		}, app))
-		.on('error', console.log)
+		.on('error', error => console.log(error))
 		.use(helmet({}))
 		.use(cors({}))
 		.use(bodyParser({}))
@@ -57,7 +57,7 @@ export async function main () {
 		.use(KBFServer)
 
 	return app.listen(PORT, () =>
-		log.success(`Server started at http://${HOST}:${PORT}`))
+		sig.success(`Server started at http://${HOST}:${PORT}`))
 
 }
 

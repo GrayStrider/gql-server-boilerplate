@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {log} from '@/utils/libsExport'
+import {sig} from '@/utils/libsExport'
 
 export function isUp (url: string): Promise<boolean> {
 
@@ -9,7 +9,7 @@ export function isUp (url: string): Promise<boolean> {
 
 			if (err.code === 'ECONNREFUSED') return false
 
-			log.warn(err.message)
+			sig.warn(err.message)
 			return true
 
 		})

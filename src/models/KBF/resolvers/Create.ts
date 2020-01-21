@@ -5,11 +5,9 @@ import {Task} from '@/models/KBF/entity'
 export class CreateResolver {
 
 	@Mutation(returns => Task)
-	async createTask (): Promise<Task> {
+	createTask (): Promise<Task> {
 
-		const task = await Task.create({
-
-		})
+		const task = Task.create({})
 
 		return task.save()
 

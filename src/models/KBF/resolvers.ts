@@ -46,10 +46,10 @@ export class KBFResolver {
 		if (tagNames) {
 
 			const labels = await bb.reduce(
-				tagNames, async (acc: DeepPartial<Label>[], name) => {
+				tagNames, async (acc: Array<DeepPartial<Label>>, name) => {
 
 					const getTag = await Label.findOne({name}) ??
-						await Label.create({name})
+						Label.create({name})
 					return [...acc, getTag]
 
 				}, []
