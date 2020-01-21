@@ -43,7 +43,7 @@ export class KBFResolver {
 	@Mutation(returns => Task)
 	async taskCreate (@Args() {tags: tagNames, ...data}: NewTaskInput) {
 
-		if (tagNames) {
+		if (tagNames.length === 0) {
 
 			const labels = await bb.reduce(
 				tagNames, async (acc: Array<DeepPartial<Label>>, name) => {

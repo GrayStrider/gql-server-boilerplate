@@ -109,7 +109,7 @@ export class UserResolver {
 		 * fetch user and add it to changes
 		 * if not found, throw
 		 */
-		const friends = friendsIds
+		const friends = friendsIds.length > 0
 			? await bb.reduce(friendsIds,
 				async (total: UserNew[], id) => {
 

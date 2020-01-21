@@ -1,19 +1,9 @@
-import {Errors} from '@/utils/Errors'
-import {sig} from '@/utils/libsExport'
+import _ from 'lodash'
 
 function main () {
 
-	throw new Errors.NotFound()
-
+	console.log(_.truncate(undefined, {length: 5}).length)
+	
 }
 
-try {
-
-	main()
-
-} catch (e) {
-
-	console.error(e)
-	sig.error(e)
-
-}
+main()

@@ -1,6 +1,6 @@
 export class DBRequestCounterService {
 
-	private static _instance: DBRequestCounterService
+	private static _instance: DBRequestCounterService | undefined
 
 	private _count = 0
 

@@ -1,7 +1,4 @@
 import signale from 'signale'
-import winston, {format} from 'winston'
-
-const {combine, errors} = format
 
 export {Promise as bb} from 'bluebird'
 export {ApolloError} from 'apollo-server-errors'

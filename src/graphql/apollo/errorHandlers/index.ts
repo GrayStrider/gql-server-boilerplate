@@ -25,7 +25,8 @@ export function ExpectedError (err: GraphQLError) {
 
 export function ValidatorError (err: GraphQLError) {
 
-	const errors: ValidationError[] = err.extensions?.exception?.validationErrors
+	// TODO extend type
+	const errors: ValidationError[] | undefined = err.extensions?.exception?.validationErrors
 	if (errors) return {
 		message: err.message,
 		errors: errors.map(e =>
