@@ -22,6 +22,7 @@ const SAMPLE_SIZE = 50
 
 
 describe('all', () => {
+
 	beforeAll(async () => {
 		
 		({conn} = await setupTests());
@@ -39,12 +40,14 @@ describe('all', () => {
 	describe('users', () => {
 		
 		it(`should create ${SAMPLE_SIZE} new users`, async () => {
+
 			expect.assertions(1)
 			const act = map(omit(['id', 'createdDate']))(generated)
 			expect(act).toStrictEqual(fakes)
 			
 		})
 		it('new user', async () => {
+
 			expect.assertions(1)
 			const {id} = await gqlRequest<P<Mutation, 'userCreate'>>(gql`mutation {
           userCreate(userData: {
@@ -59,6 +62,7 @@ describe('all', () => {
 		})
 
 		it('should search the users by parameters', async () => {
+
 			expect.assertions(1)
 			const act = await gqlRequest<P<Query, 'users'>>(gql`query {
           users(searchBy: {
@@ -77,6 +81,7 @@ describe('all', () => {
 			let testUserId: string
 
 			it('should modify Country', async () => {
+
 				expect.assertions(1)
 				
 				testUserId = await gqlRequest<P<Query, 'users'>>(gql`{
@@ -114,7 +119,7 @@ describe('all', () => {
                 }
             }
         }`)
-				.then(pipe(prop('items'), map(prop('id'))))
+					.then(pipe(prop('items'), map(prop('id'))))
 				expect(Array.isArray(randomIds)).toBe(true)
 
 				const addedFriendsIdsFromResponse =
@@ -129,7 +134,7 @@ describe('all', () => {
                 }
             }
         }`, {friends: randomIds})
-				.then(pipe(prop('friends'), map(prop('id'))))
+					.then(pipe(prop('friends'), map(prop('id'))))
 				
 				expect(addedFriendsIdsFromResponse).toStrictEqual(arrayContaining(randomIds))
 
@@ -150,22 +155,24 @@ describe('all', () => {
     }`
 		
 		it('with up to', async () => {
+
 			expect.assertions(1)
 			
 			const res = await gqlRequest<PaginatedUserResponse>(query, {upTo: 10})
-			.then(prop('items'))
+				.then(prop('items'))
 			
 			expect(res).toHaveLength(10)
 			
 		})
 		it('with both variables', async () => {
+
 			expect.assertions(1)
 			
 			const res = await gqlRequest<PaginatedUserResponse>(query, {
 				upTo: 10,
 				startAt: 50,
 			})
-			.then(res2 => res2.items)
+				.then(res2 => res2.items)
 			
 			expect(res).toHaveLength(1)
 			

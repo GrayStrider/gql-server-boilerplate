@@ -11,6 +11,7 @@ const isExpectedError = (err: AnyObject) =>
 export function ExpectedError (err: GraphQLError<IExpectedError>) {
 
 	if (isExpectedError(err)) {
+
 		const details = err.extensions?.exception.details
 		const res: AnyObject = {message: err.message}
 
@@ -67,6 +68,7 @@ function hasOriginalError (err: AnyObject): err is GraphQLError<MyError> {
 export function VariantsOfOriginalError (err: GraphQLError<MyError>) {
 
 	if (hasOriginalError(err)) {
+
 		const status = err.originalError?.name
 		const message = err.originalError
 		const details = err.extensions?.exception.response

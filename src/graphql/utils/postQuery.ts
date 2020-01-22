@@ -8,8 +8,6 @@ import {flattenObject} from '@/utils/zz_misc/flattenObject'
 import {isNil} from 'ramda'
 
 
-
-
 /**
  * Dispatch GQL query
  * @param url server url, defaults to GQL_URL env. variable

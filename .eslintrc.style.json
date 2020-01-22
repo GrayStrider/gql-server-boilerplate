@@ -21,7 +21,11 @@
     ],
 
     "padded-blocks": "warn",
-    "no-trailing-spaces": "warn",
+    "no-trailing-spaces": [
+      "warn", {
+        "skipBlankLines": true
+      }
+    ],
     "no-multiple-empty-lines": "warn",
     "multiline-comment-style": "warn",
     "capitalized-comments": "warn",
@@ -29,16 +33,20 @@
     "quote-props": ["warn", "as-needed"],
     "function-paren-newline": ["warn", "consistent"],
     "space-before-function-paren": "warn",
-    "object-property-newline": ["warn", {"allowAllPropertiesOnSameLine":  true}],
+    "object-property-newline": ["warn", {"allowAllPropertiesOnSameLine": true}],
     "lines-around-comment": "warn",
-    "comma-dangle": ["warn", {
+    "comma-dangle": [
+      "warn", {
         "arrays": "always-multiline",
         "objects": "always-multiline",
         "imports": "never",
         "exports": "never",
         "functions": "never"
-      }],
+      }
+    ],
     "eol-last": "warn",
+    "newline-per-chained-call": "warn",
+
     "array-element-newline": ["warn", {"minItems": 3}],
     "arrow-parens": ["warn", "as-needed"],
     "@typescript-eslint/quotes": ["error", "single"],
@@ -52,6 +60,7 @@
     "@typescript-eslint/indent": ["warn", "tab"],
     "key-spacing": "warn",
     "new-parens": "warn",
+    "space-infix-ops": "warn",
     "space-before-blocks": "warn",
     "no-useless-rename": "warn",
     "@typescript-eslint/semi": ["warn", "never"],

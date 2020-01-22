@@ -19,9 +19,12 @@
   ],
 
   "rules": {
+    "no-sync": "off",
+    "newline-per-chained-call": "off",
     "jest/no-hooks": ["warn"],
     "@typescript-eslint/return-await": "error",
     "@typescript-eslint/no-useless-constructor": "error",
+    "@typescript-eslint/no-inferrable-types": "warn",
     "no-useless-constructor": "off",
     "@typescript-eslint/no-unused-expressions": ["warn"],
     "@typescript-eslint/default-param-last": ["error"],
@@ -60,6 +63,7 @@
     "@typescript-eslint/prefer-function-type": ["warn"],
     "@typescript-eslint/prefer-for-of": ["warn"],
     "@typescript-eslint/no-unnecessary-type-arguments": ["warn"],
+    "prefer-const": "warn",
     "@typescript-eslint/no-unnecessary-qualifier": ["error"],
     "@typescript-eslint/no-unnecessary-condition": [
       "warn", {
@@ -67,6 +71,7 @@
       }
     ],
     "no-constant-condition": "off",
+    "space-infix-ops": "off",
     "@typescript-eslint/no-throw-literal": ["error"],
     "@typescript-eslint/no-require-imports": ["error"],
     "@typescript-eslint/no-non-null-asserted-optional-chain": ["error"],
@@ -138,16 +143,10 @@
         "default": "array-simple"
       }
     ],
-    "@typescript-eslint/no-unused-vars": [
-      "warn", {
-        "argsIgnorePattern": "[returns|type|xi_]",
-        "ignoreRestSiblings": true,
-        "caughtErrors": "all",
-        "args": "none"
-      }
-    ],
     "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/member-delimiter-style": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/no-empty-function": [
       "warn", {
         "allow": [
