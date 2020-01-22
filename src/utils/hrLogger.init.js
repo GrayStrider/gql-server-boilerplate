@@ -5,6 +5,6 @@ const logPath = './log.json'
 
 const log = JSON.parse(fs.readFileSync(logPath).toString())
 
-const initValue = {init: {start: process.hrtime()}}
+const initValue = {init: {time: process.hrtime()[0]}}
 
-fs.writeFileSync(logPath, JSON.stringify(R.mergeDeepLeft(initValue, log)))
+fs.writeFileSync(logPath, JSON.stringify(initValue, null, 2))
