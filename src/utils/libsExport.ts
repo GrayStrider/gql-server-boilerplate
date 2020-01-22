@@ -1,5 +1,6 @@
 import signale from 'signale'
 import * as RD from 'ramda-adjunct'
+export {hrLogger} from '@/utils/hrLogger'
 export {Promise as bb} from 'bluebird'
 export {ApolloError} from 'apollo-server-errors'
 export const sig = signale
