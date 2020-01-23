@@ -3,8 +3,8 @@ import {Connection, createConnection, getConnection} from 'typeorm'
 import {sig} from '../libsExport'
 import {main} from '@/server'
 import {GQL_URL} from 'config/_consts'
-import {ORMConfig} from 'config/_typeorm'
 import {isUp} from '@/utils/test-utils/isUp'
+import ORMConfig from 'config/_typeorm'
 
 export async function setupTests () {
 	

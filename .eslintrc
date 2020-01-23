@@ -15,15 +15,21 @@ extends:
   - 'plugin:import/typescript'
 
 rules:
+  import/export: error
+  import/prefer-default-export: error
   import/default: off
   import/exports-last: error
+  import/no-duplicates: error
   import/no-extraneous-dependencies: error
   import/no-named-as-default-member: error
+  import/extensions:
+    - error
+    - never
+    - json: always
   import/no-unresolved: error
   import/no-absolute-path: error
   import/no-dynamic-require: error
   import/no-amd: error
-  import/order: error
   import/no-mutable-exports: error
   import/no-commonjs: error
   import/no-self-import: error

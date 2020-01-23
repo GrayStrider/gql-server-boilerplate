@@ -6,7 +6,7 @@ import {BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn
 
 @Entity()
 @ObjectType()
-export class Category extends BaseEntity {
+class Category extends BaseEntity {
 	
 	@Field()
 	@PrimaryGeneratedColumn()
@@ -29,3 +29,5 @@ export class Category extends BaseEntity {
 	children: Category
 	
 }
+
+export default Category

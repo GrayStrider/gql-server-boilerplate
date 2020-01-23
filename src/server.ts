@@ -7,7 +7,6 @@ import bodyParser from 'koa-bodyparser'
 import {useContainer, createConnection} from 'typeorm'
 import {Container} from 'typedi'
 import RedisStore from 'koa-redis'
-import {ORMConfig} from 'config/_typeorm'
 import {sig} from '@/utils/libsExport'
 import {redisSessionClient} from '@/DB/redis'
 import {PORT, HOST, NODE_ENV} from 'config/_consts'
@@ -15,6 +14,7 @@ import {router} from '@/routes'
 import {redirect, errorHandler} from '@/utils/koa/middlewares'
 import {makeUsersServer} from '@/models/UsersPlayground'
 import {makeKBFServer} from '@/models/KBF'
+import ORMConfig from 'config/_typeorm'
 
 if (NODE_ENV === undefined)
 	sig.error('process.env is undefined!')

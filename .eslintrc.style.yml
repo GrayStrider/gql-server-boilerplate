@@ -1,6 +1,7 @@
 extends: .eslintrc
 rules:
-  import/export: warn
+  import/order: warn
+
 
   '@typescript-eslint/brace-style':
     - warn

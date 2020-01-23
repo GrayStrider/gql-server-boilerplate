@@ -3,7 +3,7 @@ import {Container} from 'typedi'
 import {NonEmptyArray} from 'type-graphql/dist/utils/types'
 import {ErrorHandler} from '@/utils/typegraphql/middleware/ErrorHandler'
 import {pubSub} from '@/graphql/type-graphql/pubSub'
-import {authChecker} from '@/graphql/type-graphql/middleware/authChecker'
+import authChecker from '@/graphql/type-graphql/middleware/authChecker'
 
 export type Resolvers = NonEmptyArray<Function> | NonEmptyArray<string>
 export const createSchema = async (resolvers: Resolvers, schemaNamePrefix: string) =>

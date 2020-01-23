@@ -2,7 +2,7 @@ import {PostgresConnectionOptions} from 'typeorm/driver/postgres/PostgresConnect
 import {POSTGRES_URL, POSTRGRES_DATABASE, POSTRGRES_PASSWORD, POSTRGRES_PORT, POSTRGRES_USERNAME} from './_consts'
 import {CustomLogger} from '@/DB/typeorm/Logger'
 
-export const ORMConfig: PostgresConnectionOptions = {
+const ORMConfig: PostgresConnectionOptions = {
 	name: 'default',
 	type: 'postgres',
 	host: POSTGRES_URL,
@@ -14,3 +14,5 @@ export const ORMConfig: PostgresConnectionOptions = {
 	logging: ['query', 'error'],
 	entities: ['src/models/**/entity/**/!(*.spec.*|*.test.*)'],
 }
+
+export default ORMConfig
