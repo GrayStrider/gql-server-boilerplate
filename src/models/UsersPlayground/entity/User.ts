@@ -47,7 +47,6 @@ export class UserNew extends BaseEntity {
 	@Field(returns => Countries)
 	@Column({type: 'enum', enum: Countries})
 	country: Countries
-	
 	@JoinTable()
 	@ManyToMany(type => UserNew, friends => friends.friendsInverse, {cascade: ['insert', 'update']})
 	
