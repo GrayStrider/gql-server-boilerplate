@@ -15,6 +15,8 @@ import Color from '@/models/KBF/entity/Color'
 import Task from '@/models/KBF/entity/Task'
 import Comment from '@/models/KBF/entity/Comment'
 import ColorValues from '@/models/KBF/entity/Color.variants'
+import SearchTaskInput from '@/models/KBF/inputs/SearchTaskInput'
+import NewTaskInput from '@/models/KBF/inputs/NewTaskInput'
 
 export default async function makeKBFServer () {
 	
@@ -26,11 +28,13 @@ export default async function makeKBFServer () {
 		.getMiddleware({path})
 	
 }
-
 export {
 	User, TColumn, Swimlane,
+	NewTaskInput,
+
 	Subtask,
 	Priority,
+	SearchTaskInput,
 	TaskNumber,
 	Label,
 	TDate,

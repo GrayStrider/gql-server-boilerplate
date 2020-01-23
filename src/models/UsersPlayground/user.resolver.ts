@@ -4,9 +4,10 @@ import {hash, compare} from 'bcryptjs'
 import PaginatedUserResponse from '@/graphql/type-graphql/paginatedResponse'
 import {Errors, userNotFoundError, bb, RD} from '@/utils'
 import {generateMockUsers, UserNew} from '@/models/UsersPlayground'
-import {UserLoginInput, UserCreateInput, UserModifyInput, UserSearchInput} from '@/models/UsersPlayground/user.inputs'
 import {Context} from '@/graphql'
-import AuthRoles from '@/models/UsersPlayground/auth/authRoles'
+import AuthRoles from '@/models/UsersPlayground/lib/auth/authRoles'
+import {UserLoginInput, UserCreateInput, UserSearchInput, UserModifyInput} from '@/models/UsersPlayground/inputs'
+
 
 const birthYearFromAge = (age: number) => new Date().getFullYear() - age
 const validatePassword = (password: string): true => {

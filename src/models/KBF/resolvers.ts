@@ -1,9 +1,8 @@
 import {Args, Mutation, Query, Resolver} from 'type-graphql'
 import {DeepPartial} from 'typeorm'
 import {LikeWrapper} from '@/DB/typeorm/index'
-import {Label, Task} from '@/models/KBF/index'
+import {Label, Task, SearchTaskInput, NewTaskInput} from '@/models/KBF/index'
 import {bb, RD} from '@/utils'
-import {NewTaskInput, SearchTaskInput} from '@/models/KBF/inputs'
 
 // TODO recommended to implement this for every mutation, kinda makes sense.
 export interface MutationResponse {
