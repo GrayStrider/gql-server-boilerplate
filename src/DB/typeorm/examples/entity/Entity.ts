@@ -2,7 +2,7 @@ import {Contains, MaxLength} from 'class-validator'
 import {Field, Int, ObjectType} from 'type-graphql'
 import {Column, Entity, Generated, OneToMany} from 'typeorm'
 import {SimpleJSONObjectTypeInterface} from '../ObjectTypes'
-import {Child} from './ChildEntity'
+import Child from './ChildEntity'
 import {EmbeddedFeatures, GenericFeatures} from './GenericFeaturesEntity'
 
 

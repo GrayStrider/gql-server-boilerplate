@@ -8,7 +8,7 @@ import {ColorValues} from '@/models/KBF/entity/index'
 
 @ObjectType()
 @Entity()
-export class Color extends BaseEntity {
+class Color extends BaseEntity {
 	
 	@Field(returns => ID)
 	@PrimaryGeneratedColumn('uuid')
@@ -34,3 +34,5 @@ export class Color extends BaseEntity {
 	board: Board
 	
 }
+
+export default Color

@@ -1,5 +1,5 @@
 import {Args, Query, Resolver} from 'type-graphql'
-import {Child} from './entity/ChildEntity'
+import Child from './entity/ChildEntity'
 import {ExampleEntity} from './entity/Entity'
 import {ExampleEntitySearchInput} from './Inputs'
 

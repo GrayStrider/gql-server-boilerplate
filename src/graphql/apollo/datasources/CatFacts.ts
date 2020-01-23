@@ -39,4 +39,4 @@ interface CatFact {
 	}
 }
 
-export {CatFactsAPI}
+export default CatFactsAPI

@@ -5,7 +5,7 @@ import {GenericFeatures} from './GenericFeaturesEntity'
 
 @ObjectType()
 @Entity()
-export class Child extends GenericFeatures {
+class Child extends GenericFeatures {
 	
 	@Field()
 	@Column({default: 'default'})
@@ -16,3 +16,5 @@ export class Child extends GenericFeatures {
 	parent: ExampleEntity
 	
 }
+
+export default Child
