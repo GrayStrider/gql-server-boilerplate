@@ -1,10 +1,10 @@
 import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from 'typeorm'
 import {ObjectType, Field, ID} from 'type-graphql'
-import {Swimlane, TColumn, Color} from '@/models/KBF/entity/index'
+import {Swimlane, TColumn, Color} from '@/models/KBF'
 
 @ObjectType()
 @Entity()
-class Board {
+export default class Board {
 	
 	@PrimaryGeneratedColumn('uuid')
 	@Field(returns => ID)
@@ -26,4 +26,3 @@ class Board {
 	
 }
 
-export default Board

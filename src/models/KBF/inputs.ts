@@ -1,9 +1,9 @@
 import {Max} from 'class-validator'
 import {ArgsType, Field} from 'type-graphql'
-import {Priority} from '@/models/KBF/entity/Priority'
+import {Priority} from '@/models/KBF/index'
 
 @ArgsType()
-export class NewTaskInput {
+class NewTaskInput {
 	
 	@Field({defaultValue: ''})
 	title: string
@@ -24,7 +24,7 @@ export class NewTaskInput {
 }
 
 @ArgsType()
-export class SearchTaskInput {
+class SearchTaskInput {
 	
 	@Field({nullable: true})
 	@Max(100)
@@ -43,3 +43,5 @@ export class SearchTaskInput {
 	tag: string
 	
 }
+
+export {SearchTaskInput, NewTaskInput}

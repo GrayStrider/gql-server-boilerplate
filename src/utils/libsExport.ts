@@ -1,38 +1,65 @@
 import signale from 'signale'
 import * as RD from 'ramda-adjunct'
+import chalk from 'chalk'
+import {keys, head, values} from 'ramda'
+import axios from 'axios'
 
-export {Promise as bb} from 'bluebird'
-export {ApolloError} from 'apollo-server-errors'
-export const sig = signale
 
-export const log = (message?: unknown, ...optionalParams: unknown[]) =>
+const sig = signale
+
+const log = (message?: unknown, ...optionalParams: unknown[]) =>
 	console.log(message, ...optionalParams)
 
-export const consoleWrite = (message?: unknown, ...optionalParams: unknown[]) => {
+const consoleWrite = (message?: unknown, ...optionalParams: unknown[]) => {
 	
 	process.stdout.write(`${JSON.stringify(message)}`)
 	optionalParams.forEach(msg => process.stdout.write(`${JSON.stringify(msg)}`))
 	
 }
-export {RD}
-// Const logger = winston.createLogger({
-// 	Level: 'info',
-// 	Format: winston.format.json(),
-// 	DefaultMeta: {service: 'user-service'},
-// 	Transports: [
-//
-// 		/*
-// 		 *
-// 		 * - Write all logs with level `error` and below to `error.log`
-// 		 * - Write all logs with level `info` and below to `combined.log`
-// 		 *
-// 		 */
-//
-// 		New winston.transports.File({filename: 'error.log', level: 'error'}), new winston.transports.File({filename:
-// 'combined.log'}), ], })  if (process.env.NODE_ENV !== 'production') logger.add(new winston.transports.Console({
-// Format: combine( errors({stack: true}) ), }))
-export async function sleep (ms: number): Promise<void> {
+async function isUp (url: string): Promise<boolean> {
+	
+	return axios.get(url)
+		.then(() => true)
+		.catch(err => {
+			
+			if (err.code === 'ECONNREFUSED') return false
+			
+			sig.warn(err.message)
+			return true
+			
+		})
+	
+}
+async function sleep (ms: number): Promise<void> {
 	
 	return new Promise(resolve => setTimeout(() => resolve(undefined), ms))
 	
 }
+function warn (...msg: unknown[]) {
+	
+	msg.forEach(value => {
+		
+		console.log(
+			chalk.bgBlack.bold.whiteBright(
+				typeof value === 'object'
+					? JSON.stringify(value, null, 2)
+					: value
+			)
+		)
+		
+	})
+	
+}
+function flattenObject (input: object) {
+	
+	return keys(input).length > 1
+		? input
+		: head(values(input))
+	
+}
+
+export {flattenObject, warn, sleep, RD, log, consoleWrite, sig, isUp}
+export {Promise as bb} from 'bluebird'
+export {ApolloError} from 'apollo-server-errors'
+
+

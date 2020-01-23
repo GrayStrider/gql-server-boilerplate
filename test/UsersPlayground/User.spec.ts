@@ -6,12 +6,11 @@ import * as faker from 'faker'
 import gql from 'graphql-tag'
 import {head, map, omit, pipe, prop} from 'ramda'
 import {Connection} from 'typeorm'
-import {setupTests} from 'src/utils/test-utils/setupTests'
+import {setupTests} from 'src/utils'
 import {Mutation, PaginatedUserResponse, Query} from 'src/graphql/generated/typings'
-import {gqlRequest} from 'src/graphql/utils/postQuery'
-import {generateMockUsers} from 'src/models/UsersPlayground/lib/generateMockUsers'
-import {Await} from 'src/types/Await'
-import {P} from 'src/types/GetOnePropertyOfType'
+import {gqlRequest} from 'src/graphql/utils'
+import {generateMockUsers} from 'src/models/UsersPlayground'
+import {Await, P} from 'src/types'
 
 let conn: Connection
 let server: http.Server | null

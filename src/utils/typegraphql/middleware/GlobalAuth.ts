@@ -2,7 +2,7 @@ import {MiddlewareFn} from 'type-graphql'
 import {Errors} from '@/utils/Errors'
 import {Context} from '@/graphql'
 import {HOST, PORT} from 'config/_consts'
-import {RD} from '@/utils/libsExport'
+import {RD} from '@/utils'
 
 export const publicFields = ['register', 'login']
 

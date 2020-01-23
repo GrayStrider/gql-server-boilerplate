@@ -1,8 +1,8 @@
 import {ApolloError} from 'apollo-server-errors'
 import {Context} from '@/graphql'
-import {makeSchema} from '@/graphql/utils/makeSchema'
+import {makeSchema} from '@/graphql/utils'
 
-export const plainSchema = makeSchema<Context>('src/graphql/schemas/plain.graphql',
+const plainSchema = makeSchema<Context>('src/graphql/schemas/plain.graphql',
 	{
 		resolvers: {
 			Query: {
@@ -35,3 +35,5 @@ export const plainSchema = makeSchema<Context>('src/graphql/schemas/plain.graphq
 			},
 		},
 	})
+
+export default plainSchema

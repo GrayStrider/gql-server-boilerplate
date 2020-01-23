@@ -1,7 +1,6 @@
 import {Contains} from 'class-validator'
 import {ArgsType, Field} from 'type-graphql'
-import Category from './Adjacency list'
-import {ExampleEntity} from './entity/Entity'
+import {ExampleEntity, Category} from '@/DB/typeorm/examples/index'
 
 @ArgsType()
 export class ListsInput implements Partial<Category> {

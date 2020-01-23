@@ -1,5 +1,5 @@
 import {fromEvent} from 'rxjs'
-import {log} from '@/utils/libsExport'
+import {log} from '@/utils'
 
 /**
  * [Node input]

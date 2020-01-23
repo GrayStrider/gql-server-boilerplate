@@ -2,12 +2,13 @@ import {ObjectType, Field, ID} from 'type-graphql'
 import {Entity, OneToMany, Column, ManyToOne, BaseEntity, PrimaryGeneratedColumn} from 'typeorm'
 // Have to be separate, probably something to do with loading order or something.
 import Board from './Board'
-import {ColorValues, Task} from '@/models/KBF/entity/index'
+import {Task} from '@/models/KBF'
+import ColorValues from '@/models/KBF/entity/Color.variants'
 
 
 @ObjectType()
 @Entity()
-class Color extends BaseEntity {
+export default class Color extends BaseEntity {
 	
 	@Field(returns => ID)
 	@PrimaryGeneratedColumn('uuid')
@@ -34,4 +35,3 @@ class Color extends BaseEntity {
 	
 }
 
-export default Color

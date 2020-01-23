@@ -9,4 +9,4 @@ registerEnumType(SubTopics, {
 	name: 'SubTopics',
 })
 
-export {SubTopics}
+export default SubTopics

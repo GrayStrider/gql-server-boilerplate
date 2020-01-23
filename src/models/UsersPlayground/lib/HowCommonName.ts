@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export async function howCommonIsName (firstName: string, lastName: string) {
+export default async function howCommonIsName (firstName: string, lastName: string) {
 	
 	const res = await axios.get(`http://howmanyofme.com/people/${firstName}_${lastName}/`)
 	const num = res.data.toString()

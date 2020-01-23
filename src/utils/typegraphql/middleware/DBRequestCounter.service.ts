@@ -1,4 +1,4 @@
-export class DBRequestCounterService {
+class DBRequestCounterService {
 	
 	private static _instance: DBRequestCounterService | undefined
 	
@@ -32,3 +32,5 @@ export class DBRequestCounterService {
 	}
 	
 }
+
+export default DBRequestCounterService

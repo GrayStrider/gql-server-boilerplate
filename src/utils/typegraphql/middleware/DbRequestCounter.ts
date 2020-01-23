@@ -2,7 +2,7 @@ import {debounce} from 'lodash'
 import {MiddlewareFn} from 'type-graphql'
 import {sig} from 'src/utils/libsExport'
 import {Context} from '@/graphql'
-import {DBRequestCounterService} from '@/utils/typegraphql/middleware/DBRequestCounter.service'
+import DBRequestCounterService from '@/utils/typegraphql/middleware/DBRequestCounter.service'
 
 
 const collect = debounce((count: number) => {
@@ -12,7 +12,7 @@ const collect = debounce((count: number) => {
 	
 }, 200)
 
-export const dbRequestCounter: MiddlewareFn<Context> =
+const dbRequestCounter: MiddlewareFn<Context> =
 	async ({context, args, info, root}, next) => {
 		
 		const res = await next()
@@ -23,3 +23,4 @@ export const dbRequestCounter: MiddlewareFn<Context> =
 		
 	}
 
+export default dbRequestCounter

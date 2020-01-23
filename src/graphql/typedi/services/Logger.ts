@@ -1,7 +1,7 @@
 import {Service} from 'typedi'
 
 @Service()
-export class Logger {
+export default class Logger {
 	
 	log (...args: unknown[]) {
 		

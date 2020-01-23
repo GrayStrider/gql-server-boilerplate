@@ -1,7 +1,6 @@
 import {Field, ObjectType} from 'type-graphql'
 import {Column, Entity, ManyToOne} from 'typeorm'
-import {ExampleEntity} from './Entity'
-import {GenericFeatures} from './GenericFeaturesEntity'
+import {ExampleEntity, GenericFeatures} from '@/DB/typeorm/examples'
 
 @ObjectType()
 @Entity()

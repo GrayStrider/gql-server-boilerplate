@@ -1,11 +1,11 @@
 import {Entity, PrimaryGeneratedColumn, OneToMany, ManyToOne, BaseEntity} from 'typeorm'
 import {Field, ID, ObjectType} from 'type-graphql'
-import Task from '@/models/KBF/entity/Task'
 import Board from '@/models/KBF/entity/Board'
+import {Task} from '@/models/KBF'
 
 @ObjectType()
 @Entity()
-class Swimlane extends BaseEntity {
+export default class Swimlane extends BaseEntity {
 	
 	@Field(returns => ID)
 	@PrimaryGeneratedColumn('uuid')
@@ -21,4 +21,3 @@ class Swimlane extends BaseEntity {
 	
 }
 
-export default Swimlane

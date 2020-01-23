@@ -1,5 +1,5 @@
-import {main} from '@/server'
-import {sig} from '@/utils/libsExport'
+import main from '@/server'
+import {sig} from '@/utils'
 import {NODE_ENV} from 'config/_consts'
 
 process.on('uncaughtException', error => {

@@ -2,7 +2,7 @@ import {GraphQLError} from 'graphql'
 import {flow} from 'lodash'
 import {VariantsOfOriginalError, ValidatorError, ExpectedError} from '@/graphql/apollo/errorHandlers'
 
-export function formatError (err: GraphQLError) {
+function formatError (err: GraphQLError) {
 	
 	return flow(
 		ValidatorError, ExpectedError, VariantsOfOriginalError
@@ -10,3 +10,4 @@ export function formatError (err: GraphQLError) {
 	
 }
 
+export default formatError

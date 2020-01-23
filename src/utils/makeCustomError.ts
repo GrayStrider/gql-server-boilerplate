@@ -4,11 +4,11 @@ import {ApolloError} from 'apollo-server-errors'
 import {ErrorCodes} from '@/utils/Errors'
 
 // eslint-disable-next-line @typescript-eslint/interface-name-prefix
-export interface IExpectedError {
+interface IExpectedError {
 	details?: AnyObject | string
 }
 
-export function makeCustomError (
+function makeCustomError (
 	code: ErrorCodes, defaultMessage: string, defaultDetails?: AnyObject | string
 ) {
 	
@@ -27,3 +27,4 @@ export function makeCustomError (
 	
 }
 
+export {makeCustomError, IExpectedError}

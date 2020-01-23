@@ -1,8 +1,8 @@
 import {Resolver, Query} from 'type-graphql'
-import {Task} from '@/models/KBF/entity'
+import {Task} from '@/models/KBF'
 
 @Resolver()
-export class GetResolver {
+class GetResolver {
 	
 	@Query(returns => [Task])
 	async tasks () {
@@ -12,3 +12,5 @@ export class GetResolver {
 	}
 	
 }
+
+export default GetResolver

@@ -1,5 +1,5 @@
 import {Middleware} from 'koa'
-import {sig} from '@/utils/libsExport'
+import {sig} from '@/utils'
 
 export const redirect: Middleware = async (ctx, next) => {
 	

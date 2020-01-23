@@ -1,11 +1,10 @@
 import {ObjectType, Field, ID} from 'type-graphql'
 import {Entity, Column, ManyToMany, ManyToOne, JoinTable, BaseEntity, PrimaryGeneratedColumn} from 'typeorm'
-import User from '@/models/KBF/entity/User'
-import Task from '@/models/KBF/entity/Task'
+import {User, Task} from '@/models/KBF'
 
 @ObjectType()
 @Entity()
-class Subtask extends BaseEntity {
+export default class Subtask extends BaseEntity {
 	
 	@Field(returns => ID)
 	@PrimaryGeneratedColumn('uuid')
@@ -39,4 +38,3 @@ class Subtask extends BaseEntity {
 	
 }
 
-export default Subtask

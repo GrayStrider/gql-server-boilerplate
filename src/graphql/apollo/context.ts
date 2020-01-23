@@ -3,14 +3,17 @@ import {Context as KoaContext} from 'koa'
 import {dataSources} from '@/graphql'
 
 
-export interface SubscriptionContext {
+interface SubscriptionContext {
 	connection: AnyObject
 }
 
-export const context = ({ctx: {session, request}}: { ctx: KoaContext }) => ({
+const context = ({ctx: {session, request}}: { ctx: KoaContext }) => ({
 	session,
 	request,
 })
-export type Context = {
+
+type Context = {
 	dataSources: ReturnType<typeof dataSources>
 } & ReturnType<typeof context>
+
+export {Context, context}

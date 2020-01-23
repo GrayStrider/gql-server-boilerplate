@@ -1,7 +1,7 @@
 import {Field, ObjectType} from 'type-graphql'
 
 @ObjectType()
-export class SimpleJSONObjectTypeInterface {
+class SimpleJSONObjectTypeInterface {
 	
 	@Field()
 	name: string
@@ -10,3 +10,5 @@ export class SimpleJSONObjectTypeInterface {
 	age: number
 	
 }
+
+export default SimpleJSONObjectTypeInterface

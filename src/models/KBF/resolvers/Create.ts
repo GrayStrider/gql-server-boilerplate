@@ -1,5 +1,5 @@
 import {Resolver, Mutation} from 'type-graphql'
-import {Task} from '@/models/KBF/entity'
+import {Task} from '@/models/KBF'
 
 @Resolver()
 class CreateResolver {

@@ -4,7 +4,7 @@
  * of GraphQL error
  */
 
-export class Error2 extends Error {
+class Error2 extends Error {
 	
 	constructor (public newField: string, message: string) {
 		
@@ -14,7 +14,7 @@ export class Error2 extends Error {
 	
 }
 
-export class TypeORMError extends Error {
+export default class TypeORMError extends Error {
 	
 	constructor (message: string, public data: object) {
 		

@@ -1,7 +1,7 @@
 import {registerDecorator, ValidationOptions, ValidationArguments} from 'class-validator'
 import {AnyObject} from 'tsdef'
 
-export function IsValidAge (minAge: number, validationOptions?: ValidationOptions) {
+export default function IsValidAge (minAge: number, validationOptions?: ValidationOptions) {
 	
 	return function ValidAge (object: AnyObject, propertyName: string) {
 		

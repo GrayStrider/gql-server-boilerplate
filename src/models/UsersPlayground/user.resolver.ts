@@ -1,14 +1,12 @@
 import {Validator} from 'class-validator'
 import {Arg, Authorized, Mutation, Query, Resolver, Ctx} from 'type-graphql'
 import {hash, compare} from 'bcryptjs'
-import {bb, RD} from 'src/utils/libsExport'
-import AuthRoles from 'src/models/UsersPlayground/auth/authRoles'
-import {PaginatedUserResponse} from '@/graphql/type-graphql/paginatedResponse'
-import {UserNew} from 'src/models/UsersPlayground/entity/User'
-import {Errors, userNotFoundError} from '@/utils/Errors'
-import {generateMockUsers} from 'src/models/UsersPlayground/lib/generateMockUsers'
-import {UserCreateInput, UserModifyInput, UserSearchInput, UserLoginInput} from '@/models/UsersPlayground/user.inputs'
+import PaginatedUserResponse from '@/graphql/type-graphql/paginatedResponse'
+import {Errors, userNotFoundError, bb, RD} from '@/utils'
+import {generateMockUsers, UserNew} from '@/models/UsersPlayground'
+import {UserLoginInput, UserCreateInput, UserModifyInput, UserSearchInput} from '@/models/UsersPlayground/user.inputs'
 import {Context} from '@/graphql'
+import AuthRoles from '@/models/UsersPlayground/auth/authRoles'
 
 const birthYearFromAge = (age: number) => new Date().getFullYear() - age
 const validatePassword = (password: string): true => {
@@ -20,7 +18,7 @@ const validatePassword = (password: string): true => {
 }
 
 @Resolver()
-export class UserResolver {
+class UserResolver {
 	
 	@Mutation(returns => UserNew)
 	async login (
@@ -81,7 +79,7 @@ export class UserResolver {
 	@Query(returns => [UserNew])
 	async users (@Arg('searchBy', {nullable: true}) input: UserSearchInput) {
 		
-		// LikeWrapper(input) // TODO make it work with enums, or create a separate middleware decorator for strings
+		// LikePropertyWrapper(input) // TODO make it work with enums, or create a separate middleware decorator for strings
 		return UserNew.find(input)
 		
 	}
@@ -124,3 +122,5 @@ export class UserResolver {
 	}
 	
 }
+
+export default UserResolver

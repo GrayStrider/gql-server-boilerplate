@@ -3,11 +3,9 @@ import gql from 'graphql-tag'
 import {times} from 'lodash'
 import {GraphQLClient} from 'graphql-request'
 import {print} from 'graphql'
-import Countries from './CountriesList'
-import {bb} from '@/utils/libsExport'
+import {bb, flattenObject} from '@/utils'
 import {SERVER_URL} from 'config/_consts'
-import {UserCreateInput} from '@/models/UsersPlayground/user.inputs'
-import {flattenObject} from '@/utils/zz_misc/flattenObject'
+import {UserCreateInput, Countries} from '@/models/UsersPlayground'
 
 const query = gql`mutation userCreate($input: UserCreateInput!) {
     userCreate(userData: $input) {
@@ -22,7 +20,7 @@ const query = gql`mutation userCreate($input: UserCreateInput!) {
     }
 }`
 
-export async function generateMockUsers (amount: number) {
+export default async function generateMockUsers (amount: number) {
 	
 	const fakes = times(amount, () => ({
 		firstName: faker.name.firstName(),
@@ -51,4 +49,3 @@ export async function generateMockUsers (amount: number) {
 	}
 	
 }
-

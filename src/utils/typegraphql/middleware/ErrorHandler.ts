@@ -2,9 +2,9 @@ import {MiddlewareFn} from 'type-graphql'
 import _ from 'lodash'
 import {isEmpty} from 'ramda'
 import {Context} from '@/graphql'
-import {Errors} from '@/utils/Errors'
+import {Errors} from '@/utils'
 
-export const ErrorHandler: MiddlewareFn<Context> =
+const ErrorHandler: MiddlewareFn<Context> =
 	async ({context, args, info, root}, next) => {
 		
 		try {
@@ -30,3 +30,5 @@ export const ErrorHandler: MiddlewareFn<Context> =
 		}
 		
 	}
+
+export default ErrorHandler

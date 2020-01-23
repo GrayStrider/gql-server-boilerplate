@@ -1,14 +1,12 @@
 import {Contains, MaxLength} from 'class-validator'
 import {Field, Int, ObjectType} from 'type-graphql'
 import {Column, Entity, Generated, OneToMany} from 'typeorm'
-import {SimpleJSONObjectTypeInterface} from '../ObjectTypes'
-import Child from './ChildEntity'
-import {EmbeddedFeatures, GenericFeatures} from './GenericFeaturesEntity'
+import {GenericFeatures, EmbeddedFeatures, Child, SimpleJSONObjectTypeInterface} from '@/DB/typeorm/examples'
 
 
 @ObjectType()
 @Entity()
-export class ExampleEntity extends GenericFeatures {
+export default class ExampleEntity extends GenericFeatures {
 	
 	@Field()
 	// @PrimaryColumn() // you can have several

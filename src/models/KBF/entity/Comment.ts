@@ -1,10 +1,11 @@
 import {PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, BaseEntity, Entity} from 'typeorm'
 import {Field, ID, ObjectType} from 'type-graphql'
-import {Task, User} from '@/models/KBF/entity/index'
+import {Task, User} from '@/models/KBF'
 
 @ObjectType()
 @Entity()
-class Comment extends BaseEntity {
+
+export default class Comment extends BaseEntity {
 	
 	@Field(returns => ID)
 	@PrimaryGeneratedColumn('uuid')
@@ -27,5 +28,3 @@ class Comment extends BaseEntity {
 	task: Task
 	
 }
-
-export default Comment

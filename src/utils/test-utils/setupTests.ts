@@ -1,12 +1,11 @@
 import * as http from 'http'
 import {Connection, createConnection, getConnection} from 'typeorm'
-import {sig} from '../libsExport'
-import {main} from '@/server'
+import main from '@/server'
 import {GQL_URL} from 'config/_consts'
-import {isUp} from '@/utils/test-utils/isUp'
 import ORMConfig from 'config/_typeorm'
+import {sig, isUp} from '@/utils'
 
-export async function setupTests () {
+export default async function setupTests () {
 	
 	let conn: Connection
 	let server: http.Server | null

@@ -1,7 +1,6 @@
 import {IsEmail, IsInt, Max, Min} from 'class-validator'
 import {Field, InputType, Int} from 'type-graphql'
-import {UserNew} from './entity/User'
-import Countries from './lib/CountriesList'
+import {Countries, UserNew} from '@/models/UsersPlayground/index'
 
 /**
  * @InputType will generate a real GraphQLInputType type and should be used when we need a nested object in the args:
@@ -17,7 +16,7 @@ type UserCreateType = Partial<Omit<UserNew, 'age'>> & { age: number }
 const IsValidEmail = IsEmail({}, {message: 'Invalid email format'})
 
 @InputType()
-export class UserCreateInput implements UserCreateType {
+class UserCreateInput implements UserCreateType {
 	
 	@Field()
 	firstName: string
@@ -50,7 +49,7 @@ export class UserCreateInput implements UserCreateType {
  * Same fields as in create, but all nullable
  */
 @InputType()
-export class UserModifyInput implements UserCreateInput {
+class UserModifyInput implements UserCreateInput {
 	
 	@Field({nullable: true})
 	firstName: string
@@ -80,7 +79,7 @@ export class UserModifyInput implements UserCreateInput {
  * Omit certain fields in search
  */
 @InputType()
-export class UserSearchInput implements Omit<UserModifyInput, 'password' | 'friendsIds'> {
+class UserSearchInput implements Omit<UserModifyInput, 'password' | 'friendsIds'> {
 	
 	[key: string]: unknown;
 	
@@ -106,7 +105,7 @@ export class UserSearchInput implements Omit<UserModifyInput, 'password' | 'frie
 }
 
 @InputType()
-export class UserLoginInput implements Pick<UserCreateInput, 'email' | 'password'> {
+class UserLoginInput implements Pick<UserCreateInput, 'email' | 'password'> {
 	
 	@Field()
 	@IsValidEmail
@@ -116,3 +115,5 @@ export class UserLoginInput implements Pick<UserCreateInput, 'email' | 'password
 	password: string
 	
 }
+
+export {UserCreateInput, UserLoginInput, UserModifyInput, UserSearchInput}

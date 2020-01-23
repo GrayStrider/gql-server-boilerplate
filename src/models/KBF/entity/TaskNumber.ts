@@ -1,10 +1,10 @@
 import {ObjectType, Field, ID} from 'type-graphql'
 import {Entity, OneToOne, Column, BaseEntity, PrimaryGeneratedColumn} from 'typeorm'
-import Task from '@/models/KBF/entity/Task'
+import {Task} from '@/models/KBF'
 
 @ObjectType()
 @Entity()
-class TaskNumber extends BaseEntity {
+export default class TaskNumber extends BaseEntity {
 	
 	@Field(returns => ID)
 	@PrimaryGeneratedColumn('uuid')
@@ -23,4 +23,3 @@ class TaskNumber extends BaseEntity {
 	
 }
 
-export default TaskNumber

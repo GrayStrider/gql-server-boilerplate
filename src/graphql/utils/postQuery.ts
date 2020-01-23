@@ -5,7 +5,7 @@ import {AnyObject} from 'tsdef'
 import {isNil} from 'ramda'
 import {GQL_URL} from 'config/_consts'
 import {Mutation, Query} from '@/graphql/generated/typings'
-import {flattenObject} from '@/utils/zz_misc/flattenObject'
+import {flattenObject} from '@/utils'
 
 
 /**

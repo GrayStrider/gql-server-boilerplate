@@ -1,10 +1,10 @@
 import {PrimaryGeneratedColumn, Column, ManyToMany, Entity, BaseEntity} from 'typeorm'
 import {Field, ObjectType, ID} from 'type-graphql'
-import Task from './Task'
+import {Task} from '@/models/KBF'
 
 @ObjectType()
 @Entity()
-class Label extends BaseEntity {
+export default class Label extends BaseEntity {
 	
 	@Field(returns => ID)
 	@PrimaryGeneratedColumn('uuid')
@@ -24,4 +24,3 @@ class Label extends BaseEntity {
 	
 }
 
-export default Label

@@ -1,12 +1,12 @@
 import {buildSchema} from 'type-graphql'
 import {Container} from 'typedi'
 import {NonEmptyArray} from 'type-graphql/dist/utils/types'
-import {ErrorHandler} from '@/utils/typegraphql/middleware/ErrorHandler'
-import {pubSub} from '@/graphql/type-graphql/pubSub'
+import ErrorHandler from '@/utils/typegraphql/middleware/ErrorHandler'
+import pubSub from '@/graphql/type-graphql/pubSub'
 import authChecker from '@/graphql/type-graphql/middleware/authChecker'
 
-export type Resolvers = NonEmptyArray<Function> | NonEmptyArray<string>
-export const createSchema = async (resolvers: Resolvers, schemaNamePrefix: string) =>
+type Resolvers = NonEmptyArray<Function> | NonEmptyArray<string>
+const createSchema = async (resolvers: Resolvers, schemaNamePrefix: string) =>
 	buildSchema({
 		// For testing
 		emitSchemaFile: {
@@ -30,3 +30,4 @@ export const createSchema = async (resolvers: Resolvers, schemaNamePrefix: strin
 		pubSub,
 	})
 
+export default createSchema

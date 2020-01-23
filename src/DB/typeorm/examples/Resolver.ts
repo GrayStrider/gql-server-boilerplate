@@ -1,11 +1,9 @@
 import {Args, Query, Resolver} from 'type-graphql'
-import Child from './entity/ChildEntity'
-import {ExampleEntity} from './entity/Entity'
-import {ExampleEntitySearchInput} from './Inputs'
+import {ExampleEntity, Child, ExampleEntitySearchInput} from '@/DB/typeorm/examples/index'
 
 
 @Resolver()
-export class ExampleEntityResolver {
+export default class ExampleEntityResolver {
 	
 	@Query(returns => [ExampleEntity])
 	async exampleEntity (@Args()props: ExampleEntitySearchInput) {

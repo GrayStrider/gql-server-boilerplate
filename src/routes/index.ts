@@ -9,4 +9,4 @@ router.get('/', (ctx, next) => {
 	
 })
 
-export {router}
+export default router

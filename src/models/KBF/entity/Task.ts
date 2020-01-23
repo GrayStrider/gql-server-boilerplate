@@ -1,11 +1,11 @@
 import {Field, ID, ObjectType} from 'type-graphql'
 import {BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn, ManyToOne, OneToOne, OneToMany} from 'typeorm'
-import {Swimlane, TDate, Subtask, TColumn, Color, Label, User, Comment, TaskNumber} from '@/models/KBF/entity/index'
+import {Swimlane, TDate, Subtask, TColumn, Color, Label, User, Comment, TaskNumber} from '@/models/KBF'
 
 
 @ObjectType()
 @Entity()
-class Task extends BaseEntity {
+export default class Task extends BaseEntity {
 	
 	@Field(() => ID)
 	@PrimaryGeneratedColumn('uuid')
@@ -95,4 +95,3 @@ class Task extends BaseEntity {
 	
 }
 
-export default Task

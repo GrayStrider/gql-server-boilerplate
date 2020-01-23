@@ -19,7 +19,8 @@ function makeRedis () {
 	
 }
 
-export const redisSessionClient = makeRedis()
-export const publisher = makeRedis()
-export const subscriber = makeRedis()
+const redisSessionClient = makeRedis()
+const publisher = makeRedis()
+const subscriber = makeRedis()
 
+export {redisSessionClient, publisher, subscriber}

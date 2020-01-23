@@ -1,8 +1,9 @@
 import queryComplexity, {fieldExtensionsEstimator, simpleEstimator} from 'graphql-query-complexity'
 import {identity} from 'ramda'
 
-export const complexityValidator = () =>
-	queryComplexity({
+export default function complexityValidator () {
+
+	return queryComplexity({
 		// The maximum allowed query complexity, queries above this threshold will be rejected
 		maximumComplexity: 8,
 		
@@ -28,3 +29,5 @@ export const complexityValidator = () =>
 			}),
 		],
 	})
+
+}
