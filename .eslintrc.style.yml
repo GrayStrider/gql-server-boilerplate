@@ -1,5 +1,7 @@
 extends: .eslintrc
 rules:
+  import/export: warn
+
   '@typescript-eslint/brace-style':
     - warn
     - stroustrup

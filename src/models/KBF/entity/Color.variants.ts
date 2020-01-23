@@ -1,6 +1,6 @@
 import {registerEnumType} from 'type-graphql'
 
-export enum ColorValues {
+enum ColorValues {
 	YELLOW = 'YELLOW', WHITE = 'WHITE', RED = 'RED', GREEN = 'GREEN',
 	BLUE = 'BLUE', PURPLE = 'PURPLE', ORANGE = 'ORANGE', CYAN = 'CYAN',
 	BROWN = 'BROWN', MAGENTA = 'MAGENTA'
@@ -9,3 +9,5 @@ export enum ColorValues {
 registerEnumType(ColorValues, {
 	name: 'ColorValues',
 })
+
+export {ColorValues}

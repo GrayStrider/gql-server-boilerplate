@@ -2,7 +2,7 @@ import {registerEnumType} from 'type-graphql'
 
 /* eslint-disable @typescript-eslint/naming-convention*/
 
-export enum Countries {
+enum Countries {
 	
 	Afghanistan = 'Afghanistan',
 	AlandIslands = 'AlandIslands',
@@ -254,3 +254,5 @@ export enum Countries {
 registerEnumType(Countries, {
 	name: 'Countries',
 })
+
+export {Countries}

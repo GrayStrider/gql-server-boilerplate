@@ -10,8 +10,7 @@ import {generateMockUsers} from 'src/models/UsersPlayground/lib/generateMockUser
 import {UserCreateInput, UserModifyInput, UserSearchInput, UserLoginInput} from '@/models/UsersPlayground/user.inputs'
 import {Context} from '@/graphql'
 
-export const validator = new Validator()
-export const birthYearFromAge = (age: number) => new Date().getFullYear() - age
+const birthYearFromAge = (age: number) => new Date().getFullYear() - age
 const validatePassword = (password: string): true => {
 	
 	if (password.length < 6) throw new Errors.Validation('Password must contain...')
@@ -97,8 +96,6 @@ export class UserResolver {
 	@Authorized([AuthRoles.ADMIN])
 	@Mutation(returns => UserNew)
 	async userModify (@Arg('changes') {friendsIds, ...rest}: UserModifyInput, @Arg('userId') userId: string) {
-		
-		if (!validator.isUUID(userId)) throw new Errors.Validation('Incorrect format for user ID')
 		
 		const user = await UserNew.findOne(userId)
 		if (!user) throw userNotFoundError(userId)

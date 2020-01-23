@@ -8,7 +8,7 @@ import {IExpectedError} from '@/utils/makeCustomError'
 const isExpectedError = (err: AnyObject) =>
 	Object.keys(ErrorCodes).includes(err.extensions?.code)
 
-export function ExpectedError (err: GraphQLError<IExpectedError>) {
+function ExpectedError (err: GraphQLError<IExpectedError>) {
 	
 	if (isExpectedError(err)) {
 		
@@ -33,7 +33,7 @@ function isValidationError (err: AnyObject): err is GqlValidationError {
 	
 }
 
-export function ValidatorError (err: GraphQLError<GqlValidationError>) {
+function ValidatorError (err: GraphQLError<GqlValidationError>) {
 	
 	// TODO extend type
 	if (!isValidationError(err)) return err
@@ -65,7 +65,7 @@ function hasOriginalError (err: AnyObject): err is GraphQLError<MyError> {
 }
 
 
-export function VariantsOfOriginalError (err: GraphQLError<MyError>) {
+function VariantsOfOriginalError (err: GraphQLError<MyError>) {
 	
 	if (hasOriginalError(err)) {
 		
@@ -81,3 +81,4 @@ export function VariantsOfOriginalError (err: GraphQLError<MyError>) {
 	
 }
 
+export {ExpectedError, ValidatorError, VariantsOfOriginalError}

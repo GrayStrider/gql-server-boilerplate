@@ -3,7 +3,7 @@ import {RESTDataSource} from 'apollo-datasource-rest'
 /**
  * https://alexwohlbruck.github.io/cat-facts
  */
-export class CatFactsAPI extends RESTDataSource {
+class CatFactsAPI extends RESTDataSource {
 	
 	constructor () {
 		
@@ -38,3 +38,5 @@ interface CatFact {
 		sentCount: number
 	}
 }
+
+export {CatFactsAPI}

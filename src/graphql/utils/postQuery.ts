@@ -17,7 +17,7 @@ import {flattenObject} from '@/utils/zz_misc/flattenObject'
  *   Specifying `"tasks"` in mainField parameter will return the array right away
  */
 
-export async function postQuery<T = AnyObject[]> (
+async function postQuery<T = AnyObject[]> (
 	query: ASTNode, mainField?: string, url: string = GQL_URL
 ): Promise<{ [key: string]: T }> {
 	
@@ -26,12 +26,12 @@ export async function postQuery<T = AnyObject[]> (
 	
 }
 
-export async function gqlRequest<T> (query: ASTNode, variables?: Variables, url?: string): Promise<T>
-export async function gqlRequest<T, K> (query: ASTNode, variables?: Variables, url?: string): Promise<[T, K]>
-export async function gqlRequest<T, K, U> (query: ASTNode, variables?: Variables, url?: string): Promise<[T, K, U]>
+async function gqlRequest<T> (query: ASTNode, variables?: Variables, url?: string): Promise<T>
+async function gqlRequest<T, K> (query: ASTNode, variables?: Variables, url?: string): Promise<[T, K]>
+async function gqlRequest<T, K, U> (query: ASTNode, variables?: Variables, url?: string): Promise<[T, K, U]>
 
 
-export async function gqlRequest<T, K, U> (
+async function gqlRequest<T, K, U> (
 	query: ASTNode, variables?: Variables, url: string = GQL_URL
 ) {
 	
@@ -47,7 +47,7 @@ export async function gqlRequest<T, K, U> (
 type KeyofQuery = keyof Omit<Query, '__typename'>
 type KeyofMutation = keyof Omit<Mutation, '__typename'>
 
-export async function gqlreq (
+async function gqlreq (
 	type: 'query' | 'mutation', obj: KeyofMutation | KeyofQuery, query: ASTNode, variables?: AnyObject, url: string = GQL_URL
 ) {
 	
@@ -58,3 +58,4 @@ export async function gqlreq (
 	
 }
 
+export {gqlRequest, gqlreq}
