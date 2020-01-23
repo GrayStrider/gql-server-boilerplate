@@ -32,23 +32,30 @@ export class UserNew extends BaseEntity {
 	@Field()
 	@Column()
 	password: string
+	
 	@Column('int')
 	yearBorn: number
+	
 	@CreateDateColumn()
 	@Field()
 	readonly createdDate: Date
+	
 	@Field()
 	@UpdateDateColumn()
 	updatedDate: Date
+	
 	@Field(returns => Countries)
 	@Column({type: 'enum', enum: Countries})
 	country: Countries
+	
 	@JoinTable()
 	@ManyToMany(type => UserNew, friends => friends.friendsInverse, {cascade: ['insert', 'update']})
 	
 	friendsPrimary?: UserNew[]
+	
 	@ManyToMany(type => UserNew, friends => friends.friendsPrimary)
 	friendsInverse?: UserNew[]
+	
 	// TODO does nothing?
 	@Directive('@deprecated(reason: "Use `newField`.")')
 	@Field()

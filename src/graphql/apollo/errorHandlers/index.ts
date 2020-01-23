@@ -12,7 +12,7 @@ export function ExpectedError (err: GraphQLError<IExpectedError>) {
 	
 	if (isExpectedError(err)) {
 		
-		const details = err.extensions?.exception.details
+		const {details} = err.extensions.exception
 		const res: AnyObject = {message: err.message}
 		
 		if (Boolean(details)) res.details = details
@@ -37,7 +37,7 @@ export function ValidatorError (err: GraphQLError<GqlValidationError>) {
 	
 	// TODO extend type
 	if (!isValidationError(err)) return err
-	const errors = err.extensions?.exception.validationErrors
+	const errors = err.extensions.exception.validationErrors
 	return {
 		message: err.message,
 		errors: map(
@@ -69,9 +69,9 @@ export function VariantsOfOriginalError (err: GraphQLError<MyError>) {
 	
 	if (hasOriginalError(err)) {
 		
-		const status = err.originalError?.name
+		const status = err.originalError.name
 		const message = err.originalError
-		const details = err.extensions?.exception.response
+		const details = err.extensions.exception.response
 		if (status === '404')
 			return {message, status}
 		
