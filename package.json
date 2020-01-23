@@ -4,42 +4,17 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@accounts/database-manager": "^0.21.0",
-    "@accounts/graphql-api": "^0.21.0",
-    "@accounts/password": "^0.21.0",
-    "@accounts/redis": "^0.21.0",
-    "@accounts/server": "^0.21.0",
-    "@accounts/typeorm": "^0.21.0",
     "@koa/cors": "^3.0.0",
-    "@sentry/node": "^5.11.1",
-    "@types/async": "^3.0.3",
-    "@types/bluebird": "^3.5.29",
-    "@types/chance": "^1.0.8",
-    "@types/ramda": "^0.26.39",
-    "@types/signale": "^1.2.1",
-    "apollo-client": "^2.6.8",
     "apollo-datasource-rest": "^0.6.11",
-    "apollo-server": "^2.9.16",
-    "apollo-server-express": "^2.9.16",
     "apollo-server-koa": "^2.9.16",
-    "async": "^3.1.0",
     "axios": "^0.19.1",
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.7.2",
-    "body-parser": "^1.19.0",
     "chalk": "^3.0.0",
-    "chance": "^1.1.4",
     "class-validator": "0.11.0",
-    "codacy-coverage": "^3.4.0",
-    "compression": "^1.7.4",
     "config": "^3.2.5",
-    "connect-redis": "^4.0.3",
-    "cors": "^2.8.5",
     "cross-env": "^6.0.3",
     "dataloader": "^2.0.0",
-    "express": "^4.17.1",
-    "express-session": "^1.17.0",
-    "fp-ts": "^2.4.1",
     "graphql": "^14.5.8",
     "graphql-import": "^1.0.0-beta.1",
     "graphql-query-complexity": "^0.4.1",
@@ -54,10 +29,9 @@
     "koa-redis": "^4.0.1",
     "koa-router": "^7.4.0",
     "koa-session": "^5.12.3",
+    "lint-staged": "^10.0.2",
     "lodash": "^4.17.15",
-    "lusca": "^1.6.1",
     "nodemailer": "^6.4.2",
-    "pg": "^7.17.1",
     "ramda": "^0.26.1",
     "ramda-adjunct": "^2.24.0",
     "reflect-metadata": "^0.1.13",
@@ -69,8 +43,10 @@
     "typeorm-typedi-extensions": "^0.2.3",
     "typescript": "^3.7.5",
     "uuid": "^3.4.0",
-    "winston": "^3.2.1",
-    "xmlhttprequest-ts": "^1.0.1"
+    "apollo-server-errors": "^2.3.4",
+    "tsconfig-paths": "^3.9.0",
+    "ts-node": "^8.6.2"
+
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.11.2",
@@ -78,13 +54,11 @@
     "@graphql-codegen/typescript": "1.11.2",
     "@graphql-codegen/typescript-document-nodes": "1.11.2",
     "@graphql-codegen/typescript-resolvers": "1.11.2",
-    "@sentry/typescript": "^5.10.0",
     "@types/bcryptjs": "^2.4.2",
-    "@types/compression": "^1.0.1",
     "@types/config": "^0.0.36",
-    "@types/connect-redis": "^0.0.13",
-    "@types/cors": "^2.8.6",
-    "@types/express": "^4.17.2",
+    "@types/bluebird": "^3.5.29",
+    "@types/ramda": "^0.26.39",
+    "@types/signale": "^1.2.1",
     "@types/faker": "^4.1.9",
     "@types/graphql": "^14.5.0",
     "@types/ioredis": "^4.14.4",
@@ -95,27 +69,26 @@
     "@types/koa-redis": "^4.0.0",
     "@types/koa-router": "^7.4.0",
     "@types/koa-session": "^5.10.1",
-    "@types/koa__cors": "^3.0.1",
     "@types/lodash": "^4.14.149",
-    "@types/lusca": "^1.6.1",
     "@types/node": "^13.1.8",
     "@types/nodemailer": "^6.4.0",
     "@types/uuid": "^3.4.6",
     "@typescript-eslint/eslint-plugin": "^2.17.0",
     "@typescript-eslint/parser": "^2.16.0",
-    "apollo-server-errors": "^2.3.4",
     "eslint": "^6.8.0",
     "eslint-plugin-jest": "^23.6.0",
     "faker": "^4.1.0",
     "husky": "^4.0.10",
     "jest": "^24.9.0",
-    "nodemon": "^2.0.2",
     "ts-jest": "^24.3.0",
-    "ts-node": "^8.6.2",
     "ts-node-dev": "^1.0.0-pre.44",
-    "tsconfig-paths": "^3.9.0",
     "tsdef": "^0.0.13"
   },
+
+  "peerDependencies": {
+    "tslint": "5.0.0"
+  },
+
   "scripts": {
     "start": "cross-env NODE_ENV=production ts-node --transpile-only -r tsconfig-paths/register src/index.ts",
     "start:test": "cross-env NODE_ENV=test ts-node --transpile-only -r tsconfig-paths/register src/index.ts",
@@ -126,19 +99,10 @@
     "test:coverage": "yarn test:jest --coverage",
     "test:typecheck": "tsc --noEmit",
     "codegen": "graphql-codegen",
-    "lint": "eslint -c .eslintrc.style.json . --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint -c .eslintrc.style.json . --ext .ts",
     "lint:fix": "yarn lint --fix"
   },
-  "lint-staged": {
-    "*.{ts,js}": [
-      "yarn lint:fix"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
+
   "signale": {
     "displayScope": true,
     "displayBadge": false,
@@ -151,8 +115,6 @@
     "underlinePrefix": false,
     "underlineSuffix": false,
     "uppercaseLabel": false
-  },
-  "peerDependencies": {
-    "tslint": "5.0.0"
   }
+
 }
