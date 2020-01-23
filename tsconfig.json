@@ -18,6 +18,7 @@
     "incremental": true,
     "strict": true,
     "strictPropertyInitialization": false,
+    "suppressImplicitAnyIndexErrors": true,
     // conflicts with typeorm
     "sourceMap": true,
     "outDir": "./dist",
@@ -37,7 +38,8 @@
     "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   },
   "exclude": [
     "node_modules",
