@@ -9,7 +9,7 @@ export interface SubscriptionContext {
 
 export const context = ({ctx: {session, request}}: { ctx: KoaContext }) => ({
 	session,
-	request,
+	request
 })
 export type Context = {
 	dataSources: ReturnType<typeof dataSources>

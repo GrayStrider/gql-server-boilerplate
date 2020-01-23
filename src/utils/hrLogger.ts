@@ -7,24 +7,24 @@ const getTime = () =>
 const env = process.env.NODE_ENV
 
 export function hrLogger (logPath = './log.json') {
-
+	
 	const stringify = (obj: AnyObject) =>
 		JSON.stringify(obj, null, 2)
 	const logFile: Log<LogEntry> = JSON.parse(fs.readFileSync(logPath).toString())
 	
 	
 	function update (val: Log<LogEntry>) {
-
+		
 		fs.writeFileSync(
 			logPath,
 			stringify(mergeDeepLeft(val, logFile))
 		)
 		return exp
-	
+		
 	}
 	
 	function log (location: string) {
-
+		
 		const prevTime = prop('time', logFile[keys(logFile)[0]])
 		if (isNil(prevTime)) throw new Error('time value not found')
 		const time = getTime()
@@ -33,23 +33,23 @@ export function hrLogger (logPath = './log.json') {
 		const newValue = mergeDeepLeft(val, logFile)
 		fs.writeFileSync(logPath,
 			stringify(newValue))
-
-
+		
+		
 		return exp
-	
+		
 	}
 	
 	
 	function start (name: string) {
-
+		
 		update({[name]: {time: getTime()}})
 		return exp
-	
+		
 	}
 	
 	
 	const exp = {
-		start, log,
+		start, log
 	}
 	return exp
 	

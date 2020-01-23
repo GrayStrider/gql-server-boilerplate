@@ -2,9 +2,9 @@ import {registerDecorator, ValidationOptions, ValidationArguments} from 'class-v
 import {AnyObject} from 'tsdef'
 
 export function IsValidAge (minAge: number, validationOptions?: ValidationOptions) {
-
+	
 	return function ValidAge (object: AnyObject, propertyName: string) {
-
+		
 		registerDecorator({
 			name: 'isLongerThan',
 			target: object.constructor,
@@ -13,15 +13,15 @@ export function IsValidAge (minAge: number, validationOptions?: ValidationOption
 			options: validationOptions,
 			validator: {
 				validate (value: number, args: ValidationArguments) {
-
+					
 					const maxAge = 150
 					const [min, max] = args.constraints
 					return value > min && value < max && value < maxAge
-
-				},
-			},
+					
+				}
+			}
 		})
-
+		
 	}
-
+	
 }

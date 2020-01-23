@@ -23,32 +23,32 @@ const query = gql`mutation userCreate($input: UserCreateInput!) {
 }`
 
 export async function generateMockUsers (amount: number) {
-
+	
 	const fakes = times(amount, () => ({
 		firstName: faker.name.firstName(),
 		lastName: faker.name.lastName(),
 		password: faker.internet.password(),
 		email: faker.internet.exampleEmail(),
 		country: faker.random.arrayElement(Object.keys(Countries)),
-		age: faker.random.number({max: 150, min: 18}),
+		age: faker.random.number({max: 150, min: 18})
 	} as UserCreateInput))
-
+	
 	const endpoint = `${SERVER_URL}/users`
 	const testClient = new GraphQLClient(endpoint, {
 		headers: {
-			authorization: 'internal_call',
-		},
+			authorization: 'internal_call'
+		}
 	})
 	const generated = await bb.all(
 		fakes.map(async fake => testClient
 			.request(print(query), {input: fake})
 			.then(flattenObject))
 	)
-
+	
 	return {
 		fakes,
-		generated,
+		generated
 	}
-
+	
 }
 

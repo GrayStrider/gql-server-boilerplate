@@ -5,5 +5,5 @@ export enum AuthRoles {
 }
 
 registerEnumType(AuthRoles, {
-	name: 'AuthRoles',
+	name: 'AuthRoles'
 })

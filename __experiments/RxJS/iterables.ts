@@ -27,11 +27,11 @@ interval(300)
 	.subscribe(consoleWrite)
 
 export function waitFor<T> (signal: Observable<unknown>) {
-
+	
 	return (source: Observable<T>) =>
 		new Observable<T>(observer =>
 			signal.pipe(first())
 				.subscribe(x =>
 					source.subscribe(observer)))
-
+	
 }

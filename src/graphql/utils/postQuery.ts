@@ -20,26 +20,27 @@ import {isNil} from 'ramda'
 export async function postQuery<T = AnyObject[]> (
 	query: ASTNode, mainField?: string, url: string = GQL_URL
 ): Promise<{ [key: string]: T }> {
-
+	
 	const res: AnyObject = await request(url, print(query))
 	return isNil(mainField) ? res : res?.[mainField]
-
+	
 }
-export async function gqlRequest<T>(query: ASTNode, variables?: Variables, url?: string): Promise<T>
-export async function gqlRequest<T, K>(query: ASTNode, variables?: Variables, url?: string): Promise<[T, K]>
-export async function gqlRequest<T, K, U>(query: ASTNode, variables?: Variables, url?: string): Promise<[T, K, U]>
+
+export async function gqlRequest<T> (query: ASTNode, variables?: Variables, url?: string): Promise<T>
+export async function gqlRequest<T, K> (query: ASTNode, variables?: Variables, url?: string): Promise<[T, K]>
+export async function gqlRequest<T, K, U> (query: ASTNode, variables?: Variables, url?: string): Promise<[T, K, U]>
 
 
 export async function gqlRequest<T, K, U> (
 	query: ASTNode, variables?: Variables, url: string = GQL_URL
 ) {
-
+	
 	const res: AnyObject | unknown[] = await request(
 		url, print(query), variables
 	)
-
+	
 	return flattenObject(res)
-
+	
 }
 
 
@@ -49,11 +50,11 @@ type KeyofMutation = keyof Omit<Mutation, '__typename'>
 export async function gqlreq (
 	type: 'query' | 'mutation', obj: KeyofMutation | KeyofQuery, query: ASTNode, variables?: AnyObject, url: string = GQL_URL
 ) {
-
+	
 	const res = await request(
 		url, print(query), variables
 	)
 	return flattenObject(res)
-
+	
 }
 

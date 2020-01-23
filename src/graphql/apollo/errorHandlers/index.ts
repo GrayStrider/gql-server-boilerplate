@@ -9,18 +9,18 @@ const isExpectedError = (err: AnyObject) =>
 	Object.keys(ErrorCodes).includes(err.extensions?.code)
 
 export function ExpectedError (err: GraphQLError<IExpectedError>) {
-
+	
 	if (isExpectedError(err)) {
-
+		
 		const details = err.extensions?.exception.details
 		const res: AnyObject = {message: err.message}
-
+		
 		if (Boolean(details)) res.details = details
 		return res as GraphQLError
-
+		
 	}
 	return err
-
+	
 }
 
 interface GqlValidationError extends GraphQLError {
@@ -28,13 +28,13 @@ interface GqlValidationError extends GraphQLError {
 }
 
 function isValidationError (err: AnyObject): err is GqlValidationError {
-
+	
 	return Boolean(err.validationErrors)
-
+	
 }
 
 export function ValidatorError (err: GraphQLError<GqlValidationError>) {
-
+	
 	// TODO extend type
 	if (!isValidationError(err)) return err
 	const errors = err.extensions?.exception.validationErrors
@@ -44,11 +44,11 @@ export function ValidatorError (err: GraphQLError<GqlValidationError>) {
 			pick([
 				'property',
 				'value',
-				'constraints',
+				'constraints'
 			])
-		)(errors),
+		)(errors)
 	}
-
+	
 }
 
 interface MyError extends Error {
@@ -59,25 +59,25 @@ interface MyError extends Error {
 }
 
 function hasOriginalError (err: AnyObject): err is GraphQLError<MyError> {
-
+	
 	return Boolean(err.originalError.response)
-
+	
 }
 
 
 export function VariantsOfOriginalError (err: GraphQLError<MyError>) {
-
+	
 	if (hasOriginalError(err)) {
-
+		
 		const status = err.originalError?.name
 		const message = err.originalError
 		const details = err.extensions?.exception.response
 		if (status === '404')
 			return {message, status}
-
+		
 	}
 	// TODO implement error fallthrough validation
 	return err
-
+	
 }
 

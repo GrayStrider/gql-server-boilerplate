@@ -11,22 +11,22 @@ export const createSchema = async (resolvers: Resolvers, schemaNamePrefix: strin
 		// For testing
 		emitSchemaFile: {
 			path: `./src/graphql/generated/${schemaNamePrefix}.schema.graphql`,
-			commentDescriptions: true,
+			commentDescriptions: true
 		},
 		validate: true,
 		// Has access only to "exception" error field, as opposed to apollo-server error formatter
 		globalMiddlewares: [
-			ErrorHandler,
-
+			ErrorHandler
+			
 			/*
 			 * DbRequestCounter,
 			 * GlobalAuth
 			 */
 		],
 		container: Container,
-
+		
 		resolvers,
 		authChecker,
-		pubSub,
+		pubSub
 	})
 

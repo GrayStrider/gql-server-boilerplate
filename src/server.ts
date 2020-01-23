@@ -22,7 +22,7 @@ else
 	sig.info(`Environment: ${NODE_ENV}`)
 
 export async function main () {
-
+	
 	hrLogger().log('enter main')
 	
 	const app = new Koa()
@@ -48,9 +48,9 @@ export async function main () {
 		.use(redirect)
 		.use(session({
 			store: RedisStore({
-				client: redisSessionClient,
+				client: redisSessionClient
 			}),
-			key: 'redisCookie',
+			key: 'redisCookie'
 		}, app))
 		.on('error', error => console.log(error))
 		.use(helmet({}))
@@ -58,7 +58,7 @@ export async function main () {
 		.use(bodyParser({}))
 		.use(router.routes())
 		.use(router.allowedMethods({}))
-	
+		
 		.use(usersServer)
 		.use(KBFServer)
 	return app.listen(PORT, () =>

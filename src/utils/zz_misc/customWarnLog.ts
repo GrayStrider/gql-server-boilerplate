@@ -1,9 +1,9 @@
 import chalk from 'chalk'
 
 export function warn (...msg: unknown[]) {
-
+	
 	msg.forEach(value => {
-
+		
 		console.log(
 			chalk.bgBlack.bold.whiteBright(
 				typeof value === 'object'
@@ -11,7 +11,7 @@ export function warn (...msg: unknown[]) {
 					: value
 			)
 		)
-
+		
 	})
-
+	
 }

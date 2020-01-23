@@ -7,5 +7,5 @@ export enum ColorValues {
 }
 
 registerEnumType(ColorValues, {
-	name: 'ColorValues',
+	name: 'ColorValues'
 })

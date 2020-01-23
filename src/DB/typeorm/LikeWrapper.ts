@@ -14,15 +14,15 @@ import {Like} from 'typeorm'
  * @param input input class
  */
 export function LikeWrapper (input: AnyObject) {
-
+	
 	for (const field in input)
 		// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
 		if (Object.prototype.hasOwnProperty.call(input, field))
 			if (typeof input[field] === 'string' && field !== 'id') {
-
+				
 				input[field] = Like(`%${JSON.stringify(input[field])}%`)
-
+				
 			}
-
-
+	
+	
 }

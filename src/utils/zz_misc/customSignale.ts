@@ -1,7 +1,7 @@
 import signale, {Signale} from 'signale'
 
 export function customSignale () {
-
+	
 	const options = {
 		disabled: false,
 		interactive: false,
@@ -14,18 +14,18 @@ export function customSignale () {
 				badge: '**',
 				color: 'yellow',
 				label: 'reminder',
-				logLevel: 'info',
+				logLevel: 'info'
 			},
 			santa: {
 				badge: '🎅',
 				color: 'red',
 				label: 'santa',
-				logLevel: 'info',
-			},
-		},
+				logLevel: 'info'
+			}
+		}
 	}
 	const custom = new Signale(options)
-
+	
 	signale.success()
 	signale.log()
 	signale.error()
@@ -38,5 +38,5 @@ export function customSignale () {
 	signale.debug()
 	custom.remind()
 	custom.santa()
-
+	
 }

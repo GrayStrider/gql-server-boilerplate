@@ -3,11 +3,11 @@ import {BaseEntity, Column, PrimaryGeneratedColumn} from 'typeorm'
 
 @ObjectType()
 export abstract class GenericFeatures extends BaseEntity {
-
+	
 	@Field(returns => ID)
 	@PrimaryGeneratedColumn('uuid')
 	id: string
-
+	
 }
 
 /**
@@ -15,14 +15,14 @@ export abstract class GenericFeatures extends BaseEntity {
  */
 @ObjectType()
 export class EmbeddedFeatures {
-
+	
 	@Field()
 	@Column({default: 'value'})
 	embedded1: string
-
+	
 	@Field()
 	@Column({default: 'value'})
 	embedded2: string
-
-
+	
+	
 }

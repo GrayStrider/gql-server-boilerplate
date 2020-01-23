@@ -6,13 +6,13 @@ import {GenericFeatures} from './GenericFeaturesEntity'
 @ObjectType()
 @Entity()
 export class Child extends GenericFeatures {
-
+	
 	@Field()
 	@Column({default: 'default'})
 	data: string
-
+	
 	@Field(returns => ExampleEntity)
 	@ManyToOne(type => ExampleEntity, entity => entity.children)
 	parent: ExampleEntity
-
+	
 }

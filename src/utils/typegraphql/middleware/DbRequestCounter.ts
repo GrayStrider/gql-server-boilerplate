@@ -6,20 +6,20 @@ import {DBRequestCounterService} from '@/utils/typegraphql/middleware/DBRequestC
 
 
 const collect = debounce((count: number) => {
-
+	
 	if (count > 5) sig.warn(`Many queries: ${count}`)
 	DBRequestCounterService.connect().clearCount()
-
+	
 }, 200)
 
 export const dbRequestCounter: MiddlewareFn<Context> =
 	async ({context, args, info, root}, next) => {
-
+		
 		const res = await next()
 		const count = DBRequestCounterService.connect().getCount
 		if (count > 0) collect(count)
-
+		
 		return res
-
+		
 	}
 

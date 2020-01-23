@@ -7,10 +7,10 @@ const countdown = (amount: number, every = 1000) =>
 		.pipe(
 			take(amount),
 			map(value => {
-
+				
 				const num = amount - value - 1
 				return `${num}${RD.isNotEmpty(num) ? ', ' : ''}`
-
+				
 			}),
 			endWith('\nDone\n')
 		)
