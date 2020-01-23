@@ -17,6 +17,22 @@ extends:
 rules:
   import/default: 'off'
   import/no-extraneous-dependencies: error
+  import/no-named-as-default-member: error
+  import/no-unresolved: error
+  import/no-absolute-path: error
+  import/no-dynamic-require: error
+  import/no-amd: error
+  import/order: error
+  import/no-mutable-exports: error
+  import/no-commonjs: error
+  import/no-self-import: error
+  import/no-named-as-default: error
+  import/export: error
+#  import/no-relative-parent-imports: error
+  import/no-useless-path-segments:
+    - error
+    - noUselessIndex: true
+      commonjs: true
 
   jest/no-hooks: warn
 

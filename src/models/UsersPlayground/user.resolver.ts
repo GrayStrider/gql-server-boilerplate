@@ -1,5 +1,6 @@
 import {Validator} from 'class-validator'
 import {Arg, Authorized, Mutation, Query, Resolver, Ctx} from 'type-graphql'
+import {hash, compare} from 'bcryptjs'
 import {bb, RD} from 'src/utils/libsExport'
 import {AuthRoles} from 'src/models/UsersPlayground/auth/authRoles'
 import {PaginatedUserResponse} from '@/graphql/type-graphql/paginatedResponse'
@@ -7,7 +8,6 @@ import {UserNew} from 'src/models/UsersPlayground/entity/User'
 import {Errors, userNotFoundError} from '@/utils/Errors'
 import {generateMockUsers} from 'src/models/UsersPlayground/lib/generateMockUsers'
 import {UserCreateInput, UserModifyInput, UserSearchInput, UserLoginInput} from '@/models/UsersPlayground/user.inputs'
-import bcrypt from 'bcryptjs'
 import {Context} from '@/graphql'
 
 export const validator = new Validator()
@@ -31,7 +31,7 @@ export class UserResolver {
 		
 		const user = await UserNew.findOne({email})
 		if (!user) throw new Errors.InvalidCredentials()
-		const isValid = await bcrypt.compare(password, user.password)
+		const isValid = await compare(password, user.password)
 		if (!isValid) throw new Errors.InvalidCredentials()
 		if (!session) return user
 		session.userId = user.id
@@ -43,7 +43,7 @@ export class UserResolver {
 	async register (@Arg('userData') {age, password, ...rest}: UserCreateInput) {
 		
 		validatePassword(password)
-		const hashedPassword = await bcrypt.hash(password, 12)
+		const hashedPassword = await hash(password, 12)
 		
 		await UserNew.create({
 			yearBorn: birthYearFromAge(age),

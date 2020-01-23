@@ -1,11 +1,11 @@
 import {ASTNode, print} from 'graphql'
-import request from 'graphql-request'
+import {request} from 'graphql-request'
 import {Variables} from 'graphql-request/dist/src/types'
 import {AnyObject} from 'tsdef'
+import {isNil} from 'ramda'
 import {GQL_URL} from 'config/_consts'
 import {Mutation, Query} from '@/graphql/generated/typings'
 import {flattenObject} from '@/utils/zz_misc/flattenObject'
-import {isNil} from 'ramda'
 
 
 /**
