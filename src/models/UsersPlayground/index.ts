@@ -9,8 +9,6 @@ import AuthRoles from '@/models/UsersPlayground/auth/authRoles'
 import howCommonIsName from '@/models/UsersPlayground/lib/HowCommonName'
 import NotificationResolver from '@/models/UsersPlayground/subscriptions/Notification/notification.resolver'
 
-export * from '@/models/UsersPlayground/user.inputs'
-
 export default async function makeUsersServer () {
 	
 	const name = 'users'

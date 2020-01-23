@@ -15,7 +15,6 @@ import Color from '@/models/KBF/entity/Color'
 import Task from '@/models/KBF/entity/Task'
 import Comment from '@/models/KBF/entity/Comment'
 import ColorValues from '@/models/KBF/entity/Color.variants'
-export * from '@/models/KBF/inputs'
 
 export default async function makeKBFServer () {
 	

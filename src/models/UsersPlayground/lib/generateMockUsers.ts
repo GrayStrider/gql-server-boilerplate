@@ -5,7 +5,8 @@ import {GraphQLClient} from 'graphql-request'
 import {print} from 'graphql'
 import {bb, flattenObject} from '@/utils'
 import {SERVER_URL} from 'config/_consts'
-import {UserCreateInput, Countries} from '@/models/UsersPlayground'
+import {Countries} from '@/models/UsersPlayground'
+import {UserCreateInput} from '@/models/UsersPlayground/user.inputs'
 
 const query = gql`mutation userCreate($input: UserCreateInput!) {
     userCreate(userData: $input) {
