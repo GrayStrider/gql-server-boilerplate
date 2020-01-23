@@ -100,8 +100,8 @@
     "test:coverage": "yarn test:jest --coverage",
     "test:typecheck": "tsc --noEmit",
     "codegen": "graphql-codegen",
-    "lint:all": "eslint -f summary -c .eslintrc.style.yml . --ext .ts",
-    "lint:staged": "eslint -f summary -c .eslintrc.style.yml --fix",
+    "lint:all": "eslint -c .eslintrc.style.yml . --ext .ts",
+    "lint:staged": "eslint -c .eslintrc.style.yml --fix",
     "lint:all:fix": "yarn lint:all --fix"
   },
   "signale": {
