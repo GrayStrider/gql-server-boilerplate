@@ -1,13 +1,13 @@
-extends: ".eslintrc"
+extends: .eslintrc
 rules:
-  "@typescript-eslint/space-before-function-paren": warn
-  "@typescript-eslint/no-extra-semi": warn
-  "@typescript-eslint/no-extra-parens": warn
-  "@typescript-eslint/brace-style":
+  '@typescript-eslint/brace-style':
     - warn
     - stroustrup
-  "@typescript-eslint/func-call-spacing": warn
-  "@typescript-eslint/member-delimiter-style":
+  '@typescript-eslint/func-call-spacing': warn
+  '@typescript-eslint/indent':
+    - warn
+    - tab
+  '@typescript-eslint/member-delimiter-style':
     - warn
     - multiline:
         delimiter: none
@@ -15,63 +15,63 @@ rules:
       singleline:
         delimiter: comma
         requireLast: false
-  padded-blocks: warn
-  no-trailing-spaces:
+  '@typescript-eslint/no-extra-parens': warn
+  '@typescript-eslint/no-extra-semi': warn
+  '@typescript-eslint/quotes':
+    - error
+    - single
+  '@typescript-eslint/semi':
     - warn
-    - skipBlankLines: true
-  no-multiple-empty-lines: warn
-  multiline-comment-style: warn
-  capitalized-comments: warn
-  quote-props:
-    - warn
-    - as-needed
-  function-paren-newline:
-    - warn
-    - consistent
-  space-before-function-paren: warn
-  object-property-newline:
-    - warn
-    - allowAllPropertiesOnSameLine: true
-  lines-around-comment: warn
-  comma-dangle:
-    - warn
-    - arrays: always-multiline
-      objects: always-multiline
-      imports: never
-      exports: never
-      functions: never
-  eol-last: warn
-  newline-per-chained-call: warn
+    - never
+  '@typescript-eslint/space-before-function-paren': warn
   array-element-newline:
     - warn
     - minItems: 3
   arrow-parens:
     - warn
     - as-needed
-  "@typescript-eslint/quotes":
-    - error
-    - single
-  dot-location:
+  capitalized-comments: warn
+  comma-dangle:
     - warn
-    - property
-  object-curly-spacing: warn
-  spaced-comment: warn
-  object-shorthand: warn
-  template-curly-spacing: warn
-  lines-between-class-members: warn
-  space-in-parens: warn
-  "@typescript-eslint/indent":
-    - warn
-    - tab
-  key-spacing: warn
-  new-parens: warn
-  space-infix-ops: warn
-  space-before-blocks: warn
-  no-useless-rename: warn
-  "@typescript-eslint/semi":
-    - warn
-    - never
-  no-multi-spaces: warn
+    - arrays: always-multiline
+      exports: never
+      functions: never
+      imports: never
+      objects: always-multiline
   curly:
     - warn
     - multi
+  dot-location:
+    - warn
+    - property
+  eol-last: warn
+  function-paren-newline:
+    - warn
+    - consistent
+  key-spacing: warn
+  lines-around-comment: warn
+  lines-between-class-members: warn
+  multiline-comment-style: warn
+  new-parens: warn
+  newline-per-chained-call: warn
+  no-multi-spaces: warn
+  no-multiple-empty-lines: warn
+  no-trailing-spaces:
+    - warn
+    - skipBlankLines: true
+  no-useless-rename: warn
+  object-curly-spacing: warn
+  object-property-newline:
+    - warn
+    - allowAllPropertiesOnSameLine: true
+  object-shorthand: warn
+  padded-blocks: warn
+  quote-props:
+    - warn
+    - as-needed
+  space-before-blocks: warn
+  space-before-function-paren: warn
+  space-in-parens: warn
+  space-infix-ops: warn
+  spaced-comment: warn
+  template-curly-spacing: warn
