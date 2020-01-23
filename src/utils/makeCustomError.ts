@@ -1,7 +1,7 @@
 import {AnyObject} from 'tsdef'
-import {ApolloError} from 'apollo-server'
 import {ErrorCodes} from '@/utils/Errors'
 import {isEmpty} from 'ramda'
+import {ApolloError} from 'apollo-server-errors'
 
 // eslint-disable-next-line @typescript-eslint/interface-name-prefix
 export interface IExpectedError {
