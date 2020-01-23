@@ -8,4 +8,4 @@ registerEnumType(AuthRoles, {
 	name: 'AuthRoles',
 })
 
-export {AuthRoles}
+export default AuthRoles

@@ -1,2 +1,4 @@
-export const testFoo = () =>
+const testFoo = () =>
 	true
+
+export default testFoo

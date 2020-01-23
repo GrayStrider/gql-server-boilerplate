@@ -1,4 +1,4 @@
-import {testFoo} from 'test/basic'
+import testFoo from 'test/basic'
 
 describe('should do basic test', () => {
 	
