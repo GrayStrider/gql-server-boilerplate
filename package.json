@@ -54,6 +54,7 @@
     "koa-redis": "^4.0.1",
     "koa-router": "^7.4.0",
     "koa-session": "^5.12.3",
+    "lint-staged": "^10.0.2",
     "lodash": "^4.17.15",
     "lusca": "^1.6.1",
     "nodemailer": "^6.4.2",
@@ -104,6 +105,7 @@
     "@typescript-eslint/parser": "^2.16.0",
     "apollo-server-errors": "^2.3.4",
     "eslint": "^6.8.0",
+    "eslint-formatter-summary": "^1.0.4",
     "eslint-plugin-jest": "^23.6.0",
     "faker": "^4.1.0",
     "husky": "^4.0.10",
@@ -125,18 +127,9 @@
     "test:coverage": "yarn test:jest --coverage",
     "test:typecheck": "tsc --noEmit",
     "codegen": "graphql-codegen",
-    "lint": "eslint -c .eslintrc.style.json . --ext .js,.jsx,.ts,.tsx",
-    "lint:fix": "yarn lint --fix"
-  },
-  "lint-staged": {
-    "*.{ts,js}": [
-      "yarn lint:fix"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "lint:all": "eslint -f summary -c .eslintrc.style.yml . --ext .ts",
+    "lint:staged": "eslint -f summary -c .eslintrc.style.yml --fix",
+    "lint:all:fix": "yarn lint:all --fix"
   },
   "signale": {
     "displayScope": true,
