@@ -4,7 +4,7 @@ import helmet from 'koa-helmet'
 import session from 'koa-session'
 import cors from '@koa/cors'
 import bodyParser from 'koa-bodyparser'
-import {sig} from '@/utils/libsExport'
+import {sig, hrLogger} from '@/utils/libsExport'
 import {useContainer, createConnection} from 'typeorm'
 import {Container} from 'typedi'
 import {ORMConfig} from 'config/_typeorm'
@@ -22,16 +22,18 @@ else
 	sig.info(`Environment: ${NODE_ENV}`)
 
 export async function main () {
-
+	
+	hrLogger().log('enter main')
+	
 	const app = new Koa()
-
+	
 	app.keys = ['session secret']
-
+	
 	useContainer(Container)
-
+	
 	const conn = await createConnection(ORMConfig)
 	if (process.env.NODE_ENV !== 'production') {
-
+		
 		sig.warn('resetting the DB')
 		await conn.synchronize(true)
 		await redisSessionClient.flushdb()
