@@ -3,7 +3,6 @@ import Redis from 'ioredis'
 function makeRedis () {
 	
 	const redis = new Redis({
-		connectTimeout: 2000,
 		showFriendlyErrorStack: true,
 	})
 	
