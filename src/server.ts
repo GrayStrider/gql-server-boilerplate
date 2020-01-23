@@ -4,7 +4,7 @@ import helmet from 'koa-helmet'
 import session from 'koa-session'
 import cors from '@koa/cors'
 import bodyParser from 'koa-bodyparser'
-import {sig, hrLogger} from '@/utils/libsExport'
+import {sig} from '@/utils/libsExport'
 import {useContainer, createConnection} from 'typeorm'
 import {Container} from 'typedi'
 import {ORMConfig} from 'config/_typeorm'
@@ -22,8 +22,6 @@ else
 	sig.info(`Environment: ${NODE_ENV}`)
 
 export async function main () {
-	
-	hrLogger().log('enter main')
 	
 	const app = new Koa()
 	
