@@ -1,5 +1,4 @@
 {
-  "extends": "./node_modules/@sentry/typescript/tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -18,6 +17,7 @@
     "incremental": true,
     "strict": true,
     "strictPropertyInitialization": false,
+    "suppressImplicitAnyIndexErrors": true,
     "sourceMap": true,
     "outDir": "./dist",
     "moduleResolution": "node",
@@ -35,7 +35,8 @@
     "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   },
   "exclude": [
     "node_modules"
