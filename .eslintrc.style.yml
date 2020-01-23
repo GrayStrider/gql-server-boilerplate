@@ -1,4 +1,4 @@
-extends: ".eslintrc.yml"
+extends: ".eslintrc"
 rules:
   "@typescript-eslint/space-before-function-paren": warn
   "@typescript-eslint/no-extra-semi": warn
