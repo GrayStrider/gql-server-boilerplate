@@ -22,7 +22,7 @@ const SAMPLE_SIZE = 50
 
 
 describe('all', () => {
-
+	
 	beforeAll(async () => {
 		
 		({conn} = await setupTests());
@@ -40,14 +40,13 @@ describe('all', () => {
 	describe('users', () => {
 		
 		it(`should create ${SAMPLE_SIZE} new users`, async () => {
-
 			expect.assertions(1)
 			const act = map(omit(['id', 'createdDate']))(generated)
 			expect(act).toStrictEqual(fakes)
 			
 		})
 		it('new user', async () => {
-
+			
 			expect.assertions(1)
 			const {id} = await gqlRequest<P<Mutation, 'userCreate'>>(gql`mutation {
           userCreate(userData: {
@@ -62,7 +61,7 @@ describe('all', () => {
 		})
 
 		it('should search the users by parameters', async () => {
-
+			
 			expect.assertions(1)
 			const act = await gqlRequest<P<Query, 'users'>>(gql`query {
           users(searchBy: {
@@ -81,7 +80,7 @@ describe('all', () => {
 			let testUserId: string
 
 			it('should modify Country', async () => {
-
+				
 				expect.assertions(1)
 				
 				testUserId = await gqlRequest<P<Query, 'users'>>(gql`{
@@ -108,7 +107,7 @@ describe('all', () => {
 			})
 
 			it('should add friends', async () => {
-
+				
 				expect.assertions(2)
 				const randomIds = await gqlRequest<PaginatedUserResponse>(gql`query {
             usersPaginated(
@@ -155,7 +154,7 @@ describe('all', () => {
     }`
 		
 		it('with up to', async () => {
-
+			
 			expect.assertions(1)
 			
 			const res = await gqlRequest<PaginatedUserResponse>(query, {upTo: 10})
@@ -165,7 +164,7 @@ describe('all', () => {
 			
 		})
 		it('with both variables', async () => {
-
+			
 			expect.assertions(1)
 			
 			const res = await gqlRequest<PaginatedUserResponse>(query, {
