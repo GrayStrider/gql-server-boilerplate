@@ -24,9 +24,9 @@ const validatePassword = (password: string): true => {
 export class UserResolver {
 	
 	@Mutation(returns => UserNew)
-	async login(
-		@Ctx() {session}: Context,
-		@Arg('credentials') {email, password}: UserLoginInput,
+	async login (
+	@Ctx() {session}: Context,
+		@Arg('credentials') {email, password}: UserLoginInput
 	) {
 		
 		const user = await UserNew.findOne({email})
@@ -40,7 +40,7 @@ export class UserResolver {
 	}
 	
 	@Mutation(returns => Boolean)
-	async register(@Arg('userData') {age, password, ...rest}: UserCreateInput) {
+	async register (@Arg('userData') {age, password, ...rest}: UserCreateInput) {
 		
 		validatePassword(password)
 		const hashedPassword = await bcrypt.hash(password, 12)
@@ -55,7 +55,7 @@ export class UserResolver {
 	}
 	
 	@Mutation(returns => [UserNew])
-	async generateMockUsers(@Arg('amount') amount: number) {
+	async generateMockUsers (@Arg('amount') amount: number) {
 		
 		const {generated} = await generateMockUsers(amount)
 		return generated
@@ -64,9 +64,9 @@ export class UserResolver {
 	
 	@Authorized<AuthRoles[]>([AuthRoles.ADMIN])
 	@Query(returns => PaginatedUserResponse)
-	async usersPaginated(
+	async usersPaginated (
 		@Arg('upTo', {nullable: true}) upTo: number,
-		@Arg('startAt', {nullable: true}) startAt: number,
+			@Arg('startAt', {nullable: true}) startAt: number
 	): Promise<PaginatedUserResponse> {
 		
 		return {
@@ -80,7 +80,7 @@ export class UserResolver {
 	
 	
 	@Query(returns => [UserNew])
-	async users(@Arg('searchBy', {nullable: true}) input: UserSearchInput) {
+	async users (@Arg('searchBy', {nullable: true}) input: UserSearchInput) {
 		
 		// LikeWrapper(input) // TODO make it work with enums, or create a separate middleware decorator for strings
 		return UserNew.find(input)
@@ -88,7 +88,7 @@ export class UserResolver {
 	}
 	
 	@Mutation(returns => UserNew)
-	async userCreate(@Arg('userData') {age, ...rest}: UserCreateInput) {
+	async userCreate (@Arg('userData') {age, ...rest}: UserCreateInput) {
 		
 		return UserNew.create({yearBorn: birthYearFromAge(age), ...rest}).save()
 		
@@ -96,7 +96,7 @@ export class UserResolver {
 	
 	@Authorized([AuthRoles.ADMIN])
 	@Mutation(returns => UserNew)
-	async userModify(@Arg('changes') {friendsIds, ...rest}: UserModifyInput, @Arg('userId') userId: string) {
+	async userModify (@Arg('changes') {friendsIds, ...rest}: UserModifyInput, @Arg('userId') userId: string) {
 		
 		if (!validator.isUUID(userId)) throw new Errors.Validation('Incorrect format for user ID')
 		
@@ -121,8 +121,8 @@ export class UserResolver {
 			: undefined
 		
 		return UserNew
-		.merge(user, {...rest, friendsPrimary: friends})
-		.save()
+			.merge(user, {...rest, friendsPrimary: friends})
+			.save()
 		
 	}
 	

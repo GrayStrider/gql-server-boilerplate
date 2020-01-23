@@ -1,8 +1,11 @@
+import {isNil} from 'ramda'
+
 process.env.NODE_CONFIG_DIR = __dirname
 process.env.ALLOW_CONFIG_MUTATIONS = 'true'
 
 import {get} from 'config'
 
+if (isNil(process.env.NODE_ENV)) throw new Error('process.env is undefined, aborting')
 export const {NODE_ENV} = process.env
 
 

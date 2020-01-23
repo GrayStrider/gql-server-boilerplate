@@ -1,1 +1,25 @@
-{"init":{"end":[34057,457408000],"duration":275,"start":[33782,182216299]}}
+{
+  "end": {
+    "time": 100479,
+    "interval": 2
+  },
+  "enter main": {
+    "time": 100477,
+    "interval": 2
+  },
+  "before returning app": {
+    "time": 48320,
+    "interval": 0
+  },
+  "after sleeping": {
+    "time": 48320,
+    "interval": 5
+  },
+  "before sleeping": {
+    "time": 48315,
+    "interval": 1
+  },
+  "init": {
+    "time": 48302
+  }
+}

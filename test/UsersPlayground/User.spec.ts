@@ -40,6 +40,7 @@ describe('all', () => {
 	describe('users', () => {
 		
 		it(`should create ${SAMPLE_SIZE} new users`, async () => {
+
 			expect.assertions(1)
 			const act = map(omit(['id', 'createdDate']))(generated)
 			expect(act).toStrictEqual(fakes)
