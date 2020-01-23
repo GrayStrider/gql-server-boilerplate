@@ -1,12 +1,12 @@
 import {Entity, PrimaryGeneratedColumn, OneToMany, ManyToOne, BaseEntity} from 'typeorm'
 import {ObjectType, Field, ID} from 'type-graphql'
-import {Task} from '@/models/KBF/entity/Task'
+import Task from '@/models/KBF/entity/Task'
 import Board from '@/models/KBF/entity/Board'
 
 
 @Entity()
 @ObjectType()
-export class TColumn extends BaseEntity {
+class TColumn extends BaseEntity {
 	
 	@Field(returns => ID)
 	@PrimaryGeneratedColumn('uuid')
@@ -21,3 +21,5 @@ export class TColumn extends BaseEntity {
 	tasks: Task[]
 	
 }
+
+export default TColumn

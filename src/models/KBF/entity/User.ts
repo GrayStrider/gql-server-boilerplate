@@ -1,12 +1,12 @@
 import {PrimaryGeneratedColumn, ManyToMany, OneToMany, Entity, BaseEntity} from 'typeorm'
 import {Field, ObjectType, ID} from 'type-graphql'
-import {Task} from './Task'
+import Task from './Task'
 import {Subtask, Comment} from '@/models/KBF/entity/index'
 
 
 @ObjectType()
 @Entity()
-export class User extends BaseEntity {
+class User extends BaseEntity {
 	
 	@Field(returns => ID)
 	@PrimaryGeneratedColumn('uuid')
@@ -29,3 +29,5 @@ export class User extends BaseEntity {
 	comments: Comment[]
 	
 }
+
+export default User

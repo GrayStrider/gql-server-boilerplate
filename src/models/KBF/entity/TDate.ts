@@ -1,11 +1,11 @@
 import {ObjectType, Field, ID} from 'type-graphql'
 import {Entity, ManyToOne, Column, ManyToMany, BaseEntity, PrimaryGeneratedColumn} from 'typeorm'
-import {TColumn} from '@/models/KBF/entity/TColumn'
-import {Task} from '@/models/KBF/entity/Task'
+import TColumn from '@/models/KBF/entity/TColumn'
+import Task from '@/models/KBF/entity/Task'
 
 @ObjectType()
 @Entity()
-export class TDate extends BaseEntity {
+class TDate extends BaseEntity {
 	
 	@Field(returns => ID)
 	@PrimaryGeneratedColumn('uuid')
@@ -39,3 +39,4 @@ export class TDate extends BaseEntity {
 	
 }
 
+export default TDate

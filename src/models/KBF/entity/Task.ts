@@ -5,7 +5,7 @@ import {Swimlane, TDate, Subtask, TColumn, Color, Label, User, Comment, TaskNumb
 
 @ObjectType()
 @Entity()
-export class Task extends BaseEntity {
+class Task extends BaseEntity {
 	
 	@Field(() => ID)
 	@PrimaryGeneratedColumn('uuid')
@@ -95,3 +95,4 @@ export class Task extends BaseEntity {
 	
 }
 
+export default Task

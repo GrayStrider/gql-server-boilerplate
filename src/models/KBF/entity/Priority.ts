@@ -11,4 +11,4 @@ registerEnumType(Priority, {
 	name: 'Priority',
 })
 
-export {Priority}
+export default Priority

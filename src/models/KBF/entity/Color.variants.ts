@@ -10,4 +10,4 @@ registerEnumType(ColorValues, {
 	name: 'ColorValues',
 })
 
-export {ColorValues}
+export default ColorValues
