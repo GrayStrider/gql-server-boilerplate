@@ -5,12 +5,16 @@ parserOptions:
 plugins:
   - "@typescript-eslint"
   - jest
+  - import
 extends:
   - eslint:all
   - plugin:@typescript-eslint/eslint-recommended
   - plugin:@typescript-eslint/recommended
   - plugin:@typescript-eslint/recommended-requiring-type-checking
   - plugin:jest/all
+  - plugin:import/errors
+  - plugin:import/warnings
+  - plugin:import/typescript
 rules:
   no-sync: off
   newline-per-chained-call: off
@@ -250,3 +254,6 @@ overrides:
       "@typescript-eslint/require-await": off
 env:
   jest/globals: true
+settings:
+  import/extensions:
+    - ts
