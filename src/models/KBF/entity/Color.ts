@@ -2,7 +2,7 @@ import {ObjectType, Field, ID} from 'type-graphql'
 import {Entity, OneToMany, Column, ManyToOne, BaseEntity, PrimaryGeneratedColumn} from 'typeorm'
 import {Task} from './Task'
 // Have to be separate, probably something to do with loading order or something.
-import {Board} from './Board'
+import Board from './Board'
 import {ColorValues} from '@/models/KBF/entity/index'
 
 

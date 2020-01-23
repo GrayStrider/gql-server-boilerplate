@@ -4,7 +4,7 @@ import {Swimlane, TColumn, Color} from '@/models/KBF/entity/index'
 
 @ObjectType()
 @Entity()
-export class Board {
+class Board {
 	
 	@PrimaryGeneratedColumn('uuid')
 	@Field(returns => ID)
@@ -25,3 +25,5 @@ export class Board {
 	swimlanes: Swimlane[]
 	
 }
+
+export default Board

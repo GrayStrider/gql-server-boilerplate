@@ -1,6 +1,5 @@
 export {ColorValues} from '@/models/KBF/entity/Color.variants'
 export {Task} from '@/models/KBF/entity/Task'
-export {Board} from '@/models/KBF/entity/Board'
 export {Color} from '@/models/KBF/entity/Color'
 export {Comment} from '@/models/KBF/entity/Comment'
 export {TDate} from '@/models/KBF/entity/TDate'
