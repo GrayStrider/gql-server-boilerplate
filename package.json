@@ -33,6 +33,7 @@
     "lint-staged": "^10.0.2",
     "lodash": "^4.17.15",
     "nodemailer": "^6.4.2",
+    "pg": "^7.17.1",
     "ramda": "^0.26.1",
     "ramda-adjunct": "^2.24.0",
     "reflect-metadata": "^0.1.13",
