@@ -1,8 +1,8 @@
-import _ from 'lodash'
+import {truncate} from 'lodash'
 
 function main () {
 	
-	console.log(_.truncate(undefined, {length: 5}).length)
+	console.log(truncate(undefined, {length: 5}).length)
 	
 }
 

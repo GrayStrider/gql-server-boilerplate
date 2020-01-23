@@ -1,5 +1,5 @@
-import {SchemaDirectiveVisitor} from 'apollo-server-express'
 import {GraphQLEnumValue, GraphQLField} from 'graphql'
+import {SchemaDirectiveVisitor} from 'graphql-tools'
 
 export class DeprecatedDirective extends SchemaDirectiveVisitor {
 	

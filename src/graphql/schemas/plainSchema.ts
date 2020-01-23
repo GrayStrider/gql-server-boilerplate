@@ -1,6 +1,6 @@
-import {ApolloError} from 'apollo-client'
 import {Context} from '@/graphql'
 import {makeSchema} from '@/graphql/utils/makeSchema'
+import {ApolloError} from 'apollo-server-errors'
 
 export const plainSchema = makeSchema<Context>('src/graphql/schemas/plain.graphql',
 	{
@@ -8,7 +8,7 @@ export const plainSchema = makeSchema<Context>('src/graphql/schemas/plain.graphq
 			Query: {
 				errorToIgnore: () => {
 
-					throw new ApolloError({errorMessage: 'IGNORED'})
+					throw new ApolloError('IGNORED')
 
 				},
 
