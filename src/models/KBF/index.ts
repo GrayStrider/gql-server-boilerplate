@@ -1,7 +1,7 @@
 import GetResolver from './resolvers/Get'
 import CreateResolver from './resolvers/Create'
 import {createSchema, genericApolloServer} from '@/graphql'
-import {sig} from '@/utils/libsExport'
+import {sig} from '@/utils'
 import {SERVER_URL} from 'config/_consts'
 import User from '@/models/KBF/entity/User'
 import TColumn from '@/models/KBF/entity/TColumn'

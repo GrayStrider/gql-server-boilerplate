@@ -1,6 +1,6 @@
 import UserResolver from './user.resolver'
 import {createSchema, genericApolloServer} from '@/graphql'
-import {sig} from '@/utils/libsExport'
+import {sig} from '@/utils'
 import {SERVER_URL} from 'config/_consts'
 import Countries from '@/models/UsersPlayground/lib/CountriesList'
 import UserNew from '@/models/UsersPlayground/entity/User'

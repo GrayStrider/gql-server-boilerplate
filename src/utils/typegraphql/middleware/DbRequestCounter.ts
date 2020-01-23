@@ -1,6 +1,6 @@
 import {debounce} from 'lodash'
 import {MiddlewareFn} from 'type-graphql'
-import {sig} from 'src/utils/libsExport'
+import {sig} from 'src/utils'
 import {Context} from '@/graphql'
 import DBRequestCounterService from '@/utils/typegraphql/middleware/DBRequestCounter.service'
 

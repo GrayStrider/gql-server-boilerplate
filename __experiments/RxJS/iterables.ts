@@ -1,6 +1,6 @@
 import {of, from, interval, Observable} from 'rxjs'
 import {concatMap, delay, endWith, take, map, first} from 'rxjs/operators'
-import {consoleWrite, log} from 'src/utils/libsExport'
+import {consoleWrite, log} from 'src/utils'
 
 const STR = 'Hello, World!'
 
