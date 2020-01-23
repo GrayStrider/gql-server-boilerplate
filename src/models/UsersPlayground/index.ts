@@ -4,7 +4,7 @@ import {genericApolloServer} from '@/graphql/apollo/genericServer'
 import {SERVER_URL} from 'config/_consts'
 import {sig} from '@/utils/libsExport'
 
-export const makeUsersServer = async () => {
+const makeUsersServer = async () => {
 	
 	const name = 'users'
 	const path = `/${name}`
@@ -14,3 +14,5 @@ export const makeUsersServer = async () => {
 		.getMiddleware({path})
 	
 }
+
+export default makeUsersServer

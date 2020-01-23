@@ -1,7 +1,6 @@
 import {PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, BaseEntity, Entity} from 'typeorm'
 import {Field, ID, ObjectType} from 'type-graphql'
-import User from '@/models/KBF/entity/User'
-import Task from '@/models/KBF/entity/Task'
+import {Task, User} from '@/models/KBF/entity/index'
 
 @ObjectType()
 @Entity()

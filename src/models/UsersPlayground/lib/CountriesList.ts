@@ -255,4 +255,4 @@ registerEnumType(Countries, {
 	name: 'Countries',
 })
 
-export {Countries}
+export default Countries

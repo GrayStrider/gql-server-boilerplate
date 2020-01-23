@@ -1,7 +1,7 @@
 import {IsEmail, IsInt, Max, Min} from 'class-validator'
 import {Field, InputType, Int} from 'type-graphql'
 import {UserNew} from './entity/User'
-import {Countries} from './lib/CountriesList'
+import Countries from './lib/CountriesList'
 
 /**
  * @InputType will generate a real GraphQLInputType type and should be used when we need a nested object in the args:

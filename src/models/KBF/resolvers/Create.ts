@@ -2,7 +2,7 @@ import {Resolver, Mutation} from 'type-graphql'
 import {Task} from '@/models/KBF/entity'
 
 @Resolver()
-export class CreateResolver {
+class CreateResolver {
 	
 	@Mutation(returns => Task)
 	async createTask (): Promise<Task> {
@@ -14,3 +14,5 @@ export class CreateResolver {
 	}
 	
 }
+
+export default CreateResolver
