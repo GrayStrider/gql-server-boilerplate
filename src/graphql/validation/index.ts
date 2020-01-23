@@ -24,9 +24,9 @@ export const complexityValidator = () =>
 		},
 		estimators: [
 			fieldExtensionsEstimator(), simpleEstimator({
-				defaultComplexity: 1
-			})
-		]
+				defaultComplexity: 1,
+			}),
+		],
 	})
 
 identity('')

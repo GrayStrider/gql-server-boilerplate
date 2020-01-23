@@ -18,8 +18,8 @@ export function IsValidAge (minAge: number, validationOptions?: ValidationOption
 					const [min, max] = args.constraints
 					return value > min && value < max && value < maxAge
 					
-				}
-			}
+				},
+			},
 		})
 		
 	}

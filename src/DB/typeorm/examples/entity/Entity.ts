@@ -61,7 +61,7 @@ export class ExampleEntity extends GenericFeatures {
 		// Hide from standart query
 		select: true,
 		default: 'default value, if none specified',
-		comment: 'comment for column'
+		comment: 'comment for column',
 	})
 	manyOptions: string
 	
@@ -72,7 +72,7 @@ export class ExampleEntity extends GenericFeatures {
 	@Field(returns => [Child], {nullable: true})
 	@OneToMany(type => Child, child => child.parent, {
 		cascade: true,
-		eager: true
+		eager: true,
 	})
 	children: Child[]
 	

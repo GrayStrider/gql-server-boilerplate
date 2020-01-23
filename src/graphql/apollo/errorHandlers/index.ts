@@ -44,9 +44,9 @@ export function ValidatorError (err: GraphQLError<GqlValidationError>) {
 			pick([
 				'property',
 				'value',
-				'constraints'
+				'constraints',
 			])
-		)(errors)
+		)(errors),
 	}
 	
 }

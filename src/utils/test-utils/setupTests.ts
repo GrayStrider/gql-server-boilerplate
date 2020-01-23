@@ -22,7 +22,8 @@ export async function setupTests () {
 		conn = await createConnection(ORMConfig)
 		server = null
 		
-	} else {
+	}
+	else {
 		
 		sig.await(`${GQL_URL} is down, starting server`)
 		server = await main()

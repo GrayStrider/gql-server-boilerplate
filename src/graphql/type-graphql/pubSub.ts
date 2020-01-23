@@ -10,5 +10,5 @@ import {publisher, subscriber} from '@/DB/redis'
  */
 export const pubSub = new RedisPubSub({
 	publisher,
-	subscriber
+	subscriber,
 })

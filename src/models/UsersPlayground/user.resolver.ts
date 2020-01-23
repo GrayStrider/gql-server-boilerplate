@@ -25,7 +25,7 @@ export class UserResolver {
 	
 	@Mutation(returns => UserNew)
 	async login (
-		@Ctx() {session}: Context,
+	@Ctx() {session}: Context,
 		@Arg('credentials') {email, password}: UserLoginInput
 	) {
 		
@@ -48,7 +48,7 @@ export class UserResolver {
 		await UserNew.create({
 			yearBorn: birthYearFromAge(age),
 			password: hashedPassword,
-			...rest
+			...rest,
 		}).save()
 		return true
 		
@@ -66,14 +66,14 @@ export class UserResolver {
 	@Query(returns => PaginatedUserResponse)
 	async usersPaginated (
 		@Arg('upTo', {nullable: true}) upTo: number,
-		@Arg('startAt', {nullable: true}) startAt: number
+			@Arg('startAt', {nullable: true}) startAt: number
 	): Promise<PaginatedUserResponse> {
 		
 		return {
 			items: await UserNew.find({take: upTo, skip: startAt}),
 			total: await UserNew.count(),
 			// TODO
-			hasMore: false
+			hasMore: false,
 		}
 		
 	}

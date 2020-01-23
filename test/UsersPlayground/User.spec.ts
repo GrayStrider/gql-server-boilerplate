@@ -119,7 +119,7 @@ describe('all', () => {
                 }
             }
         }`)
-				.then(pipe(prop('items'), map(prop('id'))))
+					.then(pipe(prop('items'), map(prop('id'))))
 				expect(Array.isArray(randomIds)).toBe(true)
 
 				const addedFriendsIdsFromResponse =
@@ -134,7 +134,7 @@ describe('all', () => {
                 }
             }
         }`, {friends: randomIds})
-				.then(pipe(prop('friends'), map(prop('id'))))
+					.then(pipe(prop('friends'), map(prop('id'))))
 				
 				expect(addedFriendsIdsFromResponse).toStrictEqual(arrayContaining(randomIds))
 
@@ -170,7 +170,7 @@ describe('all', () => {
 			
 			const res = await gqlRequest<PaginatedUserResponse>(query, {
 				upTo: 10,
-				startAt: 50
+				startAt: 50,
 			})
 				.then(res2 => res2.items)
 			

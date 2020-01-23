@@ -14,15 +14,15 @@ export function customSignale () {
 				badge: '**',
 				color: 'yellow',
 				label: 'reminder',
-				logLevel: 'info'
+				logLevel: 'info',
 			},
 			santa: {
 				badge: '🎅',
 				color: 'red',
 				label: 'santa',
-				logLevel: 'info'
-			}
-		}
+				logLevel: 'info',
+			},
+		},
 	}
 	const custom = new Signale(options)
 	

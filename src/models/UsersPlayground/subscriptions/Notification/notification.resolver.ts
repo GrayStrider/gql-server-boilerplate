@@ -28,7 +28,7 @@ export class NotificationResolver {
 			return SubTopics.NOTIFICATIONS
 			
 		},
-		filter: ({payload, args, context, info}) => true
+		filter: ({payload, args, context, info}) => true,
 	})
 	newNotification (@Root() {id, message}: NotificationPayload): Notification {
 		
@@ -38,7 +38,7 @@ export class NotificationResolver {
 	
 	@Mutation(returns => Boolean)
 	async ping (
-		@Arg('message') message: string,
+	@Arg('message') message: string,
 		@PubSub(SubTopics.NOTIFICATIONS) dispatch: Publisher<NotificationPayload>
 	) {
 		

@@ -48,9 +48,9 @@ export async function main () {
 		.use(redirect)
 		.use(session({
 			store: RedisStore({
-				client: redisSessionClient
+				client: redisSessionClient,
 			}),
-			key: 'redisCookie'
+			key: 'redisCookie',
 		}, app))
 		.on('error', error => console.log(error))
 		.use(helmet({}))

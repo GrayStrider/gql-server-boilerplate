@@ -14,7 +14,8 @@ export const errorHandler: Middleware = async (ctx, next) => {
 		
 		await next()
 		
-	} catch (err) {
+	}
+	catch (err) {
 		
 		ctx.status = err.status ?? 500
 		ctx.body = err.message

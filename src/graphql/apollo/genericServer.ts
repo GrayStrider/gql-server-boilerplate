@@ -13,9 +13,9 @@ export function genericApolloServer (schema: GraphQLSchema) {
 		engine: {apiKey: APOLLO_ENGINE_API_KEY},
 		playground: {
 			settings: {
-				'request.credentials': 'include'
-			}
-		}
+				'request.credentials': 'include',
+			},
+		},
 		
 	})
 	

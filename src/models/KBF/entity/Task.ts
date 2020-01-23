@@ -71,7 +71,7 @@ export class Task extends BaseEntity {
 	@Field(returns => [Label])
 	@ManyToMany(type => Label, label => label.tasks, {
 		cascade: true,
-		eager: true
+		eager: true,
 	})
 	@JoinTable()
 	labels: Label[]

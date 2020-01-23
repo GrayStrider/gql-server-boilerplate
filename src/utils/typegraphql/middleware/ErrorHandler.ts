@@ -11,7 +11,8 @@ export const ErrorHandler: MiddlewareFn<Context> =
 			
 			return await next()
 			
-		} catch (err) {
+		}
+		catch (err) {
 			
 			if (err.routine === '_bt_check_unique') {
 				

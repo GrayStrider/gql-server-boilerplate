@@ -27,7 +27,7 @@ export class KBFResolver {
 					? LikeWrapper(params, 'description')
 					: RD.isNotNil(tag)
 						? {...params}
-						: params
+						: params,
 		})
 		
 	}

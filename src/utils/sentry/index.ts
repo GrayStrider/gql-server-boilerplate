@@ -6,5 +6,5 @@ export const sentryErrorHandler = Sentry.Handlers.errorHandler({
 		
 		return true
 		
-	}
+	},
 }) as ErrorRequestHandler

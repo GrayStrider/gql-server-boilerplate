@@ -13,7 +13,7 @@ export class TDate extends BaseEntity {
 	
 	@Field(returns => [Task], {nullable: true})
 	@ManyToMany(type => Task, task => task.dates, {
-		nullable: true
+		nullable: true,
 	})
 	tasks: Task[]
 	

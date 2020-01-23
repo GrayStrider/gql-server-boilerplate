@@ -6,5 +6,5 @@ export enum SubTopics {
 
 
 registerEnumType(SubTopics, {
-	name: 'SubTopics'
+	name: 'SubTopics',
 })

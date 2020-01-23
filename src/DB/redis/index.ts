@@ -4,7 +4,7 @@ function makeRedis () {
 	
 	const redis = new Redis({
 		connectTimeout: 2000,
-		showFriendlyErrorStack: true
+		showFriendlyErrorStack: true,
 	})
 	
 	redis.on('error', error => {

@@ -49,7 +49,7 @@ export function hrLogger (logPath = './log.json') {
 	
 	
 	const exp = {
-		start, log
+		start, log,
 	}
 	return exp
 	
