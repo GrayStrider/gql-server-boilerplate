@@ -11,3 +11,5 @@ config/local*.ts
 /src/graphql/generated/*
 /test/coverage
 /dist
+!/src/graphql/generated/typings.ts
+!/src/graphql/generated/schema.json
