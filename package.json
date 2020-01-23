@@ -6,6 +6,7 @@
   "dependencies": {
     "@koa/cors": "^3.0.0",
     "apollo-datasource-rest": "^0.6.11",
+    "apollo-server-errors": "^2.3.4",
     "apollo-server-koa": "^2.9.16",
     "axios": "^0.19.1",
     "bcryptjs": "^2.4.3",
@@ -37,16 +38,14 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.4",
     "signale": "^1.4.0",
+    "ts-node": "^8.6.2",
+    "tsconfig-paths": "^3.9.0",
     "type-graphql": "^0.18.0-beta.9",
     "typedi": "^0.8.0",
     "typeorm": "^0.2.22",
     "typeorm-typedi-extensions": "^0.2.3",
     "typescript": "^3.7.5",
-    "uuid": "^3.4.0",
-    "apollo-server-errors": "^2.3.4",
-    "tsconfig-paths": "^3.9.0",
-    "ts-node": "^8.6.2"
-
+    "uuid": "^3.4.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.11.2",
@@ -55,12 +54,9 @@
     "@graphql-codegen/typescript-document-nodes": "1.11.2",
     "@graphql-codegen/typescript-resolvers": "1.11.2",
     "@types/bcryptjs": "^2.4.2",
-    "@types/config": "^0.0.36",
     "@types/bluebird": "^3.5.29",
-    "@types/ramda": "^0.26.39",
-    "@types/signale": "^1.2.1",
+    "@types/config": "^0.0.36",
     "@types/faker": "^4.1.9",
-    "@types/graphql": "^14.5.0",
     "@types/ioredis": "^4.14.4",
     "@types/jest": "^24.9.0",
     "@types/koa": "^2.11.0",
@@ -72,6 +68,8 @@
     "@types/lodash": "^4.14.149",
     "@types/node": "^13.1.8",
     "@types/nodemailer": "^6.4.0",
+    "@types/ramda": "^0.26.39",
+    "@types/signale": "^1.2.1",
     "@types/uuid": "^3.4.6",
     "@typescript-eslint/eslint-plugin": "^2.17.0",
     "@typescript-eslint/parser": "^2.16.0",
@@ -84,11 +82,10 @@
     "ts-node-dev": "^1.0.0-pre.44",
     "tsdef": "^0.0.13"
   },
-
   "peerDependencies": {
+    "graphql-subscriptions": "1.0.0",
     "tslint": "5.0.0"
   },
-
   "scripts": {
     "start": "cross-env NODE_ENV=production ts-node --transpile-only -r tsconfig-paths/register src/index.ts",
     "start:test": "cross-env NODE_ENV=test ts-node --transpile-only -r tsconfig-paths/register src/index.ts",
@@ -102,7 +99,6 @@
     "lint": "eslint -c .eslintrc.style.json . --ext .ts",
     "lint:fix": "yarn lint --fix"
   },
-
   "signale": {
     "displayScope": true,
     "displayBadge": false,
@@ -116,5 +112,4 @@
     "underlineSuffix": false,
     "uppercaseLabel": false
   }
-
 }
