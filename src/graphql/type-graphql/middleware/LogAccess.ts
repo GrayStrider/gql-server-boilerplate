@@ -1,6 +1,6 @@
-import {Logger} from '@/graphql/typedi/services/Logger'
 import {MiddlewareInterface, NextFn, ResolverData} from 'type-graphql'
 import {Inject} from 'typedi'
+import {Logger} from '@/graphql/typedi/services/Logger'
 import {Context} from '@/graphql'
 
 export class LogAccess implements MiddlewareInterface<Context> {

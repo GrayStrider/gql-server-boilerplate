@@ -1,10 +1,10 @@
+import {Arg, Mutation, Publisher, PubSub, Root, Subscription} from 'type-graphql'
+import uuid from 'uuid'
+import {isNil} from 'ramda'
 import {Notification, NotificationPayload} from '@/models/UsersPlayground/subscriptions/Notification/notification.model'
 import {SubTopics} from '@/models/UsersPlayground/subscriptions/subscriptions.topics'
 import {Errors} from '@/utils/Errors'
-import {Arg, Mutation, Publisher, PubSub, Root, Subscription} from 'type-graphql'
-import uuid from 'uuid'
 import {Context} from '@/graphql'
-import {isNil} from 'ramda'
 
 const checkAuthorized = (context: Context) => {
 	

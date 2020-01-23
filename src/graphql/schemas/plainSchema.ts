@@ -1,6 +1,6 @@
+import {ApolloError} from 'apollo-server-errors'
 import {Context} from '@/graphql'
 import {makeSchema} from '@/graphql/utils/makeSchema'
-import {ApolloError} from 'apollo-server-errors'
 
 export const plainSchema = makeSchema<Context>('src/graphql/schemas/plain.graphql',
 	{

@@ -1,6 +1,6 @@
 import {PostgresConnectionOptions} from 'typeorm/driver/postgres/PostgresConnectionOptions'
-import {CustomLogger} from '@/DB/typeorm/Logger'
 import {POSTGRES_URL, POSTRGRES_DATABASE, POSTRGRES_PASSWORD, POSTRGRES_PORT, POSTRGRES_USERNAME} from './_consts'
+import {CustomLogger} from '@/DB/typeorm/Logger'
 
 export const ORMConfig: PostgresConnectionOptions = {
 	name: 'default',

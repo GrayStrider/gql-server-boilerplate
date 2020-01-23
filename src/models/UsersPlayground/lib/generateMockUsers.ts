@@ -1,12 +1,12 @@
-import {UserCreateInput} from '@/models/UsersPlayground/user.inputs'
 import faker from 'faker'
 import gql from 'graphql-tag'
 import {times} from 'lodash'
-import {bb} from '@/utils/libsExport'
-import {Countries} from './CountriesList'
-import {SERVER_URL} from 'config/_consts'
 import {GraphQLClient} from 'graphql-request'
 import {print} from 'graphql'
+import {Countries} from './CountriesList'
+import {bb} from '@/utils/libsExport'
+import {SERVER_URL} from 'config/_consts'
+import {UserCreateInput} from '@/models/UsersPlayground/user.inputs'
 import {flattenObject} from '@/utils/zz_misc/flattenObject'
 
 const query = gql`mutation userCreate($input: UserCreateInput!) {

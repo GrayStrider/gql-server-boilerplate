@@ -1,6 +1,6 @@
+import {identity} from 'ramda'
 import {Context} from '@/graphql'
 import {makeSchema} from '@/graphql/utils/makeSchema'
-import {identity} from 'ramda'
 
 export const uploadSchema = makeSchema<Context>('src/graphql/schemas/upload.graphql', {
 	resolvers: {

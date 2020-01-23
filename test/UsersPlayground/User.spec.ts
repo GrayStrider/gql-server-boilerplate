@@ -1,6 +1,7 @@
 import arrayContaining = jasmine.arrayContaining
 
 process.env.endpoint = 'users'
+import * as http from 'http'
 import * as faker from 'faker'
 import gql from 'graphql-tag'
 import {head, map, omit, pipe, prop} from 'ramda'
@@ -11,7 +12,6 @@ import {gqlRequest} from 'src/graphql/utils/postQuery'
 import {generateMockUsers} from 'src/models/UsersPlayground/lib/generateMockUsers'
 import {Await} from 'src/types/Await'
 import {P} from 'src/types/GetOnePropertyOfType'
-import * as http from 'http'
 
 let conn: Connection
 let server: http.Server | null

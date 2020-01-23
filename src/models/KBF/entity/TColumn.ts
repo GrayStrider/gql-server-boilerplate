@@ -1,6 +1,6 @@
 import {Entity, PrimaryGeneratedColumn, OneToMany, ManyToOne, BaseEntity} from 'typeorm'
-import {Task} from '@/models/KBF/entity/Task'
 import {ObjectType, Field, ID} from 'type-graphql'
+import {Task} from '@/models/KBF/entity/Task'
 import {Board} from '@/models/KBF/entity/Board'
 
 

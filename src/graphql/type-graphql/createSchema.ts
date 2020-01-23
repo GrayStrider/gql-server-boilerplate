@@ -1,7 +1,7 @@
-import {ErrorHandler} from '@/utils/typegraphql/middleware/ErrorHandler'
 import {buildSchema} from 'type-graphql'
 import {Container} from 'typedi'
 import {NonEmptyArray} from 'type-graphql/dist/utils/types'
+import {ErrorHandler} from '@/utils/typegraphql/middleware/ErrorHandler'
 import {pubSub} from '@/graphql/type-graphql/pubSub'
 import {authChecker} from '@/graphql/type-graphql/middleware/authChecker'
 
