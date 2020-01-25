@@ -12,7 +12,7 @@ import {sig} from '@/utils'
 import {redisSessionClient} from '@/DB/redis'
 import {ORMConfig, PORT, HOST, NODE_ENV} from '@config'
 import router from '@/routes'
-import {redirect, errorHandler} from '@/utils/koa/middlewares'
+import {redirect, errorHandler} from '@/middlewares'
 import makeKBFServer from '@/models/KBF'
 import makeUsersServer from '@/models/UsersPlayground'
 

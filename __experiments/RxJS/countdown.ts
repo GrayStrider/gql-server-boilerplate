@@ -1,6 +1,6 @@
 import {interval} from 'rxjs'
 import {take, map, endWith} from 'rxjs/operators'
-import {consoleWrite, RD} from 'src/utils'
+import {RD, consoleWrite} from 'src/utils'
 
 const countdown = (amount: number, every = 1000) =>
 	interval(every)

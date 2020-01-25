@@ -2,7 +2,8 @@ import * as http from 'http'
 import {Connection, createConnection, getConnection} from 'typeorm'
 import main from '@/server'
 import {ORMConfig, GQL_URL} from '@config'
-import {sig, isUp} from '@/utils'
+import {sig} from '@/utils'
+import isUp from '@/utils/isUp'
 
 export default async function setupTests () {
 	
