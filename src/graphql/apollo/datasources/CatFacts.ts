@@ -3,22 +3,6 @@ import {RESTDataSource} from 'apollo-datasource-rest'
 /**
  * https://alexwohlbruck.github.io/cat-facts
  */
-class CatFactsAPI extends RESTDataSource {
-	
-	constructor () {
-		
-		super()
-		this.baseURL = 'https://cat-fact.herokuapp.com'
-		
-	}
-	
-	async getFact () {
-		
-		return this.get<CatFact>('/facts/random')
-		
-	}
-	
-}
 
 interface CatFact {
 	used: boolean
@@ -39,4 +23,19 @@ interface CatFact {
 	}
 }
 
-export default CatFactsAPI
+export default class CatFactsAPI extends RESTDataSource {
+	
+	constructor () {
+		
+		super()
+		this.baseURL = 'https://cat-fact.herokuapp.com'
+		
+	}
+	
+	async getFact () {
+		
+		return this.get<CatFact>('/facts/random')
+		
+	}
+	
+}
