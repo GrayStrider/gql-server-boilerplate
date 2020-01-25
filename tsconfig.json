@@ -20,6 +20,7 @@
 
     "lib": ["dom", "esnext"],
     "target": "es2020",
+    // For "resolveJsonModule"
     "moduleResolution": "node",
 
     "esModuleInterop": true,
@@ -27,6 +28,7 @@
     "experimentalDecorators": true,
 
     "strict": true,
+    "noImplicitAny": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     // Required for typeorm
