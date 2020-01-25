@@ -1,8 +1,8 @@
 import {debounce} from 'lodash'
 import {MiddlewareFn} from 'type-graphql'
-import {sig} from 'src/utils'
+import {sig} from '@/utils'
 import {Context} from '@/graphql'
-import DBRequestCounterService from '@/utils/typegraphql/middleware/DBRequestCounter.service'
+import DBRequestCounterService from '@/graphql/type-graphql/middleware/DBRequestCounter.service'
 
 
 const collect = debounce((count: number) => {

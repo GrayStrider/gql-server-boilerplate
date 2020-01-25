@@ -1,5 +1,5 @@
 import {Logger, QueryRunner} from 'typeorm'
-import DBRequestCounterService from '@/utils/typegraphql/middleware/DBRequestCounter.service'
+import DBRequestCounterService from '@/graphql/type-graphql/middleware/DBRequestCounter.service'
 
 /* eslint-disable @typescript-eslint/no-empty-function*/
 
