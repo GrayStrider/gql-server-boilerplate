@@ -15,8 +15,10 @@
       "@config": ["config/export"],
       "@/*": ["src/*"]
     },
-    "target": "es6",
+
+    "target": "es2020",
     "module": "commonjs",
+
     "lib": [
       "dom",
       "esnext"
@@ -26,11 +28,9 @@
     "strict": true,
     "strictPropertyInitialization": false,
     "suppressImplicitAnyIndexErrors": true,
-    // conflicts with typeorm
     "sourceMap": true,
     "outDir": "./dist",
     "moduleResolution": "node",
-    //    "declaration": false,
     "composite": false,
     "removeComments": true,
     "noImplicitAny": true,
