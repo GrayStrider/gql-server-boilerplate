@@ -1,6 +1,6 @@
 import main from '@/server'
 import {sig} from '@/utils'
-import {NODE_ENV} from 'config/_consts'
+import {NODE_ENV} from '@config'
 
 process.on('uncaughtException', error => {
 	

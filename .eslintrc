@@ -143,7 +143,7 @@ rules:
     - error
     - checkCompoundAssignments: true
   '@typescript-eslint/restrict-template-expressions':
-    - error
+    - off
     - allowNumber: true
   '@typescript-eslint/return-await': error
   '@typescript-eslint/strict-boolean-expressions':

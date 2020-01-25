@@ -1,9 +1,11 @@
+// --- On change copy the config to eslint config file
+// TODO make the "extends" work with exclude/include for test files
 {
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
       "src/*": ["src/*"],
-      "config/*": ["config/*"],
+      "@config": ["config/export"],
       "@/*": ["src/*"]
     },
     "target": "es6",

@@ -1,8 +1,7 @@
 import * as http from 'http'
 import {Connection, createConnection, getConnection} from 'typeorm'
 import main from '@/server'
-import {GQL_URL} from 'config/_consts'
-import ORMConfig from 'config/_typeorm'
+import {ORMConfig, GQL_URL} from '@config'
 import {sig, isUp} from '@/utils'
 
 export default async function setupTests () {

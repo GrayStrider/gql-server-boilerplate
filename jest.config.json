@@ -17,7 +17,7 @@
   "moduleNameMapper": {
     "^src/(.*)": "<rootDir>/src/$1",
     "^test/(.*)": "<rootDir>/test/$1",
-    "^config/(.*)": "<rootDir>/config/$1",
+    "^@config": "<rootDir>/config/export",
     "^@/(.*)": "<rootDir>/src/$1"
   },
   "collectCoverageFrom": [

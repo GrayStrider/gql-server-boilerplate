@@ -4,7 +4,7 @@ import {times} from 'lodash'
 import {GraphQLClient} from 'graphql-request'
 import {print} from 'graphql'
 import {bb, flattenObject} from '@/utils'
-import {SERVER_URL} from 'config/_consts'
+import {SERVER_URL} from '@config'
 import {Countries} from '@/models/UsersPlayground'
 import {UserCreateInput} from '@/models/UsersPlayground/inputs'
 

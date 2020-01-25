@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "src/*": ["src/*"],
-      "config/*": ["config/*"],
+      "@config": ["config/export"],
       "@/*": ["src/*"]
     },
     "target": "es6",
@@ -39,6 +39,6 @@
     "resolveJsonModule": true
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
   ]
 }

@@ -10,11 +10,10 @@ import {Container} from 'typedi'
 import RedisStore from 'koa-redis'
 import {sig} from '@/utils'
 import {redisSessionClient} from '@/DB/redis'
-import {PORT, HOST, NODE_ENV} from 'config/_consts'
+import {ORMConfig, PORT, HOST, NODE_ENV} from '@config'
 import router from '@/routes'
 import {redirect, errorHandler} from '@/utils/koa/middlewares'
 import makeKBFServer from '@/models/KBF'
-import ORMConfig from 'config/_typeorm'
 import makeUsersServer from '@/models/UsersPlayground'
 
 if (NODE_ENV === undefined)

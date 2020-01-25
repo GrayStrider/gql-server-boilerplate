@@ -1,7 +1,7 @@
 import UserResolver from './user.resolver'
 import {createSchema, genericApolloServer} from '@/graphql'
 import {sig} from '@/utils'
-import {SERVER_URL} from 'config/_consts'
+import {SERVER_URL} from '@config'
 import generateMockUsers from '@/models/UsersPlayground/lib/generateMockUsers'
 import AuthRoles from '@/models/UsersPlayground/lib/auth/authRoles'
 

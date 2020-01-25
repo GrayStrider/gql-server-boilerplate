@@ -3,7 +3,7 @@ import {request} from 'graphql-request'
 import {Variables} from 'graphql-request/dist/src/types'
 import {AnyObject} from 'tsdef'
 import {isNil} from 'ramda'
-import {GQL_URL} from 'config/_consts'
+import {GQL_URL} from '@config'
 import {Mutation, Query} from '@/graphql/generated/typings'
 import {flattenObject} from '@/utils'
 

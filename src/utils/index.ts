@@ -57,7 +57,6 @@ function flattenObject (input: object) {
 
 const sig = signale
 
-export {default as setupTests} from '@/utils/test-utils/setupTests'
 export {userNotFoundError, ErrorCodes, Errors} from '@/utils/Errors'
 export {makeCustomError, IExpectedError} from '@/utils/makeCustomError'
 export {flattenObject, warn, sleep, RD, log, consoleWrite, sig, isUp}

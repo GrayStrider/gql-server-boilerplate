@@ -1,7 +1,7 @@
 import {GraphQLSchema} from 'graphql'
 import {ApolloServer} from 'apollo-server-koa'
 import {formatError, dataSources, context} from '@/graphql'
-import {APOLLO_ENGINE_API_KEY} from 'config/_consts'
+import {APOLLO_ENGINE_API_KEY} from '@config'
 
 function genericApolloServer (schema: GraphQLSchema) {
 	
