@@ -9,34 +9,29 @@
   ],
 
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "src/*": ["src/*"],
       "@config": ["config/export"],
       "@/*": ["src/*"]
     },
 
+    "baseUrl": ".",
+    "outDir": "./dist",
+
+    "lib": ["dom", "esnext"],
     "target": "es2020",
     "module": "commonjs",
 
-    "lib": [
-      "dom",
-      "esnext"
-    ],
-
-    "incremental": true,
     "strict": true,
+    "incremental": true,
+
+    // required for typeorm
     "strictPropertyInitialization": false,
     "suppressImplicitAnyIndexErrors": true,
     "sourceMap": true,
-    "outDir": "./dist",
     "moduleResolution": "node",
     "composite": false,
     "removeComments": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "noImplicitThis": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noImplicitReturns": true,
