@@ -1,4 +1,13 @@
 {
+  "include": [
+    "config",
+    "__experiments",
+    "src"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -10,10 +19,9 @@
     "module": "commonjs",
     "lib": [
       "dom",
-      "es6",
-      "es2017",
-      "esnext.asynciterable"
+      "esnext"
     ],
+
     "incremental": true,
     "strict": true,
     "strictPropertyInitialization": false,
@@ -39,13 +47,6 @@
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "resolveJsonModule": true
-  },
-  "include": [
-    "config",
-    "__experiments",
-    "src"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  }
+
 }
