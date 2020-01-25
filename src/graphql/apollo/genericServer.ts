@@ -3,7 +3,7 @@ import {ApolloServer} from 'apollo-server-koa'
 import {formatError, dataSources, context} from '@/graphql'
 import {APOLLO_ENGINE_API_KEY} from '@config'
 
-function genericApolloServer (schema: GraphQLSchema) {
+export default function genericApolloServer (schema: GraphQLSchema) {
 	
 	return new ApolloServer({
 		schema,
@@ -20,5 +20,3 @@ function genericApolloServer (schema: GraphQLSchema) {
 	})
 	
 }
-
-export default genericApolloServer

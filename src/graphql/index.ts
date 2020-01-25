@@ -1,6 +1,6 @@
 import genericApolloServer from '@/graphql/apollo/genericServer'
 import uploadSchema from '@/graphql/schemas/uploadSchema'
-import {Context} from '@/graphql/apollo/context'
+import context, {Context} from '@/graphql/apollo/context'
 import dataSources from '@/graphql/apollo/datasources'
 import DeprecatedDirective from '@/graphql/directives'
 import plainSchema from '@/graphql/schemas/plainSchema'
@@ -11,6 +11,7 @@ export {
 	genericApolloServer,
 	uploadSchema,
 	Context,
+	context,
 	dataSources,
 	formatError,
 	DeprecatedDirective,

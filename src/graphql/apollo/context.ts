@@ -7,13 +7,16 @@ interface SubscriptionContext {
 	connection: AnyObject
 }
 
-const context = ({ctx: {session, request}}: { ctx: KoaContext }) => ({
-	session,
-	request,
-})
+export default function context ({ctx: {session, request}}: { ctx: KoaContext }) {
 
-type Context = {
+	return {
+		session,
+		request,
+	}
+
+}
+
+export type Context = {
 	dataSources: ReturnType<typeof dataSources>
 } & ReturnType<typeof context>
 
-export {Context, context}
