@@ -16,7 +16,6 @@ import {Like} from 'typeorm'
 export default function LikePropertyWrapper (input: AnyObject) {
 	
 	for (const field in input)
-		// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
 		if (Object.prototype.hasOwnProperty.call(input, field))
 			if (typeof input[field] === 'string' && field !== 'id') {
 				

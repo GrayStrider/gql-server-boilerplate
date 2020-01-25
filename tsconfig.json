@@ -1,5 +1,3 @@
-// --- On change copy the config to eslint config file
-// TODO make the "extends" work with exclude/include for test files
 {
   "compilerOptions": {
     "baseUrl": ".",
@@ -42,8 +40,12 @@
     "skipLibCheck": true,
     "resolveJsonModule": true
   },
+  "include": [
+    "config",
+    "__experiments",
+    "src"
+  ],
   "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
+    "node_modules"
   ]
 }
