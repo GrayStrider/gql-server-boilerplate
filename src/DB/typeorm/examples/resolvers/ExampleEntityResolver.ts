@@ -1,6 +1,6 @@
-import {Args, Query, Resolver} from 'type-graphql'
-import {ExampleEntity, Child, ExampleEntitySearchInput} from '@/DB/typeorm/examples/index'
-
+import {Resolver, Query, Args} from 'type-graphql'
+import {ExampleEntity, Child} from '@/DB/typeorm/examples'
+import {ExampleEntitySearchInput} from '@/DB/typeorm/examples/inputs'
 
 @Resolver()
 export default class ExampleEntityResolver {
@@ -20,5 +20,3 @@ export default class ExampleEntityResolver {
 	}
 	
 }
-
-

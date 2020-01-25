@@ -1,14 +1,14 @@
 import {Middleware} from 'koa'
 import {sig} from '@/utils'
 
-export const redirect: Middleware = async (ctx, next) => {
+const redirect: Middleware = async (ctx, next) => {
 	
 	await next()
 	if (ctx.status === 404) ctx.redirect('/')
 	
 	
 }
-export const errorHandler: Middleware = async (ctx, next) => {
+const errorHandler: Middleware = async (ctx, next) => {
 	
 	try {
 		
@@ -25,3 +25,5 @@ export const errorHandler: Middleware = async (ctx, next) => {
 	}
 	
 }
+
+export {redirect, errorHandler}

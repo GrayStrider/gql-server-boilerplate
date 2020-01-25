@@ -1,13 +1,12 @@
 import {MiddlewareFn} from 'type-graphql'
-import {Errors} from '@/utils/Errors'
+import {Errors, RD} from '@/utils'
 import {Context} from '@/graphql'
 import {HOST, PORT} from 'config/_consts'
-import {RD} from '@/utils'
 
-export const publicFields = ['register', 'login']
+const publicFields = ['register', 'login']
 
-export const GlobalAuth: MiddlewareFn<Context> =
-	async ({context: {session, request: {headers, host}}, args, info, root}, next) => {
+const globalAuth: MiddlewareFn<Context> =
+	async function ({context: {session, request: {headers, host}}, args, info, root}, next) {
 		
 		const isAllowedOperation = publicFields.includes(info.fieldName)
 		const unathorized = new Errors.Unathorized('Please log in or register to proceed')
@@ -19,3 +18,5 @@ export const GlobalAuth: MiddlewareFn<Context> =
 		throw unathorized
 		
 	}
+
+export default globalAuth

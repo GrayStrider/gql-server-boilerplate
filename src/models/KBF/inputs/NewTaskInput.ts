@@ -1,5 +1,5 @@
 import {ArgsType, Field} from 'type-graphql'
-import {Priority} from '@/models/KBF'
+import Priority from '@/models/KBF/entity/Priority'
 
 @ArgsType()
 export default class NewTaskInput {

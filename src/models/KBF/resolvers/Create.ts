@@ -1,18 +1,34 @@
-import {Resolver, Mutation} from 'type-graphql'
-import {Task} from '@/models/KBF'
+import {Resolver, Mutation, Args} from 'type-graphql'
+import {DeepPartial} from 'typeorm'
+import {Task, Label} from '@/models/KBF'
+import {RD, bb} from '@/utils'
+import {NewTaskInput} from '@/models/KBF/inputs/index'
 
 @Resolver()
-class CreateResolver {
+export default class CreateResolver {
 	
 	@Mutation(returns => Task)
-	async createTask (): Promise<Task> {
+	async taskCreate (@Args() {tags: tagNames, ...data}: NewTaskInput) {
 		
-		const task = Task.create({})
+		if (RD.isNotNilOrEmpty(tagNames)) {
+			
+			const labels = await bb.reduce(
+				tagNames, async (acc: Array<DeepPartial<Label>>, name) => {
+					
+					const getTag = await Label.findOne({name}) ??
+						Label.create({name})
+					return [...acc, getTag]
+					
+				}, []
+			)
+			
+			return Task.create({...data, labels})
+			
+		}
 		
-		return task.save()
+		return Task.create(data).save()
 		
 	}
-	
+
 }
 
-export default CreateResolver

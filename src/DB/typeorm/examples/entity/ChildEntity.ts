@@ -4,7 +4,7 @@ import {ExampleEntity, GenericFeatures} from '@/DB/typeorm/examples'
 
 @ObjectType()
 @Entity()
-class Child extends GenericFeatures {
+export default class Child extends GenericFeatures {
 	
 	@Field()
 	@Column({default: 'default'})
@@ -16,4 +16,3 @@ class Child extends GenericFeatures {
 	
 }
 
-export default Child

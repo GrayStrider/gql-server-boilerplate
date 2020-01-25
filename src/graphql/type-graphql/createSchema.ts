@@ -6,8 +6,10 @@ import pubSub from '@/graphql/type-graphql/pubSub'
 import authChecker from '@/graphql/type-graphql/middleware/authChecker'
 
 type Resolvers = NonEmptyArray<Function> | NonEmptyArray<string>
-const createSchema = async (resolvers: Resolvers, schemaNamePrefix: string) =>
-	buildSchema({
+
+export default async function createSchema (resolvers: Resolvers, schemaNamePrefix: string) {
+
+	return buildSchema({
 		// For testing
 		emitSchemaFile: {
 			path: `./src/graphql/generated/${schemaNamePrefix}.schema.graphql`,
@@ -20,7 +22,7 @@ const createSchema = async (resolvers: Resolvers, schemaNamePrefix: string) =>
 			
 			/*
 			 * DbRequestCounter,
-			 * GlobalAuth
+			 * globalAuth
 			 */
 		],
 		container: Container,
@@ -30,4 +32,4 @@ const createSchema = async (resolvers: Resolvers, schemaNamePrefix: string) =>
 		pubSub,
 	})
 
-export default createSchema
+}

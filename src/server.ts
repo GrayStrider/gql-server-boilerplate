@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unassigned-import
 import 'reflect-metadata'
 import Koa from 'koa'
 import helmet from 'koa-helmet'

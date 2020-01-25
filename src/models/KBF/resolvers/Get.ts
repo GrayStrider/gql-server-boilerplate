@@ -1,16 +1,26 @@
-import {Resolver, Query} from 'type-graphql'
+import {Resolver, Query, Args} from 'type-graphql'
 import {Task} from '@/models/KBF'
+import {SearchTaskInput} from '@/models/KBF/inputs'
+import {RD} from '@/utils'
+import {LikeWrapper} from '@/DB/typeorm'
 
 @Resolver()
-class GetResolver {
+export default class GetResolver {
 	
 	@Query(returns => [Task])
-	async tasks () {
+	async tasks (@Args() {tag, ...params}: SearchTaskInput) {
 		
-		return Task.find()
+		return Task.find({
+			where: RD.isNotNil(params.title)
+				? LikeWrapper(params, 'title')
+				: RD.isNotNil(params.description)
+					? LikeWrapper(params, 'description')
+					: RD.isNotNil(tag)
+						? {...params}
+						: params,
+		})
 		
 	}
 	
 }
 
-export default GetResolver

@@ -1,7 +1,7 @@
 import {Field, ID, ObjectType} from 'type-graphql'
 
 @ObjectType()
-export class Notification {
+export default class Notification {
 	
 	@Field(type => ID)
 	id: string
@@ -14,7 +14,3 @@ export class Notification {
 	
 }
 
-export interface NotificationPayload {
-	id: string
-	message?: string
-}
