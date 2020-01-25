@@ -1,12 +1,8 @@
-import {IExecutableSchemaDefinition, makeExecutableSchema} from 'graphql-tools'
-import {importSchema} from 'graphql-import'
+import makeSchema from '@/graphql/utils/makeSchema'
+import {gqlRequest, gqlreq} from '@/graphql/utils/postQuery'
 
-async function makeSchema<TContext> (schemaPath: string, params: Omit<IExecutableSchemaDefinition, 'typeDefs'>) {
-	
-	const typeDefs = await importSchema(schemaPath, {})
-	return makeExecutableSchema<TContext>({...params, typeDefs})
-	
+export {
+	makeSchema,
+	gqlreq,
+	gqlRequest
 }
-export * from '@/graphql/utils/postQuery'
-
-export {makeSchema}

@@ -3,9 +3,7 @@ import {Countries} from '@/models/UsersPlayground'
 import {IsValidEmail} from '@/models/UsersPlayground/lib'
 import {UserCreateInput} from '@/models/UsersPlayground/inputs/index'
 
-/**
- * Same fields as in create, but all nullable
- */
+/** Same fields as in create, but all nullable */
 @InputType()
 export default class UserModifyInput implements UserCreateInput {
 	

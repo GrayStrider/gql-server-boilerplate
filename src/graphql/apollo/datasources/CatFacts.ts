@@ -1,8 +1,6 @@
 import {RESTDataSource} from 'apollo-datasource-rest'
 
-/**
- * https://alexwohlbruck.github.io/cat-facts
- */
+// https://alexwohlbruck.github.io/cat-facts
 
 interface CatFact {
 	used: boolean

@@ -10,9 +10,7 @@ abstract class GenericFeatures extends BaseEntity {
 	
 }
 
-/**
- * The other way to do it is to use embedded columns:
- */
+// The other way to do it is to use embedded columns:
 @ObjectType()
 class EmbeddedFeatures {
 	

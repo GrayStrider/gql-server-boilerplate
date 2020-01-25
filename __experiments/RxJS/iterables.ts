@@ -13,9 +13,7 @@ from(STR)
 	.subscribe(consoleWrite)
 
 
-/**
- * OR bind each value to an interval emit
- */
+// OR bind each value to an interval emit
 interval(300)
 	.pipe(
 		// Limit emits

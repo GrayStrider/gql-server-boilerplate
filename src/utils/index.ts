@@ -3,6 +3,7 @@ import * as RD from 'ramda-adjunct'
 import chalk from 'chalk'
 import {keys, head, values} from 'ramda'
 import axios from 'axios'
+import Errors from '@/utils/Errors'
 
 const log = (message?: unknown, ...optionalParams: unknown[]) =>
 	console.log(message, ...optionalParams)
@@ -57,10 +58,8 @@ function flattenObject (input: object) {
 
 const sig = signale
 
-export {userNotFoundError, ErrorCodes, Errors} from '@/utils/Errors'
-export {makeCustomError, IExpectedError} from '@/utils/makeCustomError'
-export {flattenObject, warn, sleep, RD, log, consoleWrite, sig, isUp}
+export * from '@/utils/Errors'
+export {flattenObject, warn, sleep, RD, log, consoleWrite, sig, isUp, Errors}
 export {Promise as bb} from 'bluebird'
 export {ApolloError} from 'apollo-server-errors'
-
 

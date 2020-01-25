@@ -1,5 +1,32 @@
 import {truncate} from 'lodash'
-import {makeCustomError} from '@/utils/makeCustomError'
+import {AnyObject} from 'tsdef'
+import {ApolloError} from 'apollo-server-errors'
+import {isEmpty} from 'ramda'
+
+
+// eslint-disable-next-line @typescript-eslint/interface-name-prefix
+interface IExpectedError {
+	details?: AnyObject | string
+}
+
+function makeCustomError (
+	code: ErrorCodes, defaultMessage: string, defaultDetails?: AnyObject | string
+) {
+	
+	return class ExpectedError extends ApolloError implements IExpectedError {
+		
+		public details?: AnyObject | string
+		
+		constructor (message?: string, details?: AnyObject | string) {
+			
+			super(message ?? defaultMessage, code)
+			if (isEmpty(defaultDetails)) this.details = defaultDetails
+			
+		}
+		
+	}
+	
+}
 
 enum ErrorCodes {
 	'VALIDATION_ERROR' = 'VALIDATION_ERROR',
@@ -17,4 +44,5 @@ const Errors = {
 const userNotFoundError = (id: string) =>
 	new Errors.NotFound(`User ${truncate(id, {length: 10})} not found`)
 
-export {Errors, ErrorCodes, userNotFoundError}
+export default Errors
+export {ErrorCodes, userNotFoundError, makeCustomError, IExpectedError}

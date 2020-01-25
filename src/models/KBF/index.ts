@@ -1,6 +1,6 @@
 import GetResolver from './resolvers/Get'
 import CreateResolver from './resolvers/Create'
-import {createSchema, genericApolloServer} from '@/graphql'
+import {genericApolloServer} from '@/graphql'
 import {sig} from '@/utils'
 import {SERVER_URL} from '@config'
 import User from '@/models/KBF/entity/User'
@@ -15,20 +15,12 @@ import Color from '@/models/KBF/entity/Color'
 import Task from '@/models/KBF/entity/Task'
 import Comment from '@/models/KBF/entity/Comment'
 import ColorValues from '@/models/KBF/entity/Color.variants'
-
-export default async function makeKBFServer () {
-	
-	const name = 'kbf'
-	const path = `/${name}`
-	const schema = await createSchema([GetResolver, CreateResolver], name)
-	sig.info(SERVER_URL + path)
-	return genericApolloServer(schema)
-		.getMiddleware({path})
-	
-}
+import createSchema from '@/graphql/type-graphql/createSchema'
 
 export {
-	User, TColumn, Swimlane,
+	User,
+	TColumn,
+	Swimlane,
 	Subtask,
 	Priority,
 	TaskNumber,
@@ -40,5 +32,16 @@ export {
 	ColorValues,
 	GetResolver,
 	CreateResolver
+}
+
+export default async function makeKBFServer () {
+	
+	const name = 'kbf'
+	const path = `/${name}`
+	const schema = await createSchema([GetResolver, CreateResolver], name)
+	sig.info(SERVER_URL + path)
+	return genericApolloServer(schema)
+		.getMiddleware({path})
+	
 }
 

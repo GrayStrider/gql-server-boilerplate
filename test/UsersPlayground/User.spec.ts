@@ -7,10 +7,10 @@ import gql from 'graphql-tag'
 import {head, map, omit, pipe, prop} from 'ramda'
 import {Connection} from 'typeorm'
 import {Mutation, PaginatedUserResponse, Query} from 'src/graphql/generated/typings'
-import {gqlRequest} from 'src/graphql/utils'
 import {generateMockUsers} from 'src/models/UsersPlayground'
 import {Await, P} from 'src/types'
 import setupTests from 'test/utils/setupTests'
+import {gqlRequest} from 'src/graphql/utils/postQuery'
 
 let conn: Connection
 let server: http.Server | null
