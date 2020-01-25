@@ -9,27 +9,27 @@
   ],
 
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
       "src/*": ["src/*"],
       "@config": ["config/export"],
       "@/*": ["src/*"]
     },
 
-    "baseUrl": ".",
     "outDir": "./dist",
 
     "lib": ["dom", "esnext"],
     "target": "es2020",
     "module": "commonjs",
+    "moduleResolution": "node",
+
 
     "strict": true,
     "incremental": true,
 
     // required for typeorm
     "strictPropertyInitialization": false,
-    "suppressImplicitAnyIndexErrors": true,
-    "sourceMap": true,
-    "moduleResolution": "node",
+
     "composite": false,
     "removeComments": true,
     "noUnusedLocals": false,
