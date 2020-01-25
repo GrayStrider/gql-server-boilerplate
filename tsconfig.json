@@ -23,25 +23,24 @@
     "module": "commonjs",
     "moduleResolution": "node",
 
-
-    "strict": true,
-    "incremental": true,
-
-    // required for typeorm
-    "strictPropertyInitialization": false,
-
-    "composite": false,
-    "removeComments": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    // Required for typeorm
+    "strictPropertyInitialization": false,
+
+    // For module augmentation
     "skipLibCheck": true,
-    "resolveJsonModule": true
+
+    "incremental": true,
+    "resolveJsonModule": true,
+
+    "removeComments": true
+
   }
 
 }
