@@ -20,7 +20,6 @@
 
     "lib": ["dom", "esnext"],
     "target": "es2020",
-    "module": "commonjs",
     "moduleResolution": "node",
 
     "esModuleInterop": true,
@@ -32,6 +31,7 @@
     "noFallthroughCasesInSwitch": true,
     // Required for typeorm
     "strictPropertyInitialization": false,
+    "forceConsistentCasingInFileNames": true,
 
     // For module augmentation
     "skipLibCheck": true,
