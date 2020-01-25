@@ -5,7 +5,7 @@ import {RD} from '@/utils'
 import {LikeWrapper} from '@/DB/typeorm'
 
 @Resolver()
-export default class GetResolver {
+export default class TasksResolver {
 	
 	@Query(returns => [Task])
 	async tasks (@Args() {tag, ...params}: SearchTaskInput) {

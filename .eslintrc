@@ -20,7 +20,7 @@ rules:
   import/no-named-default: error
   import/no-unassigned-import: error
   import/export: error
-  import/prefer-default-export: error
+  import/prefer-default-export: warn
   import/default: off
   import/exports-last: error
   import/no-duplicates: error

@@ -2,7 +2,7 @@ import {Directive, Field, ID, Int, ObjectType, Root} from 'type-graphql'
 import {BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm'
 import {isEmpty} from 'ramda'
 import {howCommonIsName} from '@/models/UsersPlayground'
-import Countries from '@/models/UsersPlayground/lib/CountriesList'
+import Countries from '@/models/UsersPlayground/enums/Countries'
 
 const currentYear = new Date().getFullYear()
 const UserDescription = `Unique user ID.
@@ -11,7 +11,7 @@ This field suppports **formatting** and [links](https://google.com).`
 
 @ObjectType()
 @Entity()
-class UserNew extends BaseEntity {
+export default class UserNew extends BaseEntity {
 	
 	@PrimaryGeneratedColumn('uuid')
 	@Field(returns => ID, {description: UserDescription})
@@ -91,5 +91,3 @@ class UserNew extends BaseEntity {
 	}
 	
 }
-
-export default UserNew

@@ -3,7 +3,7 @@ import {Entity, OneToMany, Column, ManyToOne, BaseEntity, PrimaryGeneratedColumn
 // Have to be separate, probably something to do with loading order or something.
 import Board from './Board'
 import {Task} from '@/models/KBF'
-import ColorValues from '@/models/KBF/entity/Color.variants'
+import {Colors} from '@/models/KBF/enums'
 
 
 @ObjectType()
@@ -26,9 +26,9 @@ export default class Color extends BaseEntity {
 	@Column({length: 5000, nullable: true})
 	description?: string
 	
-	@Field(returns => ColorValues)
-	@Column({type: 'enum', enum: ColorValues, default: ColorValues.WHITE})
-	value: ColorValues
+	@Field(returns => Colors)
+	@Column({type: 'enum', enum: Colors, default: Colors.WHITE})
+	value: Colors
 	
 	@ManyToOne(type => Board, board => board.colors)
 	board: Board

@@ -1,5 +1,5 @@
-import GetResolver from './resolvers/Get'
-import CreateResolver from './resolvers/Create'
+import TasksResolver from 'src/models/KBF/resolvers/TasksResolver'
+import CreateResolver from 'src/models/KBF/resolvers/CreateResolver'
 import {genericApolloServer} from '@/graphql'
 import {sig} from '@/utils'
 import {SERVER_URL} from '@config'
@@ -14,7 +14,7 @@ import TDate from '@/models/KBF/entity/TDate'
 import Color from '@/models/KBF/entity/Color'
 import Task from '@/models/KBF/entity/Task'
 import Comment from '@/models/KBF/entity/Comment'
-import ColorValues from '@/models/KBF/entity/Color.variants'
+import Colors from '@/models/KBF/enums/Colors'
 import createSchema from '@/graphql/type-graphql/createSchema'
 
 export {
@@ -29,8 +29,7 @@ export {
 	Color,
 	Comment,
 	Task,
-	ColorValues,
-	GetResolver,
+	TasksResolver,
 	CreateResolver
 }
 
@@ -38,7 +37,7 @@ export default async function makeKBFServer () {
 	
 	const name = 'kbf'
 	const path = `/${name}`
-	const schema = await createSchema([GetResolver, CreateResolver], name)
+	const schema = await createSchema([TasksResolver, CreateResolver], name)
 	sig.info(SERVER_URL + path)
 	return genericApolloServer(schema)
 		.getMiddleware({path})
