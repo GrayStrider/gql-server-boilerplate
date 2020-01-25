@@ -30,6 +30,7 @@
     "strict": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
+    "noImplicitThis": true,
     "noFallthroughCasesInSwitch": true,
     // Required for typeorm
     "strictPropertyInitialization": false,
