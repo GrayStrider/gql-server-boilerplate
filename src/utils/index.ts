@@ -6,7 +6,6 @@ import log from '@/utils/log'
 import flattenObject from '@/utils/flattenObject'
 import warn from '@/utils/warn'
 import sleep from '@/utils/sleep'
-import isUp from '@/utils/isUp'
 import consoleWrite from '@/utils/consoleWrite'
 
 signale.config({
@@ -33,6 +32,5 @@ export {
 	flattenObject,
 	warn,
 	sleep,
-	isUp,
 	consoleWrite
 }
