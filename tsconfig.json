@@ -13,14 +13,14 @@
     "paths": {
       "src/*": ["src/*"],
       "@config": ["config/export"],
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "test/*": ["test/*"]
     },
 
     "outDir": "./dist",
 
     "lib": ["dom", "esnext"],
     "target": "es2020",
-    // For "resolveJsonModule"
     "moduleResolution": "node",
 
     "esModuleInterop": true,
@@ -32,11 +32,10 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noFallthroughCasesInSwitch": true,
-    // Required for typeorm
+
     "strictPropertyInitialization": false,
     "forceConsistentCasingInFileNames": true,
 
-    // For module augmentation
     "skipLibCheck": true,
 
     "incremental": true,
