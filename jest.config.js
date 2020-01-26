@@ -2,6 +2,7 @@ const {pathsToModuleNameMapper} = require('ts-jest/utils')
 const {compilerOptions} = require('./tsconfig.json')
 
 module.exports = {
+	'preset': 'ts-jest',
 	'testEnvironment': 'node',
 	'moduleDirectories': [
 		'node_modules',
@@ -14,9 +15,6 @@ module.exports = {
 		'jsx'
 	],
 	'testRegex': '.spec.ts$',
-	'transform': {
-		'^.+\\.(t|j)s$': 'ts-jest'
-	},
 	'moduleNameMapper': pathsToModuleNameMapper(compilerOptions.paths, {prefix: '<rootDir>/'}  ),
 	'collectCoverageFrom': [
 		'src/**/*.{ts,js}',
