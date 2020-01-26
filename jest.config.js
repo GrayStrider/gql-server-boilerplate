@@ -18,11 +18,11 @@ module.exports = {
 	'moduleNameMapper': pathsToModuleNameMapper(compilerOptions.paths, {prefix: '<rootDir>/'}  ),
 	'collectCoverageFrom': [
 		'src/**/*.{ts,js}',
-		'!**/node_modules/**'
+		'!**/node_modules/**',
+		'test/**/*.{ts,js}'
 	],
 
 	'coveragePathIgnorePatterns': [
-		'test',
 		'src/.*/entity',
 		'src/index.ts'
 	],
