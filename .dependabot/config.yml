@@ -5,6 +5,8 @@ update_configs:
     directory: "/"
     update_schedule: weekly
     version_requirement_updates: increase_versions
+    commit_message:
+      prefix: ":arrow_up:"
     automerged_updates:
       - match:
           update_type: all
