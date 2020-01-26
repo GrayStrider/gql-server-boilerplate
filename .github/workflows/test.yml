@@ -51,11 +51,12 @@ jobs:
 
       - name: install
         run: yarn install
-      - name: start, generate schema and test with coverage
+
+      - name: start, test, generate coverage, lint, typecheck, send codacy coverage
         run: |
           yarn start:test &
-          sleep 40s
-          yarn test
+          sleep 10s
+          yarn test && cat ./test/coverage/lcov.info | codacy-coverage --token ${{ secrets.CODACY_PROJECT_TOKEN }}
 
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@master
