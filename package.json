@@ -113,15 +113,15 @@
     "tslint": "5.0.0"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=production ts-node --transpile-only -r tsconfig-paths/register src/index.ts",
     "start:dev": "yarn start:dev:file src/index.ts",
+    "test:typecheck": "tsc --noEmit",
+    "start": "cross-env NODE_ENV=production ts-node --transpile-only -r tsconfig-paths/register src/index.ts",
     "start:dev:file": "ts-node-dev --respawn --transpile-only --ignore-watch .spec -r tsconfig-paths/register",
     "start:test": "cross-env NODE_ENV=test ts-node --transpile-only -r tsconfig-paths/register src/index.ts",
     "test": "yarn test:coverage && yarn lint:all:fix && yarn codegen && yarn test:typecheck",
     "test:CI": "yarn test && cat ./test/coverage/lcov.info | codacy-coverage",
-    "test:jest": "jest -c jest.config.js --forceExit --detectOpenHandles -w 3",
+    "test:jest": "jest --forceExit --detectOpenHandles --runInBand",
     "test:coverage": "yarn test:jest --coverage",
-    "test:typecheck": "tsc --noEmit",
     "lint:all": "eslint -c .eslintrc.style.yml . --ext .ts",
     "lint:all:fix": "yarn lint:all --fix",
     "lint:staged": "eslint -c .eslintrc.style.yml --fix",
