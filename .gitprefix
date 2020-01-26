@@ -6,6 +6,7 @@
 :fire: Removing
 :art: Structure, format, style
 :truck: Moving, renaming, organizing
+:green_heart: CI
 :twisted_rightwards_arrows: Merging
 :label: Adding or updating types (Flow, TypeScript)
 :zap: Performance, reliability
@@ -24,7 +25,6 @@
 //:bookmark: Releasing or Version tags.
 //:rotating_light: Removing linter warnings.
 //:construction: Work in progress.
-//:green_heart: Fixing CI Build.
 //:arrow_down: Downgrading dependencies.
 //:arrow_up: Upgrading dependencies.
 //:pushpin: Pinning dependencies to specific versions.
