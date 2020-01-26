@@ -5,7 +5,7 @@ import {Errors} from '@/utils'
 import {Context} from '@/graphql'
 import {NotificationPayload, SubTopics, Notification} from '@/models/UsersPlayground/subscriptions'
 
-const checkAuthorized = (context: Context) => {
+function checkAuthorized (context: Context) {
 	
 	/*
 	 * Doesn't work with schema stiching,
@@ -14,7 +14,6 @@ const checkAuthorized = (context: Context) => {
 	 */
 	
 	if (isNil(context.session?.userId)) throw new Errors.Unathorized('Not authorised')
-	
 	
 }
 

@@ -2,7 +2,14 @@
   "name": "@strider/graphql-boilerplate",
   "version": "1.0.0",
   "description": "GraphQL boilerplate made with Koa, type-graphql and typeORM",
-  "keywords": ["boilerplate", "graphql", "koa", "type-graphql", "typeORM", "starter"],
+  "keywords": [
+    "boilerplate",
+    "graphql",
+    "koa",
+    "type-graphql",
+    "typeORM",
+    "starter"
+  ],
   "homepage": "https://github.com/GrayStrider/graphql-boilerplate-playground",
   "bugs": "https://github.com/GrayStrider/graphql-boilerplate-playground/issues",
   "private": true,
@@ -16,7 +23,7 @@
   "repository": "github:GrayStrider/graphql-boilerplate-playground",
   "engines": {
     "node": ">=0.10.3 < 0.12",
-    "npm" : "~1.0.20"
+    "npm": "~1.0.20"
   },
   "dependencies": {
     "@koa/cors": "^3.0.0",
@@ -107,18 +114,18 @@
   },
   "scripts": {
     "start": "cross-env NODE_ENV=production ts-node --transpile-only -r tsconfig-paths/register src/index.ts",
-    "start:test": "cross-env NODE_ENV=test ts-node --transpile-only -r tsconfig-paths/register src/index.ts",
     "start:dev": "yarn start:dev:file src/index.ts",
     "start:dev:file": "ts-node-dev --respawn --transpile-only --ignore-watch .spec -r tsconfig-paths/register",
+    "start:test": "cross-env NODE_ENV=test ts-node --transpile-only -r tsconfig-paths/register src/index.ts",
     "test": "yarn test:coverage && yarn lint:all:fix && yarn codegen && yarn test:typecheck",
     "test:CI": "yarn test && cat ./test/coverage/lcov.info | codacy-coverage",
     "test:jest": "jest -c jest.config.js --forceExit --detectOpenHandles -w 3",
     "test:coverage": "yarn test:jest --coverage",
     "test:typecheck": "tsc --noEmit",
-    "codegen": "graphql-codegen",
     "lint:all": "eslint -c .eslintrc.style.yml . --ext .ts",
+    "lint:all:fix": "yarn lint:all --fix",
     "lint:staged": "eslint -c .eslintrc.style.yml --fix",
-    "lint:all:fix": "yarn lint:all --fix"
+    "codegen": "graphql-codegen"
   },
   "signale": {
     "displayScope": true,
