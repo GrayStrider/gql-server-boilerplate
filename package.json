@@ -111,6 +111,7 @@
     "start:dev": "yarn start:dev:file src/index.ts",
     "start:dev:file": "ts-node-dev --respawn --transpile-only --ignore-watch .spec -r tsconfig-paths/register",
     "test": "yarn test:coverage && yarn lint:all:fix && yarn codegen && yarn test:typecheck",
+    "test:CI": "yarn test && cat ./test/coverage/lcov.info | codacy-coverage",
     "test:jest": "jest -c jest.config.js --forceExit --detectOpenHandles -w 3",
     "test:coverage": "yarn test:jest --coverage",
     "test:typecheck": "tsc --noEmit",
