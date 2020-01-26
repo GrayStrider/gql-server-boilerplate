@@ -1,6 +1,5 @@
 import TasksResolver from 'src/models/KBF/resolvers/TasksResolver'
 import CreateResolver from 'src/models/KBF/resolvers/CreateResolver'
-import {genericApolloServer} from '@/graphql'
 import {signale} from '@/utils'
 import {SERVER_URL} from '@config'
 import User from '@/models/KBF/entity/User'
@@ -15,6 +14,7 @@ import Color from '@/models/KBF/entity/Color'
 import Task from '@/models/KBF/entity/Task'
 import Comment from '@/models/KBF/entity/Comment'
 import createSchema from '@/graphql/type-graphql/createSchema'
+import genericApolloServer from '@/graphql/apollo/genericServer'
 
 export {
 	User,
