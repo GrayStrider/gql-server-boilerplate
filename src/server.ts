@@ -58,8 +58,7 @@ export default async function main () {
 		
 		.use(usersServer)
 		.use(KBFServer)
-	return app.listen(PORT, () =>
-		signale.success(`Server started at http://${HOST}:${PORT}`))
-	
+	return app
+
 }
 

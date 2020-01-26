@@ -9,11 +9,11 @@ import {Connection} from 'typeorm'
 import {Mutation, PaginatedUserResponse, Query} from 'src/graphql/generated/typings'
 import {generateMockUsers} from 'src/models/UsersPlayground'
 import {Await, P} from 'src/types'
-import setupTests from 'test/utils/setupTests'
 import {gqlRequest} from 'src/graphql/utils/postQuery'
+import testServer from 'test/utils/serverSingleton'
 
-let conn: Connection
-let server: http.Server | null
+let connection: Connection
+let server: http.Server
 let fakes: Await<ReturnType<typeof generateMockUsers>>['fakes']
 let generated: Await<ReturnType<typeof generateMockUsers>>['generated']
 
@@ -24,14 +24,14 @@ describe('all', () => {
 	
 	beforeAll(async () => {
 		
-		({conn} = await setupTests());
+		({connection, server} = await testServer());
 		({fakes, generated} = await generateMockUsers(SAMPLE_SIZE))
 		
 	})
 	afterAll(async done => {
 		
-		await conn.close()
-		server?.close()
+		await connection.close()
+		server.close()
 		done()
 		
 	})

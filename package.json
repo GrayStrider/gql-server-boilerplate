@@ -94,6 +94,7 @@
     "@types/nodemailer": "^6.4.0",
     "@types/ramda": "^0.26.39",
     "@types/signale": "^1.2.1",
+    "@types/supertest": "^2.0.8",
     "@types/uuid": "^3.4.6",
     "@typescript-eslint/eslint-plugin": "^2.17.0",
     "@typescript-eslint/parser": "^2.16.0",
@@ -104,6 +105,7 @@
     "faker": "^4.1.0",
     "husky": "^4.0.10",
     "jest": "^24.9.0",
+    "supertest": "^4.0.2",
     "ts-jest": "^24.3.0",
     "ts-node-dev": "^1.0.0-pre.44",
     "tsdef": "^0.0.13"

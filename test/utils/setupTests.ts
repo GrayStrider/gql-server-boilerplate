@@ -1,7 +1,7 @@
 import * as http from 'http'
 import {Connection, createConnection, getConnection} from 'typeorm'
 import main from '@/server'
-import {ORMConfig, GQL_URL} from '@config'
+import {ORMConfig, GQL_URL, PORT} from '@config'
 import {signale} from '@/utils'
 import isUp from '@/utils/isUp'
 
@@ -25,7 +25,8 @@ export default async function setupTests () {
 	else {
 		
 		signale.await(`${GQL_URL} is down, starting server`)
-		server = await main()
+		const app = await main()
+		server = app.listen(PORT)
 		signale.await('connecting to database')
 		conn = getConnection()
 		
