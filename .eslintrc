@@ -49,7 +49,7 @@ rules:
     - noUselessIndex: true
       commonjs: true
 
-  jest/no-hooks: warn
+  jest/no-hooks: off
 
   '@typescript-eslint/array-type':
     - warn
