@@ -1,5 +1,5 @@
 import main from '@/server'
-import {sig} from '@/utils'
+import {signale} from '@/utils'
 import {NODE_ENV} from '@config'
 
 process.on('uncaughtException', error => {
@@ -19,7 +19,7 @@ process.on('unhandledRejection', error => {
 
 main().catch(err => {
 	
-	sig.error('Error in main:')
+	signale.error('Error in main:')
 	console.error(err)
 	
 	// eslint-disable-next-line no-process-exit

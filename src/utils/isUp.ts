@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {sig} from '@/utils/index'
+import {signale} from '@/utils/index'
 
 export default async function isUp (url: string): Promise<boolean> {
 	
@@ -9,7 +9,7 @@ export default async function isUp (url: string): Promise<boolean> {
 			
 			if (err.code === 'ECONNREFUSED') return false
 			
-			sig.warn(err.message)
+			signale.warn(err.message)
 			return true
 			
 		})

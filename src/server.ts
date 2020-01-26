@@ -7,7 +7,7 @@ import bodyParser from 'koa-bodyparser'
 import {useContainer, createConnection} from 'typeorm'
 import {Container} from 'typedi'
 import RedisStore from 'koa-redis'
-import {sig} from '@/utils'
+import {signale} from '@/utils'
 import {redisSessionClient} from '@/DB/redis'
 import {ORMConfig, PORT, HOST, NODE_ENV} from '@config'
 import router from '@/routes'
@@ -16,9 +16,9 @@ import makeKBFServer from '@/models/KBF'
 import makeUsersServer from '@/models/UsersPlayground'
 
 if (NODE_ENV === undefined)
-	sig.error('process.env is undefined!')
+	signale.error('process.env is undefined!')
 else
-	sig.info(`Environment: ${NODE_ENV}`)
+	signale.info(`Environment: ${NODE_ENV}`)
 
 export default async function main () {
 	
@@ -31,7 +31,7 @@ export default async function main () {
 	const conn = await createConnection(ORMConfig)
 	if (process.env.NODE_ENV !== 'production') {
 		
-		sig.warn('resetting the DB')
+		signale.warn('resetting the DB')
 		await conn.synchronize(true)
 		await redisSessionClient.flushdb()
 		
@@ -59,7 +59,7 @@ export default async function main () {
 		.use(usersServer)
 		.use(KBFServer)
 	return app.listen(PORT, () =>
-		sig.success(`Server started at http://${HOST}:${PORT}`))
+		signale.success(`Server started at http://${HOST}:${PORT}`))
 	
 }
 

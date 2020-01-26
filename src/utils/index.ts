@@ -9,13 +9,25 @@ import sleep from '@/utils/sleep'
 import isUp from '@/utils/isUp'
 import consoleWrite from '@/utils/consoleWrite'
 
-const sig = signale
+signale.config({
+	displayScope: true,
+	displayBadge: false,
+	displayDate: false,
+	displayFilename: true,
+	displayLabel: true,
+	displayTimestamp: true,
+	underlineLabel: true,
+	underlineMessage: false,
+	underlinePrefix: false,
+	underlineSuffix: false,
+	uppercaseLabel: false,
+})
 
 export * from '@/utils/Errors'
 export {
 	Errors,
 	RD,
-	sig,
+	signale,
 	log,
 	bb,
 	flattenObject,

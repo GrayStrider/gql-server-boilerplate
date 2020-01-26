@@ -1,5 +1,5 @@
 import {Middleware} from 'koa'
-import {sig} from '@/utils'
+import {signale} from '@/utils'
 
 const redirect: Middleware = async (ctx, next) => {
 	
@@ -19,7 +19,7 @@ const errorHandler: Middleware = async (ctx, next) => {
 		
 		ctx.status = err.status ?? 500
 		ctx.body = err.message
-		sig.error('Error in Koa handler')
+		signale.error('Error in Koa handler')
 		ctx.app.emit('error', err, ctx)
 		
 	}

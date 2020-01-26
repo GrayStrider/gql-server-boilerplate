@@ -1,4 +1,4 @@
-import {sig} from '@/utils'
+import {signale} from '@/utils'
 import {SERVER_URL} from '@config'
 import generateMockUsers from '@/models/UsersPlayground/lib/generateMockUsers'
 import howCommonIsName from '@/models/UsersPlayground/lib/HowCommonName'
@@ -22,7 +22,7 @@ export default async function makeUsersServer () {
 		UsersResolver,
 	
 	], name)
-	sig.info(SERVER_URL + path)
+	signale.info(SERVER_URL + path)
 	return genericApolloServer(schema)
 		.getMiddleware({path})
 	

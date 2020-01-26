@@ -2,7 +2,7 @@ import * as http from 'http'
 import {Connection, createConnection, getConnection} from 'typeorm'
 import main from '@/server'
 import {ORMConfig, GQL_URL} from '@config'
-import {sig} from '@/utils'
+import {signale} from '@/utils'
 import isUp from '@/utils/isUp'
 
 export default async function setupTests () {
@@ -17,20 +17,20 @@ export default async function setupTests () {
 	 */
 	if (await isUp(GQL_URL)) {
 		
-		sig.await('server\'s up, connecting to database')
+		signale.await('server\'s up, connecting to database')
 		conn = await createConnection(ORMConfig)
 		server = null
 		
 	}
 	else {
 		
-		sig.await(`${GQL_URL} is down, starting server`)
+		signale.await(`${GQL_URL} is down, starting server`)
 		server = await main()
-		sig.await('connecting to database')
+		signale.await('connecting to database')
 		conn = getConnection()
 		
 	}
-	sig.warn('resetting database')
+	signale.warn('resetting database')
 	await conn.synchronize(true)
 	return {conn, server}
 	

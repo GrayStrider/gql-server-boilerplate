@@ -8,10 +8,10 @@
 :truck: Moving, renaming, organizing
 :twisted_rightwards_arrows: Merging
 :label: Adding or updating types (Flow, TypeScript)
+:zap: Performance, reliability
+:pencil: Docs
 
-//:zap: Improving performance.
 //:ambulance: Critical hotfix.
-//:pencil: Writing docs.
 //:rocket: Deploying stuff.
 //:lipstick: Updating the UI and style files.
 //:tada: Initial commit.
