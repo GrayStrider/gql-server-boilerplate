@@ -24,8 +24,6 @@ export default async function main () {
 	
 	const app = new Koa()
 	
-	app.keys = ['session secret']
-	
 	useContainer(Container)
 	
 	const conn = await createConnection(ORMConfig)
@@ -39,23 +37,23 @@ export default async function main () {
 	const usersServer = await makeUsersServer()
 	const KBFServer = await makeKBFServer()
 	
+	const sessionMW = session({
+		store: RedisStore({
+			client: redisSessionClient,
+		}),
+		key: 'redisCookie',
+	}, app)
 	
 	app
+		.on('error', error => console.log(error))
 		.use(errorHandler)
 		.use(redirect)
-		.use(session({
-			store: RedisStore({
-				client: redisSessionClient,
-			}),
-			key: 'redisCookie',
-		}, app))
-		.on('error', error => console.log(error))
-		.use(helmet({}))
-		.use(cors({}))
-		.use(bodyParser({}))
+		.use(sessionMW)
+		.use(helmet())
+		.use(cors())
+		.use(bodyParser())
 		.use(router.routes())
-		.use(router.allowedMethods({}))
-		
+		.use(router.allowedMethods())
 		.use(usersServer)
 		.use(KBFServer)
 	return app
