@@ -50,6 +50,7 @@ rules:
       commonjs: true
 
   jest/no-hooks: off
+  jest/no-disabled-tests: off
 
   '@typescript-eslint/array-type':
     - warn
