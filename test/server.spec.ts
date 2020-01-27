@@ -1,19 +1,23 @@
-import request from 'supertest'
+import supertest, {SuperTest, Test} from 'supertest'
 import main from 'src/server'
-import {PORT} from 'config/export'
-import testServer from 'test/utils/serverSingleton'
 
 describe('server', () => {
+
+	let request: SuperTest<Test>
+	
+	beforeAll(async () => {
+
+		request = supertest((await main()).callback())
+	
+	})
 
 	it('should start the server', async () => {
 
 		expect.assertions(2)
-		const {server} = await testServer()
-		const res = await request(server)
-			.get('/')
+		const res = await request.get('/')
 		expect(res.status).toBe(200)
 		expect(res.text).toBe('Hello World!')
-		
+
 	})
 
 })
