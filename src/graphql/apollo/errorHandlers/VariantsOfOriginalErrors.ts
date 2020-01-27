@@ -22,7 +22,7 @@ export default function VariantsOfOriginalError (err: GraphQLError<MyError>) {
 		const message = err.originalError
 		const details = err.extensions?.exception.response
 		if (status === '404')
-			return {message, status}
+			return {message, status, details}
 		
 	}
 	// TODO implement error fallthrough validation

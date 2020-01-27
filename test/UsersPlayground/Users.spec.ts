@@ -1,4 +1,4 @@
-import supertest, {SuperTest, Test, Response} from 'supertest'
+import supertest, {SuperTest, Test} from 'supertest'
 import {print, ASTNode} from 'graphql'
 import gql from 'graphql-tag'
 import {Validator} from 'class-validator'
@@ -7,7 +7,7 @@ import main from 'src/server'
 import {flattenObject} from 'src/utils'
 import {P} from 'src/types'
 import {Query, Mutation} from 'src/graphql/generated/typings'
-import Any = jasmine.Any
+
 const check = new Validator()
 
 describe('/users', () => {

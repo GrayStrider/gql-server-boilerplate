@@ -1,7 +1,6 @@
 import {truncate} from 'lodash'
 import {AnyObject} from 'tsdef'
 import {ApolloError} from 'apollo-server-errors'
-import {isEmpty} from 'ramda'
 
 
 // eslint-disable-next-line @typescript-eslint/interface-name-prefix
@@ -20,7 +19,7 @@ function makeCustomError (
 		constructor (message?: string, details?: AnyObject | string) {
 			
 			super(message ?? defaultMessage, code)
-			if (isEmpty(defaultDetails)) this.details = defaultDetails
+			this.details = details ?? defaultDetails
 			
 		}
 		

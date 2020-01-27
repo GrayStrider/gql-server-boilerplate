@@ -13,7 +13,7 @@ const collect = debounce((count: number) => {
 }, 200)
 
 const dbRequestCounter: MiddlewareFn<Context> =
-	async ({context, args, info, root}, next) => {
+	async ({args, root, info, context}, next) => {
 		
 		const res = await next()
 		const count = DBRequestCounterService.connect().getCount

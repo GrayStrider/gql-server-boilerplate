@@ -5,7 +5,7 @@ import {Context} from '@/graphql'
 import {Errors} from '@/utils'
 
 const ErrorHandler: MiddlewareFn<Context> =
-	async ({context, args, info, root}, next) => {
+	async ({context, info, root, args}, next) => {
 		
 		try {
 			

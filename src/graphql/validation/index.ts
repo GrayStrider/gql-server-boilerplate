@@ -1,5 +1,4 @@
 import queryComplexity, {fieldExtensionsEstimator, simpleEstimator} from 'graphql-query-complexity'
-import {identity} from 'ramda'
 
 export default function complexityValidator () {
 

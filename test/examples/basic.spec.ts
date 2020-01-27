@@ -1,11 +1,7 @@
-import * as http from 'http'
 import Koa from 'koa'
 import supertest, {SuperTest, Test} from 'supertest'
 import Router from 'koa-router'
-import bodyParser from 'koa-bodyparser'
 import {prop} from 'ramda'
-import {sleep} from 'src/utils'
-import {PORT} from 'config/export'
 import testFoo from 'test/examples/basic'
 
 

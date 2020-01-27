@@ -6,8 +6,9 @@ import {HOST, PORT} from '@config'
 const publicFields = ['register', 'login']
 
 const globalAuth: MiddlewareFn<Context> =
-	async function ({context: {session, request: {headers, host}}, args, info, root}, next) {
-		
+	async function ({context, args, info, root}, next) {
+
+		const {session, request: {headers, host}} = context
 		const isAllowedOperation = publicFields.includes(info.fieldName)
 		const unathorized = new Errors.Unathorized('Please log in or register to proceed')
 		if (!session) throw unathorized
