@@ -20,7 +20,7 @@ let generated: Await<ReturnType<typeof generateMockUsers>>['generated']
 const SAMPLE_SIZE = 50
 
 
-describe('all', () => {
+describe('usersPlayground', () => {
 	
 	beforeAll(async () => {
 		
