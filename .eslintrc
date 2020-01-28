@@ -159,11 +159,13 @@ rules:
     - off
     - allowNumber: true
   '@typescript-eslint/return-await': error
-  '@typescript-eslint/strict-boolean-expressions':
-    - warn
-    - allowNullable: true
-      allowSafe: true
-      ignoreRhs: true
+  # Good idea probably, but it's just not worth it, especially wheh
+  # cases are covered by tests.
+  '@typescript-eslint/strict-boolean-expressions': off
+#    - warn
+#    - allowNullable: true
+#      allowSafe: true
+#      ignoreRhs: true
   '@typescript-eslint/unified-signatures': error
 
   array-element-newline: 'off'
