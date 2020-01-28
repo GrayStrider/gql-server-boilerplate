@@ -4,7 +4,7 @@ export default {
 	postgres: {
 		url: 'localhost',
 		port: 5432,
-		database: 'typegraphql-example-test',
+		database: 'graphql-boilerplate',
 		password: 'postgres',
 		username: 'postgres',
 	},
