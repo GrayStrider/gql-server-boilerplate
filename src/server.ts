@@ -12,6 +12,7 @@ import {redisSessionClient} from '@/DB/redis'
 import {ORMConfig, NODE_ENV} from '@config'
 import router from '@/routes'
 import {redirect, errorHandler} from '@/middlewares'
+import makeKBFServer from '@/models/KBF'
 import makeUsersServer from '@/models/UsersPlayground'
 
 if (NODE_ENV === undefined)
@@ -34,6 +35,7 @@ export default async function main () {
 		
 	}
 	const usersServer = await makeUsersServer()
+	const KBFServer = await makeKBFServer()
 	
 	const sessionMW = session({
 		store: RedisStore({
@@ -53,6 +55,7 @@ export default async function main () {
 		.use(router.routes())
 		.use(router.allowedMethods())
 		.use(usersServer)
+		.use(KBFServer)
 	return app
 
 }
