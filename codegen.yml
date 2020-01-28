@@ -1,5 +1,9 @@
 overwrite: true
-schema: "src/graphql/**/*.graphql"
+schema: "src/graphql/utils/codegen.schema.ts"
+
+require:
+  - ts-node/register
+  - tsconfig-paths/register
 
 generates:
   src/graphql/generated/typings.ts:
