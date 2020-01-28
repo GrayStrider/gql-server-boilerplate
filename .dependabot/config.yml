@@ -1,27 +1,26 @@
 version: 1
 
-default_assignees: []
-default_labels:
-  - dependencies
-default_reviewers: []
-ignored_updates: []
-target_branch: dev
-
-allowed_updates:
-  - match:
-      update_type: all
-      dependency_type: direct
-  - match:
-      update_type: security
-      dependency_type: indirect
-
 update_configs:
   - package_manager: "javascript"
     directory: "/"
+    default_labels:
+      - dependencies
+    target_branch: dev
+
+    allowed_updates:
+      - match:
+          update_type: all
+          dependency_type: direct
+      - match:
+          update_type: security
+          dependency_type: indirect
+
     update_schedule: weekly
     version_requirement_updates: increase_versions
+
     commit_message:
       prefix: ":arrow_up:"
+
     automerged_updates:
       - match:
           update_type: all
