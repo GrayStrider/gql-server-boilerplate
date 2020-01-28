@@ -3,7 +3,7 @@ import * as RD from 'ramda-adjunct'
 import {Promise as bb} from 'bluebird'
 import Errors from '@/utils/Errors'
 import log from '@/utils/log'
-import flattenObject from '@/utils/flattenObject'
+import flattenGQLResponse from '@/utils/flattenGQLResponse'
 import warn from '@/utils/warn'
 import sleep from '@/utils/sleep'
 import consoleWrite from '@/utils/consoleWrite'
@@ -29,7 +29,7 @@ export {
 	signale,
 	log,
 	bb,
-	flattenObject,
+	flattenGQLResponse,
 	warn,
 	sleep,
 	consoleWrite

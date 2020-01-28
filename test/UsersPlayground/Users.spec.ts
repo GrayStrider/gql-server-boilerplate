@@ -4,7 +4,7 @@ import gql from 'graphql-tag'
 import {Validator} from 'class-validator'
 import {AnyObject} from 'tsdef'
 import main from 'src/server'
-import {flattenObject} from 'src/utils'
+import {flattenGQLResponse} from 'src/utils'
 import {P} from 'src/types'
 import {Query, Mutation} from 'src/graphql/generated/typings'
 
@@ -22,7 +22,7 @@ describe('/users', () => {
 			.post('/users')
 			.send({query: print(query)})
 			.then(res => res.body.data)
-			.then(data => flattenObject<T>(data))
+			.then(data => flattenGQLResponse<T>(data))
 		
 	})
 

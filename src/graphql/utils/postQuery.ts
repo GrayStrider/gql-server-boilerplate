@@ -1,10 +1,10 @@
 import {ASTNode, print} from 'graphql'
 import {request} from 'graphql-request'
-import {Variables} from 'graphql-request/dist/src/types'
+import {Variables, GraphQLResponse} from 'graphql-request/dist/src/types'
 import {AnyObject} from 'tsdef'
 import {GQL_URL} from '@config'
 import {Mutation, Query} from '@/graphql/generated/typings'
-import {flattenObject} from '@/utils'
+import {flattenGQLResponse} from '@/utils'
 
 
 async function gqlRequest<T> (query: ASTNode, variables?: Variables, url?: string): Promise<T>
@@ -16,11 +16,11 @@ async function gqlRequest<T, K, U> (
 	query: ASTNode, variables?: Variables, url: string = GQL_URL
 ) {
 	
-	const res: AnyObject | unknown[] = await request(
+	const res: GraphQLResponse = await request(
 		url, print(query), variables
 	)
 	
-	return flattenObject(res)
+	return flattenGQLResponse(res)
 	
 }
 
@@ -35,7 +35,7 @@ async function gqlreq (
 	const res = await request(
 		url, print(query), variables
 	)
-	return flattenObject(res)
+	return flattenGQLResponse(res)
 	
 }
 

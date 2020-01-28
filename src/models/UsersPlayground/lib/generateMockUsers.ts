@@ -3,7 +3,7 @@ import gql from 'graphql-tag'
 import {times} from 'lodash'
 import {GraphQLClient} from 'graphql-request'
 import {print} from 'graphql'
-import {bb, flattenObject} from '@/utils'
+import {bb, flattenGQLResponse} from '@/utils'
 import {SERVER_URL} from '@config'
 import {Countries} from '@/models/UsersPlayground'
 import {UserCreateInput} from '@/models/UsersPlayground/inputs'
@@ -41,7 +41,7 @@ export default async function generateMockUsers (amount: number) {
 	const generated = await bb.all(
 		fakes.map(async fake => testClient
 			.request(print(query), {input: fake})
-			.then(flattenObject))
+			.then(flattenGQLResponse))
 	)
 	
 	return {
