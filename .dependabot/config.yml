@@ -7,9 +7,6 @@ update_configs:
       - dependencies
     target_branch: dev
 
-    commit_message:
-      prefix: ":arrow_up:"
-
     allowed_updates:
       - match:
           update_type: all
