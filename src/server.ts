@@ -12,6 +12,7 @@ import {redisSessionClient} from '@/DB/redis'
 import {ORMConfig, NODE_ENV} from '@config'
 import router from '@/routes'
 import {redirect, errorHandler} from '@/middlewares'
+import makeUsersServer from '@/models/UsersPlayground'
 
 if (NODE_ENV === undefined)
 	signale.error('process.env is undefined!')
@@ -32,6 +33,7 @@ export default async function main () {
 		await redisSessionClient.flushdb()
 		
 	}
+	const usersServer = await makeUsersServer()
 	
 	const sessionMW = session({
 		store: RedisStore({
@@ -50,6 +52,7 @@ export default async function main () {
 		.use(bodyParser())
 		.use(router.routes())
 		.use(router.allowedMethods())
+		.use(usersServer)
 	return app
 
 }
