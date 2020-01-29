@@ -21,7 +21,6 @@ module.exports = {
 		'js',
 		'jsx'
 	],
-	'snapshotResolver': '<rootDir>/config/snapshotResolver.js',
 	'testRegex': '.spec.ts$',
 	'moduleNameMapper': pathsToModuleNameMapper(compilerOptions.paths, {prefix: '<rootDir>/'}  ),
 	'collectCoverageFrom': [
