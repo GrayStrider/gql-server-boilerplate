@@ -5,7 +5,7 @@ Object {
   "hasMore": false,
   "items": Array [
     Object {
-      "id": "f33e2858-f294-4c6d-91ae-7f78a3efca1b",
+      "id": toBeUUID<>,
     },
   ],
   "total": 1,

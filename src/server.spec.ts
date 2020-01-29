@@ -1,13 +1,10 @@
 import {SuperTest, Test} from 'supertest'
 import {ASTNode} from 'graphql'
-import {Validator} from 'class-validator'
 import main from 'src/server'
 import {sleep, supertest, gql} from 'src/utils'
 import {P} from 'src/types'
 import {Query, Mutation} from 'src/graphql/generated/typings'
 import {log} from 'src/graphql/typedi/services/Logger'
-
-const check = new Validator()
 
 describe('server', () => {
 	
@@ -37,8 +34,8 @@ describe('server', () => {
 	it('should expose graphql endpoint', async () => {
 		
 		expect.assertions(1)
-		const res = await request.get('/example')
-		expect(res.status).toBe(400) // TODO
+		const {status} = await request.get('/example')
+		expect(status).toBe(400) // TODO
 		
 	})
 
@@ -54,7 +51,7 @@ describe('server', () => {
 		
 		const {id, property} = await post<P<Mutation, 'create'>>(query)
 		expect(property).toBe('exampleValue')
-		expect(check.isUUID(id)).toBe(true)
+		expect(id).toBeUUID()
 
 	})
 
@@ -62,7 +59,7 @@ describe('server', () => {
 		
 		expect.assertions(2)
 
-		const res = await post<P<Query, 'example'>>(
+		const {id, property} = await post<P<Query, 'example'>>(
 			gql`query {
           example {
               id
@@ -70,8 +67,8 @@ describe('server', () => {
           }
       }`
 		).then(val => val[0])
-		expect(check.isUUID(res.id)).toBe(true)
-		expect(res.property).toBe('exampleValue')
+		expect(id).toBeUUID()
+		expect(property).toBe('exampleValue')
 
 	})
 	
@@ -81,22 +78,24 @@ describe('server', () => {
 		expect(log).toHaveBeenCalledTimes(2)
 		
 	})
-	
+
 	it('should return paginated response', async () => {
 		expect.assertions(1)
 		const res = await post<P<Query, 'examplePaginated'>>(
 			gql`query {
-					examplePaginated {
-							items {
-									id
-							}
-							total
-							hasMore
-					}
-			}`
+          examplePaginated {
+              items {
+                  id
+              }
+              total
+              hasMore
+          }
+      }`
 		)
-		expect(res).toMatchSnapshot()
-	 
+		expect(res).toMatchSnapshot({
+			items: [{id: expect.toBeUUID()}]})
+
 	})
 
 })
+
