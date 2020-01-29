@@ -14,7 +14,9 @@ import {GraphQLResponse} from 'graphql-request/dist/src/types'
  */
 export default function flattenGQLResponse<T extends unknown> (response: GraphQLResponse): T {
 	
-	if (response.errors) return response.errors as T
+	if (response.errors && response.errors.length > 0)
+		throw new Error(response.errors[0].message)
+	
 	
 	const {data} = response
 	
