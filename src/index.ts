@@ -28,5 +28,6 @@ main()
 	
 		// eslint-disable-next-line no-process-exit
 		if (NODE_ENV === 'production' || NODE_ENV === 'test') process.exit(1)
+		throw err
 	
 	})
