@@ -3,6 +3,13 @@ const {compilerOptions} = require('./tsconfig.json')
 
 module.exports = {
 	'preset': 'ts-jest',
+
+	'globals': {
+		'ts-jest': {
+			'diagnostics': false
+		}
+	},
+
 	'testEnvironment': 'node',
 	'moduleDirectories': [
 		'node_modules',
@@ -24,7 +31,8 @@ module.exports = {
 
 	'coveragePathIgnorePatterns': [
 		'src/.*/entity',
-		'src/index.ts'
+		'src/index.ts',
+		'src/graphql/generated'
 	],
 	'coverageDirectory': '<rootDir>/test/coverage/'
 }
