@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`make schema should create schema 1`] = `
+GraphQLSchema {
+  "__allowedLegacyNames": Array [],
+  "__validationErrors": undefined,
+  "_directives": Array [
+    "@skip",
+    "@include",
+    "@deprecated",
+  ],
+  "_implementations": Object {},
+  "_mutationType": undefined,
+  "_possibleTypeMap": Object {},
+  "_queryType": "Query",
+  "_subscriptionType": undefined,
+  "_typeMap": Object {
+    "Boolean": "Boolean",
+    "Query": "Query",
+    "String": "String",
+    "__Directive": "__Directive",
+    "__DirectiveLocation": "__DirectiveLocation",
+    "__EnumValue": "__EnumValue",
+    "__Field": "__Field",
+    "__InputValue": "__InputValue",
+    "__Schema": "__Schema",
+    "__Type": "__Type",
+    "__TypeKind": "__TypeKind",
+  },
+  "astNode": undefined,
+  "extensionASTNodes": undefined,
+  "extensions": undefined,
+}
+`;
