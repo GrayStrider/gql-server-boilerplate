@@ -20,9 +20,17 @@ export type Mutation = {
   create: Example,
 };
 
+export type PaginatedExampleResponse = {
+   __typename?: 'PaginatedExampleResponse',
+  hasMore: Scalars['Boolean'],
+  items: Array<Example>,
+  total: Scalars['Int'],
+};
+
 export type Query = {
    __typename?: 'Query',
   example: Array<Example>,
+  examplePaginated: PaginatedExampleResponse,
 };
 
 
@@ -102,8 +110,10 @@ export type ResolversTypes = {
   Example: ResolverTypeWrapper<Example>,
   ID: ResolverTypeWrapper<Scalars['ID']>,
   String: ResolverTypeWrapper<Scalars['String']>,
-  Mutation: ResolverTypeWrapper<{}>,
+  PaginatedExampleResponse: ResolverTypeWrapper<PaginatedExampleResponse>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
+  Int: ResolverTypeWrapper<Scalars['Int']>,
+  Mutation: ResolverTypeWrapper<{}>,
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -112,8 +122,10 @@ export type ResolversParentTypes = {
   Example: Example,
   ID: Scalars['ID'],
   String: Scalars['String'],
-  Mutation: {},
+  PaginatedExampleResponse: PaginatedExampleResponse,
   Boolean: Scalars['Boolean'],
+  Int: Scalars['Int'],
+  Mutation: {},
 };
 
 export type ExampleResolvers<ContextType = any, ParentType extends ResolversParentTypes['Example'] = ResolversParentTypes['Example']> = {
@@ -126,13 +138,22 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   create?: Resolver<ResolversTypes['Example'], ParentType, ContextType>,
 };
 
+export type PaginatedExampleResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['PaginatedExampleResponse'] = ResolversParentTypes['PaginatedExampleResponse']> = {
+  hasMore?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  items?: Resolver<Array<ResolversTypes['Example']>, ParentType, ContextType>,
+  total?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn,
+};
+
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   example?: Resolver<Array<ResolversTypes['Example']>, ParentType, ContextType>,
+  examplePaginated?: Resolver<ResolversTypes['PaginatedExampleResponse'], ParentType, ContextType>,
 };
 
 export type Resolvers<ContextType = any> = {
   Example?: ExampleResolvers<ContextType>,
   Mutation?: MutationResolvers<ContextType>,
+  PaginatedExampleResponse?: PaginatedExampleResponseResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
 };
 

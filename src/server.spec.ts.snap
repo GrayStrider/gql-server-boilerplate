@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`server should return paginated response 1`] = `
+Object {
+  "hasMore": false,
+  "items": Array [
+    Object {
+      "id": "6b161c29-8d4c-46dd-9e96-be442aa2e13f",
+    },
+  ],
+  "total": 1,
+}
+`;

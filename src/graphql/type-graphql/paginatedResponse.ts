@@ -1,5 +1,6 @@
 import {ClassType, Field, Int, ObjectType} from 'type-graphql'
 import {AnyConstructor} from 'tsdef'
+import Example from '@/models/example/entity/Example'
 
 function PaginatedResponse<TItem> (itemClass: ClassType<TItem>) {
 	
@@ -21,3 +22,7 @@ function PaginatedResponse<TItem> (itemClass: ClassType<TItem>) {
 	return PaginatedResponseClass as AnyConstructor
 	
 }
+
+@ObjectType()
+export default class PaginatedExampleResponse extends PaginatedResponse(Example) {}
+

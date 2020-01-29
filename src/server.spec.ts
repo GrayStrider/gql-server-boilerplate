@@ -81,5 +81,22 @@ describe('server', () => {
 		expect(log).toHaveBeenCalledTimes(2)
 		
 	})
+	
+	it('should return paginated response', async () => {
+		expect.assertions(1)
+		const res = await post<P<Query, 'examplePaginated'>>(
+			gql`query {
+					examplePaginated {
+							items {
+									id
+							}
+							total
+							hasMore
+					}
+			}`
+		)
+		expect(res).toMatchSnapshot()
+	 
+	})
 
 })
