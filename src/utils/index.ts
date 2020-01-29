@@ -1,6 +1,7 @@
 import signale from 'signale'
 import * as RD from 'ramda-adjunct'
 import {Promise as bb} from 'bluebird'
+import gql from 'graphql-tag'
 import Errors from '@/utils/Errors'
 import log from '@/utils/log'
 import flattenGQLResponse from '@/utils/flattenGQLResponse'
@@ -23,6 +24,8 @@ signale.config({
 })
 
 export * from '@/utils/Errors'
+export * from '@/utils/testing/supertest'
+
 export {
 	Errors,
 	RD,
@@ -32,5 +35,6 @@ export {
 	flattenGQLResponse,
 	warn,
 	sleep,
-	consoleWrite
+	consoleWrite,
+	gql
 }
