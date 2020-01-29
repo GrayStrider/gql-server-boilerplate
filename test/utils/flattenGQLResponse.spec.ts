@@ -1,4 +1,4 @@
-import {GraphQLResponse} from 'graphql-request/dist/src/types'
+import {GraphQLResponse, GraphQLError} from 'graphql-request/dist/src/types'
 import {flattenGQLResponse} from 'src/utils'
 
 describe('flattenGQLResponse', () => {
@@ -27,12 +27,11 @@ describe('flattenGQLResponse', () => {
 	it('should return errors', async () => {
 
 		expect.assertions(1)
-		const res: GraphQLResponse = {errors: [], status: 400}
-		expect(flattenGQLResponse(res))
-			.toStrictEqual(res.errors)
+		const err: GraphQLError = {message: 'error123'} as GraphQLError
+		const res: GraphQLResponse = {errors: [err], status: 400}
+		expect(() => flattenGQLResponse(res)).toThrow(err.message)
 	
 	})
 
 })
-
 
