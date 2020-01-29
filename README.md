@@ -6,7 +6,7 @@ GraphQL boilerplate made with Koa, type-graphql and typeORM
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/fc7fb77fef084039b4ed77c0c40c6792)](https://www.codacy.com/manual/GrayStrider/graphql-boilerplate?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=GrayStrider/graphql-boilerplate&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/fc7fb77fef084039b4ed77c0c40c6792)](https://www.codacy.com/manual/GrayStrider/graphql-boilerplate?utm_source=github.com&utm_medium=referral&utm_content=GrayStrider/graphql-boilerplate&utm_campaign=Badge_Coverage)
 [![Coverage Status](https://coveralls.io/repos/github/GrayStrider/graphql-boilerplate-playground/badge.svg)](https://coveralls.io/github/GrayStrider/graphql-boilerplate-playground)
-![](https://api.dependabot.com/badges/status?host=github&repo=GrayStrider/graphql-boilerplate-playground)
+![](https://api.dependabot.com/badges/status?host=github&repo=GrayStrider/graphql-boilerplate)
 [![Depfu](https://badges.depfu.com/badges/2008d6fd98ca17609e0ae3a0d68c3b41/count.svg)](https://depfu.com/github/GrayStrider/graphql-boilerplate-playground?project_id=10571)
 [![](https://img.shields.io/badge/gitmoji-%20%F0%9F%98%9C%20%F0%9F%98%8D-FFDD67.svg?style=flat-square)](https://github.com/GrayStrider/graphql-boilerplate-playground)
 
