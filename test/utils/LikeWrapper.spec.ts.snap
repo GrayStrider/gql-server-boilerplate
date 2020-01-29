@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`likeWrapper should wrap string in like expression 1`] = `
+Object {
+  "foo": FindOperator {
+    "_multipleParameters": false,
+    "_type": "like",
+    "_useParameter": true,
+    "_value": "%bar%",
+  },
+}
+`;
