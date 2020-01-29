@@ -53,6 +53,8 @@ rules:
   # prettier reformats the whole file, I would have to disable my linter for tests and reformat every test
   jest/prefer-inline-snapshots: off
   jest/no-disabled-tests: off
+  # we need this for module augmentation
+  jest/no-jest-import: off
 
   '@typescript-eslint/array-type':
     - warn
