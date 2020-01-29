@@ -1,7 +1,6 @@
-import {SuperTest, Test} from 'supertest'
 import {ASTNode} from 'graphql'
 import main from 'src/server'
-import {sleep, supertest, gql} from 'src/utils'
+import {sleep, supertest, Test, SuperTest, gql} from 'src/utils'
 import {P} from 'src/types'
 import {Query, Mutation} from 'src/graphql/generated/typings'
 import {log} from 'src/graphql/typedi/services/Logger'
