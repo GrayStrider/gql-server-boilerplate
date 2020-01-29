@@ -173,6 +173,7 @@ rules:
   array-element-newline: 'off'
   arrow-body-style: warn
   arrow-parens: 'off'
+  array-bracket-newline: off
   brace-style: 'off'
   callback-return: 'off'
   capitalized-comments: 'off'
@@ -268,6 +269,7 @@ rules:
   no-warning-comments: warn
   nonblock-statement-body-position: 'off'
   object-curly-spacing: 'off'
+  object-curly-newline: off
   object-property-newline: 'off'
   object-shorthand: 'off'
   one-var: 'off'
