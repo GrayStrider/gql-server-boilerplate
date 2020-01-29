@@ -1,6 +1,6 @@
 import supertest, {SuperTest, Test} from 'supertest'
-import main from '@/server'
-import {sleep} from '@/utils'
+import main from 'src/server'
+import {sleep} from 'src/utils'
 
 describe('server', () => {
 	
@@ -21,9 +21,10 @@ describe('server', () => {
 	
 	it('should start the server', async () => {
 		
-		expect.assertions(1)
+		expect.assertions(2)
 		const res = await request.get('/')
-		expect(res.status).toBe(302)
+		expect(res.status).toBe(200)
+		expect(res.text).toBe('Hello World!')
 		
 	})
 
