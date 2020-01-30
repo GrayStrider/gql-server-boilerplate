@@ -170,7 +170,7 @@ rules:
 #    - allowNullable: true
 #      allowSafe: true
 #      ignoreRhs: true
-  '@typescript-eslint/unified-signatures': error
+  '@typescript-eslint/unified-signatures': off
 
   array-element-newline: 'off'
   arrow-body-style: warn
