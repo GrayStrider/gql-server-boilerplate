@@ -1,0 +1,320 @@
+root: true
+parser: '@typescript-eslint/parser'
+parserOptions:
+  project: ./tsconfig.eslint.json
+plugins:
+  - '@typescript-eslint'
+  - jest
+  - import
+extends:
+  - 'eslint:all'
+  - 'plugin:@typescript-eslint/eslint-recommended'
+  - 'plugin:@typescript-eslint/recommended'
+  - 'plugin:@typescript-eslint/recommended-requiring-type-checking'
+  - 'plugin:jest/all'
+  - 'plugin:import/typescript'
+
+rules:
+  import/group-exports: warn
+  import/no-anonymous-default-export:
+    - error
+    - allowObject: true
+  import/no-named-default: error
+  import/no-unassigned-import:
+    - error
+    - allow:
+        - reflect-metadata
+  import/export: error
+  import/prefer-default-export: warn
+  import/default: off
+  import/exports-last: error
+  import/no-duplicates: error
+  import/no-extraneous-dependencies: error
+  import/no-named-as-default-member: error
+  import/extensions:
+    - error
+    - never
+    - json: always
+  import/no-unresolved: error
+  import/no-absolute-path: error
+  import/no-dynamic-require: error
+  import/no-amd: error
+  import/no-mutable-exports: error
+  import/no-commonjs: error
+  import/no-self-import: error
+  import/no-named-as-default: error
+#  import/no-relative-parent-imports: error
+  import/no-useless-path-segments:
+    - error
+    - noUselessIndex: true
+      commonjs: true
+
+  jest/no-hooks: off
+  # prettier reformats the whole file, I would have to disable my linter for tests and reformat every test
+  jest/prefer-inline-snapshots: off
+  jest/no-disabled-tests: off
+  # we need this for module augmentation
+  jest/no-jest-import: off
+
+  '@typescript-eslint/array-type':
+    - warn
+    - default: array-simple
+
+  # in vast majority of cases 'this' is only used in classes so I'd
+  # rather save myself some boilerplate
+  '@typescript-eslint/unbound-method': off
+  '@typescript-eslint/consistent-type-definitions': 1
+  '@typescript-eslint/default-param-last': error
+  '@typescript-eslint/explicit-function-return-type': 0
+  '@typescript-eslint/explicit-member-accessibility': 0
+  '@typescript-eslint/member-delimiter-style': 'off'
+  '@typescript-eslint/naming-convention':
+    - warn
+    - format:
+        - PascalCase
+      prefix:
+        - is
+        - should
+        - has
+        - can
+        - did
+        - will
+      selector: variable
+      types:
+        - boolean
+    - format:
+        - PascalCase
+        - camelCase
+      selector: variable
+      types:
+        - function
+    - format:
+        - UPPER_CASE
+      selector: enumMember
+    - format:
+        - camelCase
+        - PascalCase
+      selector: function
+    - format:
+        - camelCase
+        - PascalCase
+        - UPPER_CASE
+      selector: default
+    - format:
+        - camelCase
+        - UPPER_CASE
+        - PascalCase
+      selector: variable
+    - format:
+        - camelCase
+      leadingUnderscore: allow
+      selector: parameter
+    - format:
+        - camelCase
+      leadingUnderscore: require
+      modifiers:
+        - private
+      selector: memberLike
+    - format:
+        - PascalCase
+      selector: typeLike
+  '@typescript-eslint/no-dynamic-delete': 1
+  '@typescript-eslint/no-empty-function':
+    - warn
+    - allow:
+        - protected-constructors
+        - private-constructors
+  '@typescript-eslint/no-extra-non-null-assertion': error
+  '@typescript-eslint/no-extraneous-class': warn
+  '@typescript-eslint/no-floating-promises':
+    - error
+    - ignoreVoid: true
+  '@typescript-eslint/no-implied-eval': error
+  '@typescript-eslint/no-inferrable-types': warn
+  '@typescript-eslint/no-non-null-asserted-optional-chain': error
+  '@typescript-eslint/no-require-imports': error
+  '@typescript-eslint/no-throw-literal': error
+  '@typescript-eslint/no-unnecessary-condition':
+    - warn
+    - ignoreRhs: true
+  '@typescript-eslint/no-unnecessary-qualifier': error
+  '@typescript-eslint/no-unnecessary-type-arguments': warn
+  '@typescript-eslint/no-unused-expressions': warn
+  '@typescript-eslint/no-unused-vars':
+    - warn
+    - argsIgnorePattern: returns|type
+      args: none
+  '@typescript-eslint/no-use-before-define': 'off'
+  '@typescript-eslint/no-useless-constructor': error
+  '@typescript-eslint/prefer-for-of': warn
+  '@typescript-eslint/prefer-function-type': warn
+  '@typescript-eslint/prefer-nullish-coalescing':
+    - warn
+    - forceSuggestionFixer: true
+  '@typescript-eslint/prefer-optional-chain': error
+  '@typescript-eslint/prefer-readonly': error
+  '@typescript-eslint/promise-function-async': error
+  '@typescript-eslint/require-array-sort-compare': error
+  '@typescript-eslint/require-await': error
+  '@typescript-eslint/restrict-plus-operands':
+    - error
+    - checkCompoundAssignments: true
+  '@typescript-eslint/restrict-template-expressions':
+    - off
+    - allowNumber: true
+  '@typescript-eslint/return-await': error
+  # Good idea probably, but it's just not worth it, especially wheh
+  # cases are covered by tests.
+  '@typescript-eslint/strict-boolean-expressions': off
+#    - warn
+#    - allowNullable: true
+#      allowSafe: true
+#      ignoreRhs: true
+  '@typescript-eslint/unified-signatures': off
+
+  array-element-newline: 'off'
+  arrow-body-style: warn
+  arrow-parens: 'off'
+  array-bracket-newline: off
+  brace-style: 'off'
+  callback-return: 'off'
+  capitalized-comments: 'off'
+  class-methods-use-this: 'off'
+  comma-dangle: 'off'
+  curly: 'off'
+  default-param-last: 'off'
+  dot-location: 'off'
+  eol-last: 'off'
+  func-call-spacing: 'off'
+  func-names:
+    - warn
+    - as-needed
+  func-style: 'off'
+  function-call-argument-newline: 'off'
+  function-paren-newline: 'off'
+  id-length:
+    - warn
+    - exceptions:
+        - x
+        - _
+        - e
+        - i
+        - R
+  implicit-arrow-linebreak: 'off'
+  indent: 'off'
+  init-declarations: 'off'
+  key-spacing: 'off'
+  line-comment-position: warn
+  linebreak-style: 'off'
+  lines-around-comment: 'off'
+  lines-between-class-members: 'off'
+  max-classes-per-file: 'off'
+  max-len:
+    - warn
+    - code: 150
+      ignorePattern: ^import
+      ignoreUrls: true
+      tabWidth: 2
+  max-lines-per-function: 'off'
+  max-params:
+    - warn
+    - max: 5
+  max-statements:
+    - warn
+    - max: 20
+  multiline-comment-style: 'off'
+  multiline-ternary:
+    - warn
+    - always-multiline
+  new-cap:
+    - warn
+    - capIsNew: false
+  new-parens: 'off'
+  newline-per-chained-call: 'off'
+  no-await-in-loop: warn
+  no-confusing-arrow: 'off'
+  no-console: 'off'
+  no-constant-condition: 'off'
+  no-else-return: warn
+  no-extra-boolean-cast: 'off'
+  no-extra-parens: 'off'
+  no-extra-semi: 'off'
+  no-implicit-coercion:
+    - error
+    - allow:
+        - '!!'
+  no-import-assign: warn
+  no-inline-comments: warn
+  no-magic-numbers: 'off'
+  no-mixed-spaces-and-tabs:
+    - warn
+    - smart-tabs
+  no-multi-spaces: 'off'
+  no-multiple-empty-lines: 'off'
+  no-nested-ternary: 'off'
+  no-plusplus: warn
+  no-process-env: 'off'
+  no-return-await: 'off'
+  no-shadow:
+    - warn
+    - builtinGlobals: true
+  no-sync: 'off'
+  no-tabs: 'off'
+  no-ternary: 'off'
+  no-trailing-spaces: 'off'
+  no-undefined: 'off'
+  no-underscore-dangle: 'off'
+  no-unused-expressions: 'off'
+  no-unused-vars: 'off'
+  no-useless-constructor: 'off'
+  no-useless-rename: 'off'
+  no-warning-comments: warn
+  nonblock-statement-body-position: 'off'
+  object-curly-spacing: 'off'
+  object-curly-newline: off
+  object-property-newline: 'off'
+  object-shorthand: 'off'
+  one-var: 'off'
+  operator-linebreak: warn
+  padded-blocks: 'off'
+  prefer-const: warn
+  prefer-template: warn
+  quote-props: 'off'
+  quotes: 'off'
+  require-atomic-updates: warn
+  require-await: 'off'
+  semi: 'off'
+  sort-imports: 'off'
+  sort-keys: 'off'
+  sort-vars: 'off'
+  space-before-blocks: 'off'
+  space-before-function-paren: 'off'
+  space-in-parens: 'off'
+  space-infix-ops: 'off'
+  spaced-comment: 'off'
+  template-curly-spacing: 'off'
+
+overrides:
+  - files:
+      - '*.d.ts'
+    rules:
+      '@typescript-eslint/no-unused-vars': 'off'
+  - files:
+      - '*.spec.ts'
+    rules:
+      '@typescript-eslint/require-await': 'off'
+      init-declarations: 'off'
+
+settings:
+  import/extensions:
+    - ts
+  import/parsers:
+    '@typescript-eslint/parser':
+      - .ts
+      - .tsx
+  import/resolver:
+    typescript:
+      alwaysTryTypes: true
+
+env:
+  jest/globals: true
