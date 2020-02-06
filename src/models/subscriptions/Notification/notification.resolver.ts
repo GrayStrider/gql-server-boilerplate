@@ -3,7 +3,7 @@ import uuid from 'uuid'
 import {isNil} from 'ramda'
 import {Errors} from '@/utils'
 import {Context} from '@/graphql'
-import {NotificationPayload, SubTopics, Notification} from '@/models/UsersPlayground/subscriptions'
+import {NotificationPayload, SubTopics, Notification} from '@/models/subscriptions'
 
 function checkAuthorized (context: Context) {
 	

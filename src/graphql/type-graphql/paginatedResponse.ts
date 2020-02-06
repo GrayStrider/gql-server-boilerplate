@@ -1,6 +1,6 @@
 import {ClassType, Field, Int, ObjectType} from 'type-graphql'
 import {AnyConstructor} from 'tsdef'
-import UserNew from '@/models/UsersPlayground/entity/User'
+import UserNew from '@/models/entity/User'
 
 function PaginatedResponse<TItem> (itemClass: ClassType<TItem>) {
 	

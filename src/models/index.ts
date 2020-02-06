@@ -1,12 +1,12 @@
 import {signale} from '@/utils'
 import {SERVER_URL} from '@config'
-import generateMockUsers from '@/models/UsersPlayground/lib/generateMockUsers'
-import howCommonIsName from '@/models/UsersPlayground/lib/HowCommonName'
-import UserNew from '@/models/UsersPlayground/entity/User'
-import Countries from '@/models/UsersPlayground/enums/Countries'
+import generateMockUsers from '@/models/lib/generateMockUsers'
+import howCommonIsName from '@/models/lib/HowCommonName'
+import UserNew from '@/models/entity/User'
+import Countries from '@/models/enums/Countries'
 import createSchema from '@/graphql/type-graphql/createSchema'
 import genericApolloServer from '@/graphql/apollo/genericServer'
-import {UsersResolver, RegisterResolver, ModifyResolver, LoginResolver, GenerateMocksResolver, CreateResolver} from '@/models/UsersPlayground/resolvers'
+import {UsersResolver, RegisterResolver, ModifyResolver, LoginResolver, GenerateMocksResolver, CreateResolver} from '@/models/resolvers'
 
 export default async function makeUsersServer () {
 	

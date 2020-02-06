@@ -1,7 +1,7 @@
 import {Resolver, Query, Arg, Authorized} from 'type-graphql'
-import {UserNew} from '@/models/UsersPlayground'
-import {UserSearchInput} from '@/models/UsersPlayground/inputs'
-import AuthRoles from '@/models/UsersPlayground/lib/auth/authRoles'
+import {UserNew} from '@/models'
+import {UserSearchInput} from '@/models/inputs'
+import AuthRoles from '@/models/lib/auth/authRoles'
 import PaginatedUserResponse from '@/graphql/type-graphql/paginatedResponse'
 
 @Resolver()

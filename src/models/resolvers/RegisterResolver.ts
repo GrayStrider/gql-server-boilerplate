@@ -1,8 +1,8 @@
 import {Resolver, Mutation, Arg} from 'type-graphql'
 import {hash} from 'bcryptjs'
-import {UserCreateInput} from '@/models/UsersPlayground/inputs'
-import {UserNew} from '@/models/UsersPlayground'
-import {validatePassword, birthYearFromAge} from '@/models/UsersPlayground/lib'
+import {UserCreateInput} from '@/models/inputs'
+import {UserNew} from '@/models'
+import {validatePassword, birthYearFromAge} from '@/models/lib'
 
 @Resolver()
 export default class RegisterResolver {

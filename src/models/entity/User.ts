@@ -1,8 +1,8 @@
 import {Directive, Field, ID, Int, ObjectType, Root} from 'type-graphql'
 import {BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm'
 import {isEmpty} from 'ramda'
-import {howCommonIsName} from '@/models/UsersPlayground'
-import Countries from '@/models/UsersPlayground/enums/Countries'
+import {howCommonIsName} from '@/models'
+import Countries from '@/models/enums/Countries'
 
 const currentYear = new Date().getFullYear()
 const UserDescription = `Unique user ID.

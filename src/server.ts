@@ -12,7 +12,7 @@ import {redisSessionClient} from '@/DB/redis'
 import {ORMConfig, NODE_ENV} from '@config'
 import router from '@/routes'
 import {redirect, errorHandler} from '@/middlewares'
-import makeUsersServer from '@/models/UsersPlayground'
+import makeUsersServer from '@/models'
 
 if (NODE_ENV === undefined)
 	signale.error('process.env is undefined!')

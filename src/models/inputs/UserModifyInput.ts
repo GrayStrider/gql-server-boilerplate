@@ -1,7 +1,7 @@
 import {InputType, Field, Int} from 'type-graphql'
-import {Countries} from '@/models/UsersPlayground'
-import {IsValidEmail} from '@/models/UsersPlayground/lib'
-import {UserCreateInput} from '@/models/UsersPlayground/inputs/index'
+import {Countries} from '@/models'
+import {IsValidEmail} from '@/models/lib'
+import {UserCreateInput} from '@/models/inputs/index'
 
 /** Same fields as in create, but all nullable */
 @InputType()

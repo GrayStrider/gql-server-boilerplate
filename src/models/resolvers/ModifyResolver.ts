@@ -1,7 +1,7 @@
 import {Resolver, Authorized, Mutation, Arg} from 'type-graphql'
-import AuthRoles from '@/models/UsersPlayground/lib/auth/authRoles'
-import {UserNew} from '@/models/UsersPlayground'
-import {UserModifyInput} from '@/models/UsersPlayground/inputs'
+import AuthRoles from '@/models/lib/auth/authRoles'
+import {UserNew} from '@/models'
+import {UserModifyInput} from '@/models/inputs'
 import {userNotFoundError, RD, bb} from '@/utils'
 
 @Resolver()

@@ -1,5 +1,5 @@
 import {Resolver, Mutation, Arg} from 'type-graphql'
-import {UserNew, generateMockUsers} from '@/models/UsersPlayground'
+import {UserNew, generateMockUsers} from '@/models'
 
 @Resolver()
 export default class GenerateMocksResolver {

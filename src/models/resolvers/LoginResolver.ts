@@ -1,8 +1,8 @@
 import {Resolver, Mutation, Ctx, Arg} from 'type-graphql'
 import {compare} from 'bcryptjs'
-import {UserNew} from '@/models/UsersPlayground'
+import {UserNew} from '@/models'
 import {Context} from '@/graphql'
-import {UserLoginInput} from '@/models/UsersPlayground/inputs'
+import {UserLoginInput} from '@/models/inputs'
 import {Errors} from '@/utils'
 
 @Resolver()

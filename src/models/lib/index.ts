@@ -1,5 +1,5 @@
 import {IsEmail} from 'class-validator'
-import {UserNew} from '@/models/UsersPlayground'
+import {UserNew} from '@/models'
 import {Errors} from '@/utils'
 
 const IsValidEmail = IsEmail({}, {message: 'Invalid email format'})

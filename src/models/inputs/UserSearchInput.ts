@@ -1,7 +1,7 @@
 import {InputType, Field, Int} from 'type-graphql'
-import UserModifyInput from '@/models/UsersPlayground/inputs/UserModifyInput'
-import {IsValidEmail} from '@/models/UsersPlayground/lib'
-import {Countries} from '@/models/UsersPlayground'
+import UserModifyInput from '@/models/inputs/UserModifyInput'
+import {IsValidEmail} from '@/models/lib'
+import {Countries} from '@/models'
 
 /**
  * Omit certain fields in search
