@@ -1,4 +1,4 @@
-import {makeSchema} from '@/graphql/utils/index'
+import {makeSchema} from 'src/graphql/utils'
 import {promises as fs} from 'fs'
 import {join} from 'path'
 
