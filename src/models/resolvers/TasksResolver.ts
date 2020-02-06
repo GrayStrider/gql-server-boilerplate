@@ -1,6 +1,6 @@
 import {Resolver, Query, Args} from 'type-graphql'
-import {Task} from '@/models/KBF'
-import {SearchTaskInput} from '@/models/KBF/inputs'
+import {Task} from '@/models'
+import {SearchTaskInput} from '@/models/inputs'
 import {RD} from '@/utils'
 import {LikeWrapper} from '@/DB/typeorm'
 

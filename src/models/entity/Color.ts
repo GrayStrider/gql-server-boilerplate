@@ -1,9 +1,9 @@
 import {ObjectType, Field, ID} from 'type-graphql'
 import {Entity, OneToMany, Column, ManyToOne, BaseEntity, PrimaryGeneratedColumn} from 'typeorm'
 // Have to be separate, probably something to do with loading order or something.
-import Board from './Board'
-import {Task} from '@/models/KBF'
-import {Colors} from '@/models/KBF/enums'
+import Board from 'src/models/entity/Board'
+import {Task} from '@/models'
+import {Colors} from '@/models/enums'
 
 
 @ObjectType()

@@ -1,6 +1,6 @@
 import {ObjectType, Field, ID} from 'type-graphql'
 import {Entity, Column, ManyToMany, ManyToOne, JoinTable, BaseEntity, PrimaryGeneratedColumn} from 'typeorm'
-import {User, Task} from '@/models/KBF'
+import {User, Task} from '@/models'
 
 @ObjectType()
 @Entity()

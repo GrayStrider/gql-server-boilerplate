@@ -1,8 +1,8 @@
 import {Resolver, Mutation, Args} from 'type-graphql'
 import {DeepPartial} from 'typeorm'
-import {Task, Label} from '@/models/KBF'
+import {Task, Label} from '@/models'
 import {RD, bb} from '@/utils'
-import {NewTaskInput} from '@/models/KBF/inputs/index'
+import {NewTaskInput} from '@/models/inputs'
 
 @Resolver()
 export default class CreateResolver {

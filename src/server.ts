@@ -12,7 +12,7 @@ import {redisSessionClient} from '@/DB/redis'
 import {ORMConfig, NODE_ENV} from '@config'
 import router from '@/routes'
 import {redirect, errorHandler} from '@/middlewares'
-import makeKBFServer from '@/models/KBF'
+import makeKBFServer from '@/models'
 
 if (NODE_ENV === undefined)
 	signale.error('process.env is undefined!')

@@ -1,6 +1,6 @@
 import {Field, ID, ObjectType} from 'type-graphql'
 import {BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn, ManyToOne, OneToOne, OneToMany} from 'typeorm'
-import {Swimlane, TDate, Subtask, TColumn, Color, Label, User, Comment, TaskNumber} from '@/models/KBF'
+import {Swimlane, TDate, Subtask, TColumn, Color, Label, User, Comment, TaskNumber} from '@/models'
 
 
 @ObjectType()

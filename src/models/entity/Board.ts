@@ -1,6 +1,6 @@
 import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from 'typeorm'
 import {ObjectType, Field, ID} from 'type-graphql'
-import {Swimlane, TColumn, Color} from '@/models/KBF'
+import {Swimlane, TColumn, Color} from '@/models'
 
 @ObjectType()
 @Entity()
