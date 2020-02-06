@@ -23,10 +23,9 @@ describe('server', () => {
 	it('should start the server', async () => {
 		
 		expect.assertions(2)
-		const res = await request.get('/foobar')
-		expect(res.status).toBe(200)
-		expect(res.text).toBe('Hello World!')
-		
+		const {status, text} = await request.get('/')
+		expect(status).toBe(200)
+		expect(text).toBe('Hello World!')
 	})
 
 })
