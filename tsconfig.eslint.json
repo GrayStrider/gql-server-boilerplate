@@ -4,6 +4,6 @@
     "config",
     "__experiments",
     "src",
-    "test"
+    "tests"
   ]
 }
