@@ -4,9 +4,6 @@
     "__experiments",
     "src"
   ],
-  "exclude": [
-    "node_modules"
-  ],
 
   "compilerOptions": {
     "baseUrl": ".",

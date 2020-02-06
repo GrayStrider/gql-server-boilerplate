@@ -9,8 +9,7 @@ function supertest (app: Application, endpoint: string) {
 	const post = async <T> (query: ASTNode) => request
 		.post(endpoint)
 		.send({query: print(query)})
-		.then(res => res.body)
-		.then(data => flattenGQLResponse<T>(data))
+		.then(res => flattenGQLResponse<T>(res.body.data))
 	
 	
 	return {request, post}

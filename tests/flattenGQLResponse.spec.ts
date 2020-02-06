@@ -1,5 +1,5 @@
 import {GraphQLResponse, GraphQLError} from 'graphql-request/dist/src/types'
-import {flattenGQLResponse} from '@/utils/index'
+import {flattenGQLResponse} from 'src/utils'
 
 describe('flattenGQLResponse', () => {
 
