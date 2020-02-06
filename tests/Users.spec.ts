@@ -21,8 +21,7 @@ describe('/users', () => {
 		post = async <T extends AnyObject>(query: ASTNode) => request
 			.post('/users')
 			.send({query: print(query)})
-			.then(res => res.body.data)
-			.then(data => flattenGQLResponse<T>(data))
+			.then(({body}) => flattenGQLResponse<T>(body))
 		
 	})
 
