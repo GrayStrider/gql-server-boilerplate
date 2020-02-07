@@ -7,6 +7,7 @@ import {bb, flattenGQLResponse} from '@/utils'
 import {SERVER_URL} from '@config'
 import {Countries} from '@/models'
 import {UserCreateInput} from '@/models/inputs'
+import {head, values, pipe} from 'ramda'
 
 const query = gql`mutation userCreate($input: UserCreateInput!) {
     userCreate(userData: $input) {
@@ -41,9 +42,9 @@ export default async function generateMockUsers (amount: number) {
 	const generated = await bb.all(
 		fakes.map(async fake => testClient
 			.request(print(query), {input: fake})
-			.then(flattenGQLResponse))
+			.then(pipe(values, head))
+		)
 	)
-	
 	return {
 		fakes,
 		generated,
