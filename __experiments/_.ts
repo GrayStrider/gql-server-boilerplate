@@ -1,26 +1,21 @@
-import {truncate} from 'lodash'
 import {axios} from '@/utils'
-import {map, prop, then, join, length, tap, pipe, pick, reduce, pickBy, append} from 'ramda'
-import {AnyObject} from 'tsdef'
+import {reduceBy} from 'ramda'
 
 async function main () {
+	interface Repo {
+		archived: boolean
+		name: string
+	}
 	
-	const {data} = await axios.get<AnyObject[]>('https://api.github.com/users/GrayStrider/repos')
-	
-	const repos = data.reduce(
-		(acc, curr) => {
-			if (curr.archived) acc.archived.push(curr.name)
-			else acc.repos.push(curr.name)
-			
-			return acc
-		},
-		{
-			archived: [],
-			repos: []
-		}
+	const {data} = await axios.get<Repo[]>(
+		'https://api.github.com/users/GrayStrider/repos')
+
+	return reduceBy(
+		(acc, {name}) => acc.concat(name),
+		[] as string[],
+		(repo) => repo.archived ? 'archived' : 'repos',
+		data
 	)
-	
-	return repos
 	
 }
 
