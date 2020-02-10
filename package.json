@@ -92,7 +92,7 @@
     "@types/lodash": "^4.14.149",
     "@types/node": "^13.7.0",
     "@types/nodemailer": "^6.4.0",
-    "@types/ramda": "^0.26.39",
+    "@types/ramda": "^0.26.41",
     "@types/signale": "^1.2.1",
     "@types/supertest": "^2.0.8",
     "@types/uuid": "^3.4.7",
