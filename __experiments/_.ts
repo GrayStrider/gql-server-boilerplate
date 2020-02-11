@@ -7,13 +7,13 @@ async function main () {
 		name: string
 	}
 	
-	const {data} = await axios.get<Repo[]>(
-		'https://api.github.com/users/GrayStrider/repos')
+	const {data} = await axios.get<Repo[]>
+	('https://api.github.com/users/GrayStrider/repos')
 
 	return reduceBy(
 		(acc, {name}) => acc.concat(name),
 		[] as string[],
-		(repo) => repo.archived ? 'archived' : 'repos',
+		repo => repo.archived ? 'archived' : 'repos',
 		data
 	)
 	
