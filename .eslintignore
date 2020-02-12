@@ -10,3 +10,5 @@ src/graphql/generated
 .gitignore
 
 *.js
+
+__experiments
