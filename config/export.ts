@@ -29,7 +29,7 @@ const ORMConfig: PostgresConnectionOptions = {
 	password: POSTRGRES_PASSWORD,
 	database: POSTRGRES_DATABASE,
 	logger: 'advanced-console',
-	logging: ['error'],
+	// logging: ['error'],
 	entities: ['src/models/**/entity/**/!(*.spec.*|*.test.*)'],
 }
 
