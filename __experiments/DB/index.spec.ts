@@ -129,15 +129,20 @@ describe('advanced queries', () => {
 
 describe('cities', () => {
 	it('should throw on incorrect city code', async () => {
-		expect.assertions(1)
-		const notUpper = City.create({
-			code: 'ABCd'
-		})
-		await expect(notUpper.save()).rejects.toThrow(/value too long/)
+		expect.assertions(2)
+		const tooLong = City.create({code: 'ABCd'})
+		await expect(tooLong.save())
+			.rejects.toThrow(/value too long/)
+		
+		const notUpper = City.create({code: 'ABd'})
+		await expect(notUpper.save())
+			.rejects.toThrow(/violates check constraint/)
 	})
+	
+	
 	it('should generate city', async () => {
 		expect.assertions(1)
-	  const city = City.create({
+		const city = City.create({
 			code: 'GDX'
 		})
 		await city.save()
