@@ -25,11 +25,12 @@
     "node": ">=0.10.3 < 0.12",
     "npm": "~1.0.20"
   },
+
   "dependencies": {
     "@koa/cors": "^3.0.0",
     "apollo-datasource-rest": "^0.6.11",
     "apollo-server-errors": "^2.3.4",
-    "apollo-server-koa": "^2.9.16",
+    "apollo-server-koa": "^2.10.0",
     "axios": "^0.19.1",
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.7.2",
@@ -53,7 +54,7 @@
     "koa-redis": "^4.0.1",
     "koa-router": "^7.4.0",
     "koa-session": "^5.12.3",
-    "lint-staged": "^10.0.2",
+    "lint-staged": "^10.0.7",
     "lodash": "^4.17.15",
     "nodemailer": "^6.4.2",
     "pg": "^7.18.1",
@@ -71,12 +72,13 @@
     "typescript": "^3.7.5",
     "uuid": "^3.4.0"
   },
+
   "devDependencies": {
     "@graphql-codegen/cli": "^1.12.1",
     "@graphql-codegen/introspection": "^1.12.0",
     "@graphql-codegen/typescript": "1.12.1",
     "@graphql-codegen/typescript-document-nodes": "1.12.0",
-    "@graphql-codegen/typescript-resolvers": "1.12.0",
+    "@graphql-codegen/typescript-resolvers": "1.12.2",
     "@types/bcryptjs": "^2.4.2",
     "@types/bluebird": "^3.5.29",
     "@types/config": "^0.0.36",
@@ -92,11 +94,11 @@
     "@types/lodash": "^4.14.149",
     "@types/node": "^13.7.0",
     "@types/nodemailer": "^6.4.0",
-    "@types/ramda": "^0.26.39",
+    "@types/ramda": "^0.26.41",
     "@types/signale": "^1.2.1",
     "@types/supertest": "^2.0.8",
     "@types/uuid": "^3.4.7",
-    "@typescript-eslint/eslint-plugin": "^2.17.0",
+    "@typescript-eslint/eslint-plugin": "^2.19.0",
     "@typescript-eslint/parser": "^2.16.0",
     "eslint": "^6.8.0",
     "eslint-import-resolver-typescript": "^2.0.0",

@@ -7,6 +7,7 @@ import flattenGQLResponse from '@/utils/flattenGQLResponse'
 import warn from '@/utils/warn'
 import sleep from '@/utils/sleep'
 import consoleWrite from '@/utils/consoleWrite'
+import axios from 'axios'
 import Errors from '@/utils/Errors'
 
 signale.config({
@@ -36,5 +37,6 @@ export {
 	warn,
 	sleep,
 	consoleWrite,
-	gql
+	gql,
+	axios
 }
