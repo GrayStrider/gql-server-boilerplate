@@ -25,6 +25,7 @@
     "node": ">=0.10.3 < 0.12",
     "npm": "~1.0.20"
   },
+
   "dependencies": {
     "@koa/cors": "^3.0.0",
     "apollo-datasource-rest": "^0.6.11",
@@ -71,6 +72,7 @@
     "typescript": "^3.7.5",
     "uuid": "^3.4.0"
   },
+
   "devDependencies": {
     "@graphql-codegen/cli": "^1.12.1",
     "@graphql-codegen/introspection": "^1.12.0",
