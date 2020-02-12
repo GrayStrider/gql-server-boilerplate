@@ -162,12 +162,14 @@ describe('advanced queries', () => {
 		
 		it('Query Builder', async () => {
 			const rainy = await Weather.createQueryBuilder('w')
-				.leftJoinAndSelect('w.city', 'city')
+				.leftJoin('w.city', 'city')
 				// .where('w.city = :city', {city: Cities.SF})
 				// .andWhere('w.prcp >= :prcp_max', {prcp_max: 0.6})
-				.select(['city.name', 'w.prcp'])
+				.select(['w.prcp'])
+				.addSelect('city.name', 'city')
+				.addSelect('w.temp_hi', 'tempALIAS')
 				// .orderBy('w.temp_hi', 'DESC')
-				.getMany()
+				.execute()
 			console.table(rainy)
 		})
 	})
