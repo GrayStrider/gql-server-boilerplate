@@ -1,6 +1,5 @@
-import {sleep, axios, bb} from '@/utils'
-import {concat} from 'async'
-import {prop, pipe, map, head, nth, match} from 'ramda'
+import {axios, bb} from '@/utils'
+import {pipe, nth, match} from 'ramda'
 
 async function main () {
 	console.log('sleeping')
@@ -12,14 +11,12 @@ async function main () {
 			
 			const {data} = res
 			
-			const title = pipe(
-				match(/<title>(.+)<\/title>/u),
-				nth(1)
-			)
-			(data)
+			const match = /<title>(?<title>.+)<\/title>/u
+				.exec(data)
+			const title = match?.groups?.title
 			
 			return title ? acc.concat(title) : acc
-		
+			
 		},
 		[] as string[]
 	)
