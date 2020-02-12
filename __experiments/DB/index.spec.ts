@@ -38,7 +38,7 @@ describe('DB calls', () => {
 	})
 	it('should generate fake data', async () => {
 		expect.assertions(2)
-		const AMOUNT = 100
+		const AMOUNT = 200
 		// 100K = ~7s, seems non-linear
 		const startGenerate = process.hrtime()
 		const weathers = times(() => Weather.create({
@@ -80,13 +80,20 @@ describe('DB calls', () => {
 				temp_hi: expect.any(Number)
 			}))
 	})
+	
+})
+
+describe('advanced queries', () => {
 	describe('retrieve weather for rainy days', () => {
 		it('find', async () => {
 			const rainy = await Weather.find({
 				where: {
 					city: Cities.SF,
 					prcp: MoreThan(0.1)
-				}, select: ['prcp', 'temp_hi', 'temp_lo'], take: 10
+				},
+				select: ['prcp', 'temp_hi', 'temp_lo'],
+				take: 10,
+				order: {temp_hi: 'DESC'}
 			})
 			console.table(rainy)
 		})
@@ -95,11 +102,26 @@ describe('DB calls', () => {
 			const rainy = await Weather.createQueryBuilder('w')
 				.where('w.city = :city', {city: Cities.SF})
 				.andWhere('w.prcp >= :prcp_max', {prcp_max: 0.6})
-				.take(10)
 				.select(['w.prcp', 'w.temp_hi'])
+				.take(10)
+				.orderBy('w.temp_hi', 'DESC')
 				.getMany()
 			console.table(rainy)
 		})
 	})
 	
+	it('each city, max temp with min prcp', async () => {
+		
+		const res2 = await Weather.createQueryBuilder('w')
+			.select(['w.city', 'w.temp_hi', 'w.prcp'])
+			.orderBy({
+				'w.city': 'DESC',
+				'w.temp_hi': 'DESC',
+				'w.prcp': 'ASC'
+			})
+			.distinctOn(['w.city'])
+			.take(10)
+			.getMany()
+		console.table(res2)
+	})
 })
