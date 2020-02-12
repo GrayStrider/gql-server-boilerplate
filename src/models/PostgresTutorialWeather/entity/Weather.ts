@@ -1,5 +1,6 @@
-import {Entity, BaseEntity, PrimaryGeneratedColumn} from 'typeorm'
+import {Entity, BaseEntity, PrimaryGeneratedColumn, ManyToOne} from 'typeorm'
 import {Column} from 'typeorm'
+import City from '@/models/PostgresTutorialWeather/entity/City'
 
 export enum Cities {
 	SF = 'San Francisco',
@@ -11,8 +12,8 @@ export default class Weather extends BaseEntity {
 	@PrimaryGeneratedColumn('uuid')
 	id: string
 	
-	@Column({type: 'enum', enum: Cities})
-	city: Cities
+	@ManyToOne(type => City, c => c.weatherData)
+	city: City
 	
 	@Column()
 	temp_lo: number

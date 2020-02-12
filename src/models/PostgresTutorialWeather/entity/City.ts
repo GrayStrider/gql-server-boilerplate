@@ -1,4 +1,5 @@
-import {Entity, BaseEntity, Column, PrimaryColumn, Check} from 'typeorm'
+import {Entity, BaseEntity, Column, PrimaryColumn, Check, OneToMany} from 'typeorm'
+import {Weather} from '@/models'
 
 @Entity()
 export default class City extends BaseEntity {
@@ -8,4 +9,7 @@ export default class City extends BaseEntity {
 	
 	@Column({length: 30})
 	name: string
+	
+	@OneToMany(type => Weather, w => w.city)
+	weatherData: Weather[]
 }
