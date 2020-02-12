@@ -1,7 +1,7 @@
 import main from '@/server'
 import supertest from 'supertest'
 import {SuperTest, Test, sleep} from '@/utils'
-import {Task} from '@/models'
+import {Task, Weather, Cities} from '@/models'
 
 let request: SuperTest<Test>
 beforeAll(async () => {
@@ -23,7 +23,13 @@ describe('setup', () => {
 describe('DB calls', () => {
 	it('should create entity', async () => {
 		expect.assertions(1)
-	  const tasks = await Task.find()
-		expect(tasks).toStrictEqual([])
+	  await Weather.create({
+			city: Cities.SF,
+			temp_lo: 53,
+			temp_hi: 57,
+			prcp: 0.0,
+			date: new Date('1994-11-29')
+		}).save()
+		expect(await Weather.findOne()).toBeDefined()
 	})
 })
