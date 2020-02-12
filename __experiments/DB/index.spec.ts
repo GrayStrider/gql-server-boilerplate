@@ -60,6 +60,7 @@ describe('DB calls', () => {
 	it('should generate fake data', async () => {
 		expect.assertions(2)
 		
+		const C_AMOUNT = 10
 		const cityData: Record<'codes' | 'names', string[]> = {
 			codes: [],
 			names: []
@@ -67,7 +68,7 @@ describe('DB calls', () => {
 		
 		times((i) => {
 			const iter = keys(cityData)[i]
-			while (cityData[iter].length < 10) {
+			while (cityData[iter].length < C_AMOUNT) {
 				type Code = { [key in keyof typeof cityData]: string }
 				
 				const values: Code = {
@@ -80,15 +81,17 @@ describe('DB calls', () => {
 			}
 		}, keys(cityData).length)
 		
-		console.log(cityData)
-		const cities = times(() => City.create({
-				code: chance.word({length: 3}).toUpperCase(),
-				name: chance.city()
-			}),
-			10)
+		const citiesGenerated = times((i) => City.create({
+			code: cityData.codes[i],
+			name: cityData.names[i]
+		}), C_AMOUNT)
+		
+		await City.save(citiesGenerated)
+		const cities = await City.find()
+		console.log(cities)
 		
 		
-		const AMOUNT = 200
+		const W_AMOUNT = 200
 		// 100K = ~7s, seems non-linear
 		const startGenerate = process.hrtime()
 		const weathers = times(() => Weather.create({
@@ -103,7 +106,7 @@ describe('DB calls', () => {
 				prcp: faker.random.number(100) / 100,
 				date: faker.date.past(10)
 			}
-		), AMOUNT)
+		), W_AMOUNT)
 		const endGenerate = head(process.hrtime(startGenerate))
 		/*
 		 1.5K = 4
@@ -117,8 +120,8 @@ describe('DB calls', () => {
 		await Weather.save(weathers)
 		const endSave = head(process.hrtime(startSave))
 		signale.success(`Amount, saving, generating:`,
-			AMOUNT, endSave, endGenerate)
-		expect(await Weather.count()).toBe(AMOUNT + 1)
+			W_AMOUNT, endSave, endGenerate)
+		expect(await Weather.count()).toBe(W_AMOUNT + 1)
 		expect(await Weather.find({skip: 10, take: 1}).then(head))
 			.toEqual(expect.objectContaining({
 				date: expect.any(Date),
