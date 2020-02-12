@@ -16,6 +16,7 @@ import Comment from '@/models/entity/Comment'
 import createSchema from '@/graphql/type-graphql/createSchema'
 import genericApolloServer from '@/graphql/apollo/genericServer'
 import Weather, {Cities} from '@/models/PostgresTutorialWeather/entity/Weather'
+import City from '@/models/PostgresTutorialWeather/entity/City'
 
 export {
 	User,
@@ -32,7 +33,9 @@ export {
 	TasksResolver,
 	CreateResolver,
 	Weather,
-	Cities
+	Cities,
+	City
+	
 	
 }
 export default async function makeKBFServer () {

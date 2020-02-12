@@ -1,14 +1,10 @@
 import main from '@/server'
 import supertest from 'supertest'
-import {SuperTest, Test, sleep, signale} from '@/utils'
-import {Task, Weather, Cities} from '@/models'
-import {times, keys, min, values, head} from 'ramda'
+import {SuperTest, Test, sleep, signale, chance} from '@/utils'
+import {Weather, Cities, City} from '@/models'
+import {times, keys, head} from 'ramda'
 import * as faker from 'faker'
 import {MoreThan} from 'typeorm'
-import City from '@/models/PostgresTutorialWeather/entity/City'
-import Chance from 'chance'
-
-const chance = new Chance()
 
 let request: SuperTest<Test>
 beforeAll(async () => {
