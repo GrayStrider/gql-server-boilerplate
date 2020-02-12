@@ -1,26 +1,23 @@
 import {axios, bb} from '@/utils'
-import {pipe, nth, match} from 'ramda'
+
+const urls = ['https://google.com', 'https://twitter.com', 'fdf']
 
 async function main () {
 	console.log('sleeping')
-	const data = await bb.reduce(
-		['https://google.com', 'https://twitter.com', 'fdf'],
-		async (acc, url) => {
-			const res = await axios.get(url).catch(() => null)
+	return bb.reduce(
+		urls, async (acc, url) => {
+			const res = await axios.get(url)
+				.catch(() => null)
 			if (!res) return acc
-			
-			const {data} = res
-			
-			const match = /<title>(?<title>.+)<\/title>/u
-				.exec(data)
-			const title = match?.groups?.title
+
+			const {title} = /<title>(?<title>.+)<\/title>/u
+				.exec(res.data)?.groups ?? {}
 			
 			return title ? acc.concat(title) : acc
 			
 		},
 		[] as string[]
 	)
-	return data
 	
 }
 
