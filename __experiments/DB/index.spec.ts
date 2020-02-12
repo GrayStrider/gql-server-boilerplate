@@ -6,7 +6,9 @@ import {times, keys, head} from 'ramda'
 import {MoreThan} from 'typeorm'
 
 let citiesGenerated: City[]
+let cities: City[]
 let weathersGenerated: Weather[]
+let weathers: Weather[]
 
 let request: SuperTest<Test>
 beforeAll(async () => {
@@ -37,31 +39,18 @@ describe('cities', () => {
 			.rejects.toThrow(/violates check constraint/)
 	})
 	
-	
-	it('should generate city', async () => {
+})
+
+describe('DB calls', () => {
+	it('should create city', async () => {
 		expect.assertions(1)
 		const city = City.create({code: 'GDX', name: 'Magadan'})
 		await city.save()
 		expect(await City.findOne()).toMatchObject(city)
 	})
 	
-})
-
-describe('DB calls', () => {
-	it('should create weather', async () => {
+	it('should generate cities', async () => {
 		expect.assertions(1)
-		const SFW = Weather.create({
-			temp_lo: 53,
-			temp_hi: 57,
-			prcp: 0.4,
-			date: new Date('1994-11-29')
-		})
-		await SFW.save()
-		expect(await Weather.findOne()).toMatchObject(SFW)
-	})
-	it('should generate fake data', async () => {
-		expect.assertions(2)
-		
 		const C_AMOUNT = 10
 		const cityData: Record<'codes' | 'names', string[]> = {
 			codes: [],
@@ -89,7 +78,26 @@ describe('DB calls', () => {
 		}), C_AMOUNT)
 		
 		await City.save(citiesGenerated)
-		const cities = await City.find()
+		cities = await City.find()
+		expect(cities).toHaveLength(11)
+		
+	})
+	it('should create weather', async () => {
+		expect.assertions(1)
+		const SFW = Weather.create({
+			city: chance.pickone(cities),
+			temp_lo: 53,
+			temp_hi: 57,
+			prcp: 0.4,
+			date: new Date('1994-11-29')
+		})
+		await SFW.save()
+		expect(await Weather.findOne({relations: ['city']}))
+			.toMatchObject(SFW)
+	})
+	it('should generate fake data', async () => {
+		expect.assertions(2)
+		
 		
 		const W_AMOUNT = 200
 		// 100K = ~7s, seems non-linear
@@ -158,10 +166,9 @@ describe('advanced queries', () => {
 				.leftJoinAndSelect('w.city', 'city')
 				// .where('w.city = :city', {city: Cities.SF})
 				// .andWhere('w.prcp >= :prcp_max', {prcp_max: 0.6})
-				.select(['city.name'])
-				.take(10)
+				.select(['city.name', 'w.prcp'])
 				// .orderBy('w.temp_hi', 'DESC')
-				.execute()
+				.getOne()
 			console.table(rainy)
 		})
 	})
