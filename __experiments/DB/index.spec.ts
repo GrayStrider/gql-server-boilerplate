@@ -4,6 +4,7 @@ import {SuperTest, Test, sleep, signale} from '@/utils'
 import {Task, Weather, Cities} from '@/models'
 import {times, keys, min, values, head} from 'ramda'
 import * as faker from 'faker'
+import {MoreThan} from 'typeorm'
 
 let request: SuperTest<Test>
 beforeAll(async () => {
@@ -29,13 +30,12 @@ describe('DB calls', () => {
 			city: Cities.SF,
 			temp_lo: 53,
 			temp_hi: 57,
-			prcp: 0.0,
+			prcp: 0.4,
 			date: new Date('1994-11-29')
 		})
 		await SFW.save()
 		expect(await Weather.findOne()).toMatchObject(SFW)
 	})
-	
 	it('should generate fake data', async () => {
 		expect.assertions(2)
 		const AMOUNT = 100
@@ -80,4 +80,25 @@ describe('DB calls', () => {
 				temp_hi: expect.any(Number)
 			}))
 	})
+	describe('retrieve weather for rainy days', () => {
+		it('find', async () => {
+			const rainy = await Weather.find({
+				where: {
+					city: Cities.SF,
+					prcp: MoreThan(0.1)
+				}, select: ['prcp', 'temp_hi', 'temp_lo'], take: 10
+			})
+			console.table(rainy)
+		})
+		
+		it('Query Builder', async () => {
+			const rainy = await Weather.createQueryBuilder('w')
+				.where('w.city = :city', {city: Cities.SF})
+				.take(10)
+				.select(['w.prcp', 'w.temp_hi'])
+				.getMany()
+			console.table(rainy)
+		})
+	})
+	
 })
