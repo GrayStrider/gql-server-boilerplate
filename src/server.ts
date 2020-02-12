@@ -26,25 +26,16 @@ export default async function main () {
 	
 	const conn = await createConnection(ORMConfig)
 	if (process.env.NODE_ENV !== 'production') {
-		
 		signale.warn('resetting the DB')
 		await conn.synchronize(true)
 		await redisSessionClient.flushdb()
 		
 	}
 	
-	const sessionMW = session({
-		store: RedisStore({
-			client: redisSessionClient,
-		}),
-		key: 'redisCookie',
-	}, app)
-	
 	app
 		.on('error', error => console.log(error))
 		.use(errorHandler)
 		.use(redirect)
-		.use(sessionMW)
 		.use(helmet())
 		.use(cors())
 		.use(bodyParser())
