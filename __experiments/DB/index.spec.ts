@@ -1,6 +1,6 @@
 import main from '@/server'
 import supertest from 'supertest'
-import {SuperTest, Test, sleep} from '@/utils'
+import {SuperTest, Test, sleep, signale} from '@/utils'
 import {Task, Weather, Cities} from '@/models'
 import {times, keys, min, values, head} from 'ramda'
 import * as faker from 'faker'
@@ -38,6 +38,9 @@ describe('DB calls', () => {
 	
 	it('should generate fake data', async () => {
 		expect.assertions(2)
+		const AMOUNT = 100
+		// 100K = ~7s, seems non-linear
+		const startGenerate = process.hrtime()
 		const weathers = times(() => Weather.create({
 				city: faker.random.arrayElement(values(Cities)) as Cities,
 				...function () {
@@ -51,9 +54,22 @@ describe('DB calls', () => {
 				prcp: faker.random.number(100) / 100,
 				date: faker.date.past(10)
 			}
-		), 100)
+		), AMOUNT)
+		const endGenerate = head(process.hrtime(startGenerate))
+		/*
+		 1.5K = 4
+		 3K = 8
+		 6K = 28
+		 7K = 32
+		 10K = 30
+		 */
+		const startSave = process.hrtime()
+		// Limited to 30K entries, COPY is preferrable method of bulk iserting
 		await Weather.save(weathers)
-		expect(await Weather.count()).toBe(100 + 1)
+		const endSave = head(process.hrtime(startSave))
+		signale.success(`Amount, saving, generating:`,
+			AMOUNT, endSave, endGenerate)
+		expect(await Weather.count()).toBe(AMOUNT + 1)
 		expect(await Weather.find({skip: 10, take: 1}).then(head))
 			.toEqual(expect.objectContaining({
 				city: expect.any(String),
