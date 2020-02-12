@@ -8,6 +8,7 @@ import warn from '@/utils/warn'
 import sleep from '@/utils/sleep'
 import consoleWrite from '@/utils/consoleWrite'
 import axios from 'axios'
+import Chance from 'chance'
 
 signale.config({
 	displayScope: true,
@@ -22,6 +23,7 @@ signale.config({
 	underlineSuffix: false,
 	uppercaseLabel: false,
 })
+const chance = new Chance()
 
 export * from '@/utils/testing/supertest'
 
@@ -35,5 +37,6 @@ export {
 	sleep,
 	consoleWrite,
 	gql,
-	axios
+	axios,
+	chance
 }
