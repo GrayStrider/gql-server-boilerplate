@@ -5,6 +5,9 @@ import {Weather, Cities, City} from '@/models'
 import {times, keys, head} from 'ramda'
 import {MoreThan} from 'typeorm'
 
+let citiesGenerated: City[]
+let weathersGenerated: Weather[]
+
 let request: SuperTest<Test>
 beforeAll(async () => {
 	jest.setTimeout(99999)
@@ -80,7 +83,7 @@ describe('DB calls', () => {
 			}
 		}, keys(cityData).length)
 		
-		const citiesGenerated = times((i) => City.create({
+		citiesGenerated = times((i) => City.create({
 			code: cityData.codes[i],
 			name: cityData.names[i]
 		}), C_AMOUNT)
@@ -91,7 +94,7 @@ describe('DB calls', () => {
 		const W_AMOUNT = 200
 		// 100K = ~7s, seems non-linear
 		const startGenerate = process.hrtime()
-		const weathersGenerated = times(() => Weather.create({
+		weathersGenerated = times(() => Weather.create({
 				...function () {
 					const temps = times(() =>
 						chance.integer({max: 100, min: 0}), 2)
@@ -142,28 +145,24 @@ describe('DB calls', () => {
 
 describe('advanced queries', () => {
 	describe('retrieve weather for rainy days', () => {
-		it('find', async () => {
+		it.skip('find', async () => {
 			const rainy = await Weather.find({
-				where: {
-					city: Cities.SF,
-					prcp: MoreThan(0.1)
-				},
-				select: ['prcp', 'temp_hi', 'temp_lo'],
-				take: 10,
-				order: {temp_hi: 'DESC'}
+				relations: ['city', 'city.name'],
+				take: 20
 			})
-			// console.table(rainy)
+			console.table(rainy)
 		})
 		
 		it('Query Builder', async () => {
 			const rainy = await Weather.createQueryBuilder('w')
-				.where('w.city = :city', {city: Cities.SF})
-				.andWhere('w.prcp >= :prcp_max', {prcp_max: 0.6})
-				.select(['w.prcp', 'w.temp_hi'])
+				.leftJoinAndSelect('w.city', 'city')
+				// .where('w.city = :city', {city: Cities.SF})
+				// .andWhere('w.prcp >= :prcp_max', {prcp_max: 0.6})
+				.select(['city.name'])
 				.take(10)
-				.orderBy('w.temp_hi', 'DESC')
-				.getMany()
-			// console.table(rainy)
+				// .orderBy('w.temp_hi', 'DESC')
+				.execute()
+			console.table(rainy)
 		})
 	})
 	
@@ -179,7 +178,7 @@ describe('advanced queries', () => {
 			.distinctOn(['w.city'])
 			.take(10)
 			.getMany()
-		console.table(res2)
+		// console.table(res2)
 	})
 })
 
