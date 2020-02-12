@@ -28,8 +28,8 @@ const ORMConfig: PostgresConnectionOptions = {
 	username: POSTRGRES_USERNAME,
 	password: POSTRGRES_PASSWORD,
 	database: POSTRGRES_DATABASE,
-	logger: new CustomLogger(),
-	logging: ['query', 'error'],
+	logger: 'advanced-console',
+	logging: ['error'],
 	entities: ['src/models/**/entity/**/!(*.spec.*|*.test.*)'],
 }
 
