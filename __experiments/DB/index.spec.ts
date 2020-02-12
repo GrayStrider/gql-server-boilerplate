@@ -21,15 +21,16 @@ describe('setup', () => {
 })
 
 describe('DB calls', () => {
-	it('should create entity', async () => {
+	it('should create weather', async () => {
 		expect.assertions(1)
-	  await Weather.create({
+		const SFW = Weather.create({
 			city: Cities.SF,
 			temp_lo: 53,
 			temp_hi: 57,
 			prcp: 0.0,
 			date: new Date('1994-11-29')
-		}).save()
-		expect(await Weather.findOne()).toBeDefined()
+		})
+		await SFW.save()
+		expect(await Weather.findOne()).toMatchObject(SFW)
 	})
 })
