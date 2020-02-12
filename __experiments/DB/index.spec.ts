@@ -87,13 +87,11 @@ describe('DB calls', () => {
 		
 		await City.save(citiesGenerated)
 		const cities = await City.find()
-		console.log(cities)
-		
 		
 		const W_AMOUNT = 200
 		// 100K = ~7s, seems non-linear
 		const startGenerate = process.hrtime()
-		const weathers = times(() => Weather.create({
+		const weathersGenerated = times(() => Weather.create({
 				...function () {
 					const temps = times(() =>
 						chance.integer({max: 100, min: 0}), 2)
@@ -103,10 +101,10 @@ describe('DB calls', () => {
 					}
 				}(),
 				prcp: chance.floating({max: 1, min: 0, fixed: 2}),
-				date: chance.date()
+				date: chance.date(),
+				city: chance.pickone(cities)
 			}
 		), W_AMOUNT)
-		console.log(weathers)
 		const endGenerate = head(process.hrtime(startGenerate))
 		/*
 		 1.5K = 4
@@ -117,13 +115,21 @@ describe('DB calls', () => {
 		 */
 		const startSave = process.hrtime()
 		// Limited to 30K entries, COPY is preferrable method of bulk iserting
-		await Weather.save(weathers)
+		await Weather.save(weathersGenerated)
 		const endSave = head(process.hrtime(startSave))
 		signale.success(`Amount, saving, generating:`,
 			W_AMOUNT, endSave, endGenerate)
 		expect(await Weather.count()).toBe(W_AMOUNT + 1)
-		expect(await Weather.find({skip: 10, take: 1}).then(head))
+		const weather = await Weather.find({
+			skip: 10, take: 1, relations: ['city']
+		}).then(head)
+		console.log(weather)
+		expect(weather)
 			.toEqual(expect.objectContaining({
+				city: {
+					code: expect.any(String),
+					name: expect.any(String)
+				},
 				date: expect.any(Date),
 				id: expect.toBeUUID(),
 				prcp: expect.any(Number),
