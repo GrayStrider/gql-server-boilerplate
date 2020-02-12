@@ -5,5 +5,10 @@ declare global {
 		interface Matchers<R, T> {
 			toBeUUID (): R
 		}
+		
+		interface Expect {
+			toBeUUID (): void;
+		}
 	}
+
 }

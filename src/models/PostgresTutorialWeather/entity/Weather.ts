@@ -20,7 +20,7 @@ export default class Weather extends BaseEntity {
 	@Column()
 	temp_hi: number
 	
-	@Column()
+	@Column({type: 'float'})
 	prcp: number
 	
 	@Column()
