@@ -8,9 +8,10 @@ import {publisher, subscriber} from '@/DB/redis'
  * are of interest, without knowledge of what (if any) publishers there are. This decoupling of publishers and
  * subscribers can allow for greater scalability and a more dynamic network topology.
  */
-const pubSub = new RedisPubSub({
-	publisher,
-	subscriber,
-})
+const pubSub = jest.fn() as unknown as RedisPubSub
+// 	new RedisPubSub({
+// 	publisher,
+// 	subscriber,
+// })
 
 export default pubSub

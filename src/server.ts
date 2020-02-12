@@ -28,7 +28,7 @@ export default async function main () {
 	if (process.env.NODE_ENV !== 'production') {
 		signale.warn('resetting the DB')
 		await conn.synchronize(true)
-		await redisSessionClient.flushdb()
+		// await redisSessionClient.flushdb()
 		
 	}
 	
