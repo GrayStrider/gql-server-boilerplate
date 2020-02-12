@@ -5,6 +5,7 @@ import {Task, Weather, Cities} from '@/models'
 import {times, keys, min, values, head} from 'ramda'
 import * as faker from 'faker'
 import {MoreThan} from 'typeorm'
+import City from '@/models/PostgresTutorialWeather/entity/City'
 
 let request: SuperTest<Test>
 beforeAll(async () => {
@@ -95,7 +96,7 @@ describe('advanced queries', () => {
 				take: 10,
 				order: {temp_hi: 'DESC'}
 			})
-			console.table(rainy)
+			// console.table(rainy)
 		})
 		
 		it('Query Builder', async () => {
@@ -106,7 +107,7 @@ describe('advanced queries', () => {
 				.take(10)
 				.orderBy('w.temp_hi', 'DESC')
 				.getMany()
-			console.table(rainy)
+			// console.table(rainy)
 		})
 	})
 	
@@ -124,4 +125,23 @@ describe('advanced queries', () => {
 			.getMany()
 		console.table(res2)
 	})
+})
+
+describe('cities', () => {
+	it('should throw on incorrect city code', async () => {
+		expect.assertions(1)
+		const notUpper = City.create({
+			code: 'ABCd'
+		})
+		await expect(notUpper.save()).rejects.toThrow(/value too long/)
+	})
+	it('should generate city', async () => {
+		expect.assertions(1)
+	  const city = City.create({
+			code: 'GDX'
+		})
+		await city.save()
+		expect(await City.findOne()).toMatchObject(city)
+	})
+	
 })
