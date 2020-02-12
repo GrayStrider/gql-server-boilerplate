@@ -6,6 +6,9 @@ import {times, keys, min, values, head} from 'ramda'
 import * as faker from 'faker'
 import {MoreThan} from 'typeorm'
 import City from '@/models/PostgresTutorialWeather/entity/City'
+import Chance from 'chance'
+
+const chance = new Chance()
 
 let request: SuperTest<Test>
 beforeAll(async () => {
@@ -24,11 +27,32 @@ describe('setup', () => {
 	
 })
 
+describe('cities', () => {
+	it('should throw on incorrect city code', async () => {
+		expect.assertions(2)
+		const tooLong = City.create({code: 'ABCd', name: ''})
+		await expect(tooLong.save())
+			.rejects.toThrow(/value too long/)
+		
+		const notUpper = City.create({code: 'ABd', name: ''})
+		await expect(notUpper.save())
+			.rejects.toThrow(/violates check constraint/)
+	})
+	
+	
+	it('should generate city', async () => {
+		expect.assertions(1)
+		const city = City.create({code: 'GDX', name: 'Magadan'})
+		await city.save()
+		expect(await City.findOne()).toMatchObject(city)
+	})
+	
+})
+
 describe('DB calls', () => {
 	it('should create weather', async () => {
 		expect.assertions(1)
 		const SFW = Weather.create({
-			city: Cities.SF,
 			temp_lo: 53,
 			temp_hi: 57,
 			prcp: 0.4,
@@ -39,11 +63,39 @@ describe('DB calls', () => {
 	})
 	it('should generate fake data', async () => {
 		expect.assertions(2)
+		
+		const cityData: Record<'codes' | 'names', string[]> = {
+			codes: [],
+			names: []
+		}
+		
+		times((i) => {
+			const iter = keys(cityData)[i]
+			while (cityData[iter].length < 10) {
+				type Code = { [key in keyof typeof cityData]: string }
+				
+				const values: Code = {
+					codes: chance.word({length: 3}).toUpperCase(),
+					names: chance.city()
+				}
+				
+				if (cityData[iter].includes(values[iter])) continue
+				cityData[iter].push(values[iter])
+			}
+		}, keys(cityData).length)
+		
+		console.log(cityData)
+		const cities = times(() => City.create({
+				code: chance.word({length: 3}).toUpperCase(),
+				name: chance.city()
+			}),
+			10)
+		
+		
 		const AMOUNT = 200
 		// 100K = ~7s, seems non-linear
 		const startGenerate = process.hrtime()
 		const weathers = times(() => Weather.create({
-				city: faker.random.arrayElement(values(Cities)) as Cities,
 				...function () {
 					const temps = times(() =>
 						faker.random.number(100), 2)
@@ -73,7 +125,6 @@ describe('DB calls', () => {
 		expect(await Weather.count()).toBe(AMOUNT + 1)
 		expect(await Weather.find({skip: 10, take: 1}).then(head))
 			.toEqual(expect.objectContaining({
-				city: expect.any(String),
 				date: expect.any(Date),
 				id: expect.toBeUUID(),
 				prcp: expect.any(Number),
@@ -127,24 +178,3 @@ describe('advanced queries', () => {
 	})
 })
 
-describe('cities', () => {
-	it('should throw on incorrect city code', async () => {
-		expect.assertions(2)
-		const tooLong = City.create({code: 'ABCd', name: ''})
-		await expect(tooLong.save())
-			.rejects.toThrow(/value too long/)
-		
-		const notUpper = City.create({code: 'ABd', name: ''})
-		await expect(notUpper.save())
-			.rejects.toThrow(/violates check constraint/)
-	})
-	
-	
-	it('should generate city', async () => {
-		expect.assertions(1)
-		const city = City.create({code: 'GDX', name: 'Magadan'})
-		await city.save()
-		expect(await City.findOne()).toMatchObject(city)
-	})
-	
-})
