@@ -6,5 +6,6 @@ export default class City extends BaseEntity {
 	@Check(`upper(code) = code`)
 	code: string
 	
-	
+	@Column({length: 30})
+	name: string
 }

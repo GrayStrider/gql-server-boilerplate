@@ -130,11 +130,11 @@ describe('advanced queries', () => {
 describe('cities', () => {
 	it('should throw on incorrect city code', async () => {
 		expect.assertions(2)
-		const tooLong = City.create({code: 'ABCd'})
+		const tooLong = City.create({code: 'ABCd', name: ''})
 		await expect(tooLong.save())
 			.rejects.toThrow(/value too long/)
 		
-		const notUpper = City.create({code: 'ABd'})
+		const notUpper = City.create({code: 'ABd', name: ''})
 		await expect(notUpper.save())
 			.rejects.toThrow(/violates check constraint/)
 	})
@@ -142,9 +142,7 @@ describe('cities', () => {
 	
 	it('should generate city', async () => {
 		expect.assertions(1)
-		const city = City.create({
-			code: 'GDX'
-		})
+		const city = City.create({code: 'GDX', name: 'Magadan'})
 		await city.save()
 		expect(await City.findOne()).toMatchObject(city)
 	})
