@@ -134,7 +134,6 @@ describe('DB calls', () => {
 		const weather = await Weather.find({
 			skip: 10, take: 1, relations: ['city']
 		}).then(head)
-		console.log(weather)
 		expect(weather)
 			.toEqual(expect.objectContaining({
 				city: {
@@ -168,7 +167,7 @@ describe('advanced queries', () => {
 				// .andWhere('w.prcp >= :prcp_max', {prcp_max: 0.6})
 				.select(['city.name', 'w.prcp'])
 				// .orderBy('w.temp_hi', 'DESC')
-				.getOne()
+				.getMany()
 			console.table(rainy)
 		})
 	})
