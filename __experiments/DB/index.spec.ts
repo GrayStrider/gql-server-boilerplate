@@ -163,12 +163,11 @@ describe('advanced queries', () => {
 		it('Query Builder', async () => {
 			// getMany() method map results from query builder _into entity_
 			const rainy = await Weather.createQueryBuilder('w')
-				.leftJoinAndMapOne('city.name', 'w.city', 'city')
-				// .where('w.city = :city', {city: Cities.SF})
+				.leftJoin('w.city', 'city')
+				.where('city.name = :name', {name: 'Magadan'})
 				// .andWhere('w.prcp >= :prcp_max', {prcp_max: 0.6})
-				.select(['w.prcp', 'name'])
-				// .addSelect('city.name', 'city')
-				.addSelect('w.temp_hi', 'tempALIAS')
+				.select(['city.name'])
+				.addSelect('w.prcp')
 				// .orderBy('w.temp_hi', 'DESC')
 				.getRawMany()
 			console.table(rainy)
