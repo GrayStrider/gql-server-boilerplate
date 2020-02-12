@@ -94,6 +94,7 @@ describe('DB calls', () => {
 		it('Query Builder', async () => {
 			const rainy = await Weather.createQueryBuilder('w')
 				.where('w.city = :city', {city: Cities.SF})
+				.andWhere('w.prcp >= :prcp_max', {prcp_max: 0.6})
 				.take(10)
 				.select(['w.prcp', 'w.temp_hi'])
 				.getMany()
