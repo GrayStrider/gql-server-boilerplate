@@ -3,7 +3,6 @@ import supertest from 'supertest'
 import {SuperTest, Test, sleep, signale, chance} from '@/utils'
 import {Weather, Cities, City} from '@/models'
 import {times, keys, head} from 'ramda'
-import * as faker from 'faker'
 import {MoreThan} from 'typeorm'
 
 let request: SuperTest<Test>
@@ -97,16 +96,17 @@ describe('DB calls', () => {
 		const weathers = times(() => Weather.create({
 				...function () {
 					const temps = times(() =>
-						faker.random.number(100), 2)
+						chance.integer({max: 100, min: 0}), 2)
 					return {
 						temp_lo: Math.min(...temps),
 						temp_hi: Math.max(...temps)
 					}
 				}(),
-				prcp: faker.random.number(100) / 100,
-				date: faker.date.past(10)
+				prcp: chance.floating({max: 1, min: 0, fixed: 2}),
+				date: chance.date()
 			}
 		), W_AMOUNT)
+		console.log(weathers)
 		const endGenerate = head(process.hrtime(startGenerate))
 		/*
 		 1.5K = 4
