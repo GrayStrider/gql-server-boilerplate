@@ -157,7 +157,7 @@ describe('advanced queries', () => {
 			// does not support filtering by nested relation props
 			const rainy = await Weather.find({
 				relations: ['city'],
-				select: ['prcp'],
+				select: ['prcp']
 			})
 			// console.table(rainy)
 		})
@@ -166,19 +166,20 @@ describe('advanced queries', () => {
 			expect.assertions(1)
 			// getMany() method map results from query builder _into entity_
 			const rainy = await Weather.createQueryBuilder('w')
-				.leftJoinAndSelect('w.city', 'city')
-				// .select(['city.name'])
+				.leftJoin('w.city', 'city')
+				.select(['city.name'])
 				.addSelect('w.prcp')
 				.where('city.name = :name', {name: 'Magadan'})
 				.andWhere('w.prcp >= :prcp_max', {prcp_max: 0.3})
 				.orderBy('w.prcp', 'DESC')
 				// when we aren't getting an entity:
 				.getRawMany()
-			expect(rainy[0]).toStrictEqual(
-				{
-					w_prcp: expect.any(Number),
-					city_name: 'Magadan'
-				}
+			expect(rainy).toStrictEqual(expect.arrayContaining([
+					{
+						w_prcp: expect.any(Number),
+						city_name: 'Magadan'
+					}
+				])
 			)
 			console.table(rainy)
 		})
