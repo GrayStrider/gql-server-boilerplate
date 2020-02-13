@@ -153,32 +153,34 @@ describe('DB calls', () => {
 
 describe('advanced queries', () => {
 	describe('retrieve weather for rainy days', () => {
-		it.skip('find', async () => {
+		it('find', async () => {
+			// does not support filtering by nested relation props
 			const rainy = await Weather.find({
-				relations: ['city', 'city.name'],
-				take: 20
+				relations: ['city'],
+				select: ['prcp'],
 			})
-			console.table(rainy)
+			// console.table(rainy)
 		})
 		
 		it('Query Builder', async () => {
 			expect.assertions(1)
 			// getMany() method map results from query builder _into entity_
 			const rainy = await Weather.createQueryBuilder('w')
-				.leftJoin('w.city', 'city')
-				.select(['city.name'])
+				.leftJoinAndSelect('w.city', 'city')
+				// .select(['city.name'])
 				.addSelect('w.prcp')
 				.where('city.name = :name', {name: 'Magadan'})
 				.andWhere('w.prcp >= :prcp_max', {prcp_max: 0.3})
 				.orderBy('w.prcp', 'DESC')
+				// when we aren't getting an entity:
 				.getRawMany()
-			expect(rainy).toEqual(arrayContaining([
-				expect.objectContaining({
+			expect(rainy[0]).toStrictEqual(
+				{
 					w_prcp: expect.any(Number),
 					city_name: 'Magadan'
-				})
-			]))
-			// console.table(rainy)
+				}
+			)
+			console.table(rainy)
 		})
 	})
 	
