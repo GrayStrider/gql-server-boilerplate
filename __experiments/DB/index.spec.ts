@@ -163,7 +163,6 @@ describe('advanced queries', () => {
 		})
 		
 		it('Query Builder', async () => {
-			expect.assertions(1)
 			// getMany() method map results from query builder _into entity_
 			const rainy = await Weather.createQueryBuilder('w')
 				.leftJoin('w.city', 'city')
@@ -178,16 +177,11 @@ describe('advanced queries', () => {
 			// 	city_name: 'Magadan',
 			// 	w_prcp: false
 			// })
-			rainy.forEach((item) => {
-				console.log(item)
-				return expect(item).toStrictEqual(
-					{
-						w_prcp: expect.any(Number),
-						city_name: 'Magadan'
-					}
-				)
-			})
-			console.table(rainy)
+			expect.assertions(rainy.length)
+			rainy.forEach((item) => expect(item).toStrictEqual({
+					w_prcp: expect.any(Number),
+					city_name: 'Magadan'
+				}))
 		})
 	})
 	
