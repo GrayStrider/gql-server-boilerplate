@@ -174,13 +174,19 @@ describe('advanced queries', () => {
 				.orderBy('w.prcp', 'DESC')
 				// when we aren't getting an entity:
 				.getRawMany()
-			expect(rainy).toStrictEqual(expect.arrayContaining([
+			// rainy.push({
+			// 	city_name: 'Magadan',
+			// 	w_prcp: false
+			// })
+			rainy.forEach((item) => {
+				console.log(item)
+				return expect(item).toStrictEqual(
 					{
 						w_prcp: expect.any(Number),
 						city_name: 'Magadan'
 					}
-				])
-			)
+				)
+			})
 			console.table(rainy)
 		})
 	})
