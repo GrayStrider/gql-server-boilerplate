@@ -4,6 +4,7 @@ import {SuperTest, Test, sleep, signale, chance} from '@/utils'
 import {Weather, Cities, City} from '@/models'
 import {times, keys, head} from 'ramda'
 import {MoreThan} from 'typeorm'
+import arrayContaining = jasmine.arrayContaining
 
 let citiesGenerated: City[]
 let cities: City[]
@@ -161,6 +162,7 @@ describe('advanced queries', () => {
 		})
 		
 		it('Query Builder', async () => {
+			expect.assertions(1)
 			// getMany() method map results from query builder _into entity_
 			const rainy = await Weather.createQueryBuilder('w')
 				.leftJoin('w.city', 'city')
@@ -170,7 +172,13 @@ describe('advanced queries', () => {
 				.andWhere('w.prcp >= :prcp_max', {prcp_max: 0.3})
 				.orderBy('w.prcp', 'DESC')
 				.getRawMany()
-			console.table(rainy)
+			expect(rainy).toEqual(arrayContaining([
+				expect.objectContaining({
+					w_prcp: expect.any(Number),
+					city_name: 'Magadan'
+				})
+			]))
+			// console.table(rainy)
 		})
 	})
 	
