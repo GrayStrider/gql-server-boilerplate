@@ -162,7 +162,7 @@ describe('advanced queries', () => {
 			// console.table(rainy)
 		})
 		
-		it('Query Builder', async () => {
+		it('tests every element in the array', async () => {
 			// getMany() method map results from query builder _into entity_
 			const rainy = await Weather.createQueryBuilder('w')
 				.leftJoin('w.city', 'city')
@@ -173,10 +173,7 @@ describe('advanced queries', () => {
 				.orderBy('w.prcp', 'DESC')
 				// when we aren't getting an entity:
 				.getRawMany()
-			// rainy.push({
-			// 	city_name: 'Magadan',
-			// 	w_prcp: false
-			// })
+
 			expect.assertions(rainy.length)
 			rainy.forEach((item) => expect(item).toStrictEqual({
 					w_prcp: expect.any(Number),
