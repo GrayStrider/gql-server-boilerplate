@@ -19,15 +19,40 @@
     "url": "https://github.com/GrayStrider"
   },
   "main": "index.js",
-  "license": "MIT",
   "repository": "github:GrayStrider/graphql-boilerplate-playground",
   "engines": {
     "node": ">=0.10.3 < 0.12",
     "npm": "~1.0.20"
   },
+  "license": "MIT",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "nest build",
+    "test:typecheck": "tsc --noEmit",
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch",
+    "start:prod": "node dist/main",
+    "start:dev:file": "ts-node-dev --respawn --transpile-only --ignore-watch .spec -r tsconfig-paths/register",
+    "start:test": "cross-env NODE_ENV=test ts-node --transpile-only -r tsconfig-paths/register src/index.ts",
+    "test": "yarn test:cov && yarn lint:all:fix && yarn codegen && yarn test:typecheck",
+    "test:CI": "yarn test && cat ./test/coverage/lcov.info | codacy-coverage",
+    "test:jest": "jest --forceExit --detectOpenHandles --runInBand",
+    "test:cov": "yarn test:jest --coverage",
+    "test:watch": "jest --watch",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "lint:all": "eslint -c .eslintrc.style.yml . --ext .ts",
+    "lint:all:fix": "yarn lint:all --fix",
+    "lint:staged": "eslint -c .eslintrc.style.yml --fix",
+    "codegen": "graphql-codegen"
+  },
 
   "dependencies": {
     "@koa/cors": "^3.0.0",
+    "@nestjs/common": "^6.10.14",
+    "@nestjs/core": "^6.10.14",
+    "@nestjs/platform-express": "^6.10.14",
     "apollo-datasource-rest": "^0.6.11",
     "apollo-server-errors": "^2.3.4",
     "apollo-server-koa": "^2.10.0",
@@ -61,15 +86,14 @@
     "ramda": "^0.26.1",
     "ramda-adjunct": "^2.24.0",
     "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.0",
     "rxjs": "^6.5.4",
     "signale": "^1.4.0",
-    "ts-node": "^8.6.2",
     "tsconfig-paths": "^3.9.0",
     "type-graphql": "^0.18.0-beta.10",
     "typedi": "^0.8.0",
     "typeorm": "^0.2.22",
     "typeorm-typedi-extensions": "^0.2.3",
-    "typescript": "^3.7.5",
     "uuid": "^3.4.0"
   },
 
@@ -79,10 +103,14 @@
     "@graphql-codegen/typescript": "1.12.1",
     "@graphql-codegen/typescript-document-nodes": "1.12.0",
     "@graphql-codegen/typescript-resolvers": "1.12.2",
+    "@nestjs/cli": "^6.13.2",
+    "@nestjs/schematics": "^6.8.1",
+    "@nestjs/testing": "^6.10.14",
     "@types/bcryptjs": "^2.4.2",
     "@types/bluebird": "^3.5.29",
     "@types/chance": "^1.0.8",
     "@types/config": "^0.0.36",
+    "@types/express": "^4.17.2",
     "@types/ioredis": "^4.14.4",
     "@types/jest": "^25.1.1",
     "@types/koa": "^2.11.0",
@@ -102,6 +130,7 @@
     "@typescript-eslint/parser": "^2.16.0",
     "chance": "^1.1.4",
     "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.7.0",
     "eslint-import-resolver-typescript": "^2.0.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jest": "^23.6.0",
@@ -109,26 +138,15 @@
     "jest": "^24.9.0",
     "supertest": "^4.0.2",
     "ts-jest": "^24.3.0",
+    "ts-loader": "^6.2.1",
+    "ts-node": "^8.6.2",
     "ts-node-dev": "^1.0.0-pre.44",
-    "tsdef": "^0.0.13"
+    "tsconfig-paths": "^3.9.0",
+    "tsdef": "^0.0.13",
+    "typescript": "^3.7.5"
   },
   "peerDependencies": {
     "graphql-subscriptions": "1.0.0",
     "tslint": "5.0.0"
-  },
-  "scripts": {
-    "start:dev": "yarn start:dev:file src/index.ts",
-    "test:typecheck": "tsc --noEmit",
-    "start": "cross-env NODE_ENV=production ts-node --transpile-only -r tsconfig-paths/register src/index.ts",
-    "start:dev:file": "ts-node-dev --respawn --transpile-only --ignore-watch .spec -r tsconfig-paths/register",
-    "start:test": "cross-env NODE_ENV=test ts-node --transpile-only -r tsconfig-paths/register src/index.ts",
-    "test": "yarn test:coverage && yarn lint:all:fix && yarn codegen && yarn test:typecheck",
-    "test:CI": "yarn test && cat ./test/coverage/lcov.info | codacy-coverage",
-    "test:jest": "jest --forceExit --detectOpenHandles --runInBand",
-    "test:coverage": "yarn test:jest --coverage",
-    "lint:all": "eslint -c .eslintrc.style.yml . --ext .ts",
-    "lint:all:fix": "yarn lint:all --fix",
-    "lint:staged": "eslint -c .eslintrc.style.yml --fix",
-    "codegen": "graphql-codegen"
   }
 }
