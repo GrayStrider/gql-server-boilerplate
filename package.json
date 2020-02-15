@@ -25,7 +25,23 @@
     "node": ">=0.10.3 < 0.12",
     "npm": "~1.0.20"
   },
-
+  "scripts": {
+    "start:dev": "yarn start:dev:file src/index.ts",
+    "test:typecheck": "tsc --noEmit",
+    "start": "cross-env NODE_ENV=production ts-node --transpile-only -r tsconfig-paths/register src/index.ts",
+    "start:dev:file": "ts-node-dev --respawn --transpile-only --ignore-watch .spec -r tsconfig-paths/register",
+    "start:test": "cross-env NODE_ENV=test ts-node --transpile-only -r tsconfig-paths/register src/index.ts",
+    "test": "yarn test:coverage && yarn lint:all:fix && yarn codegen && yarn test:typecheck",
+    "test:CI": "yarn test && cat ./test/coverage/lcov.info | codacy-coverage",
+    "test:all": "jest --forceExit --detectOpenHandles --runInBand",
+    "test:e2e": "yarn test:all --config jest.config.e2e.js",
+    "test:unit": "yarn test:all --config jest.config.unit.js",
+    "test:coverage": "yarn test:all --coverage",
+    "lint:all": "eslint -c .eslintrc.style.yml . --ext .ts",
+    "lint:all:fix": "yarn lint:all --fix",
+    "lint:staged": "eslint -c .eslintrc.style.yml --fix",
+    "codegen": "graphql-codegen"
+  },
   "dependencies": {
     "@koa/cors": "^3.0.0",
     "apollo-datasource-rest": "^0.6.11",
@@ -115,22 +131,5 @@
   "peerDependencies": {
     "graphql-subscriptions": "1.0.0",
     "tslint": "5.0.0"
-  },
-  "scripts": {
-    "start:dev": "yarn start:dev:file src/index.ts",
-    "test:typecheck": "tsc --noEmit",
-    "start": "cross-env NODE_ENV=production ts-node --transpile-only -r tsconfig-paths/register src/index.ts",
-    "start:dev:file": "ts-node-dev --respawn --transpile-only --ignore-watch .spec -r tsconfig-paths/register",
-    "start:test": "cross-env NODE_ENV=test ts-node --transpile-only -r tsconfig-paths/register src/index.ts",
-    "test": "yarn test:coverage && yarn lint:all:fix && yarn codegen && yarn test:typecheck",
-    "test:CI": "yarn test && cat ./test/coverage/lcov.info | codacy-coverage",
-    "test:all": "jest --forceExit --detectOpenHandles --runInBand",
-    "test:e2e": "yarn test:all --config jest.config.e2e.js",
-    "test:unit": "yarn test:all --config jest.config.unit.js",
-    "test:coverage": "yarn test:all --coverage",
-    "lint:all": "eslint -c .eslintrc.style.yml . --ext .ts",
-    "lint:all:fix": "yarn lint:all --fix",
-    "lint:staged": "eslint -c .eslintrc.style.yml --fix",
-    "codegen": "graphql-codegen"
   }
 }
