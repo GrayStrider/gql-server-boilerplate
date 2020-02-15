@@ -22,17 +22,14 @@ module.exports = {
 		'jsx'
 	],
 	'setupFilesAfterEnv': ['<rootDir>/src/utils/testing/customMatchers.ts'],
-	'testRegex': '.spec.ts$',
+	'testRegex': 'test/unit/.*.spec.ts$',
 	'moduleNameMapper': pathsToModuleNameMapper(compilerOptions.paths, {prefix: '<rootDir>/'}),
 	'collectCoverageFrom': [
-		'src/**/*.{ts,js}',
-		'!**/node_modules/**',
-		'test/**/*.{ts,js}'
+		'src/**/*.ts'
 	],
 
 	'coveragePathIgnorePatterns': [
 		'src/.*/entity',
-		'src/index.ts',
 		'src/graphql/generated'
 	],
 	'coverageDirectory': '<rootDir>/test/coverage/'

@@ -11,10 +11,7 @@ describe('server', () => {
 		({request, post} = supertest(await main(), '/example'))
 	})
 	
-	afterAll(async () => {
-		// Avoid jest open handle error
-		await sleep(500)
-	})
+	afterAll(async () => await sleep(500))
 	
 	it('should start the server and redirect', async () => {
 		expect.assertions(1)
