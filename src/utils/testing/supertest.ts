@@ -3,11 +3,11 @@ import Application from 'koa'
 import {ASTNode, print} from 'graphql'
 import {flattenGQLResponse} from '@/utils'
 
-function supertest (app: Application, endpoint: string) {
+function supertest (app: Application, gqlEndpoint: string) {
 
 	const request = st(app.callback())
 	const post = async <T> (query: ASTNode) => request
-		.post(endpoint)
+		.post(gqlEndpoint)
 		.send({query: print(query)})
 		.then(res => flattenGQLResponse<T>(res.body.data))
 	
