@@ -22,7 +22,7 @@ module.exports = {
 		'jsx'
 	],
 	'setupFilesAfterEnv': ['<rootDir>/src/utils/testing/customMatchers.ts'],
-	'testRegex': 'test/unit/.*.spec.ts$',
+	'testRegex': 'test/.*.spec.ts$',
 	'moduleNameMapper': pathsToModuleNameMapper(compilerOptions.paths, {prefix: '<rootDir>/'}),
 	'collectCoverageFrom': [
 		'src/**/*.ts'
