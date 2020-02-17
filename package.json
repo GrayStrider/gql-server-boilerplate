@@ -28,7 +28,7 @@
 
   "dependencies": {
     "@koa/cors": "^3.0.0",
-    "apollo-datasource-rest": "^0.6.11",
+    "apollo-datasource-rest": "^0.7.0",
     "apollo-server-errors": "^2.3.4",
     "apollo-server-koa": "^2.10.0",
     "axios": "^0.19.1",
