@@ -25,7 +25,6 @@ export default function VariantsOfOriginalError (err: GraphQLError<MyError>) {
 			return {message, status, details}
 		
 	}
-	// TODO implement error fallthrough validation
 	return err
 	
 }
