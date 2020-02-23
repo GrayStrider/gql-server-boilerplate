@@ -1,6 +1,7 @@
 import {ClassType, Field, Int, ObjectType} from 'type-graphql'
 import {AnyConstructor} from 'tsdef'
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function PaginatedResponse<TItem> (itemClass: ClassType<TItem>) {
 	
 	// `isAbstract` decorator option is mandatory to prevent registering in schema

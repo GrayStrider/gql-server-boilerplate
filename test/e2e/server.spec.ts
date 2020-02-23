@@ -11,7 +11,9 @@ describe('server', () => {
 		({request, post} = supertest(await main(), '/example'))
 	})
 	
-	afterAll(async () => await sleep(500))
+	afterAll(async () => {
+		await sleep(500)
+	})
 	
 	it('should start the server and redirect', async () => {
 		expect.assertions(1)
