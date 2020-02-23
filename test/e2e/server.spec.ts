@@ -1,14 +1,13 @@
 import { ASTNode } from 'graphql'
 import main from 'src/server'
-import { sleep, supertest, Test, SuperTest } from 'src/utils'
+import { sleep, supertest } from 'src/utils'
 
 describe('server', () => {
 	
 	let request: ReturnType<typeof supertest>['request']
-	let post: ReturnType<typeof supertest>['post']
-	
+
 	beforeAll(async () => {
-		({request, post} = supertest(await main(), '/example'))
+		({request} = supertest(await main(), '/example'))
 	})
 	
 	afterAll(async () => await sleep(500))
