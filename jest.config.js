@@ -2,35 +2,36 @@ const {pathsToModuleNameMapper} = require('ts-jest/utils')
 const {compilerOptions} = require('./tsconfig.json')
 
 module.exports = {
-	'preset': 'ts-jest',
+	preset: 'ts-jest',
 
-	'globals': {
+	globals: {
 		'ts-jest': {
-			'diagnostics': false
+			diagnostics: false
 		}
 	},
 
-	'testEnvironment': 'node',
-	'moduleDirectories': [
+	testEnvironment: 'node',
+	moduleDirectories: [
 		'node_modules',
 		'src'
 	],
-	'moduleFileExtensions': [
-		'ts',
-		'tsx',
-		'js',
-		'jsx'
+	moduleFileExtensions: [
+		'ts', 'tsx', 'js', 'jsx'
 	],
-	'setupFilesAfterEnv': ['<rootDir>/src/utils/testing/customMatchers.ts'],
-	'testRegex': 'test/.*.spec.ts$',
-	'moduleNameMapper': pathsToModuleNameMapper(compilerOptions.paths, {prefix: '<rootDir>/'}),
-	'collectCoverageFrom': [
+	setupFilesAfterEnv: [
+		'jest-expect-message',
+		'<rootDir>/src/utils/testing/customMatchers.ts'
+	],
+	testRegex: 'test/.*.spec.ts$',
+	moduleNameMapper: pathsToModuleNameMapper(
+		compilerOptions.paths, {prefix: '<rootDir>/'}),
+	collectCoverageFrom: [
 		'src/**/*.ts'
 	],
 
-	'coveragePathIgnorePatterns': [
+	coveragePathIgnorePatterns: [
 		'src/.*/entity',
 		'src/graphql/generated'
 	],
-	'coverageDirectory': '<rootDir>/test/coverage/'
+	coverageDirectory: '<rootDir>/test/coverage/'
 }
