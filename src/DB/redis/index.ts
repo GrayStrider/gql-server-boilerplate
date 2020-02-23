@@ -11,8 +11,6 @@ function makeRedis () {
 		console.error(error)
 		// eslint-disable-next-line no-process-exit
 		process.exit(1)
-		// TODO good practice?
-		
 	})
 	
 	return redis

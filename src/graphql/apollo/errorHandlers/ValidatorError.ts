@@ -15,7 +15,6 @@ function isValidationError (err: AnyObject): err is GqlValidationError {
 
 export default function ValidatorError (err: GraphQLError<GqlValidationError>) {
 	
-	// TODO extend type
 	if (!isValidationError(err)) return err
 	const errors = err.extensions?.exception.validationErrors
 	return {

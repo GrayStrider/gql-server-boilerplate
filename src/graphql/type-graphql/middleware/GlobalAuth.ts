@@ -12,10 +12,10 @@ const globalAuth: MiddlewareFn<Context> =
 		const isAllowedOperation = publicFields.includes(info.fieldName)
 		const unathorized = new Errors.Unathorized('Please log in or register to proceed')
 		if (!session) throw unathorized
-		const sessionIdPresent = RD.isNotNil(session.userId)
+		const isPresentSessionID = RD.isNotNil(session.userId)
 		const isInternalCall = headers.authorization === 'internal_call' && host === `${HOST}:${PORT}`
 		
-		if (sessionIdPresent || isAllowedOperation || isInternalCall) return next()
+		if (isPresentSessionID || isAllowedOperation || isInternalCall) return next()
 		throw unathorized
 		
 	}
