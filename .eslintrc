@@ -25,7 +25,7 @@ rules:
     - allow:
         - reflect-metadata
   import/export: error
-  import/prefer-default-export: warn
+  import/prefer-default-export: off
   import/default: off
   import/exports-last: error
   import/no-duplicates: error
