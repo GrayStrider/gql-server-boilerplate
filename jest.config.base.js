@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = () => ({
 	// preset: 'ts-jest',
 
 	"transform": {
@@ -36,4 +36,4 @@ module.exports = {
 		'src/graphql/generated'
 	],
 	coverageDirectory: '<rootDir>/test/coverage/'
-}
+})
