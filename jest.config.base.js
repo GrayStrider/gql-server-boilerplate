@@ -18,7 +18,7 @@ module.exports = ({compilerOptions: {paths}}) => ({
 	moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
 	setupFilesAfterEnv: [
 		'jest-expect-message',
-		// '<rootDir>/shared-TS/utils/testing/customMatchers.ts'
+		'@strider/shared-ts/utils/testing/customMatchers.ts'
 	],
 	testRegex: 'test/.*.spec.ts$',
 	collectCoverageFrom: [
