@@ -12,34 +12,7 @@
       "config/*": ["server/config/*"],
       "test/*": ["server/test/*"],
       "@utils": ["../packages/shared-TS/utils"]
-    },
-
-    "outDir": "./dist",
-
-    "lib": ["dom", "esnext"],
-    "target": "es2019",
-    "moduleResolution": "node",
-
-    "esModuleInterop": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-
-    "strict": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noFallthroughCasesInSwitch": true,
-
-    "strictPropertyInitialization": false,
-    "forceConsistentCasingInFileNames": true,
-
-    "skipLibCheck": true,
-
-    "incremental": true,
-    "resolveJsonModule": true,
-
-    "removeComments": true
-
+    }
   }
 
 }
