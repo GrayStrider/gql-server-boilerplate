@@ -5,12 +5,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@config": ["config/export"],
-
-      "src/*": ["server/src/*"],
-      "config/*": ["server/config/*"],
-      "test/*": ["server/test/*"],
-      "@utils": ["../shared-TS/utils"]
+      "@config": ["config/export"]
     },
 
     "esModuleInterop": true

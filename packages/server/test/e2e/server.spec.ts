@@ -1,7 +1,6 @@
 process.env.NODE_CONFIG_DIR = './packages/server/config'
-
+import { supertest, sleep } from '@strider/shared-ts/utils'
 import { ASTNode } from 'graphql'
-import { supertest, sleep } from '@utils'
 import main from '@/server'
 
 describe('server', () => {

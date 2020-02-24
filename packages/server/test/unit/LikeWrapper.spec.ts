@@ -1,4 +1,4 @@
-import { LikeWrapper } from '../../src/DB/typeorm'
+import { LikeWrapper } from '@/DB/typeorm'
 
 describe('likeWrapper', () => {
 
