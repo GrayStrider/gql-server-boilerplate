@@ -1,8 +1,5 @@
 {
-  "packages": [
-    "./server",
-    "./shared-TS"
-  ],
+  "packages": ["packages/*"],
   "npmClient": "yarn",
   "useWorkspaces": true
 }
