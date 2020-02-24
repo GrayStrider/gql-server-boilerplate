@@ -15,7 +15,9 @@
       "config/*": ["server/config/*"],
       "test/*": ["server/test/*"],
       "@utils": ["../shared-TS/utils"]
-    }
+    },
+
+    "esModuleInterop": true
   }
 
 }
