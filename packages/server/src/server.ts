@@ -1,3 +1,4 @@
+process.env.NODE_CONFIG_DIR = './packages/server/config'
 import 'reflect-metadata'
 import Koa from 'koa'
 import helmet from 'koa-helmet'

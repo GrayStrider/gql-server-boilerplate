@@ -3,10 +3,10 @@ import {get} from 'config'
 import {PostgresConnectionOptions} from 'typeorm/driver/postgres/PostgresConnectionOptions'
 import {CustomLogger} from '@/DB/typeorm'
 
-process.env.NODE_CONFIG_DIR = __dirname
 process.env.ALLOW_CONFIG_MUTATIONS = 'true'
 
 if (isNil(process.env.NODE_ENV)) throw new Error('process.env is undefined, aborting')
+console.log(process.env.NODE_CONFIG_DIR)
 const {NODE_ENV} = process.env
 
 const PORT: string = get('PORT')
