@@ -1,5 +1,6 @@
+const tsconfig = require('./tsconfig')
+const baseConfig = require('./../../jest.config.base')
+
 module.exports = {
-	projects: [
-		'<rootDir>/packages/*/jest.config.js'
-	]
+	...baseConfig(tsconfig)
 }
