@@ -2,11 +2,6 @@
   "extends": "./../../tsconfig.base.json",
 
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@utils/*": ["utils/*"]
-    },
-
     "esModuleInterop": true
   }
 
