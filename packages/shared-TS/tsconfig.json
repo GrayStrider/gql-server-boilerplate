@@ -1,17 +1,10 @@
 {
   "extends": "./../../tsconfig.base.json",
-  "include": ["utils"],
 
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["server/src/*"],
-      "@config": ["server/config/export"],
-
-      "src/*": ["server/src/*"],
-      "config/*": ["server/config/*"],
-      "test/*": ["server/test/*"],
-      "@utils": ["../packages/shared-TS/utils"]
+      "@utils/*": ["utils/*"]
     },
 
     "esModuleInterop": true
