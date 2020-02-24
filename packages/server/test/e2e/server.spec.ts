@@ -1,3 +1,5 @@
+process.env.NODE_CONFIG_DIR = './packages/server/config'
+
 import { ASTNode } from 'graphql'
 import { supertest, sleep } from '@utils'
 import main from '@/server'
