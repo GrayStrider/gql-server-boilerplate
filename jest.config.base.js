@@ -1,11 +1,7 @@
 const {pathsToModuleNameMapper} = require('ts-jest/utils')
 
 module.exports = (tsconfig) => ({
-	// preset: 'ts-jest',
-
-	"transform": {
-		"^.+\\.(ts|tsx)$": "ts-jest"
-	},
+	preset: 'ts-jest',
 	globals: {
 		'ts-jest': {
 			diagnostics: false,
@@ -19,12 +15,7 @@ module.exports = (tsconfig) => ({
 		'node_modules',
 		'src'
 	],
-	moduleFileExtensions: [
-		'ts',
-		'tsx',
-		'js',
-		'jsx'
-	],
+	moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
 	setupFilesAfterEnv: [
 		'jest-expect-message',
 		// '<rootDir>/shared-TS/utils/testing/customMatchers.ts'
