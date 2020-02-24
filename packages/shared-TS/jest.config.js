@@ -6,14 +6,5 @@ module.exports = {
 	...baseConfig,
 
 	moduleNameMapper: pathsToModuleNameMapper(
-		compilerOptions.paths, {prefix: '<rootDir>/'}),
-	collectCoverageFrom: [
-		'src/**/*.ts'
-	],
-
-	coveragePathIgnorePatterns: [
-		'src/.*/entity',
-		'src/graphql/generated'
-	],
-	coverageDirectory: '<rootDir>/test/coverage/'
+		compilerOptions.paths, {prefix: '<rootDir>/'})
 }

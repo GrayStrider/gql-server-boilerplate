@@ -27,4 +27,13 @@ module.exports = {
 		// '<rootDir>/shared-TS/utils/testing/customMatchers.ts'
 	],
 	testRegex: 'test/.*.spec.ts$',
+	collectCoverageFrom: [
+		'src/**/*.ts'
+	],
+
+	coveragePathIgnorePatterns: [
+		'src/.*/entity',
+		'src/graphql/generated'
+	],
+	coverageDirectory: '<rootDir>/test/coverage/'
 }

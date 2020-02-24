@@ -5,14 +5,6 @@ const baseConfig = require('/jest.config.base')
 module.exports = {
 	...baseConfig,
 	moduleNameMapper: pathsToModuleNameMapper(
-		compilerOptions.paths, {prefix: '<rootDir>/'}),
-	collectCoverageFrom: [
-		'src/**/*.ts'
-	],
+		compilerOptions.paths, {prefix: '<rootDir>/'})
 
-	coveragePathIgnorePatterns: [
-		'src/.*/entity',
-		'src/graphql/generated'
-	],
-	coverageDirectory: '<rootDir>/test/coverage/'
 }
