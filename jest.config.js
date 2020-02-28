@@ -1,8 +1,7 @@
 const tsconfig = require('./tsconfig')
-const {name} = require('./package')
+const pkg = require('./package')
 const baseConfig = require('./../../jest.config.base')
 
 module.exports = {
-	...baseConfig(tsconfig),
-	displayName: name
+	...baseConfig(tsconfig, pkg),
 }
