@@ -1,5 +1,5 @@
 import {Middleware} from 'koa'
-import {signale} from '@strider/shared-ts/utils'
+import {signale} from '@strider/shared-ts'
 
 const redirect: Middleware = async (ctx, next) => {
 	
