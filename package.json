@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "@koa/cors": "^3.0.0",
-    "@strider/shared-ts": "0.0.1",
+    "@strider/utils-ts": "0.0.1",
     "apollo-datasource-rest": "^0.7.0",
     "apollo-server-errors": "^2.3.4",
     "apollo-server-koa": "^2.10.0",

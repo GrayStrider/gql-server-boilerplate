@@ -1,5 +1,5 @@
 import main from '@/server'
-import { signale } from '@strider/shared-ts'
+import { signale } from '@strider/utils-ts'
 import {NODE_ENV, PORT, HOST} from '@config'
 
 process.on('uncaughtException', error => {

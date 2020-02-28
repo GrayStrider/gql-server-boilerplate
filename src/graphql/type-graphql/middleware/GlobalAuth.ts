@@ -1,5 +1,5 @@
 import { MiddlewareFn } from 'type-graphql'
-import { RD } from '@strider/shared-ts'
+import { RD } from '@strider/utils-ts'
 import { Context } from '@/graphql'
 import { HOST, PORT } from '@config'
 import { Errors } from '@/utils'
