@@ -1,5 +1,5 @@
 import main from '@/server'
-import { signale } from '@strider/utils-ts'
+import { sig } from '@strider/utils-ts'
 import {NODE_ENV, PORT, HOST} from '@config'
 
 process.on('uncaughtException', error => {
@@ -20,10 +20,10 @@ process.on('unhandledRejection', error => {
 main()
 	.then(app => app
 		.listen(PORT, () =>
-			signale.success(`Server started at http://${HOST}:${PORT}`)))
+			sig.success(`Server started at http://${HOST}:${PORT}`)))
 	.catch(err => {
 	
-		signale.error('Error in main:')
+		sig.error('Error in main:')
 		console.error(err)
 	
 		// eslint-disable-next-line no-process-exit

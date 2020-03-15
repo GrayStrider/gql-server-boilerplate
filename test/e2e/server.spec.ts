@@ -2,11 +2,12 @@ process.env.NODE_CONFIG_DIR = './packages/server/config'
 import { supertest, sleep } from '@strider/utils-ts'
 import { ASTNode } from 'graphql'
 import main from '@/server'
+import sleep from 'sleep-promise'
 
 describe('server', () => {
 	
-	let request: ReturnType<typeof supertest>['request']
-	let post: ReturnType<typeof supertest>['post']
+	let request: Request
+	let post: Post
 	
 	beforeAll(async () => {
 		({request, post} = supertest(await main(), '/example'))

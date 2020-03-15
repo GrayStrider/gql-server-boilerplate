@@ -11,12 +11,12 @@ import {redisSessionClient} from '@/DB/redis'
 import {ORMConfig, NODE_ENV} from '@config'
 import router from '@/routes'
 import {redirect, errorHandler} from '@/middlewares'
-import { signale } from '@strider/utils-ts'
+import { sig } from '@strider/utils-ts'
 
 if (NODE_ENV === undefined)
-	signale.error('process.env is undefined!')
+	sig.error('process.env is undefined!')
 else
-	signale.info(`Environment: ${NODE_ENV}`)
+	sig.info(`Environment: ${NODE_ENV}`)
 
 export default async function main () {
 	
@@ -27,7 +27,7 @@ export default async function main () {
 	const conn = await createConnection(ORMConfig)
 	if (process.env.NODE_ENV !== 'production') {
 		
-		signale.warn('resetting the DB')
+		sig.warn('resetting the DB')
 		await conn.synchronize(true)
 		await redisSessionClient.flushdb()
 		
