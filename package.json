@@ -43,31 +43,54 @@
     "codegen": "graphql-codegen"
   },
   "dependencies": {
-    "@koa/cors": "^3.0.0",
     "@strider/utils-ts": "0.0.1",
-    "apollo-datasource-rest": "^0.7.0",
-    "apollo-server-errors": "^2.3.4",
-    "apollo-server-koa": "^2.10.0",
-    "bcryptjs": "^2.4.3",
-    "class-validator": "0.11.0",
-    "config": "^3.2.5",
-    "dataloader": "^2.0.0",
-    "graphql-import": "^1.0.0-4821645.0",
-    "graphql-query-complexity": "^0.4.1",
-    "graphql-redis-subscriptions": "^2.1.2",
-    "graphql-request": "^1.8.2",
-    "graphql-tag": "^2.10.1",
-    "graphql-tools": "^4.0.6",
-    "ioredis": "^4.14.1",
+
+    "cross-env": "^6.0.3",
+    "reflect-metadata": "^0.1.13",
+
+    "axios": "^0.19.1",
+    "bluebird": "^3.7.2",
+
+    "class-validator": "^0.11.0",
+
+    "lodash": "^4.17.15",
+    "ramda": "^0.27.0",
+
+    "rxjs": "^6.5.4",
+
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.2.1",
     "koa-helmet": "^5.2.0",
     "koa-redis": "^4.0.1",
     "koa-router": "^7.4.0",
     "koa-session": "^5.12.3",
-    "nodemailer": "^6.4.2",
+    "@koa/cors": "^3.0.0",
+
+    "apollo-server-koa": "^2.10.0",
+    "apollo-datasource-rest": "^0.7.0",
+    "apollo-server-errors": "^2.3.4",
+
+    "bcryptjs": "^2.4.3",
+
+    "config": "^3.2.5",
+
+    "dataloader": "^2.0.0",
+
+    "graphql": "^14.6.0",
+    "graphql-tag": "^2.10.3",
+    "graphql-request": "^1.8.2",
+    "graphql-import": "^1.0.0-4821645.0",
+    "graphql-query-complexity": "^0.4.1",
+    "graphql-redis-subscriptions": "^2.1.2",
+    "graphql-tools": "^4.0.6",
+
     "pg": "^7.18.1",
-    "reflect-metadata": "^0.1.13",
+    "ioredis": "^4.14.1",
+
+    "sleep-promise": "^8.0.1",
+
+    "nodemailer": "^6.4.2",
+
     "type-graphql": "^0.18.0-beta.10",
     "typedi": "^0.8.0",
     "typeorm": "^0.2.22",
@@ -75,6 +98,17 @@
   },
 
   "devDependencies": {
+    "@types/bluebird": "^3.5.29",
+    "@types/chance": "^1.0.8",
+    "@types/jest": "^25.1.1",
+    "@types/jest-expect-message": "^1.0.1",
+    "@types/lodash": "^4.14.149",
+    "@types/node": "^13.7.0",
+    "@types/ramda": "^0.26.41",
+    "@types/signale": "^1.2.1",
+    "@types/supertest": "^2.0.8",
+    "@types/uuid": "^3.4.6",
+
     "@types/bcryptjs": "^2.4.2",
     "@types/config": "^0.0.36",
     "@types/ioredis": "^4.14.4",
@@ -83,6 +117,26 @@
     "@types/koa-helmet": "^3.1.2",
     "@types/koa-redis": "^4.0.0",
     "@types/koa-router": "^7.4.0",
-    "@types/koa-session": "^5.10.1"
+    "@types/koa-session": "^5.10.1",
+
+    "typescript": "^3.8.3",
+    "ts-node": "^8.6.2",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "tsconfig-paths": "^3.9.0",
+    "tsdef": "^0.0.13",
+
+    "codacy-coverage": "^3.4.0",
+
+    "husky": "^4.2.3",
+
+    "jest": "^25.1.0",
+    "jest-expect-message": "^1.0.2",
+    "@pacote/jest-either": "^3.1.2",
+    "nock": "^12.0.2",
+    "supertest": "^4.0.2",
+    "chai": "^4.2.0",
+
+    "ts-jest": "^25.2.0",
+    "ts-loader": "^6.2.1"
   }
 }
