@@ -41,7 +41,6 @@ export default async function main () {
 	}, app)
 	
 	app
-		.on('error', error => console.log(error))
 		.use(errorHandler)
 		.use(redirect)
 		.use(sessionMW)
