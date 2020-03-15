@@ -1,1 +1,1 @@
-extends: "@strider/utils-ts/.eslintrc"
+extends: "@qdev/utils-ts/.eslintrc"

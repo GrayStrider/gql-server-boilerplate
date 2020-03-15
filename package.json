@@ -44,7 +44,7 @@
     "codegen": "graphql-codegen"
   },
   "dependencies": {
-    "@strider/utils-ts": "0.0.1",
+    "@qdev/utils-ts": "0.0.1",
 
     "cross-env": "^6.0.3",
     "reflect-metadata": "^0.1.13",

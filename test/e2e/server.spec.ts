@@ -1,4 +1,4 @@
-import { supertest, Request, Post } from '@strider/utils-ts'
+import { supertest, Request, Post } from '@qdev/utils-ts'
 import { ASTNode } from 'graphql'
 import main from '@/server'
 import sleep from 'sleep-promise'

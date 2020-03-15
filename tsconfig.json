@@ -1,5 +1,5 @@
 {
-  "extends": "@strider/utils-ts/tsconfig.base.json",
+  "extends": "@qdev/utils-ts/tsconfig.base.json",
 
   "compilerOptions": {
     "baseUrl": ".",

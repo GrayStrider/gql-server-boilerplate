@@ -1,5 +1,5 @@
 const tsconfig = require('./../tsconfig')
-const baseConfig = require('@strider/utils-ts/jest.config.base')
+const baseConfig = require('@qdev/utils-ts/jest.config.base')
 
 module.exports = {
 	...baseConfig(tsconfig),
