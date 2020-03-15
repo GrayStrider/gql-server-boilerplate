@@ -1,5 +1,5 @@
 import { Middleware } from 'koa'
-import { sig } from '@strider/utils-ts'
+import { sig } from '@qdev/utils-ts'
 
 const redirect: Middleware = async (ctx, next) => {
 	await next()

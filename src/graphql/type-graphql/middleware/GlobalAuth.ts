@@ -1,5 +1,5 @@
 import { MiddlewareFn } from 'type-graphql'
-import { RD } from '@strider/utils-ts'
+import { isNotNil } from 'ramda-adjunct'
 import { Context } from '@/graphql'
 import { HOST, PORT } from '@config'
 import { Errors } from '@/utils'
@@ -13,7 +13,7 @@ const globalAuth: MiddlewareFn<Context> =
 		const isAllowedOperation = publicFields.includes(info.fieldName)
 		const unathorized = new Errors.Unathorized('Please log in or register to proceed')
 		if (!session) throw unathorized
-		const isPresentSessionID = RD.isNotNil(session.userId)
+		const isPresentSessionID = isNotNil(session.userId)
 		const isInternalCall = headers.authorization === 'internal_call' && host === `${HOST}:${PORT}`
 		
 		if (isPresentSessionID || isAllowedOperation || isInternalCall) return next()

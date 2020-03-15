@@ -1,5 +1,5 @@
 import main from '@/server'
-import { sig } from '@strider/utils-ts'
+import { sig } from '@qdev/utils-ts'
 import {NODE_ENV, PORT, HOST} from '@config'
 
 process.on('uncaughtException', error => {

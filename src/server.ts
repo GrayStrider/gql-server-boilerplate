@@ -11,7 +11,7 @@ import {redisSessionClient} from '@/DB/redis'
 import {ORMConfig, NODE_ENV} from '@config'
 import router from '@/routes'
 import {redirect, errorHandler} from '@/middlewares'
-import { sig } from '@strider/utils-ts'
+import { sig } from '@qdev/utils-ts'
 
 if (NODE_ENV === undefined)
 	sig.error('process.env is undefined!')
