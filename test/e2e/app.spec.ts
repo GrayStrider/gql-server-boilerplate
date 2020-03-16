@@ -2,7 +2,7 @@ import request from 'supertest'
 import { Test } from '@nestjs/testing'
 import { AppModule } from 'src/app.module'
 import { INestApplication } from '@nestjs/common'
-import { sleep } from 'src/utils'
+import sleep from 'sleep-promise'
 
 describe ('appController', () => {
 	let app: INestApplication
