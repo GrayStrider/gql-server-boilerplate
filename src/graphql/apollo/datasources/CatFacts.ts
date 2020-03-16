@@ -1,4 +1,4 @@
-import {RESTDataSource} from 'apollo-datasource-rest'
+import { RESTDataSource } from 'apollo-datasource-rest'
 
 // https://alexwohlbruck.github.io/cat-facts
 
@@ -25,14 +25,14 @@ export default class CatFactsAPI extends RESTDataSource {
 	
 	constructor () {
 		
-		super()
+		super ()
 		this.baseURL = 'https://cat-fact.herokuapp.com'
 		
 	}
 	
 	async getFact () {
 		
-		return this.get<CatFact>('/facts/random')
+		return this.get<CatFact> ('/facts/random')
 		
 	}
 	

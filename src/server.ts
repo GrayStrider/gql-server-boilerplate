@@ -14,41 +14,41 @@ import { redirect, errorHandler } from '@/middlewares'
 import { sig } from '@qdev/utils-ts'
 
 if (NODE_ENV === undefined)
-	sig.error('process.env is undefined!')
+	sig.error ('process.env is undefined!')
 else
-	sig.info(`Environment: ${NODE_ENV}`)
+	sig.info (`Environment: ${NODE_ENV}`)
 
 export default async function main () {
 	
-	const app = new Koa()
+	const app = new Koa ()
 	
-	useContainer(Container)
+	useContainer (Container)
 	
-	const conn = await createConnection(ORMConfig)
+	const conn = await createConnection (ORMConfig)
 	if (process.env.NODE_ENV !== 'production') {
 		
-		sig.warn('resetting the DB')
-		await conn.synchronize(true)
-		await redisSessionClient.flushdb()
+		sig.warn ('resetting the DB')
+		await conn.synchronize (true)
+		await redisSessionClient.flushdb ()
 		
 	}
 	
-	const sessionMW = session({
-		store: RedisStore({
+	const sessionMW = session ({
+		store: RedisStore ({
 			client: redisSessionClient
 		}),
 		key: 'redisCookie'
 	}, app)
 	
 	app
-		.use(errorHandler)
-		.use(redirect)
-		.use(sessionMW)
-		.use(helmet())
-		.use(cors())
-		.use(bodyParser())
-		.use(router.routes())
-		.use(router.allowedMethods())
+		.use (errorHandler)
+		.use (redirect)
+		.use (sessionMW)
+		.use (helmet ())
+		.use (cors ())
+		.use (bodyParser ())
+		.use (router.routes ())
+		.use (router.allowedMethods ())
 	return app
 	
 }

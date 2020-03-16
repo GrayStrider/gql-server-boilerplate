@@ -1,5 +1,5 @@
-import {AnyObject} from 'tsdef'
-import {GraphQLError} from 'graphql'
+import { AnyObject } from 'tsdef'
+import { GraphQLError } from 'graphql'
 
 interface MyError extends Error {
 	response: {
@@ -10,19 +10,19 @@ interface MyError extends Error {
 
 function hasOriginalError (err: AnyObject): err is GraphQLError<MyError> {
 	
-	return Boolean(err.originalError.response)
+	return Boolean (err.originalError.response)
 	
 }
 
 export default function VariantsOfOriginalError (err: GraphQLError<MyError>) {
 	
-	if (hasOriginalError(err)) {
+	if (hasOriginalError (err)) {
 		
 		const status = err.originalError?.name
 		const message = err.originalError
 		const details = err.extensions?.exception.response
 		if (status === '404')
-			return {message, status, details}
+			return { message, status, details }
 		
 	}
 	return err

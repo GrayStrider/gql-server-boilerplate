@@ -1,8 +1,8 @@
-import queryComplexity, {fieldExtensionsEstimator, simpleEstimator} from 'graphql-query-complexity'
+import queryComplexity, { fieldExtensionsEstimator, simpleEstimator } from 'graphql-query-complexity'
 
 export default function complexityValidator () {
-
-	return queryComplexity({
+	
+	return queryComplexity ({
 		// The maximum allowed query complexity, queries above this threshold will be rejected
 		maximumComplexity: 8,
 		
@@ -19,14 +19,14 @@ export default function complexityValidator () {
 		 */
 		onComplete: (complexity: number) => {
 			
-			console.log('Query Complexity:', complexity)
+			console.log ('Query Complexity:', complexity)
 			
 		},
 		estimators: [
-			fieldExtensionsEstimator(), simpleEstimator({
-				defaultComplexity: 1,
-			}),
-		],
+			fieldExtensionsEstimator (), simpleEstimator ({
+				defaultComplexity: 1
+			})
+		]
 	})
-
+	
 }

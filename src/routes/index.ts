@@ -1,7 +1,7 @@
 import Router from 'koa-router'
-import {DefaultState, Context} from 'koa'
+import { DefaultState, Context } from 'koa'
 
-const router = new Router<DefaultState, Context>()
+const router = new Router<DefaultState, Context> ()
 
 
 export default router

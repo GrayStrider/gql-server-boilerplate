@@ -1,18 +1,18 @@
-import {Service} from 'typedi'
+import { Service } from 'typedi'
 
-@Service()
+@Service ()
 export default class Logger {
-
+	
 	static logs: unknown[]
 	
 	
 	log (...args: unknown[]) {
 		
 		// Replace with more sophisticated solution :)
-		log(args)
+		log (args)
 		
 	}
 	
 }
 
-export const log = jest.fn()
+export const log = jest.fn ()

@@ -1,4 +1,4 @@
-import {Logger, QueryRunner} from 'typeorm'
+import { Logger, QueryRunner } from 'typeorm'
 import DBRequestCounterService from '@/graphql/type-graphql/middleware/DBRequestCounter.service'
 
 /* eslint-disable @typescript-eslint/no-empty-function*/
@@ -15,9 +15,9 @@ export default class CustomLogger implements Logger {
 		
 		if (query !== 'START TRANSACTION' && query !== 'COMMIT') {
 			
-			const counter = DBRequestCounterService.connect()
+			const counter = DBRequestCounterService.connect ()
 			// Log.log( `${counter.getCount + 1 ?? 'N/A'}: ${query}`)
-			counter.increment()
+			counter.increment ()
 			
 		}
 		

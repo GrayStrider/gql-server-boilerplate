@@ -1,7 +1,7 @@
-import {GraphQLError} from 'graphql'
-import {map, pick} from 'ramda'
-import {ValidationError} from 'class-validator'
-import {AnyObject} from 'tsdef'
+import { GraphQLError } from 'graphql'
+import { map, pick } from 'ramda'
+import { ValidationError } from 'class-validator'
+import { AnyObject } from 'tsdef'
 
 interface GqlValidationError extends GraphQLError {
 	validationErrors: ValidationError[]
@@ -9,23 +9,23 @@ interface GqlValidationError extends GraphQLError {
 
 function isValidationError (err: AnyObject): err is GqlValidationError {
 	
-	return Boolean(err.validationErrors)
+	return Boolean (err.validationErrors)
 	
 }
 
 export default function ValidatorError (err: GraphQLError<GqlValidationError>) {
 	
-	if (!isValidationError(err)) return err
+	if (!isValidationError (err)) return err
 	const errors = err.extensions?.exception.validationErrors
 	return {
 		message: err.message,
-		errors: map(
-			pick([
+		errors: map (
+			pick ([
 				'property',
 				'value',
-				'constraints',
+				'constraints'
 			])
-		)(errors),
+		) (errors)
 	}
 	
 }

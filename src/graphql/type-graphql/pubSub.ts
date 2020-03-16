@@ -1,5 +1,5 @@
-import {RedisPubSub} from 'graphql-redis-subscriptions'
-import {publisher, subscriber} from '@/DB/redis'
+import { RedisPubSub } from 'graphql-redis-subscriptions'
+import { publisher, subscriber } from '@/DB/redis'
 
 /**
  * Paradigm where (citing Wikipedia) senders (publishers) are not programmed to send their messages to specific
@@ -8,9 +8,9 @@ import {publisher, subscriber} from '@/DB/redis'
  * are of interest, without knowledge of what (if any) publishers there are. This decoupling of publishers and
  * subscribers can allow for greater scalability and a more dynamic network topology.
  */
-const pubSub = new RedisPubSub({
+const pubSub = new RedisPubSub ({
 	publisher,
-	subscriber,
+	subscriber
 })
 
 export default pubSub

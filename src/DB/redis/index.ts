@@ -2,23 +2,23 @@ import Redis from 'ioredis'
 
 function makeRedis () {
 	
-	const redis = new Redis({
-		showFriendlyErrorStack: true,
+	const redis = new Redis ({
+		showFriendlyErrorStack: true
 	})
 	
-	redis.on('error', error => {
+	redis.on ('error', error => {
 		
-		console.error(error)
+		console.error (error)
 		// eslint-disable-next-line no-process-exit
-		process.exit(1)
+		process.exit (1)
 	})
 	
 	return redis
 	
 }
 
-const redisSessionClient = makeRedis()
-const publisher = makeRedis()
-const subscriber = makeRedis()
+const redisSessionClient = makeRedis ()
+const publisher = makeRedis ()
+const subscriber = makeRedis ()
 
-export {redisSessionClient, publisher, subscriber}
+export { redisSessionClient, publisher, subscriber }

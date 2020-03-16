@@ -1,4 +1,3 @@
-import * as koa from 'koa'
 // KEEP import * as koa from 'koa'
 
 declare module 'koa' {

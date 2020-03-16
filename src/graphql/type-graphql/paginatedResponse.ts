@@ -1,20 +1,20 @@
-import {ClassType, Field, Int, ObjectType} from 'type-graphql'
-import {AnyConstructor} from 'tsdef'
+import { ClassType, Field, Int, ObjectType } from 'type-graphql'
+import { AnyConstructor } from 'tsdef'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function PaginatedResponse<TItem> (itemClass: ClassType<TItem>) {
 	
 	// `isAbstract` decorator option is mandatory to prevent registering in schema
-	@ObjectType(`Paginated${itemClass.name}Response`, {isAbstract: true})
+	@ObjectType (`Paginated${itemClass.name}Response`, { isAbstract: true })
 	abstract class PaginatedResponseClass {
 		
-		@Field(type => [itemClass])
+		@Field (type => [itemClass])
 		items: TItem[]
 		
-		@Field(type => Int)
+		@Field (type => Int)
 		total: number
 		
-		@Field()
+		@Field ()
 		hasMore: boolean
 		
 	}

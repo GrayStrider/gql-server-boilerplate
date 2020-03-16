@@ -1,4 +1,4 @@
-import {Stream} from 'stream'
+import { Stream } from 'stream'
 
 type Await<T> = T extends {
 	then (onfulfilled?: (value: infer U) => unknown): unknown
@@ -13,4 +13,4 @@ interface Upload {
 
 /* Get one property of type */
 type P<T, K extends keyof T> = T[K]
-export {Await, Upload, P}
+export { Await, Upload, P }

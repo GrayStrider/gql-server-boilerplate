@@ -13,7 +13,7 @@ class DBRequestCounterService {
 	public static connect () {
 		
 		if (!DBRequestCounterService._instance)
-			DBRequestCounterService._instance = new DBRequestCounterService()
+			DBRequestCounterService._instance = new DBRequestCounterService ()
 		
 		return DBRequestCounterService._instance
 		

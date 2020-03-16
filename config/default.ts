@@ -6,6 +6,6 @@ export default {
 		port: 5432,
 		database: 'graphql-boilerplate',
 		password: 'postgres',
-		username: 'postgres',
-	},
+		username: 'postgres'
+	}
 }

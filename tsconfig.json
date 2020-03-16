@@ -1,14 +1,15 @@
 {
   "extends": "@qdev/utils-ts/tsconfig.base.json",
-
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@config": ["config/export"]
+      "@/*": [
+        "src/*"
+      ],
+      "@config": [
+        "config/export"
+      ]
     },
-
     "esModuleInterop": true
   }
-
 }
