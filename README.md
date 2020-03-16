@@ -8,7 +8,7 @@ GraphQL boilerplate made with Koa, type-graphql and typeORM
 [![Coverage Status](https://coveralls.io/repos/github/GrayStrider/graphql-boilerplate-playground/badge.svg)](https://coveralls.io/github/GrayStrider/graphql-boilerplate-playground)
 ![](https://api.dependabot.com/badges/status?host=github&repo=GrayStrider/graphql-boilerplate)
 [![Depfu](https://badges.depfu.com/badges/2008d6fd98ca17609e0ae3a0d68c3b41/count.svg)](https://depfu.com/github/GrayStrider/graphql-boilerplate-playground?project_id=10571)
-[![](https://img.shields.io/badge/gitmoji-%20%F0%9F%98%9C%20%F0%9F%98%8D-FFDD67.svg?style=flat-square)](https://github.com/GrayStrider/graphql-boilerplate-playground)
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
 ## Getting Started
 

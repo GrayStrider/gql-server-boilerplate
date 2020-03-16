@@ -1,6 +1,7 @@
-const base = require('jest.config')
+const tsconfig = require('./../tsconfig')
+const baseConfig = require('@qdev/utils-ts/jest.config.base')
 
 module.exports = {
-	...base,
+	...baseConfig(tsconfig),
 	testRegex: 'test/e2e/.*.spec.ts$'
 }

@@ -1,6 +1,6 @@
 import {promises as fs} from 'fs'
 import {join} from 'path'
-import {makeSchema} from 'src/graphql/utils'
+import { makeSchema } from '@/graphql/utils'
 
 
 describe('make schema', () => {
@@ -15,11 +15,11 @@ describe('make schema', () => {
     `
 		const path = join(__dirname, 'schema.graphql')
 		await fs.writeFile(path, schema)
-    
+  
 		const res = await makeSchema(path, {})
 		expect(res).toMatchSnapshot()
 		await fs.unlink(path)
 	
 	})
-  
+ 
 })

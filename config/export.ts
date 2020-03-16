@@ -3,7 +3,6 @@ import {get} from 'config'
 import {PostgresConnectionOptions} from 'typeorm/driver/postgres/PostgresConnectionOptions'
 import {CustomLogger} from '@/DB/typeorm'
 
-process.env.NODE_CONFIG_DIR = __dirname
 process.env.ALLOW_CONFIG_MUTATIONS = 'true'
 
 if (isNil(process.env.NODE_ENV)) throw new Error('process.env is undefined, aborting')
@@ -18,7 +17,7 @@ const POSTRGRES_USERNAME: string = process.env.POSTRGRES_USERNAME ?? get('postgr
 const POSTRGRES_DATABASE: string = process.env.POSTRGRES_DATABASE ?? get('postgres.database')
 const GQL_URL = `http://${HOST}:${PORT}/${process.env.endpoint ?? 'graphql'}`
 const SERVER_URL = `http://${HOST}:${PORT}`
-const APOLLO_ENGINE_API_KEY: string = process.env.ENGINE_API_KEY ?? 'not provided'
+const APOLLO_ENGINE_API_KEY: string = process.env.ENGINE_API_KEY ?? get('apollo.engine')
 
 const ORMConfig: PostgresConnectionOptions = {
 	name: 'default',

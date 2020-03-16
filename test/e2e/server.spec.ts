@@ -1,13 +1,15 @@
+import { supertest, Request, Post } from '@qdev/utils-ts'
 import { ASTNode } from 'graphql'
-import main from 'src/server'
-import { sleep, supertest } from 'src/utils'
+import main from '@/server'
+import sleep from 'sleep-promise'
 
 describe('server', () => {
 	
-	let request: ReturnType<typeof supertest>['request']
-
+	let request: Request
+	let post: Post
+	
 	beforeAll(async () => {
-		({request} = supertest(await main(), '/example'))
+		({request, post} = supertest(await main(), '/example'))
 	})
 	
 	afterAll(async () => {
