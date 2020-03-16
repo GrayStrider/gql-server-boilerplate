@@ -44,7 +44,7 @@
     "codegen": "graphql-codegen"
   },
   "dependencies": {
-    "@qdev/utils-ts": "latest",
+    "@qdev/utils-ts": "0.1.0",
 
     "cross-env": "^6.0.3",
     "reflect-metadata": "^0.1.13",
