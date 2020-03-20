@@ -83,6 +83,7 @@
     "graphql-import": "^1.0.0-4821645.0",
     "graphql-query-complexity": "^0.4.1",
     "graphql-redis-subscriptions": "^2.1.2",
+    "graphql-subscriptions": "1.1.0",
     "graphql-tools": "^4.0.6",
 
     "pg": "^7.18.1",
@@ -125,8 +126,6 @@
     "ts-node-dev": "^1.0.0-pre.44",
     "tsconfig-paths": "^3.9.0",
     "tsdef": "^0.0.13",
-
-    "codacy-coverage": "^3.4.0",
 
     "husky": "^4.2.3",
 
