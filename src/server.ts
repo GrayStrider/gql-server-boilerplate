@@ -35,18 +35,12 @@ export default async function main () {
 	}
 	const KBFServer = await makeKBFServer()
 	
-	const sessionMW = session({
-		store: RedisStore({
-			client: redisSessionClient,
-		}),
-		key: 'redisCookie',
-	}, app)
+
 	
 	app
 		.on('error', error => console.log(error))
 		.use(errorHandler)
 		.use(redirect)
-		.use(sessionMW)
 		.use(helmet())
 		.use(cors())
 		.use(bodyParser())
